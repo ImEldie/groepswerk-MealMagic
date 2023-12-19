@@ -1,0 +1,91 @@
+/* ### CARD LAYOUT ### */
+.recipe-card{
+    margin-left: 15vw;
+    margin-right: 15vw;
+    margin-bottom: 1vh;
+    width: 70vw;
+    min-height: 22vh;
+    height: auto;
+    border-radius: 1vw;
+}
+.recipe-card:hover{
+    animation: card-glow 300ms ease-in-out forwards;
+}
+@keyframes card-glow {
+    to{
+        background-color: #eecbff38;
+    }
+}
+.recipe-container{
+    display: flex;
+    justify-content: space-between;
+}
+.recipe-details{
+    width: 100%;
+}
+.recipe-img{
+    width: 40%;
+    height: 22vh;
+    object-fit: fill;
+    border-radius: 0 1vw 1vw 15vh;
+}
+mat-divider{
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+}
+
+/* ### CARD HEADER ### */
+
+mat-card-title{
+    font-size: 2vh;
+}
+.recipe-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 1vh;
+    align-items: center;
+    justify-items: center;
+}
+.title-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+}
+
+/* ### DETAILS ### */
+.detail-text, .detail-img{
+    height: 30px
+}
+.detail-img{
+    position: relative;
+    top: 1vh;
+    filter: 
+        grayscale(100) 
+        brightness(50) 
+        contrast(0) 
+        sepia(100) 
+        hue-rotate(270deg) 
+        saturate(1000%);
+}
+.detail-container{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 1.4vh;
+}
+.ingredient-container{
+    background-color: #eecbff13;
+    height: 5vh;
+    padding: 1vh;
+    margin-bottom: 1vh;
+    border-radius: 1vh;
+}
+.ingredient-container:hover{
+    animation: ingredient-grow-container 1s 500ms forwards;
+}
+@keyframes ingredient-grow-container {
+    to{
+        height: 22vh;
+    }
+}

@@ -1,1 +1,13 @@
-<p>homepage works!</p>
+<!--  Zoekbalk  -->
+<mat-toolbar class="list-toolbar">
+    <form class="search-bar">
+        
+    </form>
+</mat-toolbar>
+
+<!--  Recipe List  -->
+@for (recipe of recipeList; track $index) {
+    <app-recipe-card [recipe]="recipe"></app-recipe-card>
+} @empty {
+    <div>No recipes found</div>
+}

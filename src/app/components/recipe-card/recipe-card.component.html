@@ -1,0 +1,45 @@
+<mat-card class="recipe-card" [id]="generateHtmlElementId(recipe.id)">
+    <div class="recipe-container">
+        <!--  Recipe details  -->
+        <div class="recipe-details">
+            <div class="recipe-header">
+                <div class="title-container">
+                    <!--  TO-DO Allergy-call  -->
+                    <app-allergy-icon [iconType]="'gluten'"></app-allergy-icon>
+                    <mat-card-title>{{recipe.name | titlecase}}</mat-card-title>
+                </div>
+                <mat-chip-listbox aria-label="Recipe Types">
+                    <!--  Chip types  -->
+                    @for (type of recipe.types; track $index) {
+                        <mat-chip>{{type | titlecase}}</mat-chip>
+                    }
+                </mat-chip-listbox>
+            </div>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <div class="detail-container">
+                    <!--  Time display  -->
+                    <div>
+                        <img class="detail-img" src="../../../assets/images/icons/clock.png" alt="time">
+                        {{recipe.prepTime}} Min.
+                    </div>
+                    <!--  For how many people display  -->
+                    <div>
+                        <img class="detail-img" src="../../../assets/images/icons/people.png" alt="people">
+                        Serves {{recipe.portionSize}}
+                    </div>
+                    <!--  Season display  -->
+                    <div>
+                        <img class="detail-img" src="../../../assets/images/icons/season.png" alt="people">
+                        {{recipe.season}}
+                    </div>
+                </div>
+                <div class="ingredient-container">
+                    Weet nog niet wat ik hierin moet zetten :(
+                </div>
+            </mat-card-content>
+        </div>
+        <!--  Recipe image  -->
+        <img class="recipe-img" [src]="recipe.photo">
+    </div>
+</mat-card>
