@@ -1,7 +1,5 @@
 /* ### CARD LAYOUT ### */
 .recipe-card{
-    margin-left: 15vw;
-    margin-right: 15vw;
     margin-bottom: 1vh;
     width: 70vw;
     min-height: 22vh;
@@ -9,11 +7,11 @@
     border-radius: 1vw;
 }
 .recipe-card:hover{
-    animation: card-glow 300ms ease-in-out forwards;
+    animation: card-glow 2s ease-in-out forwards;
 }
 @keyframes card-glow {
     to{
-        background-color: #eecbff38;
+        background-color: #eecbff2c;
     }
 }
 .recipe-container{
@@ -25,7 +23,7 @@
 }
 .recipe-img{
     width: 40%;
-    height: 22vh;
+    height: 24vh;
     object-fit: fill;
     border-radius: 0 1vw 1vw 15vh;
 }

@@ -12,6 +12,7 @@
 
 2) Add component call in HTML-file [ HTML ]
     <app-allergy-icon></app-allergy-icon>
+    
 3) Add icon properties iconType & iconSize
     Example:
         <app-allergy-icon [iconType]="'egg'" [iconSize]="'120px'"></app-allergy-icon>

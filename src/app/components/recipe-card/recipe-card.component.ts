@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
-import { Recipe } from '../interfaces-recipes';
+import { Dish } from '../interfaces-recipes';
 import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
 
 @Component({
@@ -15,11 +15,11 @@ import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
   styleUrl: './recipe-card.component.css'
 })
 export class RecipeCardComponent {
-  @Input() recipe!: Recipe;
+  @Input() dish!: Dish;
   
   generateHtmlElementId(id: number): string{
-    // Used to give the recipe-card a unique ID, so it can be navigated to.
-    const prefix: string = "recipe-";
+    // Used to give the recipe-card a unique ID (Not used yet)
+    const prefix: string = "dish-";
     return (prefix + id);
   }
 }

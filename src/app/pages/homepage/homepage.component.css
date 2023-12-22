@@ -1,7 +1,18 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
 .list-toolbar{
-    margin-left: 14vw;
     width: 72vw;
     margin-bottom: 1vh;
-    height: 7vh;
+    height: auto;
+    padding: 3vw;
     border-radius: 3vh;
+}
+.search-bar{
+    width: 100%;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }

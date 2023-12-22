@@ -1,13 +1,18 @@
-<!--  Zoekbalk  -->
-<mat-toolbar class="list-toolbar">
-    <form class="search-bar">
-        
-    </form>
-</mat-toolbar>
+<div class="content">
+    <!--  Top content goes here  -->
 
-<!--  Recipe List  -->
-@for (recipe of recipeList; track $index) {
-    <app-recipe-card [recipe]="recipe"></app-recipe-card>
-} @empty {
-    <div>No recipes found</div>
-}
+    <!--  SearchBar  -->
+    <mat-toolbar class="list-toolbar">
+        <mat-form-field class="search-bar">
+            <input [(ngModel)]="searchInput" placeholder="Search..." type="string" matInput (keyup.enter)="filterRecipesFromSearch()">
+            <mat-hint>Results: {{ dishList.length }}</mat-hint>
+        </mat-form-field>
+    </mat-toolbar>
+
+    <!--  Recipe List  -->
+    @for (dish of dishList; track $index) {
+        <app-recipe-card [dish]="dish"></app-recipe-card>
+    } @empty {
+        <div>No recipes found</div>
+    }
+</div>
