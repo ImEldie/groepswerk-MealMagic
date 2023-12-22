@@ -14,7 +14,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'userpanel',
+        path: 'userpanel/:id',
         loadComponent: () =>
           import('./pages/userpanel/userpanel.component').then(
             (c) => c.UserpanelComponent
