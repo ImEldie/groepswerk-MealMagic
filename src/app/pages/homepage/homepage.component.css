@@ -16,3 +16,9 @@
     margin-left: 1vw;
     margin-right: 1vw;
 }
+.buffer-bar{
+    width: 32vw;
+    height: 2vh;
+    background-color: gray;
+    border-radius: 1vh;
+}

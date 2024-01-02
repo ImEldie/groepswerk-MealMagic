@@ -1,28 +1,42 @@
 import { Component, Input } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-allergy-icon',
   standalone: true,
-  imports: [],
+  imports: [MatTooltipModule],
   templateUrl: './allergy-icon.component.html',
   styleUrl: './allergy-icon.component.css'
 })
 export class AllergyIconComponent {
   @Input() iconType!: string;
   @Input() iconSize!: string;
-
-  basePath: string = "../../../assets/images/allergies/"
+  @Input() withText: boolean = false; // DEFAULT WITHOUT TEXT
 
   getImagePath(): string {
-    return (this.basePath + this.iconType.toUpperCase() + ".png");
+    const basePathWithoutText: string = "../../../assets/images/allergies/";
+    const basePathWithText: string = "../../../assets/images/allergiesWithText/";
+
+    if (this.withText){
+      // IMAGE WITH TEXT
+      return (basePathWithText + this.iconType.toUpperCase() + ".png");
+    } else {
+      // IMAGE WITHOUT TEXT (DEFAULT)
+      return (basePathWithoutText + this.iconType.toUpperCase() + ".png");
+    }
   }
 
   getSize(): string{
     if (this.iconSize) {
       return (this.iconSize);
     } else {
-      // Default size: 5vh
-      return ("5vh");
+      // Default size: 6vh
+      return ("6vh");
     }
+  }
+
+  getTooltip(): string{
+    const tooltip: string = 'Contains traces of ' + this.iconType.toLowerCase(); 
+    return tooltip;
   }
 }

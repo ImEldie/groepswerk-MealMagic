@@ -13,6 +13,7 @@
     @for (dish of dishList; track $index) {
         <app-recipe-card [dish]="dish"></app-recipe-card>
     } @empty {
-        <div>No recipes found</div>
+        <div>Looking for dishes...</div>
+        <mat-progress-bar mode="buffer" class="buffer-bar"></mat-progress-bar>
     }
 </div>

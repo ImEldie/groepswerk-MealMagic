@@ -1,12 +1,16 @@
-<mat-card class="recipe-card" [id]="generateHtmlElementId(dish.id)">
+<mat-card class="recipe-card" 
+[id]="generateHtmlElementId(dish.id)"
+(click)="onCardClick()">
     <div class="recipe-container">
-        <!--  Recipe details  -->
+        <!--  Recipe details (Left side of card)  -->
         <div class="recipe-details">
+            <!--  Card header (Title/Allergies/Types)  -->
             <div class="recipe-header">
                 <div class="title-container">
-                    <!--  TO-DO Allergy-call  -->
-                    <app-allergy-icon [iconType]="'gluten'"></app-allergy-icon>
                     <mat-card-title>{{dish.name | titlecase}}</mat-card-title>
+                    @for (allergy of allergies; track $index) {
+                        <app-allergy-icon [iconType]="allergies[$index]"></app-allergy-icon>
+                    }
                 </div>
                 <mat-chip-listbox aria-label="Recipe Types">
                     <!--  Chip types  -->
@@ -16,21 +20,22 @@
                 </mat-chip-listbox>
             </div>
             <mat-divider></mat-divider>
+            <!--  Card content (Description, duration, people, season)  -->
             <mat-card-content>
-                <div class="detail-container">
+                <div class="details-container">
                     <!--  Time display  -->
-                    <div>
-                        <img class="detail-img" src="../../../assets/images/icons/clock.png" alt="time">
+                    <div class="detail">
+                        <mat-icon class="detail-img">timelapse</mat-icon>
                         {{dish.duration}} Min.
                     </div>
                     <!--  For how many people display  -->
-                    <div>
-                        <img class="detail-img" src="../../../assets/images/icons/people.png" alt="people">
+                    <div class="detail">
+                        <mat-icon class="detail-img">people</mat-icon>
                         Serves {{dish.amount_of_people}}
                     </div>
                     <!--  Season display  -->
-                    <div>
-                        <img class="detail-img" src="../../../assets/images/icons/season.png" alt="people">
+                    <div class="detail">
+                        <mat-icon class="detail-img">wb_sunny</mat-icon>
                         {{dish.season.name}}
                     </div>
                 </div>
@@ -39,7 +44,7 @@
                 </div>
             </mat-card-content>
         </div>
-        <!--  Recipe image  -->
+        <!--  Recipe image (Right side of card)  -->
         <img class="recipe-img" [src]="dish.image_url">
     </div>
 </mat-card>

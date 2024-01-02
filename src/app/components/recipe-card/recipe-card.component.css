@@ -24,7 +24,7 @@
 }
 .recipe-img{
     width: 40%;
-    height: 30vh;
+    height: 32vh;
     object-fit: cover;
     object-position: bottom left;
     border-radius: 0 1vw 1vw 15vh;
@@ -37,28 +37,49 @@ mat-divider{
 /* ### CARD HEADER ### */
 
 mat-card-title{
-    font-size: 2vh;
+    font-size: 4.2vh;
+    margin-left: 1vh;
 }
 .recipe-header{
     display: flex;
     justify-content: space-between;
-    margin: 1vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
     align-items: center;
     justify-items: center;
+    align-items: center;
 }
 .title-container{
     display: flex;
     align-items: center;
-    margin-bottom: 1vh;
+}
+
+mat-chip{
+    height: 4.2vh;
 }
 
 /* ### DETAILS ### */
-.detail-text, .detail-img{
-    height: 30px
+.details-container{
+    /* Collection of detail sets */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 1vh;
+    margin-bottom: 1.4vh;
+}
+.detail{
+    /* Collection of one image and one text */
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+}
+.detail-text{
+    height: 2vh;
 }
 .detail-img{
-    position: relative;
-    top: 1vh;
     filter: 
         grayscale(100) 
         brightness(50) 
@@ -67,16 +88,10 @@ mat-card-title{
         hue-rotate(270deg) 
         saturate(1000%);
 }
-.detail-container{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 1.4vh;
-}
+
 .description-container{
     background-color: #eecbff13;
-    height: 6.5vh;
+    height: 10vh;
     padding: 1vh;
     margin-bottom: 1vh;
     border-radius: 1vh;

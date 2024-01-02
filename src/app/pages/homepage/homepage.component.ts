@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
 import { Dish } from '../../components/interfaces-recipes';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [RecipeCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule],
+  imports: [RecipeCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule, MatProgressBarModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
@@ -19,7 +20,7 @@ export class HomepageComponent {
   /*
   TODO:
     * API-Call needs to get token from loginservice
-    * use material icons for the symbols (people/time/season/etc)
+    * Upon card click, should navigate to dish-page
     * search-bar should have red indication when search result is invalid
     * Show allergies => Load ingredients of recipe and check if they're linked to allergies
   */
