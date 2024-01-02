@@ -38,8 +38,11 @@ export class HomepageComponent {
   };
 
   ngOnInit(){
-    //this.dishList = this.dishApiServ.getDishList();
-    console.log(this.dishList);
+    this.dishApiServ.loadDishes();
+    setTimeout(() => {
+      this.dishList = this.dishApiServ.getDishList();
+    }, 1000);
+    
   }
 
   // Internal Functions
@@ -55,13 +58,13 @@ export class HomepageComponent {
       console.log(recipesFromSearch);
     } else {
       // NO RESULTS FOUND
-      this.dishList = this.dishApiServ.dishes;
+      this.dishList = this.dishApiServ.getDishList();
       console.log("No results found");
     }
   }
   private getSearchResults(): Array<Dish>{
     // Looks for recipe names that match the searchInput and returns them in an Array
-    const searchResults: Array<Dish> = this.dishApiServ.dishes.filter(
+    const searchResults: Array<Dish> = this.dishApiServ.getDishList().filter(
       (result: Dish) => result.name.toLocaleLowerCase().includes(this.searchInput.toLowerCase())
     );
 

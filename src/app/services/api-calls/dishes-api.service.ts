@@ -7,49 +7,39 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DishesApiService {
-  dishes: Array<Dish> = [];
+  private dishes: Array<Dish> = [];
 
   constructor(
     private http: HttpClient,
   ) {
   }
 
-  ngOnInit(){
-    //this.loadDishes();
-  }
-
-  loadDishes(){
+  loadDishes(): void{
     const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/dishes/";
-    const token = "207|VH2eq0flnZCdPnYCAVcMGV9YHyZr5xx5OZhJ2EUw7055b0e3";
+    const token = ""; // Need login-service
 
     this.http
       .get<DishApiResponse>(targetLink, {
-        headers:  new HttpHeaders({
+        headers: new HttpHeaders({
           Authorization: "Bearer " + token,
         }),
       })
-      .subscribe((response: DishApiResponse) => {
-        this.dishes = response.data.map((d) => {
-          const dish = {
-            id: d.id,
-            name: "Sliced Banana",
-            image_url: "https://t1.gstatic.com/licensed-image?q=tbn:ANd9GcTYSv-kmEqeAj6NRr09yPqvo3HGVdDsuw9ZGKRfpl9EtI6zttIJyRv7WSCMK_4eAsrm",
-            description: "A banana, exotically sliced into pieces just like mama used to make back in Sicily",
-            prepTime: d.prepTime,
-            portionSize: d.portionSize,
-            season: d.season,
-            ingredients: d.ingredients,
-            types: d.types,
-            steps: d.steps
-          } satisfies Dish;
-          console.log(dish);
-          return dish;
-        })
-      })
+      .pipe(map((data: DishApiResponse) => data.data))
+      .subscribe((dishes: Dish[]) => {
+        this.dishes = dishes;
+        console.log("Dishes received: ", this.dishes);
+      });
   }
 
   getDishList(): Array<Dish>{
-    console.log(this.dishes);
+    // TEMPORARY LOGIC UNTIL BACKEND IS FIXED:
+    for (let index = 0; index < this.dishes.length; index++) {
+      this.dishes[index].name = "Banana";
+      this.dishes[index].description = "A very exotic banana, cut like the Italians used to in 1739.";
+      this.dishes[index].image_url = "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2021/01/30152155/shutterstock_518328943-1.jpg"
+    }
+
+
     return this.dishes;
   }
 }

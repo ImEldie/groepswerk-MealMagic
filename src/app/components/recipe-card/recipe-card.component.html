@@ -10,7 +10,7 @@
                 </div>
                 <mat-chip-listbox aria-label="Recipe Types">
                     <!--  Chip types  -->
-                    @for (type of dish.types; track $index) {
+                    @for (type of dish.dish_types; track $index) {
                         <mat-chip>{{type.name| titlecase}}</mat-chip>
                     }
                 </mat-chip-listbox>
@@ -21,25 +21,25 @@
                     <!--  Time display  -->
                     <div>
                         <img class="detail-img" src="../../../assets/images/icons/clock.png" alt="time">
-                        {{dish.prepTime}} Min.
+                        {{dish.duration}} Min.
                     </div>
                     <!--  For how many people display  -->
                     <div>
                         <img class="detail-img" src="../../../assets/images/icons/people.png" alt="people">
-                        Serves {{dish.portionSize}}
+                        Serves {{dish.amount_of_people}}
                     </div>
                     <!--  Season display  -->
                     <div>
                         <img class="detail-img" src="../../../assets/images/icons/season.png" alt="people">
-                        {{dish.season}}
+                        {{dish.season.name}}
                     </div>
                 </div>
                 <div class="ingredient-container">
-                    Weet nog niet wat ik hierin moet zetten :(
+                    {{dish.description}}
                 </div>
             </mat-card-content>
         </div>
         <!--  Recipe image  -->
-        <img class="recipe-img" [src]="dish.img">
+        <img class="recipe-img" [src]="dish.image_url">
     </div>
 </mat-card>

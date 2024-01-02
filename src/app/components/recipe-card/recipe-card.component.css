@@ -23,8 +23,9 @@
 }
 .recipe-img{
     width: 40%;
-    height: 24vh;
+    height: 28vh;
     object-fit: fill;
+    object-position: bottom left;
     border-radius: 0 1vw 1vw 15vh;
 }
 mat-divider{

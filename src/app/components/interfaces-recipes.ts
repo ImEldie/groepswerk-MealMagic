@@ -21,16 +21,16 @@ interface DishApiLinks {
 }
 
 export interface Dish {
-    id: number; // id
+    id: number;
     name: string;
     image_url: string;
     description?: string;
-    prepTime: number; //duration
-    portionSize: number; //amount_of_people
-    season: Season; //season_id
+    duration: number; 
+    amount_of_people: number;
+    season: Season;
     ingredients: Array<Ingredient>;
-    types: Array<DishType>; //dish_types
-    steps?: Array<DishStep>;  //dish_steps
+    dish_types: Array<DishType>;
+    dish_steps?: Array<DishStep>;
   };
 interface Ingredient {
   id: number;
