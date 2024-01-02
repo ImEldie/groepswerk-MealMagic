@@ -3,6 +3,7 @@
     margin-bottom: 1vh;
     width: 70vw;
     min-height: 22vh;
+    min-width: 20rem;
     height: auto;
     border-radius: 1vw;
 }
@@ -23,8 +24,8 @@
 }
 .recipe-img{
     width: 40%;
-    height: 28vh;
-    object-fit: fill;
+    height: 30vh;
+    object-fit: cover;
     object-position: bottom left;
     border-radius: 0 1vw 1vw 15vh;
 }
@@ -73,18 +74,20 @@ mat-card-title{
     align-items: center;
     margin-bottom: 1.4vh;
 }
-.ingredient-container{
+.description-container{
     background-color: #eecbff13;
-    height: 5vh;
+    height: 6.5vh;
     padding: 1vh;
     margin-bottom: 1vh;
     border-radius: 1vh;
+    object-fit: cover;
+    overflow: hidden;
 }
-.ingredient-container:hover{
+.description-container:hover{
     animation: ingredient-grow-container 1s 500ms forwards;
 }
 @keyframes ingredient-grow-container {
     to{
-        height: 22vh;
+        height: 35vh;
     }
 }

@@ -18,16 +18,15 @@ export class HomepageComponent {
   
   /*
   TODO:
-    * API-CALL FOR apiRecipeList
+    * API-Call needs to get token from loginservice
     * use material icons for the symbols (people/time/season/etc)
-    * Fix recipe image => should not stretch.
     * search-bar should have red indication when search result is invalid
     * Show allergies => Load ingredients of recipe and check if they're linked to allergies
   */
   
   // Internal Variables
-    // recipeList is what gets displayed on the site, this is changed depending on what we want to show!
-    // apiRecipeList is a list with all recipes from our api, we NEVER write to this.
+    // recipeList is what is displayed on the site, this is changed depending on what we want to show!
+    // The list which has all recipes is stored in the dishes-api service, this is read-only! this.dishApiServ.getDishList();
   public dishList: Array<Dish> = []; // Visualised list
   searchInput: string = "";
 
