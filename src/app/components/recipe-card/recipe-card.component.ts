@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
-import { Dish } from '../interfaces-recipes';
+import { Dish } from '../interfaces-dishes';
 import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
 import { MatIconModule } from '@angular/material/icon'
 

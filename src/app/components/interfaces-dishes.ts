@@ -32,6 +32,7 @@ export interface Dish {
     dish_types: Array<DishType>;
     dish_steps?: Array<DishStep>;
   };
+
 interface Ingredient {
   id: number;
   name: string;
@@ -40,15 +41,18 @@ interface Ingredient {
   carbohydrates: number;
   fat: number;
 }
+
 interface DishType {
   id: number;
   name: string;
 }
+
 interface DishStep {
   title: string;
   description: string;
   img: string;
 }
+
 interface Season {
   id: number;
   name: string;

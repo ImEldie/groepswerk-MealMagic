@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
-import { Dish } from '../../components/interfaces-recipes';
+import { Dish } from '../../components/interfaces-dishes';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';

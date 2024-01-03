@@ -1,8 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Dish, DishApiResponse } from '../../components/interfaces-recipes';
-import { map, Observable } from 'rxjs';
-import { getLocaleEraNames } from '@angular/common';
+import { Dish, DishApiResponse } from '../../components/interfaces-dishes';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,7 @@ export class DishesApiService {
 
   constructor(
     private http: HttpClient,
-  ) {
-  }
+  ) {}
 
   loadDishes(): void{
     const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/dishes/";
