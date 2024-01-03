@@ -1,3 +1,9 @@
+### AUTHOR: DANIEL FRANKORT ###
+### COMPONENT DESCRIPTION ###
+This can be used to easily display the image for an allergen.
+Using this component and supplying the correct properties will result in an image of the supplied allergen.
+When hovered over the image a tooltip appears saying "Contains traces of x".
+
 ### HOW TO USE ###
 
 1) Import 'AllergyIconComponent' [ Typescript ]
@@ -15,9 +21,9 @@
     
 3) Add icon properties iconType / iconSize / withText
     Example:
-        <app-allergy-icon [iconType]="'egg'" [iconSize]="'120px'" [withText]="False"></app-allergy-icon>
+        <app-allergy-icon [iconType]="'egg'" [iconSize]="'120px'" [withText]="True"></app-allergy-icon>
         
-        This example will give you an icon showing the Egg-symbol (without text), with a size of 120px * 120px.
+        This example will give you an icon showing the Egg-symbol (with text), with a size of 120px * 120px.
 
     ### Properties overview ###
     [iconType] : Set which image the symbol should have, accepts one of the 14 allergies.

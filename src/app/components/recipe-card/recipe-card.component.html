@@ -25,22 +25,23 @@
                 <div class="details-container">
                     <!--  Time display  -->
                     <div class="detail">
-                        <mat-icon class="detail-img">timelapse</mat-icon>
+                        <mat-icon color="accent">timelapse</mat-icon>
                         {{dish.duration}} Min.
                     </div>
                     <!--  For how many people display  -->
                     <div class="detail">
-                        <mat-icon class="detail-img">people</mat-icon>
+                        <mat-icon color="accent">people</mat-icon>
                         Serves {{dish.amount_of_people}}
                     </div>
                     <!--  Season display  -->
                     <div class="detail">
-                        <mat-icon class="detail-img">wb_sunny</mat-icon>
+                        <mat-icon color="accent">wb_sunny</mat-icon>
                         {{dish.season.name}}
                     </div>
                 </div>
                 <div class="description-container">
                     {{dish.description}}
+                    <div class="gradient-effect"></div>
                 </div>
             </mat-card-content>
         </div>

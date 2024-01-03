@@ -5,16 +5,16 @@
     justify-items: center;
 }
 .list-toolbar{
-    width: 72vw;
+    width: 71vw;
     margin-bottom: 1vh;
     height: auto;
-    padding: 3vw;
-    border-radius: 3vh;
+    padding: 1vw;
+    border-radius: 2vh;
 }
 .search-bar{
     width: 100%;
-    margin-left: 1vw;
-    margin-right: 1vw;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
 }
 .buffer-bar{
     width: 32vw;

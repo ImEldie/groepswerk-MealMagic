@@ -33,17 +33,6 @@ export class DishesApiService {
   }
 
   getDishList(): Array<Dish>{
-    /*
-      ### TEMPORARY LOGIC UNTIL BACKEND IS FIXED ###
-    */
-    for (let index = 0; index < this.dishes.length; index++) {
-      this.dishes[index].name = "Banana";
-      this.dishes[index].description = "Lorem ipsum dolor sit amet. Et obcaecati earum sit voluptatibus omnis aut dicta internos qui necessitatibus internos et molestiae officiis et numquam vero. Sed nemo corrupti qui ipsam repellendus qui odit incidunt ut provident galisum! Ut maiores tenetur et beatae quae et impedit nesciunt rem dolores architecto aut Quis voluptates quo libero officiis et illo enim?";
-      this.dishes[index].image_url = "https://cdn.mos.cms.futurecdn.net/YDFk8cgmSKu8VYFVedUQ8j-1200-80.jpg"
-    }
-    /*
-      ###############################################
-    */
     return this.dishes;
   }
 }
