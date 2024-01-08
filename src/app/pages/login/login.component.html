@@ -1,0 +1,61 @@
+<div class="login-container">
+  <section>
+    <mat-form-field class="label">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="mealmagic@example.com"
+        [formControl]="emailError"
+        required
+        [(ngModel)]="email"
+      />
+      @if (emailError.invalid) {
+      <mat-error>{{ getErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+  </section>
+
+  <div class=>
+  <mat-form-field class="label">
+    <mat-label>Enter your password</mat-label>
+    <input
+      matInput
+      required
+      [formControl]="emailError"
+      [type]="hide ? 'password' : 'text'"
+      [(ngModel)]="password"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+<section>
+  <mat-checkbox>Stay signed in</mat-checkbox>
+  <a
+    style="color: rgb(212, 46, 46)"
+    class="forgot-btn"
+    mat-button
+    href="https://www.google.com/"
+    target="_blank"
+    >Forgot password?</a
+  >
+</section>
+<section>
+  <div>
+    <button (click)="login()" class="sign-btn" mat-button>Sign In</button>
+  </div>
+</section>
+<section class="create">
+  <span>
+    New to MealMagic?
+    <span>Create an account</span>
+  </span>
+</section>

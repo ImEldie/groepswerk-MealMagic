@@ -1,0 +1,8 @@
+.mat-toolbar {
+    display: flex-end;
+    justify-content: space-between;
+  }
+
+.login-btn {
+    margin-right: 10px;
+}
