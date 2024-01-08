@@ -9,9 +9,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './allergy-icon.component.css'
 })
 export class AllergyIconComponent {
-  @Input() iconType!: string;
+  @Input({required: true}) iconType!: string;
   @Input() iconSize!: string;
-  @Input() withText: boolean = false; // DEFAULT WITHOUT TEXT
+  @Input() withText: boolean = false; // DEFAULT: Image without text
+  @Input() hideTooltip: boolean = false; // DEFAULT: With tooltip
 
   getImagePath(): string {
     const basePathWithoutText: string = "../../../assets/images/allergies/";

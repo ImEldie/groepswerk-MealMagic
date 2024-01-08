@@ -21,9 +21,10 @@ When hovered over the image a tooltip appears saying "Contains traces of x".
     
 3) Add icon properties iconType / iconSize / withText
     Example:
-        <app-allergy-icon [iconType]="'egg'" [iconSize]="'120px'" [withText]="True"></app-allergy-icon>
+        <app-allergy-icon [iconType]="'egg'" [iconSize]="'120px'" [withText]="true" [hideTooltip]="true"></app-allergy-icon>
         
         This example will give you an icon showing the Egg-symbol (with text), with a size of 120px * 120px.
+        When hovering over the image, it will NOT show a tooltip.
 
     ### Properties overview ###
     [iconType] : Set which image the symbol should have, accepts one of the 14 allergies.
@@ -46,8 +47,14 @@ When hovered over the image a tooltip appears saying "Contains traces of x".
         => Does not need to be entered, will default to '6vh'
         Can enter any value you would enter in css, (64px, 100%, 69rem, ...)
 
-    [withText] : choose if the image is displayed with a text under it or not.
+    [withText] : Choose if the image is displayed with a text under it or not.
         => Input can be either TRUE or FALSE
             TRUE: Show grey text under the icon
             FALSE: Show only the icon
         => Default is FALSE (image without text)
+
+    [hideTooltip] : Choose if a tooltip appears when hovering over the icon. DEFAULT => TRUE
+        => Input can be either TRUE or FALSE
+            TRUE: Disable tooltip
+            FALSE: Show tooltip when hovering over icon (default)
+        => Default is FALSE (Image with tooltip)
