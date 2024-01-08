@@ -20,12 +20,10 @@ export class IngredientsApiService {
   }
 
   getIngredientList(): Array<Ingredient>{
-    this.loadIngredientsFromAPI();
-    return this.ingredients;
+    return this.loadIngredientsFromAPI();
   }
 
   getIngredientFromId(searchId: number): Ingredient | undefined{
-    this.loadIngredientsFromAPI();
     for (let i = 0; i < this.ingredients.length; i++) {
       if (this.ingredients[i].id === searchId) {
         return this.ingredients[i];
@@ -34,20 +32,26 @@ export class IngredientsApiService {
     return undefined;
   }
 
-  private async loadIngredientsFromAPI(){
+  private loadIngredientsFromAPI(): Ingredient[]{
+    this.ingredientObservable().subscribe((data: Ingredient[]) => {
+      this.ingredients = data;
+      console.log(this.ingredients);
+    }
+    );
+
+    return this.ingredients;
+  }
+
+  private ingredientObservable(): Observable<Ingredient[]>{
     const targetLink: string = "https://syntra2023.code-coaching.dev/api/group-2/ingredients/";
     const token: string = "210|cd1DqD4EWoLvZeTUtRfjPZtDSbNHaADzmwtomSTK04e8ad79";
 
-    this.http
+    return this.http
       .get<IngredientApiResponse>(targetLink, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token,
         }),
       })
-      .pipe(map((data: IngredientApiResponse) => data.data))
-      .subscribe((ingredients: Ingredient[]) => {
-        this.ingredients = ingredients;
-        //console.log("Ingredients received:", this.ingredients);
-      });
+      .pipe(map((data: IngredientApiResponse) => data.data));
   }
 }
