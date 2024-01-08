@@ -4,9 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
-import { Dish } from '../interfaces-dishes';
+import { Dish } from '../interfaces/interfaces-dishes';
 import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
 import { MatIconModule } from '@angular/material/icon'
+import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 
 @Component({
   selector: 'app-recipe-card',
@@ -19,8 +20,13 @@ export class RecipeCardComponent {
   @Input() dish!: Dish;
   allergies: Array<string> = [];
 
+  constructor(
+    private ingredientAPI: IngredientsApiService,
+  ){};
+
   ngOnInit(){
     this.loadDishAllergies();
+    this.ingredientAPI.getIngredientList();
   }
   
   generateHtmlElementId(id: number): string{
@@ -36,67 +42,27 @@ export class RecipeCardComponent {
     console.log("No routing to dish-page yet...");
   }
 
-  loadDishAllergies(): void{ // UNFINISHED FUNCTION
+  loadDishAllergies(): void{
+    let newAllergies: Array<string> = [];
 
-    /*
-      TO-DO: API-Calls to get the allergies associated with this dish's ingredients
-    */
-
-    /* ### TEMPORARY HARD-CODED LOGIC ###*/
-    const randomAmount = Math.round((Math.random()*3)); // MAKE RANDOM AMOUNT OF ALLERGIES
-    for (let index = 0; index < randomAmount; index++) { // ADD RANDOM ALLERGIES TO ARRAY
-      const randomInt = Math.round((Math.random()*14));
-      let allergy: string;
-      switch (randomInt){
-        case 1:
-          allergy = "CELERY";
-          break;
-        case 2:
-          allergy = "CRUSTACEANS";
-          break;
-        case 3:
-          allergy = "EGG";
-          break;
-        case 4:
-          allergy = "FISH";
-          break;
-        case 5:
-          allergy = "GLUTEN";
-          break;
-        case 6:
-          allergy = "LUPIN";
-          break;
-        case 7:
-          allergy = "MILK";
-          break;
-        case 8:
-          allergy = "MOLLUSCS";
-          break;
-        case 9:
-          allergy = "MUSTARD";
-          break;
-        case 10:
-          allergy = "NUTS";
-          break;
-        case 11:
-          allergy = "PEANUTS";
-          break;
-        case 12:
-          allergy = "SESAME";
-          break;
-        case 13:
-          allergy = "SOYA";
-          break;
-        case 14:
-          allergy = "SULPHITE"
-          break;
-        default:
-          allergy = "GLUTEN";
+    // Check every ingredient in the dish
+    for (let i = 0; i < this.dish.ingredients.length; i++) {
+      let ingredientData = this.ingredientAPI.getIngredientFromId(this.dish.ingredients[i].id); // Get IngredientData
+      console.log(ingredientData);
+      // IF ID FOUND
+      if (ingredientData !== undefined) {
+        // Check every allergy in ingredient
+        for (let j = 0; j < ingredientData.allergies.length; j++) {
+          const allergyToAdd = ingredientData.allergies[j].name; // Initialise current allergy
+          // Check if current allergy is NOT already in list
+          if (!newAllergies.includes(allergyToAdd)){
+            newAllergies.push(allergyToAdd); // Push allergy to list
+          }
+        }
       }
-      this.allergies.push(allergy);
     }
-    /* ################################# */
 
+    this.allergies = newAllergies;
     console.log("Allergies for " + this.dish.name + ": " + this.allergies);
   }
 }

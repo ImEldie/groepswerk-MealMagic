@@ -28,18 +28,19 @@ export interface Dish {
     duration: number; 
     amount_of_people: number;
     season: Season;
-    ingredients: Array<Ingredient>;
+    ingredients: Array<DishIngredient>;
     dish_types: Array<DishType>;
     dish_steps?: Array<DishStep>;
   };
 
-interface Ingredient {
+interface DishIngredient {
   id: number;
   name: string;
   kcal: number;
   protein: number;
   carbohydrates: number;
   fat: number;
+  pivot: any;
 }
 
 interface DishType {

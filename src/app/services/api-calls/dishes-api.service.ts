@@ -1,6 +1,6 @@
 import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Dish, DishApiResponse } from '../../components/interfaces-dishes';
+import { Dish, DishApiResponse } from '../../components/interfaces/interfaces-dishes';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class DishesApiService {
 
   loadDishes(): void{
     const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/dishes/";
-    const token = ""; // Need login-service
+    const token = "210|cd1DqD4EWoLvZeTUtRfjPZtDSbNHaADzmwtomSTK04e8ad79"; // Need login-service
 
     this.http
       .get<DishApiResponse>(targetLink, {
