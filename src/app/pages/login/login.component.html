@@ -10,7 +10,7 @@
         [(ngModel)]="email"
       />
       @if (emailError.invalid) {
-      <mat-error>{{ getErrorMessage() }}</mat-error>
+      <mat-error>{{ getEmailErrorMessage() }}</mat-error>
       }
     </mat-form-field>
   </section>
@@ -21,23 +21,28 @@
     <input
       matInput
       required
-      [formControl]="emailError"
-      [type]="hide ? 'password' : 'text'"
+      [formControl]="passwordError"
+      [type]="hidePasswordError ? 'password' : 'text'"
       [(ngModel)]="password"
     />
     <button
       mat-icon-button
       matSuffix
-      (click)="hide = !hide"
+      (click)="hidePasswordError = !hidePasswordError"
       [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide"
+      [attr.aria-pressed]="hidePasswordError"
     >
-      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      <mat-icon>{{
+        hidePasswordError ? "visibility_off" : "visibility"
+      }}</mat-icon>
     </button>
+    @if (emailError.invalid) {
+    <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
+    }
   </mat-form-field>
 </div>
 
-<section>
+<!-- <section>
   <mat-checkbox>Stay signed in</mat-checkbox>
   <a
     style="color: rgb(212, 46, 46)"
@@ -47,15 +52,17 @@
     target="_blank"
     >Forgot password?</a
   >
-</section>
+</section> -->
+
 <section>
   <div>
     <button (click)="login()" class="sign-btn" mat-button>Sign In</button>
   </div>
 </section>
-<section class="create">
+
+<!-- <section class="create">
   <span>
     New to MealMagic?
     <span>Create an account</span>
   </span>
-</section>
+</section> -->

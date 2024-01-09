@@ -4,7 +4,9 @@
     @if (authService.isAuthenticated) {
     <button (click)="authService.logout()" mat-button>Logout</button>
     } @else {
-    <button class="login-btn" (click)="router.navigate(['login'])" mat-button>Login</button>
+    <button class="login-btn" (click)="router.navigate(['login'])" mat-button>
+      Login
+    </button>
     }
   </mat-toolbar>
 </div>

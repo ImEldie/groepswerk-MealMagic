@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,22 +35,33 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, public location: Location) {}
 
   login() {
     this.authService.login(this.email, this.password).subscribe((data) => {
       this.email = '';
       this.password = '';
+      this.location.back();
     });
   }
 
   emailError = new FormControl('', [Validators.required, Validators.email]);
-  hide = true;
-  getErrorMessage() {
+  hideEmailError = true;
+  getEmailErrorMessage() {
     if (this.emailError.hasError('required')) {
-      return 'You must enter a value';
+      return 'You must fill in your email';
     }
 
     return this.emailError.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  passwordError = new FormControl('', [Validators.required, Validators.email]);
+  hidePasswordError = true;
+  getPasswordErrorMessage() {
+    if (this.emailError.hasError('required')) {
+      return 'You must fill in your password';
+    }
+
+    return this.emailError.hasError('email') ? 'Incorrect password' : '';
   }
 }

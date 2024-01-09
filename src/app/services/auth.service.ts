@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, computed } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 
 @Injectable({
@@ -10,10 +10,13 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<{ token: string }>('https://code-coaching.dev/api/token/login', {
-        email: email,
-        password: password,
-      })
+      .post<{ token: string }>(
+        'https://syntra2023.code-coaching.dev/api/token/login',
+        {
+          email: email,
+          password: password,
+        }
+      )
       .pipe(
         tap((data) => {
           localStorage.setItem('token', data.token);
@@ -23,6 +26,11 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+  }
+
+  getBearerToken(): string | null {
+    const bearerToken: string | null = localStorage.getItem('token');
+    return bearerToken;
   }
 
   get isAuthenticated() {
