@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
+import { DishCardComponent } from '../../components/dish-card/dish-card.component';
 import { Dish } from '../../components/interfaces/interfaces-dishes';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,7 +11,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [RecipeCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule, MatProgressBarModule],
+  imports: [DishCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule, MatProgressBarModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })

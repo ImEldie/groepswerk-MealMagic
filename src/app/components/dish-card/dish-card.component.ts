@@ -8,15 +8,16 @@ import { Dish } from '../interfaces/interfaces-dishes';
 import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
 import { MatIconModule } from '@angular/material/icon'
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
+import {MatRippleModule} from '@angular/material/core';
 
 @Component({
-  selector: 'app-recipe-card',
+  selector: 'app-dish-card',
   standalone: true,
-  imports: [AllergyIconComponent, MatButtonModule, MatCardModule, MatChipsModule, MatDividerModule, CommonModule, MatIconModule],
-  templateUrl: './recipe-card.component.html',
-  styleUrl: './recipe-card.component.css'
+  imports: [MatRippleModule ,AllergyIconComponent, MatButtonModule, MatCardModule, MatChipsModule, MatDividerModule, CommonModule, MatIconModule],
+  templateUrl: './dish-card.component.html',
+  styleUrl: './dish-card.component.css'
 })
-export class RecipeCardComponent {
+export class DishCardComponent {
   @Input() dish!: Dish;
   allergies: Array<string> = [];
 
