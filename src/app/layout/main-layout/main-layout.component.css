@@ -3,39 +3,36 @@ mat-toolbar{
 }
 .magic-border{
     padding: 0px;
-    margin: 4px;
+    margin: 2px;
     width: fit-content;
     height: fit-content;
     background-size: 1500% 0%;
     background-position: 100% 0;
     background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
     background-size: 1500% 100%;
-    border-radius: 1vh;
+    border-radius: 6px;
 }
 .magic-border:hover{
     animation: MagicBorder 3s ease forwards 1s;
     width: fit-content;
     height: fit-content;
-
+    border-radius: 6px;
 }
 @keyframes MagicBorder {
     0%{
         background-position: 100% 0;
         padding: 0px;
-        margin: 4px;
-        border-radius: 4px;
+        margin: 2px;
     }
     15%{
         background-position: 100% 0;
-        padding: 4px;
+        padding: 2px;
         margin: 0px;
-        border-radius: 8px;
         box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.2);
     }
     100%{
-        padding: 4px;
+        padding: 2px;
         margin: 0px;
-        border-radius: 8px;
         box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
     }
 }
