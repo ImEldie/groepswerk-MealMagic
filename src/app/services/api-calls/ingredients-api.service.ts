@@ -35,7 +35,7 @@ export class IngredientsApiService {
   private loadIngredientsFromAPI(): Ingredient[]{
     this.ingredientObservable().subscribe((data: Ingredient[]) => {
       this.ingredients = data;
-      console.log(this.ingredients);
+      //console.log(this.ingredients);
     }
     );
 
@@ -44,7 +44,7 @@ export class IngredientsApiService {
 
   private ingredientObservable(): Observable<Ingredient[]>{
     const targetLink: string = "https://syntra2023.code-coaching.dev/api/group-2/ingredients/";
-    const token: string = "210|cd1DqD4EWoLvZeTUtRfjPZtDSbNHaADzmwtomSTK04e8ad79";
+    const token: string = "";
 
     return this.http
       .get<IngredientApiResponse>(targetLink, {
