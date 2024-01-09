@@ -5,9 +5,11 @@
     min-width: 30vw;
     min-height: 24vh;
     border-radius: 1vw;
+    z-index: 2;
 }
 .recipe-card:hover{
     animation: card-glow 1s ease-in forwards;
+    z-index: 3;
 }
 @keyframes card-glow {
     to{
