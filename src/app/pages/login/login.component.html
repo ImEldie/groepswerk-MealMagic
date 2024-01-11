@@ -1,15 +1,14 @@
-<div class="login-container">
+<form [formGroup]="loginForm" class="login-container">
   <section>
     <mat-form-field class="label">
       <mat-label>Enter your email</mat-label>
       <input
         matInput
         placeholder="mealmagic@example.com"
-        [formControl]="emailError"
+        formControlName="email"
         required
-        [(ngModel)]="email"
       />
-      @if (emailError.invalid) {
+      @if (loginForm.get("email")?.invalid) {
         <mat-error>{{ getEmailErrorMessage() }}</mat-error>
       }
     </mat-form-field>
@@ -19,11 +18,10 @@
     <mat-form-field class="label">
       <mat-label>Enter your password</mat-label>
       <input
-        matInpu
+        matInput
         required
-        [formControl]="passwordError"
+        formControlName="password"
         [type]="hidePasswordError ? 'password' : 'text'"
-        [(ngModel)]="password"
       />
       <button
         mat-icon-button
@@ -36,7 +34,7 @@
           hidePasswordError ? "visibility_off" : "visibility"
         }}</mat-icon>
       </button>
-      @if (emailError.invalid) {
+      @if (loginForm.get("password")?.invalid) {
         <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
       }
     </mat-form-field>
@@ -47,4 +45,4 @@
       <button (click)="login()" class="sign-button" mat-button>Sign In</button>
     </div>
   </section>
-</div>
+</form>
