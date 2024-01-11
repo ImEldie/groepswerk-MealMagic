@@ -17,11 +17,11 @@ section {
   width: 22rem;
 }
 
-.forgot-btn {
+.forgot-button {
   font-size: 0.6rem;
 }
 
-.sign-btn {
+.sign-button {
   margin-top: 2rem;
   margin-bottom: -0.5rem;
   background-color: rgb(78, 76, 69);

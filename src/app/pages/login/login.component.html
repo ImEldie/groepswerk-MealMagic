@@ -10,59 +10,41 @@
         [(ngModel)]="email"
       />
       @if (emailError.invalid) {
-      <mat-error>{{ getEmailErrorMessage() }}</mat-error>
+        <mat-error>{{ getEmailErrorMessage() }}</mat-error>
       }
     </mat-form-field>
   </section>
 
-  <div class=>
-  <mat-form-field class="label">
-    <mat-label>Enter your password</mat-label>
-    <input
-      matInput
-      required
-      [formControl]="passwordError"
-      [type]="hidePasswordError ? 'password' : 'text'"
-      [(ngModel)]="password"
-    />
-    <button
-      mat-icon-button
-      matSuffix
-      (click)="hidePasswordError = !hidePasswordError"
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hidePasswordError"
-    >
-      <mat-icon>{{
-        hidePasswordError ? "visibility_off" : "visibility"
-      }}</mat-icon>
-    </button>
-    @if (emailError.invalid) {
-    <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
-    }
-  </mat-form-field>
-</div>
-
-<!-- <section>
-  <mat-checkbox>Stay signed in</mat-checkbox>
-  <a
-    style="color: rgb(212, 46, 46)"
-    class="forgot-btn"
-    mat-button
-    href="https://www.google.com/"
-    target="_blank"
-    >Forgot password?</a
-  >
-</section> -->
-
-<section>
-  <div>
-    <button (click)="login()" class="sign-btn" mat-button>Sign In</button>
+  <div class="">
+    <mat-form-field class="label">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInpu
+        required
+        [formControl]="passwordError"
+        [type]="hidePasswordError ? 'password' : 'text'"
+        [(ngModel)]="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePasswordError = !hidePasswordError"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePasswordError"
+      >
+        <mat-icon>{{
+          hidePasswordError ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      @if (emailError.invalid) {
+        <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
   </div>
-</section>
 
-<!-- <section class="create">
-  <span>
-    New to MealMagic?
-    <span>Create an account</span>
-  </span>
-</section> -->
+  <section>
+    <div>
+      <button (click)="login()" class="sign-button" mat-button>Sign In</button>
+    </div>
+  </section>
+</div>
