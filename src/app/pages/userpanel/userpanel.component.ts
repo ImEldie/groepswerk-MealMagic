@@ -112,13 +112,13 @@ export class UserpanelComponent implements OnInit {
       )
       .filter((v: boolean) => v != null);
     console.log(selectedAllergyIds);
-    this.postUserAllergies(selectedAllergyIds);
+    this.putUserAllergies(selectedAllergyIds);
   }
-  postUserAllergies(selectedAllergyIds: Array<number>) {
+  putUserAllergies(selectedAllergyIds: Array<number>) {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.userpanelService
-        .postUserAllergies(selectedAllergyIds, id)
+        .putUserAllergies(selectedAllergyIds, id)
         .subscribe(() => {
           this.loading = true;
           setTimeout(() => {
@@ -149,7 +149,7 @@ export class UserpanelComponent implements OnInit {
       const bodyweight = this.formWeightHeight.get('bodyweightInput')?.value;
       const height = this.formWeightHeight.get('heightInput')?.value;
       this.userpanelService
-        .postUserWeightLength(bodyweight, height, id)
+        .putUserWeightLength(bodyweight, height, id)
         .subscribe(() => {
           this.loading = true;
           setTimeout(() => {

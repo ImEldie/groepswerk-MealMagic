@@ -59,7 +59,7 @@ export class UserpanelService {
         )
       );
   }
-  postUserWeightLength(
+  putUserWeightLength(
     bodyweightInput: number,
     heightInput: number,
     id: number
@@ -81,7 +81,7 @@ export class UserpanelService {
       }
     );
   }
-  postUserAllergies(selectedAllergyIds: Array<number>, id: number) {
+  putUserAllergies(selectedAllergyIds: Array<number>, id: number) {
     return this.http.put(
       `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
       { user_id: id, allergy_ids: selectedAllergyIds },
