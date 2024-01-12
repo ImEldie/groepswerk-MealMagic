@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-homepage',
   standalone: true,
@@ -16,47 +17,36 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })
+
 export class HomepageComponent {
-  // Internal Variables
-    // recipeList is what is displayed on the homepage, this is changed depending on what we want to show!
-    // The list which has all recipes is stored in the dishes-api service, this is read-only! this.dishApiServ.getDishList();
-  dishList: Array<Dish> = []; // Visualised list
-  searchInput: string = "";
+  private dishList: Array<Dish> = this.dishesApi.getDishList();
+  searchInput: string = '';
 
-  // Constructor
   constructor(
-    public dishApiServ: DishesApiService,
+    public dishesApi: DishesApiService,
     public auth: AuthService
-  ){
-  };
+  ){};
 
-  ngOnInit(){
-    this.dishApiServ.loadDishesFromApi();
-    setTimeout(() => {
-      this.dishList = this.dishApiServ.getDishList();
-    }, 1000);
+  getSearchResultAmount(): number {
+    return this.getSearchResults().length;
   }
 
-  // Internal Functions
-  filterRecipesFromSearch(){
-    // Get array of recipes matching the searchInput
-    const recipesFromSearch: Array<Dish> = this.getSearchResults();
-    const htmlIdPrefix: string = "recipe-";
+  getDishes(): Array<Dish> {
+    this.filterDishesFromSearch();
 
-    if (recipesFromSearch.length !== 0) {
-      // FOUND RESULTS
+    return this.dishList;
+  }
+  private filterDishesFromSearch(){
+    const recipesFromSearch: Array<Dish> = this.getSearchResults();
+    const hasResults = (recipesFromSearch.length !== 0);
+    const searchInputAvailable = (this.searchInput !== '');
+
+    if (hasResults) {
       this.dishList = recipesFromSearch;
-      console.log("Results:");
-      console.log(recipesFromSearch);
-    } else {
-      // NO RESULTS FOUND
-      this.dishList = [];
-      console.log("No results found");
     }
   }
-  private getSearchResults(): Array<Dish>{
-    // Looks for recipe names that match the searchInput and returns them in an Array
-    const searchResults: Array<Dish> = this.dishApiServ.getDishList().filter(
+  private getSearchResults(): Array<Dish> {
+    const searchResults: Array<Dish> = this.dishesApi.getDishList().filter(
       (dish: Dish) => dish.name.toLocaleLowerCase().includes(this.searchInput.toLowerCase())
     );
 

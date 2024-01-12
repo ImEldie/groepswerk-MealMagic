@@ -1,50 +1,49 @@
-<mat-card class="recipe-card" matRipple
-(click)="onCardClick()">
-    <div class="recipe-container">
-        <!--  Recipe details (Left side of card)  -->
-        <div class="recipe-details">
-            <!--  Card header (Title/Allergies/Types)  -->
-            <div class="recipe-header">
+<mat-card class="dish-card" matRipple>
+    <div class="card-container">
+        <div class="card-details">
+            <div class="card-header">
+
                 <div class="title-container">
                     <mat-card-title>{{dish.name | titlecase}}</mat-card-title>
-                    @for (allergy of allergies; track allergy) {
+                    @for (allergy of getDishAllergies(); track allergy) {
                         <app-allergy-icon [iconType]="allergy"></app-allergy-icon>
                     }
                 </div>
-                <mat-chip-listbox aria-label="Recipe Types">
-                    <!--  Chip types  -->
+                <mat-chip-listbox aria-label="Dish Types" class="dish-type-chips">
                     @for (type of dish.dish_types; track type) {
                         <mat-chip>{{type.name| titlecase}}</mat-chip>
                     }
                 </mat-chip-listbox>
+
             </div>
+
             <mat-divider></mat-divider>
-            <!--  Card content (Description, duration, people, season)  -->
+
             <mat-card-content>
                 <div class="details-container">
-                    <!--  Time display  -->
-                    <div class="detail">
+                    <div class="duration-detail">
                         <mat-icon color="accent">timelapse</mat-icon>
                         {{dish.duration}} Min.
                     </div>
-                    <!--  For how many people display  -->
-                    <div class="detail">
+
+                    <div class="people-detail">
                         <mat-icon color="accent">people</mat-icon>
                         Serves {{dish.amount_of_people}}
                     </div>
-                    <!--  Season display  -->
-                    <div class="detail">
+
+                    <div class="season-detail">
                         <mat-icon color="accent">wb_sunny</mat-icon>
                         {{dish.season.name}}
                     </div>
                 </div>
+
                 <div class="description-container">
                     {{dish.description}}
                     <div class="gradient-effect"></div>
                 </div>
             </mat-card-content>
         </div>
-        <!--  Recipe image (Right side of card)  -->
-        <img class="recipe-img" [src]="dish.image_url">
+
+        <img class="dish-img" [src]="dish.image_url">
     </div>
 </mat-card>

@@ -9,6 +9,7 @@ import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
 import { MatIconModule } from '@angular/material/icon'
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 import { MatRippleModule } from '@angular/material/core';
+import { Ingredient } from '../interfaces/interfaces-ingredients';
 
 @Component({
   selector: 'app-dish-card',
@@ -19,46 +20,41 @@ import { MatRippleModule } from '@angular/material/core';
 })
 export class DishCardComponent {
   @Input() dish!: Dish;
-  allergies: Array<string> = [];
 
   constructor(
     private ingredientAPI: IngredientsApiService,
   ){};
 
   ngOnInit(){
-    this.ingredientAPI.getIngredientList();
-    this.loadDishAllergies();
+    this.ingredientAPI.loadIngredientsFromAPI();
   }
 
-  onCardClick(){
-    /*
-      ADD CARD ROUTING
-    */
-    console.log("No routing to dish-page yet...");
-  }
+  getDishAllergies(): Array<string>{
+    let allergies: Array<string> = [];
 
-  loadDishAllergies(): void{
-    let newAllergies: Array<string> = [];
-
-    // Check every ingredient in the dish
-    setTimeout(() => {
+    if (this.ingredientAPI.getIngredientList().length !== 0){
       for (let i = 0; i < this.dish.ingredients.length; i++) {
-        let ingredientData = this.ingredientAPI.getIngredientFromId(this.dish.ingredients[i].id); // Get IngredientData
+        const ingredientId = this.dish.ingredients[i].id;
+        const ingredientData = this.ingredientAPI.getIngredientFromId(ingredientId);
 
-        // IF ID FOUND
         if (ingredientData !== undefined) {
-          // Check every allergy in ingredient
-          for (let j = 0; j < ingredientData.allergies.length; j++) {
-            const allergyToAdd: string = ingredientData.allergies[j].name; // Initialise current allergy
-            // Check if current allergy is NOT already in list
-            if (!newAllergies.includes(allergyToAdd)){
-              newAllergies.push(allergyToAdd); // Push allergy to list
-            }
-          }
+          allergies = this.getNewIngredientAllergies(ingredientData, allergies);
         }
+
       }
-      this.allergies = newAllergies;
-    }, 1000);
+    }
+    return allergies;
+  }
+
+  private getNewIngredientAllergies(ingredientData: Ingredient, allergiesToAddTo: Array<string>): Array<string>{
+    for (let i = 0; i < ingredientData.allergies.length; i++) {
+      const allergyToAdd: string = ingredientData.allergies[i].name;
+      
+      if (!allergiesToAddTo.includes(allergyToAdd)){
+        allergiesToAddTo.push(allergyToAdd);
+      }
+    }
+    return allergiesToAddTo;
   }
 }
 

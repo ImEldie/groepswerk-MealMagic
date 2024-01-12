@@ -25,7 +25,7 @@ export class IngredientsApiService {
 
     return searchedIngredient;
   }
-  private loadIngredientsFromAPI(): void{
+  loadIngredientsFromAPI(): void{
     const targetLink: string = "https://syntra2023.code-coaching.dev/api/group-2/ingredients/";
     const token = this.auth.getBearerToken();
 

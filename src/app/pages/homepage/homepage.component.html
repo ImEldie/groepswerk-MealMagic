@@ -4,13 +4,13 @@
     <!--  SearchBar  -->
     <mat-toolbar class="list-toolbar">
         <mat-form-field class="search-bar">
-            <input [(ngModel)]="searchInput" placeholder="Search..." type="string" matInput (input)="filterRecipesFromSearch()">
-            <mat-hint>Results: {{ dishList.length }}</mat-hint>
+            <input [(ngModel)]="searchInput" placeholder="Search..." type="string" matInput>
+            <mat-hint>Results: {{getSearchResultAmount()}}</mat-hint>
         </mat-form-field>
     </mat-toolbar>
 
     <!--  Recipe List  -->
-    @for (dish of dishList; track $index) {
+    @for (dish of getDishes(); track $index) {
         <app-dish-card [dish]="dish"></app-dish-card>
     } @empty {
         @if (auth.isAuthenticated) {

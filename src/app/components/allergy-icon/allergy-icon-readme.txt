@@ -44,7 +44,7 @@ When hovered over the image a tooltip appears saying "Contains traces of x".
         - sulphite
 
     [iconSize] : Adjust the size of the image, automatically changes the height & width of the component.
-        => Does not need to be entered, will default to '6vh'
+        => Does not need to be entered, will default to '2.2rem'
         Can enter any value you would enter in css, (64px, 100%, 69rem, ...)
 
     [withText] : Choose if the image is displayed with a text under it or not.

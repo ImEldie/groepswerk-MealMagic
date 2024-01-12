@@ -5,20 +5,20 @@
     justify-items: center;
 }
 .list-toolbar{
-    width: 71vw;
-    margin-bottom: 1vh;
+    width: 51rem;
+    margin-bottom: 1rem;
     height: auto;
-    padding: 1vw;
-    border-radius: 1vh;
+    padding: 1rem;
+    border-radius: 1rem;
 }
 .search-bar{
     width: 100%;
-    margin-left: 0.5vw;
-    margin-right: 0.5vw;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 .buffer-bar{
-    width: 32vw;
-    height: 2vh;
+    width: 30rem;
+    height: 1rem;
     background-color: gray;
-    border-radius: 1vh;
+    border-radius: 1rem;
 }

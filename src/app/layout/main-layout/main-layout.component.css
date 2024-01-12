@@ -1,11 +1,14 @@
-/* ### TOOLBAR ### */
+/* ### GENERAL ### */
 .main-toolbar {
     display: flex-end;
     justify-content: space-between;
-    margin-bottom: 1vh;
+    margin-bottom: 1rem;
   }
+.login-button {
+    margin-right: 10rem;
+}
 /* ### HOME-BUTTON / MEALMAGIC-BUTTON ### */
-.title{ /* Text inside of meal-magic button */
+.title-button-content {
     padding-top: 0.3rem;
     opacity: 100;
     cursor: pointer;
@@ -19,7 +22,7 @@
     background-size: 1500% 0%;
     -webkit-background-clip: text;
 }
-.magic-border:hover .title{
+.magic-border:hover .title {
     animation: RainbowTitle 3s ease forwards 1s;
     background-size: 1500% 100%;
 }
@@ -38,7 +41,7 @@
         background-position: 0% 0;
     }
 }
-.magic-border{ /* Magic border creates a rainbow effect around the meal-magic button */
+.magic-border { /* creates a rainbow effect around the meal-magic button */
     padding: 0px;
     margin: 2px;
     width: fit-content;
@@ -48,7 +51,7 @@
     background-size: 1500% 100%;
     border-radius: 6px;
 }
-.magic-border:hover{
+.magic-border:hover {
     animation: MagicBorder 3s ease forwards 1s;
     width: fit-content;
     height: fit-content;
@@ -72,8 +75,4 @@
         margin: 0px;
         box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
     }
-}
-/* LOGIN BUTTON */
-.login-button {
-    margin-right: 10px;
 }

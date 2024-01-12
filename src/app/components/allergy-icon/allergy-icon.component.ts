@@ -11,28 +11,32 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class AllergyIconComponent {
   @Input({required: true}) iconType!: string;
   @Input() iconSize!: string;
-  @Input() withText: boolean = false; // DEFAULT: Image without text
-  @Input() hideTooltip: boolean = false; // DEFAULT: With tooltip
+  @Input() withText: boolean = false;
+  @Input() hideTooltip: boolean = false;
 
-  getImagePath(): string {
-    const basePathWithoutText: string = "assets/images/allergies/";
-    const basePathWithText: string = "assets/images/allergiesWithText/";
-
+  getImagePath(): string{
     if (this.withText) {
-      // IMAGE WITH TEXT
-      return (basePathWithText + this.iconType.toUpperCase() + ".png");
+      return this.getImagePathWithText();
     } else {
-      // IMAGE WITHOUT TEXT (DEFAULT)
-      return (basePathWithoutText + this.iconType.toUpperCase() + ".png");
+      return this.getImagePathWithoutText();
     }
+  }
+  private getImagePathWithText(): string {
+    const pathWithText: string = '/assets/images/allergiesWithText/' + this.iconType.toUpperCase() + '.png';
+    return pathWithText;
+  }
+  private getImagePathWithoutText(): string {
+    const pathWithoutText: string = '/assets/images/allergies/' + this.iconType.toUpperCase() + '.png';
+    return pathWithoutText;
   }
 
   getSize(): string {
+    const defaultSize: string = '2.2rem'
+
     if (this.iconSize) {
-      return (this.iconSize);
+      return this.iconSize;
     } else {
-      // Default size: 6vh
-      return ("6vh");
+      return defaultSize;
     }
   }
 
