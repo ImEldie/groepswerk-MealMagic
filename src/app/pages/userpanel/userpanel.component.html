@@ -7,14 +7,15 @@
   <mat-card-content>
     <p>
       <mat-icon>monitor_weight</mat-icon>
-      Weight: {{ userdetails?.bodyweight }} kg.
+      Weight: {{ userDetails?.bodyweight }} kg.
     </p>
-    <p><mat-icon>height</mat-icon> Height: {{ userdetails?.height }} cm.</p>
+    <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
     <section>
       <p>
-        Your selected allergies are: @if(userdetails?.allergy_ids) {
-        {{ userdetails?.allergy_ids }} } @if(!userdetails?.allergy_ids) { No
-        data available }
+        Your selected allergies are: @if(userAllergies.length > 0) {
+        @for(allergy of userAllergies; track allergy.name) {
+        <mat-chip>{{ allergy.name | titlecase }}</mat-chip> } }
+        @if(userAllergies.length === 0) { No allergies selected }
       </p>
     </section>
   </mat-card-content>
@@ -44,6 +45,7 @@
           <input
             matInput
             maxlength="6"
+            required
             formControlName="bodyweightInput"
             placeholder="Kilogram"
           />
@@ -53,11 +55,18 @@
           <input
             matInput
             maxlength="3"
+            required
             formControlName="heightInput"
             placeholder="Centimeter"
           />
         </mat-form-field>
-        <button mat-raised-button color="accent">Submit</button>
+        <button
+          mat-raised-button
+          color="accent"
+          [disabled]="!formWeightHeight.valid"
+        >
+          Submit
+        </button>
       </div>
     </form>
     <mat-action-row>

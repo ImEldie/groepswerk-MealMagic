@@ -4,6 +4,7 @@ import {
   ArrayAllergies,
   ListAllergies,
   UserDetailsInterface,
+  UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
 
@@ -15,15 +16,13 @@ export class UserpanelService {
   apiUrl: string = 'https://syntra2023.code-coaching.dev/api/group-2/';
   userDetailsEndpoint: string = 'user-details/';
   allergiesEndpoint: string = 'allergies/';
-  getUserDetails(id: number): Observable<UserDetailsInterface> {
+  getUserDetails(id: number): Observable<UserDetailsResponse> {
     return this.http
       .get<UserDetailsInterface>(
         `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
         {
           headers: new HttpHeaders({
-            Authorization: 'Bearer' + localStorage.getItem('token'),
-            // (For testing) Authorization:
-            // 'Bearer hereYourBearerToken',
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
           }),
         }
       )
@@ -32,11 +31,20 @@ export class UserpanelService {
           const userDetails: UserDetailsInterface = {
             id: data.id,
             user_id: data.user_id,
-            bodyweight: data.bodyweight,
+            bodyweight: data.bodyweight / 1000,
             height: data.height,
-            allergy_ids: data.allergy_ids,
+            allergies: data.allergies,
           } satisfies UserDetailsInterface;
-          return userDetails;
+          let userAllergies: ArrayAllergies[] = [];
+          data.allergies.map((allergies) => {
+            const allergy: ArrayAllergies = {
+              id: allergies.id,
+              name: allergies.name,
+            } satisfies ArrayAllergies;
+            userAllergies.push(allergy);
+          });
+          console.log(userAllergies);
+          return { userDetails, userAllergies };
         })
       );
   }
@@ -44,10 +52,7 @@ export class UserpanelService {
     return this.http
       .get<ListAllergies>(`${this.apiUrl}${this.allergiesEndpoint}`, {
         headers: new HttpHeaders({
-          Authorizatition: 'Bearer' + localStorage.getItem('token'),
-          // FOR TESTING:
-          // Authorization:
-          // 'Bearer hereYourBearerToken',
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
         }),
       })
       .pipe(
@@ -62,6 +67,7 @@ export class UserpanelService {
   putUserWeightLength(
     bodyweightInput: number,
     heightInput: number,
+    selectedAllergyIds: Array<number>,
     id: number
   ) {
     return this.http.put(
@@ -70,13 +76,11 @@ export class UserpanelService {
         user_id: id,
         bodyweight: bodyweightInput,
         height: heightInput,
+        allergy_ids: selectedAllergyIds,
       },
       {
         headers: new HttpHeaders({
-          Authorizatition: 'Bearer' + localStorage.getItem('token'),
-          // FOR TESTING:
-          // Authorization:
-          // 'Bearer hereYourBearerToken',
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
         }),
       }
     );
@@ -87,10 +91,7 @@ export class UserpanelService {
       { user_id: id, allergy_ids: selectedAllergyIds },
       {
         headers: new HttpHeaders({
-          Authorizatition: 'Bearer' + localStorage.getItem('token'),
-          // FOR TESTING:
-          // Authorization:
-          // 'Bearer hereYourBearerToken',
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
         }),
       }
     );

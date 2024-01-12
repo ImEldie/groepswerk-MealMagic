@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import { UserpanelService } from '../../services/api-calls/userpanel.service';
+import { UserpanelService } from '../../services/userpanel-service/userpanel.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
   FormsModule,
@@ -37,6 +38,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatButtonModule,
     MatProgressBarModule,
+    MatChipsModule,
   ],
   templateUrl: './userpanel.component.html',
   styleUrl: './userpanel.component.css',
@@ -58,7 +60,8 @@ export class UserpanelComponent implements OnInit {
   public heightInput: number = NaN;
   public loading: boolean = false;
   public listAllergies: Array<ArrayAllergies> = [];
-  public userdetails: UserDetailsInterface | undefined;
+  public userDetails: UserDetailsInterface | undefined;
+  public userAllergies: ArrayAllergies[] = [];
   public formAllergy!: FormGroup;
   public formWeightHeight!: FormGroup;
   constructor(
@@ -84,7 +87,6 @@ export class UserpanelComponent implements OnInit {
     this.userpanelService.getListAllergies().subscribe({
       next: (response) => {
         this.listAllergies = response;
-        console.log(response);
         this.addCheckboxes();
       },
       error: (error) => {
@@ -99,15 +101,6 @@ export class UserpanelComponent implements OnInit {
     this.listAllergies.forEach(() =>
       this.allergyFormArray.push(new FormControl(false))
     );
-  }
-  submitAllergyIds() {
-    const selectedAllergyIds = this.formAllergy.value.allergyIds
-      .map((checked: boolean, i: number) =>
-        checked ? this.listAllergies[i].id : null
-      )
-      .filter((v: boolean) => v != null);
-    console.log(selectedAllergyIds);
-    this.putUserAllergies(selectedAllergyIds);
   }
   putUserAllergies(selectedAllergyIds: Array<number>) {
     this.route.params.subscribe((params) => {
@@ -128,7 +121,8 @@ export class UserpanelComponent implements OnInit {
       const id = params['id'];
       this.userpanelService.getUserDetails(id).subscribe({
         next: (response) => {
-          this.userdetails = response;
+          this.userDetails = response.userDetails;
+          this.userAllergies = response.userAllergies;
         },
         error: (error) => {
           console.error('Error', error);
@@ -141,8 +135,11 @@ export class UserpanelComponent implements OnInit {
       const id = params['id'];
       const bodyweight = this.formWeightHeight.get('bodyweightInput')?.value;
       const height = this.formWeightHeight.get('heightInput')?.value;
+      const selectedAllergyIds = this.userAllergies.map(
+        (allergy) => allergy.id
+      );
       this.userpanelService
-        .putUserWeightLength(bodyweight, height, id)
+        .putUserWeightLength(bodyweight * 1000, height, selectedAllergyIds, id)
         .subscribe(() => {
           this.loading = true;
           setTimeout(() => {
@@ -151,5 +148,13 @@ export class UserpanelComponent implements OnInit {
           }, 2000);
         });
     });
+  }
+  submitAllergyIds() {
+    const selectedAllergyIds = this.formAllergy.value.allergyIds
+      .map((checked: boolean, i: number) =>
+        checked ? this.listAllergies[i].id : null
+      )
+      .filter((v: boolean) => v != null);
+    this.putUserAllergies(selectedAllergyIds);
   }
 }
