@@ -5,13 +5,6 @@ export interface UserDetailsInterface {
   height: number;
   allergy_ids: [];
 }
-export interface UserDetailWeightHeight {
-  bodyweight: number;
-  height: number;
-}
-export interface UserDetailAllergies {
-  allergy_ids: [];
-}
 export interface ListAllergies {
   data: Array<ArrayAllergies>;
 }
