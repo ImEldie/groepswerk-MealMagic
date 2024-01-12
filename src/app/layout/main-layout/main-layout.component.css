@@ -1,5 +1,5 @@
 /* ### TOOLBAR ### */
-.mat-toolbar {
+.main-toolbar {
     display: flex-end;
     justify-content: space-between;
     margin-bottom: 1vh;
@@ -21,6 +21,7 @@
 }
 .magic-border:hover .title{
     animation: RainbowTitle 3s ease forwards 1s;
+    background-size: 1500% 100%;
 }
 @keyframes RainbowTitle {
     from{
@@ -34,17 +35,16 @@
         color: transparent;
     }
     to{
-        background-size: 1500% 100%;
+        background-position: 0% 0;
     }
 }
-.magic-border{ /* Magic border creates a rainbow effect around the meal-magic icon */
+.magic-border{ /* Magic border creates a rainbow effect around the meal-magic button */
     padding: 0px;
     margin: 2px;
     width: fit-content;
     height: fit-content;
-    background-size: 1500% 0%;
-    background-position: 100% 0;
     background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+    background-position: 100% 0;
     background-size: 1500% 100%;
     border-radius: 6px;
 }
@@ -67,6 +67,7 @@
         box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.2);
     }
     100%{
+        background-position: 0% 0;
         padding: 2px;
         margin: 0px;
         box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);

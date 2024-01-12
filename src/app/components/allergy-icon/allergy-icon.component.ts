@@ -15,10 +15,10 @@ export class AllergyIconComponent {
   @Input() hideTooltip: boolean = false; // DEFAULT: With tooltip
 
   getImagePath(): string {
-    const basePathWithoutText: string = "../../../assets/images/allergies/";
-    const basePathWithText: string = "../../../assets/images/allergiesWithText/";
+    const basePathWithoutText: string = "assets/images/allergies/";
+    const basePathWithText: string = "assets/images/allergiesWithText/";
 
-    if (this.withText){
+    if (this.withText) {
       // IMAGE WITH TEXT
       return (basePathWithText + this.iconType.toUpperCase() + ".png");
     } else {
@@ -27,7 +27,7 @@ export class AllergyIconComponent {
     }
   }
 
-  getSize(): string{
+  getSize(): string {
     if (this.iconSize) {
       return (this.iconSize);
     } else {
@@ -36,7 +36,7 @@ export class AllergyIconComponent {
     }
   }
 
-  getTooltip(): string{
+  getTooltip(): string {
     const tooltip: string = 'Contains traces of ' + this.iconType.toLowerCase(); 
     return tooltip;
   }

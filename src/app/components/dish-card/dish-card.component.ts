@@ -8,7 +8,7 @@ import { Dish } from '../interfaces/interfaces-dishes';
 import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
 import { MatIconModule } from '@angular/material/icon'
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
-import {MatRippleModule} from '@angular/material/core';
+import { MatRippleModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-dish-card',

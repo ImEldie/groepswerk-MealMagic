@@ -7,13 +7,13 @@
             <div class="recipe-header">
                 <div class="title-container">
                     <mat-card-title>{{dish.name | titlecase}}</mat-card-title>
-                    @for (allergy of allergies; track $index) {
-                        <app-allergy-icon [iconType]="allergies[$index]"></app-allergy-icon>
+                    @for (allergy of allergies; track allergy) {
+                        <app-allergy-icon [iconType]="allergy"></app-allergy-icon>
                     }
                 </div>
                 <mat-chip-listbox aria-label="Recipe Types">
                     <!--  Chip types  -->
-                    @for (type of dish.dish_types; track $index) {
+                    @for (type of dish.dish_types; track type) {
                         <mat-chip>{{type.name| titlecase}}</mat-chip>
                     }
                 </mat-chip-listbox>
