@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import {
   ArrayAllergies,
   ListAllergies,
-  UserDetailAllergies,
-  UserDetailWeightHeight,
   UserDetailsInterface,
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
@@ -14,21 +12,21 @@ import { Observable, map } from 'rxjs';
 })
 export class UserpanelService {
   constructor(private http: HttpClient) {}
-  apiUrl: string =
-    'https://syntra2023.code-coaching.dev/api/group-2/user-details/';
-  apiUrlTwo: string =
-    'https://syntra2023.code-coaching.dev/api/group-2/allergies/';
+  apiUrl: string = 'https://syntra2023.code-coaching.dev/api/group-2/';
+  userDetailsEndpoint: string = 'user-details/';
+  allergiesEndpoint: string = 'allergies/';
   getUserDetails(id: number): Observable<UserDetailsInterface> {
     return this.http
-      .get<UserDetailsInterface>(`${this.apiUrl}${id}`, {
-        headers: new HttpHeaders({
-          Authorization:
-            'Bearer 128|O1Q8ywsfBX7iZkjPl7el5RHqz1y0CJ9uvNpWnT8ha429b286',
-          // Authorizatition: 'Bearer' + localStorage.getItem('token'),
-          // (For testing) Authorization:
-          // 'Bearer hereYourBearerToken',
-        }),
-      })
+      .get<UserDetailsInterface>(
+        `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
+        {
+          headers: new HttpHeaders({
+            Authorization: 'Bearer' + localStorage.getItem('token'),
+            // (For testing) Authorization:
+            // 'Bearer hereYourBearerToken',
+          }),
+        }
+      )
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -44,14 +42,12 @@ export class UserpanelService {
   }
   getListAllergies(): Observable<Array<ArrayAllergies>> {
     return this.http
-      .get<ListAllergies>(`${this.apiUrlTwo}`, {
+      .get<ListAllergies>(`${this.apiUrl}${this.allergiesEndpoint}`, {
         headers: new HttpHeaders({
-          // Authorizatition: 'Bearer' + localStorage.getItem('token'),
+          Authorizatition: 'Bearer' + localStorage.getItem('token'),
           // FOR TESTING:
           // Authorization:
           // 'Bearer hereYourBearerToken',
-          Authorization:
-            'Bearer 128|O1Q8ywsfBX7iZkjPl7el5RHqz1y0CJ9uvNpWnT8ha429b286',
         }),
       })
       .pipe(
@@ -69,7 +65,7 @@ export class UserpanelService {
     id: number
   ) {
     return this.http.put(
-      `${this.apiUrl}${id}`,
+      `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
       {
         user_id: id,
         bodyweight: bodyweightInput,
@@ -77,28 +73,24 @@ export class UserpanelService {
       },
       {
         headers: new HttpHeaders({
-          // Authorizatition: 'Bearer' + localStorage.getItem('token'),
+          Authorizatition: 'Bearer' + localStorage.getItem('token'),
           // FOR TESTING:
           // Authorization:
           // 'Bearer hereYourBearerToken',
-          Authorization:
-            'Bearer 128|O1Q8ywsfBX7iZkjPl7el5RHqz1y0CJ9uvNpWnT8ha429b286',
         }),
       }
     );
   }
   postUserAllergies(selectedAllergyIds: Array<number>, id: number) {
     return this.http.put(
-      `${this.apiUrl}${id}`,
+      `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
       { user_id: id, allergy_ids: selectedAllergyIds },
       {
         headers: new HttpHeaders({
-          // Authorizatition: 'Bearer' + localStorage.getItem('token'),
+          Authorizatition: 'Bearer' + localStorage.getItem('token'),
           // FOR TESTING:
           // Authorization:
           // 'Bearer hereYourBearerToken',
-          Authorization:
-            'Bearer 128|O1Q8ywsfBX7iZkjPl7el5RHqz1y0CJ9uvNpWnT8ha429b286',
         }),
       }
     );
