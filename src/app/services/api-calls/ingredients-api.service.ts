@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Ingredient, IngredientApiResponse } from '../../components/interfaces/interfaces-ingredients';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,47 +12,32 @@ export class IngredientsApiService {
 
   constructor(
     private http: HttpClient,
+    private auth: AuthService
   ) {
     this.loadIngredientsFromAPI();
   }
 
-  ngOnInit(){
-    this.loadIngredientsFromAPI();
-  }
-
   getIngredientList(): Array<Ingredient>{
-    return this.loadIngredientsFromAPI();
-  }
-
-  getIngredientFromId(searchId: number): Ingredient | undefined{
-    for (let i = 0; i < this.ingredients.length; i++) {
-      if (this.ingredients[i].id === searchId) {
-        return this.ingredients[i];
-      }
-    }
-    return undefined;
-  }
-
-  private loadIngredientsFromAPI(): Ingredient[]{
-    this.ingredientObservable().subscribe((data: Ingredient[]) => {
-      this.ingredients = data;
-      //console.log(this.ingredients);
-    }
-    );
-
     return this.ingredients;
   }
+  getIngredientFromId(searchId: number): Ingredient | undefined{
+    const searchedIngredient = this.ingredients.find(ingredient => ingredient.id === searchId);
 
-  private ingredientObservable(): Observable<Ingredient[]>{
+    return searchedIngredient;
+  }
+  private loadIngredientsFromAPI(): void{
     const targetLink: string = "https://syntra2023.code-coaching.dev/api/group-2/ingredients/";
-    const token: string = "";
+    const token = this.auth.getBearerToken();
 
-    return this.http
+    this.http
       .get<IngredientApiResponse>(targetLink, {
         headers: new HttpHeaders({
           Authorization: "Bearer " + token,
         }),
       })
-      .pipe(map((data: IngredientApiResponse) => data.data));
+      .pipe(map((data: IngredientApiResponse) => data.data))
+      .subscribe((data: Ingredient[]) => {
+        this.ingredients = data;
+      });
   }
 }

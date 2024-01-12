@@ -13,20 +13,11 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
   standalone: true,
   imports: [DishCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule, MatProgressBarModule],
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.css'
+  styleUrl: './homepage.component.css',
 })
 export class HomepageComponent {
-  
-  /*
-  TODO:
-    * API-Call needs to get token from loginservice
-    * Upon card click, should navigate to dish-page
-    * search-bar should have red indication when search result is invalid
-    * Show allergies => Load ingredients of recipe and check if they're linked to allergies
-  */
-  
   // Internal Variables
-    // recipeList is what is displayed on the site, this is changed depending on what we want to show!
+    // recipeList is what is displayed on the homepage, this is changed depending on what we want to show!
     // The list which has all recipes is stored in the dishes-api service, this is read-only! this.dishApiServ.getDishList();
   public dishList: Array<Dish> = []; // Visualised list
   searchInput: string = "";
@@ -38,11 +29,10 @@ export class HomepageComponent {
   };
 
   ngOnInit(){
-    this.dishApiServ.loadDishes();
+    this.dishApiServ.loadDishesFromApi();
     setTimeout(() => {
       this.dishList = this.dishApiServ.getDishList();
     }, 1000);
-    
   }
 
   // Internal Functions

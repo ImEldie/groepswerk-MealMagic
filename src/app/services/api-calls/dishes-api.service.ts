@@ -1,7 +1,8 @@
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Dish, DishApiResponse } from '../../components/interfaces/interfaces-dishes';
 import { map } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,14 @@ export class DishesApiService {
 
   constructor(
     private http: HttpClient,
-  ) {}
+    private auth: AuthService
+  ) {
+    this.loadDishesFromApi();
+  }
 
-  loadDishes(): void{
+  loadDishesFromApi(): void{
     const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/dishes/";
-    const token = ""; // Need login-service
+    const token = this.auth.getBearerToken();
 
     this.http
       .get<DishApiResponse>(targetLink, {

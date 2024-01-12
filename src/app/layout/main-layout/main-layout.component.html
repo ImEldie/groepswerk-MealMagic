@@ -1,16 +1,24 @@
+<div class="header">
+  <mat-toolbar color="primary">
+    <!-- TITLE -->
+    <div class="magic-border">
+      <button mat-flat-button color="primary" class="title-button" (click)="navigateToHomepage()">
+        <div class="title">
+          Meal
+          <mat-icon>fastfood</mat-icon> 
+          Magic
+        </div>
+      </button>
+    </div>
+    <!--  LOGIN   -->
+    @if (authService.isAuthenticated) {
+      <button (click)="authService.logout()" mat-button>Logout</button>
+    } @else {
+      <button class="login-btn" (click)="router.navigate(['login'])" mat-button>
+        Login
+      </button>
+    }
+  </mat-toolbar>
 <div>
-    <mat-toolbar color="primary">
-      <!-- TITLE -->
-      <div class="magic-border">
-        <button mat-flat-button color="primary" class="title-button" (click)="navigateToHomepage()">
-          <div class="title">
-            Meal
-            <mat-icon>fastfood</mat-icon> 
-            Magic
-          </div>
-        </button>
-      </div>
-    </mat-toolbar>
-</div>
 
 <router-outlet></router-outlet>

@@ -68,3 +68,11 @@ mat-toolbar{
         background-size: 1500% 100%;
     }
 }
+.mat-toolbar {
+    display: flex-end;
+    justify-content: space-between;
+  }
+
+.login-btn {
+    margin-right: 10px;
+}
