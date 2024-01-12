@@ -36,9 +36,6 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  email = '';
-  password = '';
-
   loginForm!: FormGroup;
 
   constructor(
@@ -55,8 +52,6 @@ export class LoginComponent {
   login() {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe((data) => {
-      this.email = '';
-      this.password = '';
       this.location.back();
     });
   }

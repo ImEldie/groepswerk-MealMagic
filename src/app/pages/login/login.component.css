@@ -1,12 +1,12 @@
 .login-container {
-    display: flex;
-    flex-flow: column wrap;
-    width: 30rem;
-    align-items: center;
-    background-color: rgb(69, 67, 67);
-    border-radius: 3%;
-    margin: 9rem 15rem 9rem 28rem;
-    padding: 5rem;
+  display: flex;
+  flex-flow: column wrap;
+  width: 30rem;
+  align-items: center;
+  background-color: rgb(69, 67, 67);
+  border-radius: 3%;
+  margin: 9rem 15rem 9rem 28rem;
+  padding: 5rem;
 }
 
 section {
