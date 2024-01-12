@@ -23,24 +23,16 @@ export class DishCardComponent {
 
   constructor(
     private ingredientAPI: IngredientsApiService,
-  ){
-    this.ingredientAPI.getIngredientList();
-  };
+  ){};
 
   ngOnInit(){
-    this.loadDishAllergies();
     this.ingredientAPI.getIngredientList();
-  }
-  
-  generateHtmlElementId(id: number): string{
-    // Used to give the recipe-card a unique ID (Not used yet)
-    const prefix: string = "dish-";
-    return (prefix + id);
+    this.loadDishAllergies();
   }
 
-  onCardClick(){ // UNFINISHED FUNCTION, will be used to get the associated allergies from the ingredients
+  onCardClick(){
     /*
-     TO-DO: ADD CARD ROUTING
+      ADD CARD ROUTING
     */
     console.log("No routing to dish-page yet...");
   }
@@ -52,13 +44,12 @@ export class DishCardComponent {
     setTimeout(() => {
       for (let i = 0; i < this.dish.ingredients.length; i++) {
         let ingredientData = this.ingredientAPI.getIngredientFromId(this.dish.ingredients[i].id); // Get IngredientData
-        console.log(ingredientData);
 
         // IF ID FOUND
         if (ingredientData !== undefined) {
           // Check every allergy in ingredient
           for (let j = 0; j < ingredientData.allergies.length; j++) {
-            const allergyToAdd = ingredientData.allergies[j].name; // Initialise current allergy
+            const allergyToAdd: string = ingredientData.allergies[j].name; // Initialise current allergy
             // Check if current allergy is NOT already in list
             if (!newAllergies.includes(allergyToAdd)){
               newAllergies.push(allergyToAdd); // Push allergy to list
@@ -66,9 +57,8 @@ export class DishCardComponent {
           }
         }
       }
+      this.allergies = newAllergies;
     }, 1000);
-    this.allergies = newAllergies;
-    console.log("Allergies for " + this.dish.name + ": " + this.allergies);
   }
 }
 

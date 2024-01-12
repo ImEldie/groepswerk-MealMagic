@@ -1,7 +1,43 @@
-mat-toolbar{
+/* ### TOOLBAR ### */
+.mat-toolbar {
+    display: flex-end;
+    justify-content: space-between;
     margin-bottom: 1vh;
+  }
+/* ### HOME-BUTTON / MEALMAGIC-BUTTON ### */
+.title{ /* Text inside of meal-magic button */
+    padding-top: 0.3rem;
+    opacity: 100;
+    cursor: pointer;
+    font-size: 100%;
+    font-weight: 300;
+
+    display: flex;
+    align-items: normal;
+    justify-items: center;
+    background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+    background-size: 1500% 0%;
+    -webkit-background-clip: text;
 }
-.magic-border{
+.magic-border:hover .title{
+    animation: RainbowTitle 3s ease forwards 1s;
+}
+@keyframes RainbowTitle {
+    from{
+        background-position: 100% 0;
+    }
+    15%{
+        color: transparent;
+        background-position: 100% 0;
+    }
+    66%{
+        color: transparent;
+    }
+    to{
+        background-size: 1500% 100%;
+    }
+}
+.magic-border{ /* Magic border creates a rainbow effect around the meal-magic icon */
     padding: 0px;
     margin: 2px;
     width: fit-content;
@@ -36,43 +72,7 @@ mat-toolbar{
         box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
     }
 }
-.title{
-    padding-top: 0.3rem;
-    opacity: 100;
-    cursor: pointer;
-    font-size: 100%;
-    font-weight: 300;
-
-    display: flex;
-    align-items: normal;
-    justify-items: center;
-    background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
-    background-size: 1500% 0%;
-    -webkit-background-clip: text;
-}
-.magic-border:hover .title{
-    animation: RainbowTitle 3s ease forwards 1s;
-}
-@keyframes RainbowTitle {
-    from{
-        background-position: 100% 0;
-    }
-    15%{
-        color: transparent;
-        background-position: 100% 0;
-    }
-    66%{
-        color: transparent;
-    }
-    to{
-        background-size: 1500% 100%;
-    }
-}
-.mat-toolbar {
-    display: flex-end;
-    justify-content: space-between;
-  }
-
-.login-btn {
+/* LOGIN BUTTON */
+.login-button {
     margin-right: 10px;
 }

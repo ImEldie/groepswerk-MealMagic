@@ -30,7 +30,6 @@ export class DishesApiService {
       .pipe(map((data: DishApiResponse) => data.data))
       .subscribe((dishes: Dish[]) => {
         this.dishes = dishes;
-        console.log("Dishes received: ", this.dishes);
       });
   }
 
