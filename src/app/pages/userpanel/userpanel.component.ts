@@ -52,12 +52,34 @@ export class UserpanelComponent implements OnInit {
   prevStep() {
     this.step--;
   }
-  bodyweightInput: number = NaN;
-  heightInput: number = NaN;
-  loading: boolean = false;
   @ViewChild(MatAccordion)
-  accordion: MatAccordion = new MatAccordion();
+  public accordion: MatAccordion = new MatAccordion();
+  public bodyweightInput: number = NaN;
+  public heightInput: number = NaN;
+  public loading: boolean = false;
   public listAllergies: Array<ArrayAllergies> = [];
+  public userdetails: UserDetailsInterface | undefined;
+  public formAllergy!: FormGroup;
+  public formWeightHeight!: FormGroup;
+  constructor(
+    private userpanelService: UserpanelService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
+  ) {}
+  ngOnInit() {
+    this.getListAllergies();
+    this.bodyweightInput = NaN;
+    this.heightInput = NaN;
+    this.formWeightHeight = this.formBuilder.group({
+      bodyweightInput: new FormControl(null),
+      heightInput: new FormControl(null),
+    });
+    this.formAllergy = this.formBuilder.group({
+      allergyIds: new FormArray([]),
+    });
+    this.addCheckboxes();
+    this.getUserDetails();
+  }
   getListAllergies() {
     this.userpanelService.getListAllergies().subscribe({
       next: (response) => {
@@ -70,28 +92,6 @@ export class UserpanelComponent implements OnInit {
       },
     });
   }
-  constructor(
-    private userpanelService: UserpanelService,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder
-  ) {}
-  ngOnInit() {
-    this.getUserDetails();
-    this.getListAllergies();
-    this.bodyweightInput = NaN;
-    this.heightInput = NaN;
-    this.formWeightHeight = this.formBuilder.group({
-      bodyweightInput: new FormControl(null),
-      heightInput: new FormControl(null),
-    });
-    this.formAllergy = this.formBuilder.group({
-      allergyIds: new FormArray([]),
-    });
-    this.addCheckboxes();
-  }
-  formAllergy!: FormGroup;
-  formWeightHeight!: FormGroup;
-
   get allergyFormArray() {
     return this.formAllergy.controls['allergyIds'] as FormArray;
   }
@@ -123,8 +123,6 @@ export class UserpanelComponent implements OnInit {
         });
     });
   }
-  public userdetails: UserDetailsInterface | undefined;
-  public listUserAllergies: Array<number> = [];
   getUserDetails() {
     this.route.params.subscribe((params) => {
       const id = params['id'];
