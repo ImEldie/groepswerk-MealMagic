@@ -39,7 +39,6 @@ export class HomepageComponent {
   private filterDishesFromSearch(){
     const recipesFromSearch: Array<Dish> = this.getSearchResults();
     const hasResults = (recipesFromSearch.length !== 0);
-    const searchInputAvailable = (this.searchInput !== '');
 
     if (hasResults) {
       this.dishList = recipesFromSearch;
