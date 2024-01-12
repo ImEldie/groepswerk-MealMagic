@@ -6,7 +6,6 @@ import { UserpanelService } from '../../services/api-calls/userpanel.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
-import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
   FormsModule,
@@ -16,7 +15,6 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -24,7 +22,6 @@ import {
   UserDetailsInterface,
 } from '../../interfaces/user-details-interface';
 import { MatButtonModule } from '@angular/material/button';
-import 'zone.js';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -37,10 +34,8 @@ import 'zone.js';
     MatCheckboxModule,
     ReactiveFormsModule,
     MatExpansionModule,
-    MatChipsModule,
     MatCardModule,
     MatButtonModule,
-    MatListModule,
     MatProgressBarModule,
   ],
   templateUrl: './userpanel.component.html',
