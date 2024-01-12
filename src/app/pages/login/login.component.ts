@@ -48,7 +48,7 @@ export class LoginComponent {
   ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
@@ -78,6 +78,6 @@ export class LoginComponent {
       return 'You must fill in your password';
     }
 
-    return passwordError.hasError('email') ? 'Incorrect password' : '';
+    return '';
   }
 }
