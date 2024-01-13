@@ -1,18 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  ArrayAllergies,
-  ListAllergies,
-  UserDetailsInterface,
-  UserDetailsResponse,
-} from '../../interfaces/user-details-interface';
+import { ArrayAllergies, ListAllergies, UserDetailsInterface, UserDetailsResponse } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserpanelService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
   apiUrl: string = 'https://syntra2023.code-coaching.dev/api/group-2/';
   userDetailsEndpoint: string = 'user-details/';
   allergiesEndpoint: string = 'allergies/';
@@ -22,7 +18,7 @@ export class UserpanelService {
         `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
         {
           headers: new HttpHeaders({
-            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            Authorization: 'Bearer ' + this.auth.getBearerToken(),
           }),
         }
       )
@@ -43,7 +39,6 @@ export class UserpanelService {
             } satisfies ArrayAllergies;
             userAllergies.push(allergy);
           });
-          console.log(userAllergies);
           return { userDetails, userAllergies };
         })
       );
@@ -52,7 +47,7 @@ export class UserpanelService {
     return this.http
       .get<ListAllergies>(`${this.apiUrl}${this.allergiesEndpoint}`, {
         headers: new HttpHeaders({
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + this.auth.getBearerToken(),
         }),
       })
       .pipe(
@@ -80,7 +75,7 @@ export class UserpanelService {
       },
       {
         headers: new HttpHeaders({
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + this.auth.getBearerToken(),
         }),
       }
     );
@@ -91,7 +86,7 @@ export class UserpanelService {
       { user_id: id, allergy_ids: selectedAllergyIds },
       {
         headers: new HttpHeaders({
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + this.auth.getBearerToken(),
         }),
       }
     );
