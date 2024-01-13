@@ -8,11 +8,23 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormGroup,
+  FormBuilder,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
-import { ArrayAllergies, UserDetailsInterface } from '../../interfaces/user-details-interface';
+import {
+  ArrayAllergies,
+  UserDetailsInterface,
+  UserDetailsResponse,
+} from '../../interfaces/user-details-interface';
 import { MatButtonModule } from '@angular/material/button';
+import { Observable, map, switchMap, tap } from 'rxjs';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -55,7 +67,7 @@ export class UserpanelComponent implements OnInit {
   constructor(
     private userpanelService: UserpanelService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
   ngOnInit() {
     this.loadListAllergies();
@@ -66,7 +78,7 @@ export class UserpanelComponent implements OnInit {
     this.formAllergy = this.formBuilder.group({
       allergyIds: new FormArray([]),
     });
-    this.loadUserDetails();
+    this.loadUserDetails().subscribe();
   }
   private loadListAllergies() {
     this.userpanelService.getListAllergies().subscribe({
@@ -82,38 +94,43 @@ export class UserpanelComponent implements OnInit {
   get allergyFormArray() {
     return this.formAllergy.controls['allergyIds'] as FormArray;
   }
- private addCheckboxes() {
+  private addCheckboxes() {
     this.listAllergies.forEach(() =>
-      this.allergyFormArray.push(new FormControl(false))
+      this.allergyFormArray.push(new FormControl(false)),
     );
   }
-  putUserAllergies(selectedAllergyIds: Array<number>) {
+  private putUserAllergies(selectedAllergyIds: Array<number>) {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.userpanelService
         .putUserAllergies(selectedAllergyIds, id)
         .subscribe(() => {
           this.loading = true;
-          setTimeout(() => {
-            this.loading = false;
-            this.loadUserDetails();
-          }, 2000);
+          this.loadUserDetails().subscribe({
+            next: () => {
+              this.loading = false;
+            },
+            error: (error) => {
+              console.error('Error', error);
+              this.loading = false;
+            },
+          });
         });
     });
   }
-  loadUserDetails() {
-    this.route.params.subscribe((params) => {
-      const id = params['id'];
-      this.userpanelService.getUserDetails(id).subscribe({
-        next: (response) => {
-          this.userDetails = response.userDetails;
-          this.userAllergies = response.userAllergies;
-        },
-        error: (error) => {
-          console.error('Error', error);
-        },
-      });
-    });
+  loadUserDetails(): Observable<UserDetailsResponse> {
+    return this.route.params.pipe(
+      switchMap((params) => {
+        const id = params['id'];
+        return this.userpanelService.getUserDetails(id).pipe(
+          map((response) => {
+            this.userDetails = response.userDetails;
+            this.userAllergies = response.userAllergies;
+            return response;
+          }),
+        );
+      }),
+    );
   }
   submitWeightHeight() {
     this.route.params.subscribe((params) => {
@@ -121,23 +138,28 @@ export class UserpanelComponent implements OnInit {
       const bodyweight = this.formWeightHeight.get('bodyweightInput')?.value;
       const height = this.formWeightHeight.get('heightInput')?.value;
       const selectedAllergyIds = this.userAllergies.map(
-        (allergy) => allergy.id
+        (allergy) => allergy.id,
       );
       this.userpanelService
         .putUserWeightLength(bodyweight * 1000, height, selectedAllergyIds, id)
         .subscribe(() => {
           this.loading = true;
-          setTimeout(() => {
-            this.loading = false;
-            this.loadUserDetails();
-          }, 2000);
+          this.loadUserDetails().subscribe({
+            next: () => {
+              this.loading = false;
+            },
+            error: (error) => {
+              console.error('Error', error);
+              this.loading = false;
+            },
+          });
         });
     });
   }
   submitAllergyIds() {
     const selectedAllergyIds = this.formAllergy.value.allergyIds
       .map((checked: boolean, i: number) =>
-        checked ? this.listAllergies[i].id : null
+        checked ? this.listAllergies[i].id : null,
       )
       .filter((v: boolean) => v != null);
     this.putUserAllergies(selectedAllergyIds);
