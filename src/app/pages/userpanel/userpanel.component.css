@@ -1,8 +1,4 @@
-.info-card {
-  margin-left: 8rem;
-  margin-right: 8rem;
-}
-.info-panel {
+.info-card, .info-panel, .allergies-panel {
   margin-left: 8rem;
   margin-right: 8rem;
 }
@@ -14,10 +10,6 @@
 }
 .weight-height-input {
   min-width: 12rem;
-}
-.allergies-panel {
-  margin-left: 8rem;
-  margin-right: 8rem;
 }
 .user-allergies {
   display: flex;
