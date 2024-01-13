@@ -10,7 +10,6 @@
 /* ### HOME-BUTTON / MEALMAGIC-BUTTON ### */
 .title-button-content {
     padding-top: 0.3rem;
-    opacity: 100;
     cursor: pointer;
     font-size: 100%;
     font-weight: 300;
@@ -22,7 +21,7 @@
     background-size: 1500% 0%;
     -webkit-background-clip: text;
 }
-.magic-border:hover .title {
+.magic-border:hover .title-button-content {
     animation: RainbowTitle 3s ease forwards 1s;
     background-size: 1500% 100%;
 }
