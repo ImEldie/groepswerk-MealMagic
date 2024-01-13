@@ -8,20 +8,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  FormGroup,
-  FormBuilder,
-  FormArray,
-  FormControl,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
-import {
-  ArrayAllergies,
-  UserDetailsInterface,
-} from '../../interfaces/user-details-interface';
+import { ArrayAllergies, UserDetailsInterface } from '../../interfaces/user-details-interface';
 import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-userpanel',
@@ -55,24 +45,20 @@ export class UserpanelComponent implements OnInit {
     this.step--;
   }
   @ViewChild(MatAccordion)
-  public accordion: MatAccordion = new MatAccordion();
-  public bodyweightInput: number = NaN;
-  public heightInput: number = NaN;
-  public loading: boolean = false;
-  public listAllergies: Array<ArrayAllergies> = [];
-  public userDetails: UserDetailsInterface | undefined;
-  public userAllergies: ArrayAllergies[] = [];
-  public formAllergy!: FormGroup;
-  public formWeightHeight!: FormGroup;
+  accordion: MatAccordion = new MatAccordion();
+  loading: boolean = false;
+  listAllergies: Array<ArrayAllergies> = [];
+  userDetails: UserDetailsInterface | undefined;
+  userAllergies: ArrayAllergies[] = [];
+  formAllergy!: FormGroup;
+  formWeightHeight!: FormGroup;
   constructor(
     private userpanelService: UserpanelService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {}
   ngOnInit() {
-    this.getListAllergies();
-    this.bodyweightInput = NaN;
-    this.heightInput = NaN;
+    this.loadListAllergies();
     this.formWeightHeight = this.formBuilder.group({
       bodyweightInput: new FormControl(null),
       heightInput: new FormControl(null),
@@ -80,10 +66,9 @@ export class UserpanelComponent implements OnInit {
     this.formAllergy = this.formBuilder.group({
       allergyIds: new FormArray([]),
     });
-    this.addCheckboxes();
-    this.getUserDetails();
+    this.loadUserDetails();
   }
-  getListAllergies() {
+  private loadListAllergies() {
     this.userpanelService.getListAllergies().subscribe({
       next: (response) => {
         this.listAllergies = response;
@@ -97,7 +82,7 @@ export class UserpanelComponent implements OnInit {
   get allergyFormArray() {
     return this.formAllergy.controls['allergyIds'] as FormArray;
   }
-  addCheckboxes() {
+ private addCheckboxes() {
     this.listAllergies.forEach(() =>
       this.allergyFormArray.push(new FormControl(false))
     );
@@ -111,12 +96,12 @@ export class UserpanelComponent implements OnInit {
           this.loading = true;
           setTimeout(() => {
             this.loading = false;
-            this.getUserDetails();
+            this.loadUserDetails();
           }, 2000);
         });
     });
   }
-  getUserDetails() {
+  loadUserDetails() {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.userpanelService.getUserDetails(id).subscribe({
@@ -144,7 +129,7 @@ export class UserpanelComponent implements OnInit {
           this.loading = true;
           setTimeout(() => {
             this.loading = false;
-            this.getUserDetails();
+            this.loadUserDetails();
           }, 2000);
         });
     });
