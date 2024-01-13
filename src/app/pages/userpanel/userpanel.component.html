@@ -12,9 +12,9 @@
     <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
     <section>
       <p>
-        Your selected allergies are: @if(userAllergies.length > 0) {
+        Your selected allergies are: 
         @for(allergy of userAllergies; track allergy.name) {
-        <mat-chip>{{ allergy.name | titlecase }}</mat-chip> } }
+        <mat-chip>{{ allergy.name | titlecase }}</mat-chip> } 
         @if(userAllergies.length === 0) { No allergies selected }
       </p>
     </section>
@@ -22,7 +22,7 @@
   <mat-card-footer>
     @if(loading){<mat-progress-bar
       mode="indeterminate"
-      color="warn"
+      color="accent"
     ></mat-progress-bar
     >}
   </mat-card-footer>
@@ -43,8 +43,10 @@
         <mat-form-field class="weight-height-input">
           <mat-label>Weight</mat-label>
           <input
+            type="number"
             matInput
-            maxlength="6"
+            min="1"
+            max="650"
             required
             formControlName="bodyweightInput"
             placeholder="Kilogram"
@@ -53,8 +55,10 @@
         <mat-form-field class="weight-height-input">
           <mat-label>Height</mat-label>
           <input
+            type="number"
             matInput
-            maxlength="3"
+            min="1"
+            max="300"
             required
             formControlName="heightInput"
             placeholder="Centimeter"
@@ -89,13 +93,13 @@
         (ngSubmit)="submitAllergyIds()"
         class="user-allergies"
       >
-        <label formArrayName="allergyIds">
+        <section formArrayName="allergyIds">
           @for(id of allergyFormArray.controls; track id; let index = $index) {
           <mat-checkbox [formControlName]="index" class="item-allergy">
             {{ listAllergies[index].name | titlecase }}</mat-checkbox
           >
           }
-        </label>
+        </section>
         <br />
         <div class="submit-allergies">
           <button mat-raised-button color="accent">Submit</button>
