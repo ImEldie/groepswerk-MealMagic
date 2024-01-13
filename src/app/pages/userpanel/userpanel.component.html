@@ -12,19 +12,20 @@
     <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
     <section>
       <p>
-        Your selected allergies are: 
-        @for(allergy of userAllergies; track allergy.name) {
-        <mat-chip>{{ allergy.name | titlecase }}</mat-chip> } 
-        @if(userAllergies.length === 0) { No allergies selected }
+        Your selected allergies are:
+        @for (allergy of userAllergies; track allergy.name) {
+          <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
+        }
+        @if (userAllergies.length === 0) {
+          No allergies selected
+        }
       </p>
     </section>
   </mat-card-content>
   <mat-card-footer>
-    @if(loading){<mat-progress-bar
-      mode="indeterminate"
-      color="accent"
-    ></mat-progress-bar
-    >}
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+    }
   </mat-card-footer>
 </mat-card>
 <br />
@@ -94,10 +95,10 @@
         class="user-allergies"
       >
         <section formArrayName="allergyIds">
-          @for(id of allergyFormArray.controls; track id; let index = $index) {
-          <mat-checkbox [formControlName]="index" class="item-allergy">
-            {{ listAllergies[index].name | titlecase }}</mat-checkbox
-          >
+          @for (id of allergyFormArray.controls; track id; let index = $index) {
+            <mat-checkbox [formControlName]="index" class="item-allergy">
+              {{ listAllergies[index].name | titlecase }}</mat-checkbox
+            >
           }
         </section>
         <br />
