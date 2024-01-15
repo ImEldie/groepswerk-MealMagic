@@ -31,7 +31,6 @@
   width: 240px;
   height: 115px;
   transform: translateY(10px);
-  overflow: hidden;
 }
 .animate {
   animation: bmiFadeIn 1s forwards;
@@ -108,7 +107,6 @@
   left: -12px;
   transform: rotate(-90deg);
   font-size: 10px;
-  /* font-weight: bold; */
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }

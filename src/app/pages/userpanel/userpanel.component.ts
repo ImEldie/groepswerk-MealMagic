@@ -197,4 +197,9 @@ export class UserpanelComponent implements OnInit {
   bmiFadeInAnimate() {
     this.bmiFadeIn = true;
   }
+  keyframesBmi(bmiAmount: number) {
+    const maxbmiaccount = 45;
+    const limitedBmiAmount = Math.min(bmiAmount, maxbmiaccount);
+    return limitedBmiAmount;
+  }
 }

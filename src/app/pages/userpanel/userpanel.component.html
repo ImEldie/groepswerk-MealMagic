@@ -4,7 +4,7 @@
     <mat-card-title>User Panel</mat-card-title>
     <mat-card-subtitle>Your info:</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content class="info-card-content">
     <div class="bmi-container" [ngClass]="{ animate: bmiFadeIn }">
       <div class="bmi-meter">
         <div class="bmi-numbers-container">
@@ -16,7 +16,10 @@
           <span class="bmi-number" style="--position: 130.5deg">35</span>
           <span class="bmi-number" style="--position: 157.2deg">40</span>
         </div>
-        <div class="bmi-arrow" [ngStyle]="{ '--score': bmiAmount }"></div>
+        <div
+          class="bmi-arrow"
+          [ngStyle]="{ '--score': keyframesBmi(bmiAmount) }"
+        ></div>
         <div class="score-container">
           <span class="bmi-result">{{ bmiResult }}</span>
           <span class="bmi-amount">{{ bmiAmount | number: "1.0-0" }}</span>
