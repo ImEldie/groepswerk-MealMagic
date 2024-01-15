@@ -27,9 +27,11 @@
 }
 .bmi-container {
   position: relative;
-  cursor: pointer;
   opacity: 0;
+  width: 240px;
+  height: 115px;
   transform: translateY(10px);
+  overflow: hidden;
 }
 .animate {
   animation: bmiFadeIn 1s forwards;
@@ -46,6 +48,7 @@
   height: 10rem;
   padding: 2rem;
   border-radius: 50%;
+  cursor: pointer;
   background:
     radial-gradient(#ffffff00 0 0) content-box,
     conic-gradient(
@@ -120,6 +123,8 @@
 }
 .bmi-result {
   position: absolute;
+  width: 115px;
+  text-align: center;
   top: 1.5rem;
   left: 1.5rem;
   color: #fff;
