@@ -25,6 +25,10 @@
 .submit-allergies {
   align-self: flex-end;
 }
+.info-card-content {
+  display: flex;
+  justify-content: space-between;
+}
 .bmi-container {
   position: relative;
   opacity: 0;

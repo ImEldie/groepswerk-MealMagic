@@ -5,6 +5,24 @@
     <mat-card-subtitle>Your info:</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="info-card-content">
+    <div class="info-container">
+      <p>
+        <mat-icon>monitor_weight</mat-icon>
+        Weight: {{ userDetails?.bodyweight }} kg.
+      </p>
+      <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
+      <section>
+        <p>
+          Your selected allergies are:
+          @for (allergy of userAllergies; track allergy.name) {
+            <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
+          }
+          @if (userAllergies.length === 0) {
+            No allergies selected
+          }
+        </p>
+      </section>
+    </div>
     <div class="bmi-container" [ngClass]="{ animate: bmiFadeIn }">
       <div class="bmi-meter">
         <div class="bmi-numbers-container">
@@ -26,22 +44,6 @@
         </div>
       </div>
     </div>
-    <p>
-      <mat-icon>monitor_weight</mat-icon>
-      Weight: {{ userDetails?.bodyweight }} kg.
-    </p>
-    <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
-    <section>
-      <p>
-        Your selected allergies are:
-        @for (allergy of userAllergies; track allergy.name) {
-          <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
-        }
-        @if (userAllergies.length === 0) {
-          No allergies selected
-        }
-      </p>
-    </section>
   </mat-card-content>
   <mat-card-actions>
     <button
