@@ -19,7 +19,7 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
 import {
-  ArrayAllergies,
+  Allergies,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
@@ -59,9 +59,9 @@ export class UserpanelComponent implements OnInit {
   @ViewChild(MatAccordion)
   accordion: MatAccordion = new MatAccordion();
   loading: boolean = false;
-  listAllergies: Array<ArrayAllergies> = [];
+  listAllergies: Array<Allergies> = [];
   userDetails: UserDetailsInterface | undefined;
-  userAllergies: ArrayAllergies[] = [];
+  userAllergies: Allergies[] = [];
   formAllergy!: FormGroup;
   formWeightHeight!: FormGroup;
   constructor(

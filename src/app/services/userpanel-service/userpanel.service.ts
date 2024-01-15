@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  ArrayAllergies,
+  Allergies,
   ListAllergies,
   UserDetailsInterface,
   UserDetailsResponse,
@@ -39,19 +39,19 @@ export class UserpanelService {
             height: data.height,
             allergies: data.allergies,
           } satisfies UserDetailsInterface;
-          let userAllergies: ArrayAllergies[] = [];
+          let userAllergies: Allergies[] = [];
           data.allergies.map((allergies) => {
-            const allergy: ArrayAllergies = {
+            const allergy: Allergies = {
               id: allergies.id,
               name: allergies.name,
-            } satisfies ArrayAllergies;
+            } satisfies Allergies;
             userAllergies.push(allergy);
           });
           return { userDetails, userAllergies };
         }),
       );
   }
-  getListAllergies(): Observable<Array<ArrayAllergies>> {
+  getListAllergies(): Observable<Array<Allergies>> {
     return this.http
       .get<ListAllergies>(`${this.apiUrl}${this.allergiesEndpoint}`, {
         headers: new HttpHeaders({
