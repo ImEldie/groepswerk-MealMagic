@@ -38,13 +38,13 @@ export class UserpanelService {
             bodyweight: data.bodyweight / 1000,
             height: data.height,
             allergies: data.allergies,
-          } satisfies UserDetailsInterface;
+          };
           let userAllergies: Allergies[] = [];
           data.allergies.map((allergies) => {
             const allergy: Allergies = {
               id: allergies.id,
               name: allergies.name,
-            } satisfies Allergies;
+            };
             userAllergies.push(allergy);
           });
           return { userDetails, userAllergies };
