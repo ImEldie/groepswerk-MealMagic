@@ -3,16 +3,16 @@ export interface UserDetailsInterface {
   user_id: number;
   bodyweight: number;
   height: number;
-  allergies: Array<Allergies>;
+  allergies: Array<Allergy>;
 }
 export interface ListAllergies {
-  data: Array<Allergies>;
+  data: Array<Allergy>;
 }
-export interface Allergies {
+export interface Allergy {
   id: number;
   name: string;
 }
 export interface UserDetailsResponse {
   userDetails: UserDetailsInterface;
-  userAllergies: Allergies[];
+  userAllergies: Allergy[];
 }
