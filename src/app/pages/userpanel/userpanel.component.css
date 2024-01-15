@@ -66,6 +66,7 @@
       #7b0d11 0 180deg,
       #ffffff00 0
     );
+  box-shadow: 0 -4px 0px 0px rgba(0, 0, 0, 0.1);
 }
 .bmi-arrow {
   position: absolute;
