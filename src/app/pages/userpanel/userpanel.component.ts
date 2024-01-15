@@ -24,7 +24,8 @@ import {
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { MatButtonModule } from '@angular/material/button';
-import { Observable, map, switchMap, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -41,6 +42,7 @@ import { Observable, map, switchMap, tap } from 'rxjs';
     MatButtonModule,
     MatProgressBarModule,
     MatChipsModule,
+    MatTooltipModule,
   ],
   templateUrl: './userpanel.component.html',
   styleUrl: './userpanel.component.css',
@@ -64,6 +66,10 @@ export class UserpanelComponent implements OnInit {
   userAllergies: Allergy[] = [];
   formAllergy!: FormGroup;
   formWeightHeight!: FormGroup;
+  bmiAmount: number = NaN;
+  bmiResult: string = '';
+  bmiFadeIn: boolean = false;
+  // bmiTooltipDisabled: boolean = false;
   constructor(
     private userpanelService: UserpanelService,
     private route: ActivatedRoute,
@@ -147,5 +153,48 @@ export class UserpanelComponent implements OnInit {
       )
       .filter((v: boolean) => v != null);
     this.putUserAllergies(selectedAllergyIds);
+  }
+  // bmiTooltipDisabler(): boolean {
+  //   if (
+  //     this.userDetails?.bodyweight !== undefined &&
+  //     this.userDetails?.height !== undefined
+  //   ) {
+  //     this.bmiTooltipDisabled = true;
+  //   }
+  //   return this.bmiTooltipDisabled;
+  // }
+  bmiFunction() {
+    this.bmiFadeInAnimate();
+    this.calculateBmi();
+    this.resultBmi();
+  }
+  calculateBmi(): number {
+    if (
+      this.userDetails?.bodyweight !== undefined &&
+      this.userDetails?.height !== undefined
+    ) {
+      this.bmiAmount =
+        this.userDetails.bodyweight /
+        ((this.userDetails.height / 100) * (this.userDetails.height / 100));
+    }
+    return this.bmiAmount;
+  }
+  resultBmi() {
+    if (this.bmiAmount < 18.5) {
+      this.bmiResult = 'Underweight';
+    } else if (18.5 <= this.bmiAmount && this.bmiAmount <= 24.9) {
+      this.bmiResult = 'Healthy';
+    } else if (25 <= this.bmiAmount && this.bmiAmount <= 29.9) {
+      this.bmiResult = 'Overweight';
+    } else if (30 <= this.bmiAmount && this.bmiAmount <= 34.9) {
+      this.bmiResult = 'Obese';
+    } else if (35 <= this.bmiAmount) {
+      this.bmiResult = 'Extremely obese';
+    }
+    console.log(this.bmiResult);
+    return this.bmiResult;
+  }
+  bmiFadeInAnimate() {
+    this.bmiFadeIn = true;
   }
 }
