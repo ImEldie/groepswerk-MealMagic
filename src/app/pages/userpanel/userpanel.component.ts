@@ -105,8 +105,7 @@ export class UserpanelComponent implements OnInit {
             next: () => {
               this.loading = false;
             },
-            error: (error) => {
-              console.error('Error', error);
+            error: () => {
               this.loading = false;
             },
           });
