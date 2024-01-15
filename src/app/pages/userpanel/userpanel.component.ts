@@ -158,13 +158,13 @@ export class UserpanelComponent implements OnInit {
       .filter((v: boolean) => v != null);
     this.putUserAllergies(selectedAllergyIds);
   }
-  bmiFunction() {
+  createBmiMeter() {
     this.resetArrow = false;
     this.bmiFadeInAnimate();
     this.calculateBmi();
     this.resultBmi();
   }
-  calculateBmi(): number {
+  private calculateBmi(): number {
     if (
       this.userDetails?.bodyweight !== undefined &&
       this.userDetails?.height !== undefined
@@ -175,7 +175,7 @@ export class UserpanelComponent implements OnInit {
     }
     return this.bmiAmount;
   }
-  resultBmi() {
+  private resultBmi(): string {
     if (this.bmiAmount < 18.5) {
       this.bmiResult = 'Underweight';
     } else if (18.5 <= this.bmiAmount && this.bmiAmount <= 24.9) {
@@ -187,26 +187,22 @@ export class UserpanelComponent implements OnInit {
     } else if (35 <= this.bmiAmount) {
       this.bmiResult = 'Extremely obese';
     }
-    console.log(this.bmiResult);
     return this.bmiResult;
   }
-  bmiFadeInAnimate() {
+  private bmiFadeInAnimate() {
     this.bmiFadeOut = false;
     this.bmiFadeIn = true;
   }
-  bmiFadeOutAnimate() {
+  private bmiFadeOutAnimate() {
     this.bmiFadeIn = false;
     this.bmiFadeOut = true;
   }
-  keyframesBmi(bmiAmount: number) {
+  maxKeyframesBmi(bmiAmount: number) {
     const maxbmiaccount = 45;
     const limitedBmiAmount = Math.min(bmiAmount, maxbmiaccount);
     return limitedBmiAmount;
   }
   isDisabled(): boolean {
     return !(this.userDetails?.bodyweight && this.userDetails?.height);
-  }
-  shouldDisableTooltip(): boolean {
-    return this.isDisabled();
   }
 }

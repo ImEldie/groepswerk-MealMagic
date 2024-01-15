@@ -46,7 +46,7 @@
   }
 }
 .bmi-fade-out {
-  animation: bmiFadeOut 1s forwards;
+  animation: bmiFadeOut 0.5s forwards;
 }
 @keyframes bmiFadeOut {
   from {
@@ -100,26 +100,25 @@
 }
 @keyframes arrowmove {
   to {
-    transform: rotate(calc((var(--score) - 10) * 5.14deg));
+    transform: rotate(calc((var(--bmi) - 10) * 5.14deg));
   }
 }
-
 @keyframes arrowidle {
   0% {
-    transform: rotate(calc((var(--score) - 10) * 5.14deg));
+    transform: rotate(calc((var(--bmi) - 10) * 5.14deg));
   }
   25% {
-    transform: rotate(calc((var(--score) - 9.8) * 5.14deg));
+    transform: rotate(calc((var(--bmi) - 9.8) * 5.14deg));
   }
   75% {
-    transform: rotate(calc((var(--score) - 10.2) * 5.14deg));
+    transform: rotate(calc((var(--bmi) - 10.2) * 5.14deg));
   }
   100% {
-    transform: rotate(calc((var(--score) - 10) * 5.14deg));
+    transform: rotate(calc((var(--bmi) - 10) * 5.14deg));
   }
 }
 .reset-arrow {
-  animation: arrowreset 0.5s forwards;
+  animation: arrowreset 1s forwards;
 }
 @keyframes arrowreset {
   to {

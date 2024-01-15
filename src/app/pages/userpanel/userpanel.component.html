@@ -39,7 +39,7 @@
         </div>
         <div
           class="bmi-arrow"
-          [ngStyle]="{ '--score': keyframesBmi(bmiAmount) }"
+          [ngStyle]="{ '--bmi': maxKeyframesBmi(bmiAmount) }"
           [ngClass]="{ 'reset-arrow': resetArrow }"
         ></div>
         <div class="score-container">
@@ -57,7 +57,7 @@
       <button
         mat-raised-button
         color="accent"
-        (click)="bmiFunction()"
+        (click)="createBmiMeter()"
         [disabled]="isDisabled()"
       >
         Calculate BMI
