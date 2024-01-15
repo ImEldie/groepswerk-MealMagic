@@ -63,10 +63,6 @@
       #7b0d11 0 180deg,
       #ffffff00 0
     );
-  /* box-shadow:
-    0 0 0 6px rgba(255, 255, 255, 0.09),
-    0 0 35px 5px rgba(255, 255, 255, 0.29),  0 0 0 -6px rgba(255, 255, 255, 0),
-    0 0 -35px -5px rgba(255, 255, 255, 0);; */
 }
 .bmi-arrow {
   position: absolute;
@@ -81,10 +77,26 @@
   border-top-right-radius: 5px;
   box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.4);
   transform-origin: 100% 0px;
-  animation: arrowmove 4s forwards 2.5s;
+  animation:
+    arrowmove 4s forwards 2.5s,
+    arrowidle 2s linear 6s infinite;
 }
 @keyframes arrowmove {
   to {
+    transform: rotate(calc((var(--score) - 10) * 5.14deg));
+  }
+}
+@keyframes arrowidle {
+  0% {
+    transform: rotate(calc((var(--score) - 10) * 5.14deg));
+  }
+  25% {
+    transform: rotate(calc((var(--score) - 9.8) * 5.14deg));
+  }
+  75% {
+    transform: rotate(calc((var(--score) - 10.2) * 5.14deg));
+  }
+  100% {
     transform: rotate(calc((var(--score) - 10) * 5.14deg));
   }
 }
