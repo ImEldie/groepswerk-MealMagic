@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AuthService } from '../../services/auth.service';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon'
+import { AuthService } from '../../services/auth.service';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-main-layout',
@@ -22,5 +22,11 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './main-layout.component.css',
 })
 export class MainLayoutComponent {
-  constructor(public router: Router, public authService: AuthService) {}
+  constructor(
+    public router: Router, public authService: AuthService
+    ){};
+
+  navigateToHomepage(){
+    this.router.navigate(['']);
+  }
 }
