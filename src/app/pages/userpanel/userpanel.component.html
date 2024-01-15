@@ -5,6 +5,24 @@
     <mat-card-subtitle>Your info:</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+    <div class="bmi-container" [ngClass]="{ animate: bmiFadeIn }">
+      <div class="bmi-meter">
+        <div class="bmi-numbers-container">
+          <span class="bmi-number" style="--position: 23.84deg">16</span>
+          <span class="bmi-number" style="--position: 31.98deg">17</span>
+          <span class="bmi-number" style="--position: 42.69deg">18.5</span>
+          <span class="bmi-number" style="--position: 77.1deg">25</span>
+          <span class="bmi-number" style="--position: 102.8deg">30</span>
+          <span class="bmi-number" style="--position: 130.5deg">35</span>
+          <span class="bmi-number" style="--position: 157.2deg">40</span>
+        </div>
+        <div class="bmi-arrow" [ngStyle]="{ '--score': bmiAmount }"></div>
+        <div class="score-container">
+          <span class="bmi-result">{{ bmiResult }}</span>
+          <span class="bmi-amount">{{ bmiAmount | number: "1.0-0" }}</span>
+        </div>
+      </div>
+    </div>
     <p>
       <mat-icon>monitor_weight</mat-icon>
       Weight: {{ userDetails?.bodyweight }} kg.
@@ -22,6 +40,16 @@
       </p>
     </section>
   </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="accent"
+      matTooltip="Please give your weight and height first"
+      (click)="bmiFunction()"
+    >
+      Calculate BMI
+    </button>
+  </mat-card-actions>
   <mat-card-footer>
     @if (loading) {
       <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
