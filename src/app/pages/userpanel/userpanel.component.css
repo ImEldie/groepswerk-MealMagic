@@ -20,6 +20,7 @@
 }
 .item-allergy {
   width: 20%;
+  min-width: 8rem;
 }
 .submit-allergies {
   align-self: flex-end;
