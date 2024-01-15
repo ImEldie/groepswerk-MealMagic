@@ -1,0 +1,21 @@
+<div>{{ingredientValue()}}</div>
+
+    @if (ingredient !== null && 
+    this.loadedIngredient.includes(ingredient)) {
+      @if (this.count > 0 ) {
+  <span>{{ingredient}}
+  <span>
+      <button (click)="minOne()" mat-mini-fab color="warn">
+      <mat-icon>remove</mat-icon>
+      </button>
+  <span> {{count}} </span>
+  <button (click)="plusOne()" mat-mini-fab color="accent">
+  <mat-icon>add</mat-icon>
+  </button>
+  </span>
+</span>
+
+}
+}
+
+  

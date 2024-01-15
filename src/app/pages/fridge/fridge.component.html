@@ -1,0 +1,37 @@
+<mat-card>
+    <mat-card-content>
+<h1>Ingredients:</h1>
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Add ingredients</mat-label>
+      <input class="input"
+      type="string"
+             placeholder="Pick one"
+             aria-label="Ingredients"
+             matInput
+             [formControl]="ingredientInput"
+             [matAutocomplete]="auto"
+             (click)="clearInput()"
+            >
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (option of filteredOptions | async; track option)  {
+          <mat-option [value]="option">{{option}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <mat-list role="list">
+  
+    <mat-list-item role="listitem">
+
+<app-fridge-ingredients></app-fridge-ingredients>
+
+     </mat-list-item>
+    
+  </mat-list>
+ 
+    </mat-card-content>
+  </mat-card>
+  <div>{{ingredientValue()}}</div>
+
+  
