@@ -58,14 +58,7 @@ export class UserpanelService {
           Authorization: 'Bearer ' + this.auth.getBearerToken(),
         }),
       })
-      .pipe(
-        map((data) =>
-          data.data.map((data) => ({
-            id: data.id,
-            name: data.name,
-          })),
-        ),
-      );
+      .pipe(map((result) => result.data));
   }
   putUserWeightLength(
     bodyweightInput: number,
