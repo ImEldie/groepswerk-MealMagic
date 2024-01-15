@@ -81,14 +81,9 @@ export class UserpanelComponent implements OnInit {
     this.loadUserDetails().subscribe();
   }
   private loadListAllergies() {
-    this.userpanelService.getListAllergies().subscribe({
-      next: (response) => {
-        this.listAllergies = response;
-        this.addCheckboxes();
-      },
-      error: (error) => {
-        console.error('Error', error);
-      },
+    this.userpanelService.getListAllergies().subscribe((response) => {
+      this.listAllergies = response;
+      this.addCheckboxes();
     });
   }
   get allergyFormArray() {
