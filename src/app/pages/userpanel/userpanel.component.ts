@@ -95,55 +95,50 @@ export class UserpanelComponent implements OnInit {
     );
   }
   private putUserAllergies(selectedAllergyIds: Array<number>) {
-    this.route.params.subscribe((params) => {
-      const id = params['id'];
-      this.userpanelService
-        .putUserAllergies(selectedAllergyIds, id)
-        .subscribe(() => {
-          this.loading = true;
-          this.loadUserDetails().subscribe({
-            next: () => (this.loading = false),
-          });
+    const id = this.route.snapshot.paramMap.get('id') || '';
+    this.userpanelService
+      .putUserAllergies(selectedAllergyIds, Number(id))
+      .subscribe(() => {
+        this.loading = true;
+        this.loadUserDetails().subscribe({
+          next: () => (this.loading = false),
         });
-    });
+      });
   }
   loadUserDetails(): Observable<UserDetailsResponse> {
-    return this.route.params.pipe(
-      switchMap((params) => {
-        const id = params['id'];
-        return this.userpanelService.getUserDetails(id).pipe(
-          map((response) => {
-            this.userDetails = response.userDetails;
-            this.userAllergies = response.userAllergies;
-            return response;
-          }),
-        );
+    const id = this.route.snapshot.paramMap.get('id') || '';
+    return this.userpanelService.getUserDetails(Number(id)).pipe(
+      map((response) => {
+        this.userDetails = response.userDetails;
+        this.userAllergies = response.userAllergies;
+        return response;
       }),
     );
   }
   submitWeightHeight() {
-    this.route.params.subscribe((params) => {
-      const id = params['id'];
-      const bodyweight = this.formWeightHeight.get('bodyweightInput')?.value;
-      const height = this.formWeightHeight.get('heightInput')?.value;
-      const selectedAllergyIds = this.userAllergies.map(
-        (allergy) => allergy.id,
-      );
-      this.userpanelService
-        .putUserWeightLength(bodyweight * 1000, height, selectedAllergyIds, id)
-        .subscribe(() => {
-          this.loading = true;
-          this.loadUserDetails().subscribe({
-            next: () => {
-              this.loading = false;
-            },
-            error: (error) => {
-              console.error('Error', error);
-              this.loading = false;
-            },
-          });
+    const id = this.route.snapshot.paramMap.get('id') || '';
+    const bodyweight = this.formWeightHeight.get('bodyweightInput')?.value;
+    const height = this.formWeightHeight.get('heightInput')?.value;
+    const selectedAllergyIds = this.userAllergies.map((allergy) => allergy.id);
+    this.userpanelService
+      .putUserWeightLength(
+        bodyweight * 1000,
+        height,
+        selectedAllergyIds,
+        Number(id),
+      )
+      .subscribe(() => {
+        this.loading = true;
+        this.loadUserDetails().subscribe({
+          next: () => {
+            this.loading = false;
+          },
+          error: (error) => {
+            console.error('Error', error);
+            this.loading = false;
+          },
         });
-    });
+      });
   }
   submitAllergyIds() {
     const selectedAllergyIds = this.formAllergy.value.allergyIds
