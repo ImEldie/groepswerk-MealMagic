@@ -73,7 +73,7 @@ mat-chip {
     margin-bottom: 0.5rem;
 }
 .duration-detail, .people-detail, .season-detail {
-    /* Collection of one image and one text */
+    /* Collection of one mat-icon and one text */
     display: flex;
     align-items: center;
     gap: 0.1rem;
@@ -104,6 +104,6 @@ mat-chip {
     opacity: 1;
     transition: opacity 1.5s ease;
 }
-.dish-card:hover .gradient-effect{ /* When hovering over the card, fade out gradient effect */
+.dish-card:hover .gradient-effect {
     opacity: 0;
 }

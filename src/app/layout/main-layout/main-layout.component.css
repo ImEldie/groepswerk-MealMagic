@@ -40,7 +40,7 @@
         background-position: 0% 0;
     }
 }
-.magic-border { /* creates a rainbow effect around the meal-magic button */
+.magic-border {
     padding: 0px;
     margin: 2px;
     width: fit-content;

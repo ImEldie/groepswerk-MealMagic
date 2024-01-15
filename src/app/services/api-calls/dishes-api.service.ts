@@ -28,7 +28,7 @@ export class DishesApiService {
         }),
       })
       .pipe(map((data: DishApiResponse) => data.data))
-      .subscribe((dishes: Dish[]) => {
+      .subscribe((dishes: Array<Dish>) => {
         this.dishes = dishes;
       });
   }

@@ -36,7 +36,7 @@ export class IngredientsApiService {
         }),
       })
       .pipe(map((data: IngredientApiResponse) => data.data))
-      .subscribe((data: Ingredient[]) => {
+      .subscribe((data: Array<Ingredient>) => {
         this.ingredients = data;
       });
   }

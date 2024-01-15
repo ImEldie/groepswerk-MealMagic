@@ -1,7 +1,4 @@
 <div class="content">
-    <!--  Top content goes here  -->
-
-    <!--  SearchBar  -->
     <mat-toolbar class="list-toolbar">
         <mat-form-field class="search-bar">
             <input [(ngModel)]="searchInput" placeholder="Search..." type="string" matInput>
@@ -9,7 +6,6 @@
         </mat-form-field>
     </mat-toolbar>
 
-    <!--  Recipe List  -->
     @for (dish of getDishes(); track $index) {
         <app-dish-card [dish]="dish"></app-dish-card>
     } @empty {

@@ -10,11 +10,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class AllergyIconComponent {
   @Input({required: true}) iconType!: string;
-  @Input() iconSize!: string;
+  @Input() iconSize: string = '2.2rem';
   @Input() withText: boolean = false;
   @Input() hideTooltip: boolean = false;
 
-  getImagePath(): string{
+  getImagePath(): string {
     if (this.withText) {
       return this.getImagePathWithText();
     } else {
@@ -28,16 +28,6 @@ export class AllergyIconComponent {
   private getImagePathWithoutText(): string {
     const pathWithoutText: string = '/assets/images/allergies/' + this.iconType.toUpperCase() + '.png';
     return pathWithoutText;
-  }
-
-  getSize(): string {
-    const defaultSize: string = '2.2rem'
-
-    if (this.iconSize) {
-      return this.iconSize;
-    } else {
-      return defaultSize;
-    }
   }
 
   getTooltip(): string {

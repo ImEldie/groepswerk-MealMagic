@@ -7,26 +7,30 @@ When hovered over the image a tooltip appears saying "Contains traces of x".
 ### HOW TO USE ###
 
 1) Import 'AllergyIconComponent' [ Typescript ]
+    ```js
     import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
     
     ...
+
     @component{
         ...
         imports: [AllergyIconComponent, ...],
-    }
+    }```
 
 
 2) Add component call in HTML-file [ HTML ]
-    <app-allergy-icon></app-allergy-icon>
+    ```html
+    <app-allergy-icon></app-allergy-icon>```
     
 3) Add icon properties iconType / iconSize / withText
     Example:
-        <app-allergy-icon [iconType]="'egg'" [iconSize]="'120px'" [withText]="true" [hideTooltip]="true"></app-allergy-icon>
+    ```html
+    <app-allergy-icon [iconType]="'egg'" [iconSize]="'120px'" [withText]="true" [hideTooltip]="true"></app-allergy-icon>```
         
-        This example will give you an icon showing the Egg-symbol (with text), with a size of 120px * 120px.
-        When hovering over the image, it will NOT show a tooltip.
+    This example will give you an icon showing theEgg-symbol (with text), with a size of 120px * 120px.
+    When hovering over the image, it will NOT show atooltip.
 
-    ### Properties overview ###
+### Properties overview ###
     [iconType] : Set which image the symbol should have, accepts one of the 14 allergies.
         - celery
         - crustaceans

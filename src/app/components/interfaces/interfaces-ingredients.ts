@@ -1,5 +1,5 @@
 export interface IngredientApiResponse{
-  data: Ingredient[];
+  data: Array<Ingredient>;
 }
 export interface Ingredient {
   id: number;
