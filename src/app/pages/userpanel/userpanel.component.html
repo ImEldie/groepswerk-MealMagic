@@ -23,7 +23,10 @@
         </p>
       </section>
     </div>
-    <div class="bmi-container" [ngClass]="{ animate: bmiFadeIn }">
+    <div
+      class="bmi-container"
+      [ngClass]="{ 'bmi-fade-in': bmiFadeIn, 'bmi-fade-out': bmiFadeOut }"
+    >
       <div class="bmi-meter">
         <div class="bmi-numbers-container">
           <span class="bmi-number" style="--position: 23.84deg">16</span>
@@ -37,6 +40,7 @@
         <div
           class="bmi-arrow"
           [ngStyle]="{ '--score': keyframesBmi(bmiAmount) }"
+          [ngClass]="{ 'reset-arrow': resetArrow }"
         ></div>
         <div class="score-container">
           <span class="bmi-result">{{ bmiResult }}</span>
@@ -46,14 +50,19 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button
-      mat-raised-button
-      color="accent"
+    <div
       matTooltip="Please give your weight and height first"
-      (click)="bmiFunction()"
+      [matTooltipDisabled]="!isDisabled()"
     >
-      Calculate BMI
-    </button>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="bmiFunction()"
+        [disabled]="isDisabled()"
+      >
+        Calculate BMI
+      </button>
+    </div>
   </mat-card-actions>
   <mat-card-footer>
     @if (loading) {

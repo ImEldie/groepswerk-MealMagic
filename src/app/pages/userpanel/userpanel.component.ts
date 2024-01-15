@@ -69,7 +69,8 @@ export class UserpanelComponent implements OnInit {
   bmiAmount: number = NaN;
   bmiResult: string = '';
   bmiFadeIn: boolean = false;
-  // bmiTooltipDisabled: boolean = false;
+  bmiFadeOut: boolean = false;
+  resetArrow: boolean = false;
   constructor(
     private userpanelService: UserpanelService,
     private route: ActivatedRoute,
@@ -135,6 +136,9 @@ export class UserpanelComponent implements OnInit {
       )
       .subscribe(() => {
         this.loading = true;
+        this.bmiFadeOutAnimate();
+        this.resetArrow = true;
+        this.bmiAmount = NaN;
         this.loadUserDetails().subscribe({
           next: () => {
             this.loading = false;
@@ -154,16 +158,8 @@ export class UserpanelComponent implements OnInit {
       .filter((v: boolean) => v != null);
     this.putUserAllergies(selectedAllergyIds);
   }
-  // bmiTooltipDisabler(): boolean {
-  //   if (
-  //     this.userDetails?.bodyweight !== undefined &&
-  //     this.userDetails?.height !== undefined
-  //   ) {
-  //     this.bmiTooltipDisabled = true;
-  //   }
-  //   return this.bmiTooltipDisabled;
-  // }
   bmiFunction() {
+    this.resetArrow = false;
     this.bmiFadeInAnimate();
     this.calculateBmi();
     this.resultBmi();
@@ -195,11 +191,22 @@ export class UserpanelComponent implements OnInit {
     return this.bmiResult;
   }
   bmiFadeInAnimate() {
+    this.bmiFadeOut = false;
     this.bmiFadeIn = true;
+  }
+  bmiFadeOutAnimate() {
+    this.bmiFadeIn = false;
+    this.bmiFadeOut = true;
   }
   keyframesBmi(bmiAmount: number) {
     const maxbmiaccount = 45;
     const limitedBmiAmount = Math.min(bmiAmount, maxbmiaccount);
     return limitedBmiAmount;
+  }
+  isDisabled(): boolean {
+    return !(this.userDetails?.bodyweight && this.userDetails?.height);
+  }
+  shouldDisableTooltip(): boolean {
+    return this.isDisabled();
   }
 }
