@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, booleanAttribute } from '@angular/core';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInput, MatInputModule } from '@angular/material/input';
@@ -9,7 +9,7 @@ import { FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angul
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { DishPost, IngredientPostData } from '../../interfaces/interfaces-dishes';
+import { AddDishFormData, DishPostData, IngredientPostData } from '../../interfaces/interfaces-dishes';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -18,6 +18,7 @@ import { TypesApiService } from '../../services/api-calls/types-api.service';
 import { SeasonsApiService } from '../../services/api-calls/seasons-api.service';
 import { DishStep } from '../../interfaces/interfaces-steps';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
+import { DishType } from '../../interfaces/interfaces-types';
 
 @Component({
   selector: 'app-add-dish',
@@ -53,22 +54,44 @@ export class AddDishComponent {
 
     // Set data
     setTimeout(() => {
-      this.types = this.typesApi.getTypesList().map(type => type.name);
+      this.types = this.typesApi.getTypesList();
       this.seasons = this.seasonsApi.getseasonsList().map(season => season.name);
       this.ingredients = this.ingredientsApi.getIngredientList();
     }, 1000);
   }
 
   allUserInputsValid(): boolean { // WIP
-    const inputsAreValid: boolean = true;
-    return inputsAreValid;
+    const ingredientsSelected: boolean = (this.selectedIngredients.length > 0);
+    const typesSelected: boolean = (this.selectedTypes.length > 0);
+    const stepsCreated: boolean = (this.createdSteps.length > 0);
+
+    console.log(ingredientsSelected, typesSelected, stepsCreated, this.textInputsIsValid(), this.dishDetailsAreValid())
+    return ingredientsSelected && typesSelected && stepsCreated && this.textInputsIsValid() && this.dishDetailsAreValid();
   }
 
   postDish(){
     if (this.allUserInputsValid()) {
-      this.dishApi.postNewDish('', this.createdSteps);
+
+      const ingredientIds: Array<number> = this.selectedIngredients.map((ingredient) => ingredient.id);
+      const seasonId: number = this.seasonsApi.getSeasonIdFromName(this.seasonFormControl.value);
+      const typesIds: Array<number> = this.selectedTypes.map((type) => type.id);
+
+      const postData: DishPostData = {
+        name: this.dishNameInput,
+        description: this.descriptionInput,
+        image_url: this.imageInput,
+        duration: this.preparationTimeInput,
+        amount_of_people: this.portionSizeInput,
+        season_id: seasonId,
+        ingredients: ingredientIds,
+        dish_types: typesIds,
+        dish_steps: [],
+      }     
+
+      this.dishApi.postNewDish(postData, this.createdSteps);
     }
   }
+  
   clearUserInputs(){
     sessionStorage.removeItem(this.sessionStorageToken);
 
@@ -82,7 +105,7 @@ export class AddDishComponent {
     this.createdSteps = [];
   }
   private saveUserInputs(){
-    const userInputs: DishPost = {
+    const userInputs: AddDishFormData = {
       name: this.dishNameInput, 
       description: this.descriptionInput, 
       image: this.imageInput,
@@ -98,7 +121,7 @@ export class AddDishComponent {
   private loadUserInputs(){
     const sessionStorageData = sessionStorage.getItem(this.sessionStorageToken);
     if (sessionStorageData) {
-      const userInputs: DishPost = sessionStorageData ? JSON.parse(sessionStorageData) : null;
+      const userInputs: AddDishFormData = sessionStorageData ? JSON.parse(sessionStorageData) : null;
 
       this.dishNameInput = userInputs.name;
       this.descriptionInput = userInputs.description;
@@ -122,23 +145,32 @@ export class AddDishComponent {
     this.descriptionInput = '';
     this.imageInput = '';
   }
+  textInputsIsValid(): boolean {
+    const nameValid = (this.dishNameInput !== '');
+    const descriptionValid = (this.descriptionInput.length < 255);
+    const imageValid = (this.dishNameInput !== '');
+
+    return (nameValid && descriptionValid && imageValid);
+  }
 
   /* ### TYPES ### */
     /* TODO GET TYPES FROM API */
-  types: Array<string> = [];
-  suggestedTypes: Array<string> = this.types;
-  selectedTypes: Array<string> = [];
+  types: Array<DishType> = [];
+  suggestedTypes: Array<string> = this.convertDishTypesToStrings(this.types);
+  selectedTypes: Array<DishType> = [];
   typeInput: string = '';
 
-  addType(type: string){
-    if (!this.selectedTypes.includes(type)){ // Prevent double values. Check if value is not already selected
-      this.selectedTypes.push(type);
+  addType(typeName: string){
+    if (!this.convertDishTypesToStrings(this.selectedTypes).includes(typeName)) {
+      const newType: DishType = { name: typeName, id: 1}
+      
+      this.selectedTypes.push(newType);
 
       this.initialiseUserTypesInput()
       this.saveUserInputs();
     }
   }
-  removeType(type: string){
+  removeType(type: DishType){
     const removalIndex: number = this.selectedTypes.indexOf(type);
     this.selectedTypes.splice(removalIndex, 1);
 
@@ -148,14 +180,18 @@ export class AddDishComponent {
     const typeFilterInput = this.typeInput.toLowerCase();
 
     // Show only results matching the typed input
-    const typesFilteredByInput = this.types.filter(type => type.toLowerCase().includes(typeFilterInput));
+    const typesFilteredByInput = this.convertDishTypesToStrings(this.types).filter(type => type.toLowerCase().includes(typeFilterInput));
 
     // Show only results that haven't been selected yet
-    this.suggestedTypes = typesFilteredByInput.filter(type => !this.selectedTypes.includes(type));
+    this.suggestedTypes = typesFilteredByInput.filter(type => !this.convertDishTypesToStrings(this.selectedTypes).includes(type));
   }
   private initialiseUserTypesInput(){
     this.typeInput = '';
     this.filterTypes();
+  }
+
+  private convertDishTypesToStrings(arrayToConvert: Array<DishType>): Array<string>{
+    return arrayToConvert.map((type) => type.name);
   }
 
   /* ### INGREDIENTS ### */
@@ -199,7 +235,7 @@ export class AddDishComponent {
 
     // Check if ID is correct
     let idIsValid: boolean = false;
-    if (nameIsValid && (this.ingredientToAdd.id !== undefined)) {
+    if (nameIsValid && (this.ingredientToAdd.id !== 0)) {
       const index: number = this.ingredients.findIndex((ingredient)=> ingredient.name === this.ingredientToAdd.name);
       idIsValid = (this.ingredients[index].id === this.ingredientToAdd.id);
     }
@@ -228,7 +264,7 @@ export class AddDishComponent {
     this.ingredientNameInput = '';
     this.ingredientAmountInput = 0;
     this.ingredientToAdd = {
-      id: undefined,
+      id: 0,
       name: this.ingredientNameInput,
       amount: {value: this.ingredientAmountInput, unit: 'gr'}
     };
@@ -251,6 +287,14 @@ export class AddDishComponent {
     this.portionSizeInput = 0;
     this.preparationTimeInput = 0;
     this.seasonFormControl.reset();
+  }
+
+  dishDetailsAreValid(): boolean {
+    const portionValid: boolean = (this.portionSizeInput !== 0);
+    const timeValid: boolean = (this.preparationTimeInput !== 0);
+    const seasonValid: boolean = (this.seasonFormControl.value !== '');
+  
+    return portionValid && timeValid && seasonValid;
   }
 
   /* ### DISH STEPS ### */

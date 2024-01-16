@@ -44,7 +44,7 @@
               <mat-chip-grid #chipGrid>
                 @for (type of selectedTypes; track $index) {
                     <mat-chip-row color="accent">
-                        {{type}}
+                        {{type.name}}
                         <button matChipRemove (click)="removeType(type)">
                             <mat-icon>cancel</mat-icon>
                         </button>

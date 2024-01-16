@@ -9,9 +9,10 @@
       </div>
     </button>
   </div>
-  <!--  LOGIN   -->
+  <!--  BUTTONS   -->
   @if (authService.isAuthenticated) {
-    <button (click)="authService.logout()" mat-button>Logout</button>
+    <button (click)="router.navigate(['add-dish'])" mat-raised-button color="accent">Add Dish</button>
+    <button (click)="authService.logout()" mat-raised-button color="warn">Logout</button>
   } @else {
     <button class="login-button" (click)="router.navigate(['login'])" mat-button>
       Login

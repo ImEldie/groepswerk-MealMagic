@@ -37,4 +37,9 @@ export class SeasonsApiService {
   getseasonsList(): Array<DishSeason>{
     return this.seasons;
   }
+
+  getSeasonIdFromName(seasonName: string | null): number {
+    const seasonId: number | undefined = this.seasons.find((season) => season.name === seasonName)?.id;
+    return (seasonId !== undefined) ? seasonId : 0;
+  }
 }
