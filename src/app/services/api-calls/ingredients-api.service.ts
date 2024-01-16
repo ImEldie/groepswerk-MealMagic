@@ -3,7 +3,6 @@ import { Ingredient, IngredientApiResponse } from '../../interfaces/interfaces-i
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { StepsApiService } from './steps-api.service';
 
 @Injectable({
   providedIn: 'root'

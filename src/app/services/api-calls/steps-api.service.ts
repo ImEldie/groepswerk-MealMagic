@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DishStep, Step } from '../../interfaces/interfaces-steps';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth.service';
-import { Observable, forkJoin, map, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

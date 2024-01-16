@@ -1,13 +1,11 @@
-import { Component, OnInit, booleanAttribute } from '@angular/core';
-import { MatCard, MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInput, MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { AddDishFormData, DishPostData, IngredientPostData } from '../../interfaces/interfaces-dishes';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
