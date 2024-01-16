@@ -165,10 +165,7 @@ export class UserpanelComponent implements OnInit {
     this.resultBmi();
   }
   private calculateBmi(): number {
-    if (
-      this.userDetails?.bodyweight !== undefined &&
-      this.userDetails?.height !== undefined
-    ) {
+    if (this.userDetails?.bodyweight && this.userDetails?.height) {
       this.bmiAmount =
         this.userDetails.bodyweight /
         ((this.userDetails.height / 100) * (this.userDetails.height / 100));
