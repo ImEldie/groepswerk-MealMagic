@@ -26,7 +26,7 @@ export class AuthService {
   }
   get(user_id: number) {
     return this.http
-      .get<{ id: number }>(`${this.url}${user_id}`, {
+      .get<{ id: string }>(`${this.url}${user_id}`, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.getBearerToken(),
         }),
@@ -40,8 +40,8 @@ export class AuthService {
     const bearerToken: string | null = localStorage.getItem('token');
     return bearerToken;
   }
-  getUserId(): string | null {
-    const idToken: string | null = localStorage.getItem('id');
+  getUserId(): number | null {
+    const idToken: number | null = Number(localStorage.getItem('id'));
     return idToken;
   }
   get isAuthenticated() {
