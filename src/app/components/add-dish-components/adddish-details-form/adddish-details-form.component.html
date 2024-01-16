@@ -1,73 +1,74 @@
 <app-adddish-card>
-    <mat-form-field class="portion-input-field"
-        color="accent"
-        name="contentrow">
-            <mat-label>Portion size</mat-label>
-            <input matInput
-              type="number"
-              placeholder="Number"
-              aria-label="Amount"
-              matInput
-              [(ngModel)]="portionSizeInput"
-              [ngModelOptions]="{standalone: true}"
-              min="1"
-              max="12"
-              required="true">
-    </mat-form-field>
+  <div name="header">
+      Details
+      <mat-icon color="accent">check</mat-icon>
+  </div>
 
-    <mat-form-field class="time-input-field"
-        color="accent"
-        name="contentrow">
-            <mat-label>Preptime [min.]</mat-label>
-            <input matInput
-              type="number"
-              placeholder="Number"
-              aria-label="Amount"
-              [(ngModel)]="preparationTimeInput"
-              [ngModelOptions]="{standalone: true}"
-              min="1"
-              required="true">
-    </mat-form-field>
-
-    
-    <div class="season-toggle-button-container"
-        name="contentrow">
-        <mat-label>Seasons</mat-label>
-        <mat-button-toggle-group aria-label="Season">
-          @for (season of getApiSeasons(); track $index) {
-            <mat-button-toggle [value]="season">{{season.name}}</mat-button-toggle>
-          }
-        </mat-button-toggle-group>
-    </div>
-
-    <form class="types-form">
-        <mat-form-field color="accent" class="types-form-field">
-          <mat-label>Type(s)</mat-label>
-          <mat-chip-grid #chipGrid>
-            @for (type of selectedTypes; track type.id) {
-                <mat-chip-row color="accent">
-                    {{type.name}}
-                    <button matChipRemove (click)="removeType(type)">
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-chip-row>
-            }
-          </mat-chip-grid>
+  <mat-form-field class="portion-input-field"
+      color="accent"
+      name="contentrow">
+          <mat-label>Portion size</mat-label>
           <input matInput
-            type="text"
-            placeholder="Search for type(s)..."
-            aria-label="Type"
-            [matAutocomplete]="autoType"
-            [matChipInputFor]="chipGrid"
-            [(ngModel)]="typeInput"
+            type="number"
+            matInput
+            [(ngModel)]="portionSizeInput"
             [ngModelOptions]="{standalone: true}"
-            (input)="filterTypes()"
-            (focus)="filterTypes()">
-          <mat-autocomplete #autoType="matAutocomplete">
-            @for (type of suggestedTypes; track type) {
-              <mat-option [value]="type" (click)="addType(type)">{{type}}</mat-option>
-            }
-          </mat-autocomplete>
-        </mat-form-field>
-    </form>
+            min="1"
+            max="24"
+            required="true">
+  </mat-form-field>
+
+  <mat-form-field class="time-input-field"
+      color="accent"
+      name="contentrow">
+          <mat-label>Preptime [min.]</mat-label>
+          <input matInput
+            type="number"
+            [(ngModel)]="preparationTimeInput"
+            [ngModelOptions]="{standalone: true}"
+            min="1"
+            required="true">
+  </mat-form-field>
+
+  
+  <div class="seasons-container"
+      name="contentrow">
+      <mat-label>Seasons</mat-label>
+      <mat-button-toggle-group aria-label="Season">
+        @for (season of getApiSeasons(); track $index) {
+          <mat-button-toggle [value]="season">{{season.name}}</mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+  </div>
+
+  <form class="types-form">
+      <mat-form-field color="accent" class="types-form-field">
+        <mat-label>Type(s)</mat-label>
+        <mat-chip-grid #chipGrid>
+          @for (type of selectedTypes; track type.id) {
+              <mat-chip-row color="accent">
+                  {{type.name}}
+                  <button matChipRemove (click)="removeType(type)">
+                      <mat-icon>cancel</mat-icon>
+                  </button>
+              </mat-chip-row>
+          }
+        </mat-chip-grid>
+        <input matInput
+          type="text"
+          placeholder="Search for type(s)..."
+          aria-label="Type"
+          [matAutocomplete]="autoType"
+          [matChipInputFor]="chipGrid"
+          [(ngModel)]="typeInput"
+          [ngModelOptions]="{standalone: true}"
+          (input)="filterTypes()"
+          (focus)="filterTypes()">
+        <mat-autocomplete #autoType="matAutocomplete">
+          @for (type of suggestedTypes; track type) {
+            <mat-option [value]="type" (click)="addType(type)">{{type}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+  </form>
 </app-adddish-card>
