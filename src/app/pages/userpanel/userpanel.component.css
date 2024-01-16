@@ -29,6 +29,11 @@
   display: flex;
   justify-content: space-between;
 }
+.info-allergies-chips {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 4px;
+}
 .bmi-container {
   position: relative;
   opacity: 0;

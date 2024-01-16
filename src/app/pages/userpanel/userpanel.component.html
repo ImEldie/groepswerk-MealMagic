@@ -12,15 +12,15 @@
       </p>
       <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
       <section>
-        <p>
-          Your selected allergies are:
+        <p>Your selected allergies are:</p>
+        <div class="info-allergies-chips">
           @for (allergy of userAllergies; track allergy.name) {
             <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
           }
-          @if (userAllergies.length === 0) {
-            No allergies selected
-          }
-        </p>
+        </div>
+        @if (userAllergies.length === 0) {
+          No allergies selected
+        }
       </section>
     </div>
     <div
