@@ -198,8 +198,8 @@ export class UserpanelComponent implements OnInit {
     this.bmiFadeIn = false;
   }
   maxKeyframesBmi(bmiAmount: number) {
-    const maxbmiaccount = 45;
-    const limitedBmiAmount = Math.min(bmiAmount, maxbmiaccount);
+    const maxBmiAmount = 45;
+    const limitedBmiAmount = Math.min(bmiAmount, maxBmiAmount);
     return limitedBmiAmount;
   }
   isDisabled(): boolean {
