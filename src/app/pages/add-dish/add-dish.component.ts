@@ -9,14 +9,14 @@ import { FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angul
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { DishPost, IngredientPostData } from '../../components/interfaces/interfaces-dishes';
+import { DishPost, IngredientPostData } from '../../interfaces/interfaces-dishes';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
-import { Ingredient } from '../../components/interfaces/interfaces-ingredients';
+import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { TypesApiService } from '../../services/api-calls/types-api.service';
 import { SeasonsApiService } from '../../services/api-calls/seasons-api.service';
-import { DishStep } from '../../components/interfaces/interfaces-steps';
+import { DishStep } from '../../interfaces/interfaces-steps';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 
 @Component({

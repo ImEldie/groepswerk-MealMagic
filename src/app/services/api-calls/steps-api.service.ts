@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DishStep } from '../../components/interfaces/interfaces-steps';
+import { DishStep } from '../../interfaces/interfaces-steps';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { tap } from 'rxjs';

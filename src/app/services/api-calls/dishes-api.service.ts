@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Dish, DishApiResponse } from '../../components/interfaces/interfaces-dishes';
+import { Dish, DishApiResponse } from '../../interfaces/interfaces-dishes';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { StepsApiService } from './steps-api.service';
-import { DishStep } from '../../components/interfaces/interfaces-steps';
+import { DishStep } from '../../interfaces/interfaces-steps';
 
 @Injectable({
   providedIn: 'root'

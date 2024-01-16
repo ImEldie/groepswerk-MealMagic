@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DishType, TypesApiResponse } from '../../components/interfaces/interfaces-types';
+import { DishType, TypesApiResponse } from '../../interfaces/interfaces-types';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';

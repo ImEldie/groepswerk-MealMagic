@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { DishSeason, SeasonsApiResponse } from '../../components/interfaces/interfaces-seasons';
+import { DishSeason, SeasonsApiResponse } from '../../interfaces/interfaces-seasons';
 
 @Injectable({
   providedIn: 'root'
