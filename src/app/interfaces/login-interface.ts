@@ -1,8 +1,11 @@
 export interface LoginDetails {
-  user: Array<UserInfo>;
+  user: UserInfo;
   token: string;
 }
-
 export interface UserInfo {
   id: number;
+}
+export interface loginResponse {
+  id: number;
+  token: string;
 }

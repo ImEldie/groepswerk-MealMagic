@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { LoginDetails, loginResponse } from '../interfaces/login-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
     'https://syntra2023.code-coaching.dev/api/group-2/user-details/user/';
   login(email: string, password: string) {
     return this.http
-      .post<{ token: string }>(
+      .post<loginResponse>(
         'https://syntra2023.code-coaching.dev/api/token/login',
         {
           email: email,
@@ -20,13 +21,18 @@ export class AuthService {
       )
       .pipe(
         tap((data) => {
+          localStorage.setItem('login_id', data.user.id);
           localStorage.setItem('token', data.token);
         }),
       );
   }
-  get(user_id: number) {
+  getLoginId(): number | null {
+    const loginId: number | null = Number(localStorage.getItem('login_id'));
+    return loginId;
+  }
+  getUserIdDatabase(login_id: number) {
     return this.http
-      .get<{ id: string }>(`${this.url}${user_id}`, {
+      .get<{ id: string }>(`${this.url}${login_id}`, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.getBearerToken(),
         }),
