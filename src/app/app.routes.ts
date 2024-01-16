@@ -18,6 +18,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/login/login.component').then((c) => c.LoginComponent),
       },
+      {
+        path: 'dish',
+        loadComponent: () =>
+          import('./pages/dish-view/dish-view.component').then((c) => c.DishViewComponent),
+      },
     ],
   },
 ];

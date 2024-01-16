@@ -1,0 +1,92 @@
+.dish-container {
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  display: flex;  
+}
+
+.dish-card {
+  width: 90%;
+}
+
+.header-container {
+  margin-left: 0.5rem;
+  max-width: 80%;
+}
+  
+.header-left {
+  font-size: small;
+  display: wrap;
+  white-space: 1rem;
+  justify-content: space-between;
+}  
+
+.clock {
+  margin-top: 2rem;
+  font-size: x-small;
+  margin-left: -0.2rem;
+  align-items: center;
+  height: 1rem;
+}
+
+.clock-icon {
+  margin-top: 0.2rem;
+  margin-right: 0.1rem;
+}
+
+.clock-text {
+  height: 1rem;
+  vertical-align: middle;
+  font-style: italic;
+  /* margin-bottom: 1rem; */
+}
+
+.recipe-text {
+  margin-top: 1rem;
+  margin-left: -1rem;
+  max-width: 75%;
+  font-size: 0.8rem;
+  /* font-style: italic; */
+}
+
+.allergens {
+  max-height: 1.5rem;
+  max-width: 1.5rem;
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+  z-index: 5;
+    
+}
+
+.header-right {
+  position: absolute;
+  right: 0.5rem;
+}
+
+.recipe-info {
+  display: flex;
+  max-width: 100%;
+  max-height: 80%;
+}
+
+.dish-image {
+  display: flex;
+  min-width: 70%;
+  max-width: 70%;
+  margin-left: 0.5rem;
+}
+
+.recipe-ingredients {
+  margin-top: 1.5rem;
+  /* margin-left: 1rem; */
+  /* font-family: 'Roboto, sans-serif'; */
+  font-size: 1rem;
+}
+
+.recipe-directions {
+  margin-top: 1.5rem;
+  /* margin-left: 1rem; */
+  /* font-family: 'Roboto, sans-serif'; */
+  font-size: 1rem;
+  max-width: 50%;
+}
