@@ -1,0 +1,15 @@
+.new-dish-card {
+    margin: 2rem;
+    padding: 1rem;
+}
+.card-content {
+    padding-top: 1rem;
+}
+.card-actions {
+    display: flex;
+    justify-content: right;
+    gap: 0.5rem;
+}
+.post-button, .clear-input-button {
+    width: 10rem;
+}

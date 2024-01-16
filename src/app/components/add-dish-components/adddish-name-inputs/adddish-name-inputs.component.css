@@ -1,0 +1,39 @@
+.add-dish-input-card {
+    margin-bottom: 1rem;
+    z-index: 2;
+}
+.add-dish-input-card:hover {
+    animation: card-glow 1s ease forwards;
+    z-index: 3;
+    border-color: var(--color-accent);
+}
+@keyframes card-glow {
+    to{
+        border-width: 0.1rem;
+        margin: -0.1rem;
+        box-shadow: 0 0 2rem 0.1rem #000;
+    }
+}
+.card-content {
+    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+.content-row-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: -1.5rem;
+}
+
+.name-input-field {
+    width: 33%;
+    min-width: 9rem;
+}
+.description-input-field {
+    width: 100%;
+}
+.image-input-field {
+    width: 100%;
+}

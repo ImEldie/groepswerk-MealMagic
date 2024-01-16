@@ -28,8 +28,8 @@ export const routes: Routes = [
         {
           path: 'add-dish',
           loadComponent: () =>
-            import('./pages/add-dish/add-dish.component').then(
-              (c) => c.AddDishComponent
+            import('./pages/temp-add-dish/temp-add-dish.component').then(
+              (c) => c.TempAddDishComponent
             ),
         },
         ]
