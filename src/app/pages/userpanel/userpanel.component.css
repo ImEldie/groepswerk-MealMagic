@@ -40,6 +40,8 @@
   width: 240px;
   height: 115px;
   transform: translateY(10px);
+  margin-left: 15px;
+  margin-right: 15px;
 }
 .bmi-fade-in {
   animation: bmiFadeIn 1s forwards;
