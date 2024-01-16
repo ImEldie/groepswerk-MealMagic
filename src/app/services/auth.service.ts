@@ -15,12 +15,12 @@ export class AuthService {
         {
           email: email,
           password: password,
-        }
+        },
       )
       .pipe(
         tap((data) => {
           localStorage.setItem('token', data.token);
-        })
+        }),
       );
   }
 
@@ -32,7 +32,10 @@ export class AuthService {
     const bearerToken: string | null = localStorage.getItem('token');
     return bearerToken;
   }
-
+  getUserId(): string | null {
+    const idToken: string | null = localStorage.getItem('id');
+    return idToken;
+  }
   get isAuthenticated() {
     return !!localStorage.getItem('token');
   }
