@@ -1,6 +1,11 @@
+.center-content {
+    display: flex;
+    justify-content: center;
+}
 .new-dish-card {
-    margin: 2rem;
+    margin: 0rem 10rem;
     padding: 1rem;
+    width: fit-content;
 }
 .card-content {
     padding-top: 1rem;

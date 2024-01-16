@@ -1,22 +1,24 @@
-<mat-card class="new-dish-card">
-    <mat-card-header>
-        <mat-card-title>Share your dish!</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content class="card-content">
-        <app-adddish-name-inputs></app-adddish-name-inputs>
-        <app-adddish-details-form></app-adddish-details-form>
-        <app-adddish-ingredient-list></app-adddish-ingredient-list>
-        <app-adddish-steps-list></app-adddish-steps-list>
-    </mat-card-content>
-
-
-    <mat-card-actions class="card-actions">
-        <button mat-raised-button color="warn" class="post-button">
-            <mat-icon>delete_sweep</mat-icon>Clear Inputs
-        </button>
-        <button mat-raised-button color="accent" class="clear-input-button">
-            <mat-icon>save</mat-icon>Post Dish
-        </button>
-    </mat-card-actions>
-</mat-card>
+<div class="center-content">
+    <mat-card class="new-dish-card">
+        <mat-card-header>
+            <mat-card-title>Share your dish!</mat-card-title>
+        </mat-card-header>
+    
+        <mat-card-content class="card-content">
+            <app-adddish-name-inputs></app-adddish-name-inputs>
+            <app-adddish-details-form></app-adddish-details-form>
+            <app-adddish-ingredient-list></app-adddish-ingredient-list>
+            <app-adddish-steps-list></app-adddish-steps-list>
+        </mat-card-content>
+    
+    
+        <mat-card-actions class="card-actions">
+            <button mat-raised-button color="warn" class="post-button">
+                <mat-icon>delete_sweep</mat-icon>Clear Inputs
+            </button>
+            <button mat-raised-button color="accent" class="clear-input-button">
+                <mat-icon>save</mat-icon>Post Dish
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

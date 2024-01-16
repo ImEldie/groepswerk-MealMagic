@@ -1,0 +1,28 @@
+.add-dish-card {
+    margin-bottom: 1rem;
+    z-index: 2;
+    min-width: 52rem;
+}
+.add-dish-card:hover {
+    animation: card-glow 1s ease forwards;
+    z-index: 3;
+    border-color: var(--color-accent);
+}
+@keyframes card-glow {
+    to{
+        box-shadow: 0 0.5rem 1rem 0.1rem #00000099;
+    }
+}
+.card-content {
+    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.content-row-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-bottom: -1.5rem;
+}

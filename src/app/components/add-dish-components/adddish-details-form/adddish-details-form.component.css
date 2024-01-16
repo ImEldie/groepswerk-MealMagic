@@ -1,0 +1,39 @@
+.portion-input-field, .time-input-field {
+    width: 20%;
+    min-width: 10rem;
+}
+
+.types-form {
+    max-height: 7rem;
+}
+.types-form-field {
+    width: 100%;
+}
+
+.season-toggle-button-container {
+    background-color: rgba(128, 128, 128, 0.15);
+    color: rgba(255, 255, 255, 0.473);
+
+    border-color: rgba(255, 255, 255, 0.4);
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-radius: 0.3rem 0.3rem 0rem 0rem;
+
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 0.18rem 1rem;
+    gap: 0.8rem;
+    width: 100%;
+    height: 100%;
+
+    cursor: default;
+}
+.season-toggle-button-container:hover {
+    background-color: rgba(128, 128, 128, 0.3);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+mat-button-toggle {
+    width: 5rem;
+}
