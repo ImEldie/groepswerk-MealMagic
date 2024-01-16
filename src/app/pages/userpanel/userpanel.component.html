@@ -14,7 +14,7 @@
       <section>
         <p>Your selected allergies are:</p>
         <div class="info-allergies-chips">
-          @for (allergy of userAllergies; track allergy.name) {
+          @for (allergy of userAllergies; track allergy.id) {
             <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
           }
         </div>
