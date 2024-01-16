@@ -24,7 +24,8 @@ import {
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { MatButtonModule } from '@angular/material/button';
-import { Observable, map, switchMap, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -41,6 +42,7 @@ import { Observable, map, switchMap, tap } from 'rxjs';
     MatButtonModule,
     MatProgressBarModule,
     MatChipsModule,
+    MatTooltipModule,
   ],
   templateUrl: './userpanel.component.html',
   styleUrl: './userpanel.component.css',
@@ -64,6 +66,11 @@ export class UserpanelComponent implements OnInit {
   userAllergies: Allergy[] = [];
   formAllergy!: FormGroup;
   formWeightHeight!: FormGroup;
+  bmiAmount: number = NaN;
+  bmiResult: string = '';
+  bmiFadeIn: boolean = false;
+  bmiFadeOut: boolean = false;
+  resetArrow: boolean = false;
   constructor(
     private userpanelService: UserpanelService,
     private route: ActivatedRoute,
@@ -129,6 +136,9 @@ export class UserpanelComponent implements OnInit {
       )
       .subscribe(() => {
         this.loading = true;
+        this.bmiFadeOutAnimate();
+        this.resetArrow = true;
+        this.bmiAmount = NaN;
         this.loadUserDetails().subscribe({
           next: () => {
             this.loading = false;
@@ -147,5 +157,49 @@ export class UserpanelComponent implements OnInit {
       )
       .filter((v: boolean) => v != null);
     this.putUserAllergies(selectedAllergyIds);
+  }
+  createBmiMeter() {
+    this.resetArrow = false;
+    this.bmiFadeInAnimate();
+    this.calculateBmi();
+    this.resultBmi();
+  }
+  private calculateBmi(): number {
+    if (this.userDetails?.bodyweight && this.userDetails?.height) {
+      this.bmiAmount =
+        this.userDetails.bodyweight /
+        ((this.userDetails.height / 100) * (this.userDetails.height / 100));
+    }
+    return this.bmiAmount;
+  }
+  private resultBmi(): string {
+    if (this.bmiAmount < 18.5) {
+      this.bmiResult = 'Underweight';
+    } else if (18.5 <= this.bmiAmount && this.bmiAmount <= 24.9) {
+      this.bmiResult = 'Healthy';
+    } else if (25 <= this.bmiAmount && this.bmiAmount <= 29.9) {
+      this.bmiResult = 'Overweight';
+    } else if (30 <= this.bmiAmount && this.bmiAmount <= 34.9) {
+      this.bmiResult = 'Obese';
+    } else if (35 <= this.bmiAmount) {
+      this.bmiResult = 'Extremely obese';
+    }
+    return this.bmiResult;
+  }
+  private bmiFadeInAnimate() {
+    this.bmiFadeOut = false;
+    this.bmiFadeIn = true;
+  }
+  private bmiFadeOutAnimate() {
+    this.bmiFadeOut = true;
+    this.bmiFadeIn = false;
+  }
+  maxKeyframesBmi(bmiAmount: number) {
+    const maxBmiAmount = 45;
+    const limitedBmiAmount = Math.min(bmiAmount, maxBmiAmount);
+    return limitedBmiAmount;
+  }
+  isDisabled(): boolean {
+    return !(this.userDetails?.bodyweight && this.userDetails?.height);
   }
 }
