@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Dish, DishApiResponse } from '../../components/interfaces/interfaces-dishes';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { StepsApiService } from './steps-api.service';
+import { DishStep } from '../../components/interfaces/interfaces-steps';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class DishesApiService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService
+    private auth: AuthService,
+    private stepsApi: StepsApiService
   ) {
     this.loadDishesFromApi();
   }
@@ -28,9 +31,15 @@ export class DishesApiService {
         }),
       })
       .pipe(map((data: DishApiResponse) => data.data))
-      .subscribe((dishes: Array<Dish>) => {
+      .subscribe((dishes: Dish[]) => {
         this.dishes = dishes;
       });
+  }
+
+  postNewDish(postData: any, stepsToPost: Array<DishStep>){
+
+    this.stepsApi.postSteps(stepsToPost);
+    
   }
 
   getDishList(): Array<Dish>{

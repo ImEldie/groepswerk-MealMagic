@@ -1,0 +1,44 @@
+
+mat-card{
+    margin: 2vw;
+    padding: 2vw;
+}
+mat-card-content{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: fit-content;
+}
+textarea{
+    resize: none;
+}
+.input-section{
+    height: fit-content;
+}
+.ingredient-table{
+    width: 60vw;
+    height: auto;
+}
+.ingredient-add-form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    align-items: center;
+
+    height: auto;
+}
+.ingredient-data-row{
+    animation: NewInput 1s ease;
+}
+.steps-panel-header{
+    animation: NewInput 1s ease;
+}
+@keyframes NewInput {
+    from{
+        background-color: rgba(0, 255, 200, 0.2);
+    }
+    to{
+        background-color: inherit;
+    }
+}

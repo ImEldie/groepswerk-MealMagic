@@ -3,6 +3,7 @@ import { Ingredient, IngredientApiResponse } from '../../components/interfaces/i
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { StepsApiService } from './steps-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class IngredientsApiService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService
+    private auth: AuthService,
   ) {
     this.loadIngredientsFromAPI();
   }
@@ -36,7 +37,7 @@ export class IngredientsApiService {
         }),
       })
       .pipe(map((data: IngredientApiResponse) => data.data))
-      .subscribe((data: Array<Ingredient>) => {
+      .subscribe((data: Ingredient[]) => {
         this.ingredients = data;
       });
   }
