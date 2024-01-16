@@ -4,24 +4,66 @@
     <mat-card-title>User Panel</mat-card-title>
     <mat-card-subtitle>Your info:</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <p>
-      <mat-icon>monitor_weight</mat-icon>
-      Weight: {{ userDetails?.bodyweight }} kg.
-    </p>
-    <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
-    <section>
+  <mat-card-content class="info-card-content">
+    <div class="info-container">
       <p>
-        Your selected allergies are:
-        @for (allergy of userAllergies; track allergy.name) {
-          <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
-        }
+        <mat-icon>monitor_weight</mat-icon>
+        Weight: {{ userDetails?.bodyweight }} kg.
+      </p>
+      <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
+      <section>
+        <p>Your selected allergies are:</p>
+        <div class="info-allergies-chips">
+          @for (allergy of userAllergies; track allergy.id) {
+            <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
+          }
+        </div>
         @if (userAllergies.length === 0) {
           No allergies selected
         }
-      </p>
-    </section>
+      </section>
+    </div>
+    <div
+      class="bmi-container"
+      [ngClass]="{ 'bmi-fade-in': bmiFadeIn, 'bmi-fade-out': bmiFadeOut }"
+    >
+      <div class="bmi-meter">
+        <div class="bmi-numbers-container">
+          <span class="bmi-number" style="--position: 23.84deg">16</span>
+          <span class="bmi-number" style="--position: 31.98deg">17</span>
+          <span class="bmi-number" style="--position: 42.69deg">18.5</span>
+          <span class="bmi-number" style="--position: 77.1deg">25</span>
+          <span class="bmi-number" style="--position: 102.8deg">30</span>
+          <span class="bmi-number" style="--position: 130.5deg">35</span>
+          <span class="bmi-number" style="--position: 157.2deg">40</span>
+        </div>
+        <div
+          class="bmi-arrow"
+          [ngStyle]="{ '--bmi': maxKeyframesBmi(bmiAmount) }"
+          [ngClass]="{ 'reset-arrow': resetArrow }"
+        ></div>
+        <div class="score-container">
+          <span class="bmi-result">{{ bmiResult }}</span>
+          <span class="bmi-amount">{{ bmiAmount | number: "1.0-0" }}</span>
+        </div>
+      </div>
+    </div>
   </mat-card-content>
+  <mat-card-actions>
+    <div
+      matTooltip="Please give your weight and height first"
+      [matTooltipDisabled]="!isDisabled()"
+    >
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="createBmiMeter()"
+        [disabled]="isDisabled()"
+      >
+        Calculate BMI
+      </button>
+    </div>
+  </mat-card-actions>
   <mat-card-footer>
     @if (loading) {
       <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
