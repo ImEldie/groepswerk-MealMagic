@@ -1,40 +1,43 @@
-### AUTHOR: DANIEL FRANKORT ###
-### COMPONENT DESCRIPTION ###
+### AUTHOR: DANIEL FRANKORT
+
+### COMPONENT DESCRIPTION
+
 This can be used to easily display the image for an allergen.
 Using this component and supplying the correct properties will result in an image of the supplied allergen.
 When hovered over the image a tooltip appears saying "Contains traces of x".
 
-### HOW TO USE ###
+### HOW TO USE
 
-1) Import 'AllergyIconComponent' [ Typescript ]
-    ```js
-    import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
-    
-    ...
+1. Import 'AllergyIconComponent' [ Typescript ]
 
-    @component{
-        ...
-        imports: [AllergyIconComponent, ...],
-    }```
+   ````js
+   import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
 
+   ...
 
-2) Add component call in HTML-file [ HTML ]
-    ```html
-    <app-allergy-icon></app-allergy-icon>```
-    
-3) Add icon properties iconType / iconSize / withText
-    Example:
-    ```html
-    <app-allergy-icon [iconType]="'egg'" [iconSize]="'120px'" [withText]="true" [hideTooltip]="true"></app-allergy-icon>```
-        
-    This example will give you an icon showing theEgg-symbol (with text), with a size of 120px * 120px.
-    When hovering over the image, it will NOT show atooltip.
+   @component{
+       ...
+       imports: [AllergyIconComponent, ...],
+   }```
 
-### Properties overview ###
+   ````
+
+2. Add component call in HTML-file [ HTML ]
+   ````html
+   <app-allergy-icon></app-allergy-icon>```
+   ````
+3. Add icon properties iconType / iconSize / withText
+   Example:
+   ````html
+   <app-allergy-icon [iconType]="'eggs'" [iconSize]="'120px'" [withText]="true" [hideTooltip]="true"></app-allergy-icon>``` This example will give you an icon showing theEgg-symbol (with text), with a size of 120px * 120px. When hovering over the image, it will NOT show atooltip.
+   ````
+
+### Properties overview
+
     [iconType] : Set which image the symbol should have, accepts one of the 14 allergies.
         - celery
         - crustaceans
-        - egg
+        - eggs
         - fish
         - gluten
         - lupin
@@ -44,7 +47,7 @@ When hovered over the image a tooltip appears saying "Contains traces of x".
         - nuts
         - peanuts
         - sesame
-        - soya
+        - soybeans
         - sulphite
 
     [iconSize] : Adjust the size of the image, automatically changes the height & width of the component.

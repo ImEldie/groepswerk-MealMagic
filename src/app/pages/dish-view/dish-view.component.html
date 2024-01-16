@@ -1,17 +1,38 @@
 <div class="dish-container">
   <mat-card class="dish-card">
     <mat-card-header class="header-container">
-      <div class="header-left">
-        <mat-card-title style="font-size: 1.75rem"
+      <div>
+        <mat-card-title class="header-title"
           >Balsamic and Soy Marinated Skirt Steaks with Charred
           Peppers</mat-card-title
         >
-        <!-- <div class="allergens" mat-card-avatar></div> -->
-        <mat-card-subtitle>Vegan - Italian</mat-card-subtitle>
-        <span class="clock"
-          ><mat-icon class="clock-icon" color="white">timelapse</mat-icon
-          ><span class="clock-text">Active: 20min | Total: 45min</span></span
-        >
+        <div class="dish-allergens">
+          <mat-card-subtitle class="dish-subtitle"
+            >Vegan - Italian</mat-card-subtitle
+          >
+          <app-allergy-icon
+            [iconType]="'eggs'"
+            [iconSize]="'40px'"
+            [withText]="true"
+            [hideTooltip]="false"
+          ></app-allergy-icon>
+          <app-allergy-icon
+            [iconType]="'sulphite'"
+            [iconSize]="'40px'"
+            [withText]="true"
+            [hideTooltip]="false"
+          ></app-allergy-icon>
+          <app-allergy-icon
+            [iconType]="'soybeans'"
+            [iconSize]="'40px'"
+            [withText]="true"
+            [hideTooltip]="false"
+          ></app-allergy-icon>
+        </div>
+        <div class="clock">
+          <mat-icon class="clock-icon" color="white">timelapse</mat-icon
+          ><span class="clock-text">Active: 20min. | Total: 45min.</span>
+        </div>
 
         <mat-card-content class="recipe-text">
           This simple grilled dinner is all about fresh summer produce. Herbs
@@ -26,7 +47,7 @@
           <button
             mat-icon-button
             color="warn"
-            aria-label="Example icon button with a heart icon"
+            aria-label="Button with a heart icon"
           >
             <mat-icon>favorite</mat-icon>
           </button>
