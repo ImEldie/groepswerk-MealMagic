@@ -219,6 +219,16 @@
               </textarea>
               <mat-hint align="end">{{descriptionInput.length}}/255</mat-hint>
             </mat-form-field>
+                        <!--  STEP IMAGE  -->
+                        <mat-form-field color="accent">
+                          <input matInput
+                            type="text"
+                            placeholder="Image URL"
+                            aria-label="Image URL"
+                            [(ngModel)]="stepToAdd.picture"
+                            [ngModelOptions]="{standalone: true}"
+                            required="true">
+                        </mat-form-field>
             <!--  ADD-STEP BUTTON  -->
             @if (stepToAddIsValid()) {
               <button mat-raised-button color="accent" (click)="addStep()">Add this step</button>

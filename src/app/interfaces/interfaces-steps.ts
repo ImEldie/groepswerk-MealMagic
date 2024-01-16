@@ -2,6 +2,7 @@ export interface DishStep {
     title: string;
     description?: string;
     order: number;
+    picture?: string;
 }
 
 export interface Step {
@@ -9,4 +10,5 @@ export interface Step {
     title: string;
     description?: string;
     order: number; 
+    picture?: string;
 }

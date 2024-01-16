@@ -24,7 +24,8 @@ export class StepsApiService {
         {
           title: step.title,
           description: step.description,
-          order: step.order
+          order: step.order,
+          picture: step.picture
         },
         {
           headers: new HttpHeaders(
@@ -34,9 +35,5 @@ export class StepsApiService {
       ));
 
     return ObservablesToReturn;
-  }
-  private sortStepsOnOrder(stepsToSort: Array<Step>): Array<Step> {
-    stepsToSort.sort((a, b) => a.order - b.order);
-    return stepsToSort;
   }
 }
