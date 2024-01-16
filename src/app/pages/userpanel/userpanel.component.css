@@ -133,7 +133,7 @@
   left: -12px;
   transform: rotate(-90deg);
   font-size: 10px;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 1s ease-in-out;
 }
 .bmi-number {
@@ -142,10 +142,7 @@
   text-align: center;
   transform: rotate(var(--position));
   transform-origin: 50% calc(100% + 6.5rem);
-  color: #000000;
-}
-.bmi-container:hover .bmi-numbers-container {
-  opacity: 1;
+  color: #ffffff;
 }
 .score-container {
   position: absolute;
