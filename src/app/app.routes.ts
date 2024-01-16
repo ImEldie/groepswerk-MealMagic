@@ -10,7 +10,7 @@ export const routes: Routes = [
         path: '',
         loadComponent: () =>
           import('./pages/homepage/homepage.component').then(
-            (c) => c.HomepageComponent
+            (c) => c.HomepageComponent,
           ),
       },
       {
@@ -19,9 +19,18 @@ export const routes: Routes = [
           import('./pages/login/login.component').then((c) => c.LoginComponent),
       },
       {
+        path: 'userpanel/:id',
+        loadComponent: () =>
+          import('./pages/userpanel/userpanel.component').then(
+            (c) => c.UserpanelComponent,
+          ),
+      },
+      {
         path: 'dish',
         loadComponent: () =>
-          import('./pages/dish-view/dish-view.component').then((c) => c.DishViewComponent),
+          import('./pages/dish-view/dish-view.component').then(
+            (c) => c.DishViewComponent,
+          ),
       },
     ],
   },
