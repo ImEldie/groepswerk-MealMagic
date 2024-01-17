@@ -35,7 +35,8 @@
             placeholder="Tasty Italian pasta with delicious tomato sauce." 
             maxlength="255"
             [(ngModel)]="descriptionInput"
-            [ngModelOptions]="{standalone: true}">
+            [ngModelOptions]="{standalone: true}"
+            required="true">
           </textarea>
           <mat-hint align="end">{{descriptionInput.length}}/255</mat-hint>
   </mat-form-field>

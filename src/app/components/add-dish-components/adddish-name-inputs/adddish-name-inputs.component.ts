@@ -39,9 +39,10 @@ export class AdddishNameInputsComponent {
 
   // CARD FUNCTIONS
   checkInputsValidity(): boolean {
-    const nameValid: boolean = (this.nameInput !== '');
-    const imageInput: boolean = (this.imageInput !== '');
+    const nameValid = (this.nameInput !== '');
+    const imageValid = (this.imageInput !== '');
+    const descriptionValid = (this.descriptionInput !== '');
 
-    return nameValid && imageInput;
+    return nameValid && imageValid && descriptionValid;
   }
 }

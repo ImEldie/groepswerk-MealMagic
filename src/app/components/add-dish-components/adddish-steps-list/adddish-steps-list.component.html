@@ -35,7 +35,8 @@
                 placeholder="Take a sharp knife and cut the onion into small cubes." 
                 maxlength="255"
                 [(ngModel)]="stepToAdd.description"
-                [ngModelOptions]="{standalone: true}">
+                [ngModelOptions]="{standalone: true}"
+                required="true">
             </textarea>
             <mat-hint align="end">{{stepToAdd.description?.length}}/255</mat-hint>
         </mat-form-field>

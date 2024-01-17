@@ -16,7 +16,7 @@ import { AddDishCreatedSteps } from '../../../interfaces/interfaces-add-dish-for
   styleUrl: './adddish-steps-list.component.css'
 })
 export class AdddishStepsListComponent {
-  stepToAdd: DishStep = {title: '', description: '', order: 0};
+  stepToAdd: DishStep = {title: '', description: '', order: 0, picture: ''};
   createdSteps: Array<DishStep> = [];
   currentPanel: number = 0;
 
@@ -70,7 +70,7 @@ export class AdddishStepsListComponent {
   }
   stepToAddIsValid(): boolean{
     const titleIsValid: boolean = (this.stepToAdd.title !== '');
-    const descriptionIsValid: boolean = (this.stepToAdd.description!.length <= 255);
+    const descriptionIsValid: boolean = (this.stepToAdd.description!.length <= 255 && this.stepToAdd.description !== '');
 
     return (titleIsValid && descriptionIsValid);
   }

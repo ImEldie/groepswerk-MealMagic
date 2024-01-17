@@ -49,7 +49,6 @@ export class DishesApiService {
       (result: Array<Step>) => {
         result.sort((a, b) => a.order - b.order);
         postData.dish_steps = result.map((step) => step.id);
-        console.log(postData);
 
         this.postDish(postData);
       },

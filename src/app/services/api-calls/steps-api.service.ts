@@ -33,7 +33,6 @@ export class StepsApiService {
           )
         }
       ));
-
     return ObservablesToReturn;
   }
 }
