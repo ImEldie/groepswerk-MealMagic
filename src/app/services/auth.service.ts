@@ -8,7 +8,7 @@ import { LoginDetails, loginResponse } from '../interfaces/login-interface';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
-  url: string =
+  private urlUserId: string =
     'https://syntra2023.code-coaching.dev/api/group-2/user-details/user/';
   private login_id: number = NaN;
   login(email: string, password: string) {
@@ -28,9 +28,9 @@ export class AuthService {
         }),
       );
   }
-  saveUserId(login_id: number) {
+  private saveUserId(login_id: number) {
     return this.http
-      .get<{ id: string }>(`${this.url}${login_id}`, {
+      .get<{ id: string }>(`${this.urlUserId}${login_id}`, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.getBearerToken(),
         }),
