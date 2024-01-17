@@ -27,11 +27,9 @@ export class AdddishNameInputsComponent {
   }
 
   private getEmitData(): AddDishNameInputs {
-    const emitDescription = (this.descriptionInput === '') ? undefined : this.descriptionInput;
-
     const emitData: AddDishNameInputs = {
       name: this.nameInput,
-      description: emitDescription,
+      description: this.descriptionInput,
       image: this.imageInput,
       dataIsValid: this.checkInputsValidity()
     }

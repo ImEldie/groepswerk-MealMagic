@@ -2,7 +2,7 @@ import { DishStep } from "./interfaces-steps";
 
 export interface AddDishNameInputs {
     name: string;
-    description: string | undefined;
+    description: string;
     image: string;
     dataIsValid: boolean;
 }

@@ -41,8 +41,7 @@ export class TempAddDishComponent {
         dish_steps: [],
       }     
 
-      console.log(postData);
-      //this.dishApi.postNewDish(postData, this.createdSteps!.createdSteps);
+      this.dishApi.postNewDish(postData, this.createdSteps!.createdSteps);
     }
   }
 
