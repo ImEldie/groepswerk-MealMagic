@@ -4,18 +4,26 @@
     <button mat-flat-button color="primary" (click)="navigateToHomepage()">
       <div class="title-button-content">
         Meal
-        <mat-icon>fastfood</mat-icon> 
+        <mat-icon>fastfood</mat-icon>
         Magic
       </div>
     </button>
   </div>
-  <!--  LOGIN   -->
   @if (authService.isAuthenticated) {
-    <button (click)="authService.logout()" mat-button>Logout</button>
+    <div class="user-buttons">
+      <button mat-button>User Panel</button>
+      <button (click)="authService.logout()" mat-button>Logout</button>
+    </div>
   } @else {
-    <button class="login-button" (click)="router.navigate(['login'])" mat-button>
-      Login
-    </button>
+    <div class="user-buttons">
+      <button
+        class="login-button"
+        (click)="router.navigate(['login'])"
+        mat-button
+      >
+        Login
+      </button>
+    </div>
   }
 </mat-toolbar>
 

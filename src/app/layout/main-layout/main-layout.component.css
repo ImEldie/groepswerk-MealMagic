@@ -1,77 +1,96 @@
 /* ### GENERAL ### */
 .main-toolbar {
-    display: flex-end;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-.login-button {
-    margin-right: 10rem;
+  display: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.user-buttons {
+  display: flex;
+  gap: 1rem;
 }
 /* ### HOME-BUTTON / MEALMAGIC-BUTTON ### */
 .title-button-content {
-    padding-top: 0.3rem;
-    cursor: pointer;
-    font-size: 100%;
-    font-weight: 300;
+  padding-top: 0.3rem;
+  cursor: pointer;
+  font-size: 100%;
+  font-weight: 300;
 
-    display: flex;
-    align-items: normal;
-    justify-items: center;
-    background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
-    background-size: 1500% 0%;
-    -webkit-background-clip: text;
+  display: flex;
+  align-items: normal;
+  justify-items: center;
+  background: linear-gradient(
+    to right,
+    violet,
+    indigo,
+    blue,
+    green,
+    yellow,
+    orange,
+    red
+  );
+  background-size: 1500% 0%;
+  -webkit-background-clip: text;
 }
 .magic-border:hover .title-button-content {
-    animation: RainbowTitle 3s ease forwards 1s;
-    background-size: 1500% 100%;
+  animation: RainbowTitle 3s ease forwards 1s;
+  background-size: 1500% 100%;
 }
 @keyframes RainbowTitle {
-    from{
-        background-position: 100% 0;
-    }
-    15%{
-        color: transparent;
-        background-position: 100% 0;
-    }
-    66%{
-        color: transparent;
-    }
-    to{
-        background-position: 0% 0;
-    }
+  from {
+    background-position: 100% 0;
+  }
+  15% {
+    color: transparent;
+    background-position: 100% 0;
+  }
+  66% {
+    color: transparent;
+  }
+  to {
+    background-position: 0% 0;
+  }
 }
 .magic-border {
-    padding: 0px;
-    margin: 2px;
-    width: fit-content;
-    height: fit-content;
-    background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
-    background-position: 100% 0;
-    background-size: 1500% 100%;
-    border-radius: 6px;
+  padding: 0px;
+  margin: 2px;
+  width: fit-content;
+  height: fit-content;
+  background: linear-gradient(
+    to right,
+    violet,
+    indigo,
+    blue,
+    green,
+    yellow,
+    orange,
+    red
+  );
+  background-position: 100% 0;
+  background-size: 1500% 100%;
+  border-radius: 6px;
 }
 .magic-border:hover {
-    animation: MagicBorder 3s ease forwards 1s;
-    width: fit-content;
-    height: fit-content;
-    border-radius: 6px;
+  animation: MagicBorder 3s ease forwards 1s;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 6px;
 }
 @keyframes MagicBorder {
-    0%{
-        background-position: 100% 0;
-        padding: 0px;
-        margin: 2px;
-    }
-    15%{
-        background-position: 100% 0;
-        padding: 2px;
-        margin: 0px;
-        box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.2);
-    }
-    100%{
-        background-position: 0% 0;
-        padding: 2px;
-        margin: 0px;
-        box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
-    }
+  0% {
+    background-position: 100% 0;
+    padding: 0px;
+    margin: 2px;
+  }
+  15% {
+    background-position: 100% 0;
+    padding: 2px;
+    margin: 0px;
+    box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-position: 0% 0;
+    padding: 2px;
+    margin: 0px;
+    box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
+  }
 }
