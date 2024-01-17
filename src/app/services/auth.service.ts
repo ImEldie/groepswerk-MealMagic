@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { LoginDetails, loginResponse } from '../interfaces/login-interface';
+import { tap } from 'rxjs';
+import { LoginDetails } from '../interfaces/login-interface';
 
 @Injectable({
   providedIn: 'root',
