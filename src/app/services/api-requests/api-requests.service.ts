@@ -14,6 +14,8 @@ export class ApiRequestsService {
   ) {}
 
   getFromApi(endpoint: string): Observable<any> {
+    endpoint = this.getFormattedEndpoint(endpoint);
+
     return this.http
       .get<APIResponse>(endpoint , {
         headers: new HttpHeaders({
@@ -22,7 +24,10 @@ export class ApiRequestsService {
       })
       .pipe(map((data: APIResponse) => data.data))
   }
-  postToApi(endpoint: string, postData: any): Observable<any> {
+
+  postToApi(endpoint: string, dataToPost: any): Observable<any> {
+    endpoint = this.getFormattedEndpoint(endpoint);
+
     return this.http
       .post<APIResponse>(endpoint , {
         headers: new HttpHeaders({
@@ -31,13 +36,31 @@ export class ApiRequestsService {
       })
       .pipe(map((data: APIResponse) => data.data))
   }
-  putToApi(endpoint: string): Observable<any> {
-    return this.http
-      .put<APIResponse>(endpoint , {
+  
+  putToApi(endpoint: string, dataToPost: any, id: number): Observable<any> {
+    const endpointWithId = this.getFormattedEndpoint(endpoint) + id;
+
+    return this.http.put(endpointWithId, dataToPost,
+      {
         headers: new HttpHeaders({
-          Authorization: "Bearer " + this.auth.getBearerToken(),
+          Authorization: 'Bearer ' + this.auth.getBearerToken(),
         }),
-      })
-      .pipe(map((data: APIResponse) => data.data))
+      },
+    );
   }
+
+  private getFormattedEndpoint(endpoint: string): string {
+    const noBackslashAtStart: boolean = !(endpoint.startsWith("/"));
+    if (noBackslashAtStart) {
+      endpoint = '/' + endpoint;
+    }
+
+    const noBackslashAtEnd: boolean = !(endpoint.endsWith("/"));
+    if (noBackslashAtEnd) {
+      endpoint = endpoint + '/';
+    }
+
+    return endpoint;
+  }
+  
 }
