@@ -1,4 +1,4 @@
-<app-adddish-card [inputValid]="checkInputsValidity()">
+<app-adddish-card [inputValid]="checkInputsValidity()" (input)="emitUserInput()">
   <div name="title-icon-type">local_dining</div>        
   <div name="title">Dish Description</div>
 

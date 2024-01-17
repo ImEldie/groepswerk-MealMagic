@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AdddishCardComponent } from '../adddish-card/adddish-card.component';
+import { AddDishNameInputs } from '../../../interfaces/interfaces-add-dish-forms';
 
 @Component({
   selector: 'app-adddish-name-inputs',
@@ -18,6 +19,27 @@ export class AdddishNameInputsComponent {
   descriptionInput: string = '';
   imageInput: string = '';
 
+  // CARD-OUTPUT
+  @Output() UserInputData = new EventEmitter<AddDishNameInputs>();
+
+  emitUserInput(){
+    this.UserInputData.emit(this.getEmitData());
+  }
+
+  private getEmitData(): AddDishNameInputs {
+    const emitDescription = (this.descriptionInput === '') ? undefined : this.descriptionInput;
+
+    const emitData: AddDishNameInputs = {
+      name: this.nameInput,
+      description: emitDescription,
+      image: this.imageInput,
+      dataIsValid: this.checkInputsValidity()
+    }
+    
+    return emitData;
+  }
+
+  // CARD FUNCTIONS
   checkInputsValidity(): boolean {
     const nameValid: boolean = (this.nameInput !== '');
     const imageInput: boolean = (this.imageInput !== '');

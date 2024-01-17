@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AdddishCardComponent } from '../adddish-card/adddish-card.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,7 @@ import { DishType } from '../../../interfaces/interfaces-types';
 import { MatIconModule } from '@angular/material/icon';
 import { TypesApiService } from '../../../services/api-calls/types-api.service';
 import { SeasonsApiService } from '../../../services/api-calls/seasons-api.service';
+import { AddDishDetailInputs } from '../../../interfaces/interfaces-add-dish-forms';
 
 @Component({
   selector: 'app-adddish-details-form',
@@ -47,15 +48,36 @@ export class AdddishDetailsFormComponent {
     return portionSizeValid && prepTimeValid && seasonSelected && typesSelected;
   }
 
-  // SEASONS
+  // CARD-OUTPUT
+  @Output() UserInputData = new EventEmitter<AddDishDetailInputs>();
+  
+  emitUserInput(){
+    this.UserInputData.emit(this.getEmitData());
+  }
+
+  private getEmitData(): AddDishDetailInputs {
+    const selectedSeasonId = (this.selectedSeason !== undefined) ? this.selectedSeason.id : 0; 
+
+    const emitData: AddDishDetailInputs = {
+      portionSize: this.portionSizeInput,
+      prepTime: this.preparationTimeInput,
+      seasonId: selectedSeasonId,
+      selectedTypeIds: this.selectedTypes.map(type => type.id),
+      dataIsValid: this.checkInputsValidity()
+    }
+    
+    return emitData;
+  }
+
+  // CARD FUNCTIONS
   getApiSeasons(): Array<DishSeason> {
     return this.seasonsApi.getseasonsList();
   }
   setSelectedSeason(newSeason: DishSeason) {
     this.selectedSeason = newSeason;
+    this.emitUserInput();
   }
 
-  // TYPES
   getApiTypes(): Array<DishType> {
     return this.typesApi.getTypesList();
   }
@@ -68,6 +90,7 @@ export class AdddishDetailsFormComponent {
 
       this.typeInput = '';
       this.filterTypes();
+      this.emitUserInput();
     }
   }
   removeType(type: DishType){
@@ -86,4 +109,6 @@ export class AdddishDetailsFormComponent {
   private convertDishTypesToStrings(arrayToConvert: Array<DishType>): Array<string>{
     return arrayToConvert.map((type) => type.name);
   }
+
+
 }

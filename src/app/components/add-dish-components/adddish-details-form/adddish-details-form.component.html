@@ -1,4 +1,4 @@
-<app-adddish-card [inputValid]="checkInputsValidity()">
+<app-adddish-card [inputValid]="checkInputsValidity()" (input)="emitUserInput()">
   <div name="title-icon-type">assignment</div>
   <div name="title">Details</div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AdddishCardComponent } from '../adddish-card/adddish-card.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -10,6 +10,7 @@ import { IngredientPostData } from '../../../interfaces/interfaces-dishes';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { AddDishSelectedIngredients } from '../../../interfaces/interfaces-add-dish-forms';
 
 @Component({
   selector: 'app-adddish-ingredient-list',
@@ -32,6 +33,30 @@ export class AdddishIngredientListComponent {
     this.ingredientsApi.loadIngredientsFromAPI();
   }
 
+  checkInputsValidity(): boolean {
+    const ingredientsSelected = (this.selectedIngredients.length !== 0);
+
+    return ingredientsSelected;
+  }
+
+  // CARD-OUTPUT
+  @Output() UserInputData = new EventEmitter<AddDishSelectedIngredients>();
+  
+  emitUserInput(){
+    this.UserInputData.emit(this.getEmitData());
+  }
+
+  private getEmitData(): AddDishSelectedIngredients {
+    const ingredientIdList = this.selectedIngredients.map(ingredient => ingredient.id);
+
+    const emitData: AddDishSelectedIngredients = {
+      ingredientIds: ingredientIdList,
+      dataIsValid: this.checkInputsValidity()
+    }
+    
+    return emitData;
+  }
+  // CARD FUNCTIONS
   addIngredient(){
     if (this.ingredientToAddIsValid()) {
       let tempList = [...this.selectedIngredients];
@@ -40,6 +65,7 @@ export class AdddishIngredientListComponent {
       this.selectedIngredients = tempList;
 
       this.initialiseUserIngredientInput();
+      this.emitUserInput();
     }
   }
   removeIngredient(ingredientToRemove: IngredientPostData){
@@ -47,6 +73,7 @@ export class AdddishIngredientListComponent {
 
     const tempList = this.selectedIngredients.filter(ingredient => ingredient !== ingredientToRemove);
     this.selectedIngredients = tempList;
+    this.emitUserInput();
   }
   setIngredientToAddData(selectedIngredient: IngredientPostData){
     this.ingredientToAdd.id = selectedIngredient.id;

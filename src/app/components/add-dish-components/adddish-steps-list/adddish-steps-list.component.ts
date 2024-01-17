@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AdddishCardComponent } from '../adddish-card/adddish-card.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { DishStep } from '../../../interfaces/interfaces-steps';
 import { MatIconModule } from '@angular/material/icon';
+import { AddDishCreatedSteps } from '../../../interfaces/interfaces-add-dish-forms';
 
 @Component({
   selector: 'app-adddish-steps-list',
@@ -19,9 +20,32 @@ export class AdddishStepsListComponent {
   createdSteps: Array<DishStep> = [];
   currentPanel: number = 0;
 
+  // CARD-OUTPUT
+  @Output() UserInputData = new EventEmitter<AddDishCreatedSteps>();
+
+  emitUserInput(){
+    this.UserInputData.emit(this.getEmitData());
+  }
+
+  private getEmitData(): AddDishCreatedSteps {
+    const emitData: AddDishCreatedSteps = {
+      createdSteps: this.createdSteps,
+      dataIsValid: this.checkInputsValidity()
+    }
+    
+    return emitData;
+  }
+
+  // CARD FUNCTIONS
   setOpenedPanel(panelNumber: number){
     this.currentPanel = panelNumber;
     console.log(this.currentPanel);
+  }
+
+  checkInputsValidity(): boolean {
+    const stepsCreated = (this.createdSteps.length !== 0);
+
+    return stepsCreated;
   }
 
   addStep(){
@@ -33,6 +57,7 @@ export class AdddishStepsListComponent {
   
       this.sortCreatedStepsOrders();
       this.initialiseUserStepInput();
+      this.emitUserInput();
     }
   }
   removeStep(stepToRemove: DishStep){
@@ -42,6 +67,7 @@ export class AdddishStepsListComponent {
     this.createdSteps = tempList;
 
     this.sortCreatedStepsOrders();
+    this.emitUserInput();
   }
   stepToAddIsValid(): boolean{
     const titleIsValid: boolean = (this.stepToAdd.title !== '');
@@ -64,6 +90,7 @@ export class AdddishStepsListComponent {
       
       this.sortCreatedStepsOrders();
       this.setOpenedPanel(tempList[newIndex].order);
+      this.emitUserInput();
     }
   }
   moveStepDown(stepToMove: DishStep){
@@ -81,6 +108,7 @@ export class AdddishStepsListComponent {
       
       this.sortCreatedStepsOrders();
       this.setOpenedPanel(tempList[newIndex].order);
+      this.emitUserInput();
     }
   }
   private initialiseUserStepInput(){
