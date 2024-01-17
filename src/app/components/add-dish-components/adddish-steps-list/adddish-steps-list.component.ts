@@ -39,7 +39,6 @@ export class AdddishStepsListComponent {
   // CARD FUNCTIONS
   setOpenedPanel(panelNumber: number){
     this.currentPanel = panelNumber;
-    console.log(this.currentPanel);
   }
 
   checkInputsValidity(): boolean {

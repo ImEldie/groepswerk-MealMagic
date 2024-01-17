@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { StepsApiService } from './steps-api.service';
 import { DishStep, Step } from '../../interfaces/interfaces-steps';
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class DishesApiService {
   constructor(
     private http: HttpClient,
     private auth: AuthService,
-    private stepsApi: StepsApiService
+    private stepsApi: StepsApiService,
+    private router: Router
   ) {
     this.loadDishesFromApi();
   }
@@ -76,7 +78,11 @@ export class DishesApiService {
         )
       }
     )
-    .subscribe((result) => console.log(result));
+    .subscribe((result) => {
+        console.log(result);
+        this.loadDishesFromApi();
+        this.router.navigate(['']);
+      });
   }
   convertToIdArray(arrayToConvert: Array<Step|Ingredient>): Array<number> {
     let idArray: Array<number> = arrayToConvert.map((data) => data.id);

@@ -27,6 +27,10 @@ export class HomepageComponent {
     public auth: AuthService
   ){};
 
+  ngOnInit(){
+    this.dishesApi.loadDishesFromApi();
+  }
+
   getSearchResultAmount(): number {
     return this.getSearchResults().length;
   }

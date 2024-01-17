@@ -1,44 +1,20 @@
-
-mat-card{
-    margin: 2vw;
-    padding: 2vw;
-}
-mat-card-content{
+.center-content {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    justify-content: center;
+}
+.new-dish-card {
+    margin: 0rem 10rem;
+    padding: 1rem;
     width: fit-content;
 }
-textarea{
-    resize: none;
+.card-content {
+    padding-top: 1rem;
 }
-.input-section{
-    height: fit-content;
-}
-.ingredient-table{
-    width: 60vw;
-    height: auto;
-}
-.ingredient-add-form{
+.card-actions {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-
-    align-items: center;
-
-    height: auto;
+    justify-content: right;
+    gap: 0.5rem;
 }
-.ingredient-data-row{
-    animation: NewInput 1s ease;
-}
-.steps-panel-header{
-    animation: NewInput 1s ease;
-}
-@keyframes NewInput {
-    from{
-        background-color: rgba(0, 255, 200, 0.2);
-    }
-    to{
-        background-color: inherit;
-    }
+.post-button, .clear-input-button {
+    width: 10rem;
 }
