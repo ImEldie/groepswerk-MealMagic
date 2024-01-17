@@ -8,8 +8,6 @@ import { APIResponse } from '../interfaces/api-interface';
   providedIn: 'root'
 })
 export class ApiFunctionsService {
-  private linkPrefix = 'https://syntra2023.code-coaching.dev/api/group-2/'
-
   constructor(
     private http: HttpClient,
     private auth: AuthService
@@ -17,7 +15,7 @@ export class ApiFunctionsService {
 
   getFromApi(endpoint: string): Observable<any> {
     return this.http
-      .get<APIResponse>(this.getLink(endpoint), {
+      .get<APIResponse>(endpoint , {
         headers: new HttpHeaders({
           Authorization: "Bearer " + this.auth.getBearerToken(),
         }),
@@ -26,7 +24,7 @@ export class ApiFunctionsService {
   }
   postToApi(endpoint: string, postData: any): Observable<any> {
     return this.http
-      .post<APIResponse>(this.getLink(endpoint), {
+      .post<APIResponse>(endpoint , {
         headers: new HttpHeaders({
           Authorization: "Bearer " + this.auth.getBearerToken(),
         }),
@@ -35,15 +33,11 @@ export class ApiFunctionsService {
   }
   putToApi(endpoint: string): Observable<any> {
     return this.http
-      .put<APIResponse>(this.getLink(endpoint), {
+      .put<APIResponse>(endpoint , {
         headers: new HttpHeaders({
           Authorization: "Bearer " + this.auth.getBearerToken(),
         }),
       })
       .pipe(map((data: APIResponse) => data.data))
-  }
-
-  private getLink(endpoint: string): string {
-    return this.linkPrefix + endpoint;
   }
 }
