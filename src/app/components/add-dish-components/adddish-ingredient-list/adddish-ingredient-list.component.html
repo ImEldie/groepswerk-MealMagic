@@ -34,11 +34,11 @@
         </mat-form-field>
 
         <div class="new-dish-action">
-            @if (ingredientToAddIsValid()) {
-                <button mat-mini-fab color="accent" (click)="addIngredient()"><mat-icon>add</mat-icon></button>
-              } @else {
-                <button mat-mini-fab color="warn" disabled><mat-icon>add</mat-icon></button>
-              }
+          <button mat-mini-fab color="accent" 
+            (click)="addIngredient()"
+            [disabled]="!ingredientToAddIsValid()">
+              <mat-icon>add</mat-icon>
+            </button>
         </div>
     </form>
     @if (selectedIngredients.length !== 0) {

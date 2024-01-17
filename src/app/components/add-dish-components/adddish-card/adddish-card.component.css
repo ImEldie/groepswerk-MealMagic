@@ -31,10 +31,10 @@
     gap: 0.2rem;
 }
 
-.validity-icon {
-    animation: ValidityIconRotate 1s ease forwards;
+.icon-checkmark {
+    animation: RotateIconIn 1s ease forwards;
 }
-@keyframes ValidityIconRotate {
+@keyframes RotateIconIn {
     from {
         rotate: 720deg;
         scale: 0;
@@ -45,6 +45,25 @@
     to {
         rotate: 0deg;
         scale: 1;
+    }
+}
+.icon-cross {
+    animation: ShakeIcon 200ms ease forwards 5;
+    transform-origin: 1rem center;
+}
+@keyframes ShakeIcon {
+    0%, 50%, 100% {
+        rotate: 0deg;
+        margin-right: 0rem;
+        
+    }
+    25% {
+        rotate: 15deg;
+        margin-right: 0.5rem;
+    }
+    75% {
+        rotate: -15deg;
+        margin-right: -0.5rem;
     }
 }
 

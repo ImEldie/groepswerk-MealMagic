@@ -44,7 +44,6 @@ export class AdddishDetailsFormComponent {
     const seasonSelected: boolean = (this.selectedSeason !== undefined);
     const typesSelected: boolean = (this.selectedTypes.length !== 0);
 
-    console.log(portionSizeValid, prepTimeValid, seasonSelected, typesSelected)
     return portionSizeValid && prepTimeValid && seasonSelected && typesSelected;
   }
 

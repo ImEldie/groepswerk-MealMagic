@@ -39,39 +39,38 @@
             </textarea>
             <mat-hint align="end">{{stepToAdd.description?.length}}/255</mat-hint>
         </mat-form-field>
-        @if (stepToAddIsValid()) {
-            <button class="add-step-button"
-                mat-mini-fab color="accent" 
-                (click)="addStep()">
-                    <mat-icon>add</mat-icon>
-            </button>
-        } @else {
-            <button class="add-step-button"
-                mat-mini-fab
-                disabled>
-                    <mat-icon>add</mat-icon>
-            </button>
-        }
+        <button class="add-step-button"
+            mat-mini-fab color="accent" 
+            (click)="addStep()"
+            [disabled]="!stepToAddIsValid()">
+                <mat-icon>add</mat-icon>
+        </button>
     </div>
 
-    <mat-accordion multi="true">
+    <mat-accordion>
         @for (step of createdSteps; track $index) {
-            <mat-expansion-panel>
-                <mat-expansion-panel-header class="steps-panel-header">
-                    <mat-panel-title>
-                        {{step.order}}. {{step.title}}
-                        <div>
-                          @if ($index !== 0) {
-                            <button mat-icon-button (click)="moveStepUp(step)"><mat-icon>keyboard_arrow_up</mat-icon></button>
-                          }
-                          @if ($index !== createdSteps.length - 1) {
-                            <button mat-icon-button (click)="moveStepDown(step)"><mat-icon>keyboard_arrow_down</mat-icon></button>
-                          }
-                        </div>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <p>{{step.description}}</p>
-                <button mat-flat-button color="warn" (click)="removeStep(step)" [hidden]="false"><mat-icon>delete</mat-icon>Delete this step</button>
+            <mat-expansion-panel
+                [expanded]="currentPanel === step.order"
+                (opened)="setOpenedPanel(step.order)">
+                    <mat-expansion-panel-header class="steps-panel-header">
+                        <mat-panel-title>
+                            {{step.order}}. {{step.title}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="panel-content" [hidden]="(step.description === '')">
+                        <p>{{step.description}}</p>
+                    </div>
+
+                    <div class="panel-actions">
+                        @if ($index !== 0) {
+                            <button mat-raised-button (click)="moveStepUp(step)" color="accent"><mat-icon>keyboard_arrow_up</mat-icon>Move up</button>
+                        }
+                        @if ($index !== createdSteps.length - 1) {
+                          <button mat-raised-button (click)="moveStepDown(step)" color="accent"><mat-icon>keyboard_arrow_down</mat-icon>Move down</button>
+                        }
+                        <button mat-raised-button color="warn" (click)="removeStep(step)"><mat-icon>delete</mat-icon>Delete this step</button>
+                    </div>
             </mat-expansion-panel>
         }
     </mat-accordion>

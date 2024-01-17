@@ -36,5 +36,15 @@
     border-color: rgba(255, 255, 255, 0.8);
 }
 mat-button-toggle {
-    width: 5rem;
+    animation: ToggleButtonGrowWidth 2s ease forwards;
+}
+@keyframes ToggleButtonGrowWidth {
+    from {
+        width: 0rem;
+        opacity: 0;
+    }
+    to {
+        width: 4.5rem;
+        opacity: 1;
+    }
 }

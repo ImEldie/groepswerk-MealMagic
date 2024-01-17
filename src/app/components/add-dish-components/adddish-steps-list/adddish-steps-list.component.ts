@@ -17,6 +17,12 @@ import { MatIconModule } from '@angular/material/icon';
 export class AdddishStepsListComponent {
   stepToAdd: DishStep = {title: '', description: '', order: 0};
   createdSteps: Array<DishStep> = [];
+  currentPanel: number = 0;
+
+  setOpenedPanel(panelNumber: number){
+    this.currentPanel = panelNumber;
+    console.log(this.currentPanel);
+  }
 
   addStep(){
     if (this.stepToAddIsValid()){
@@ -57,6 +63,7 @@ export class AdddishStepsListComponent {
       this.createdSteps = tempList;
       
       this.sortCreatedStepsOrders();
+      this.setOpenedPanel(tempList[newIndex].order);
     }
   }
   moveStepDown(stepToMove: DishStep){
@@ -72,7 +79,8 @@ export class AdddishStepsListComponent {
 
       this.createdSteps = tempList;
       
-      this.sortCreatedStepsOrders();  
+      this.sortCreatedStepsOrders();
+      this.setOpenedPanel(tempList[newIndex].order);
     }
   }
   private initialiseUserStepInput(){
