@@ -24,11 +24,11 @@ export class AuthService {
         tap((data) => {
           this.login_id = data.user.id;
           localStorage.setItem('token', data.token);
-          this.saveUserId(this.login_id).subscribe();
+          this.getUserId(this.login_id).subscribe();
         }),
       );
   }
-  private saveUserId(login_id: number) {
+  private getUserId(login_id: number) {
     return this.http
       .get<{ id: string }>(`${this.urlUserId}${login_id}`, {
         headers: new HttpHeaders({
@@ -46,7 +46,7 @@ export class AuthService {
     const bearerToken: string | null = localStorage.getItem('token');
     return bearerToken;
   }
-  getUserId(): number | null {
+  getStoredId(): number | null {
     const idTokenString: string | null = localStorage.getItem('id');
     if (idTokenString === null) {
       return null;
