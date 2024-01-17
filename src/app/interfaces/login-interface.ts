@@ -5,7 +5,3 @@ export interface LoginDetails {
 export interface UserInfo {
   id: number;
 }
-export interface loginResponse {
-  id: number;
-  token: string;
-}
