@@ -1,6 +1,7 @@
 <mat-card class="add-dish-card">
     <mat-card-header class="card-header">
-        <mat-card-title>
+        <mat-card-title class="card-title">
+            <mat-icon><ng-content select="[name=title-icon-type]"></ng-content></mat-icon>
             <ng-content select="[name=title]"></ng-content>
         </mat-card-title>
 
