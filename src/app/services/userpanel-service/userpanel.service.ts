@@ -20,10 +20,10 @@ export class UserpanelService {
   apiUrl: string = 'https://syntra2023.code-coaching.dev/api/group-2/';
   userDetailsEndpoint: string = 'user-details/';
   allergiesEndpoint: string = 'allergies/';
-  getUserDetails(id: number): Observable<UserDetailsResponse> {
+  getUserDetails(): Observable<UserDetailsResponse> {
     return this.http
       .get<UserDetailsInterface>(
-        `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
+        `${this.apiUrl}${this.userDetailsEndpoint}${this.auth.getStoredId()}`,
         {
           headers: new HttpHeaders({
             Authorization: 'Bearer ' + this.auth.getBearerToken(),
@@ -64,12 +64,11 @@ export class UserpanelService {
     bodyweightInput: number,
     heightInput: number,
     selectedAllergyIds: Array<number>,
-    id: number,
   ) {
     return this.http.put(
-      `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
+      `${this.apiUrl}${this.userDetailsEndpoint}${this.auth.getStoredId()}`,
       {
-        user_id: id,
+        user_id: this.auth.getStoredId(),
         bodyweight: bodyweightInput,
         height: heightInput,
         allergy_ids: selectedAllergyIds,
@@ -81,10 +80,10 @@ export class UserpanelService {
       },
     );
   }
-  putUserAllergies(selectedAllergyIds: Array<number>, id: number) {
+  putUserAllergies(selectedAllergyIds: Array<number>) {
     return this.http.put(
-      `${this.apiUrl}${this.userDetailsEndpoint}${id}`,
-      { user_id: id, allergy_ids: selectedAllergyIds },
+      `${this.apiUrl}${this.userDetailsEndpoint}${this.auth.getStoredId()}`,
+      { user_id: this.auth.getStoredId(), allergy_ids: selectedAllergyIds },
       {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.auth.getBearerToken(),

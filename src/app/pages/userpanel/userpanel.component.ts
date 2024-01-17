@@ -104,19 +104,15 @@ export class UserpanelComponent implements OnInit {
     );
   }
   private putUserAllergies(selectedAllergyIds: Array<number>) {
-    const id = this.route.snapshot.paramMap.get('id') || '';
-    this.userpanelService
-      .putUserAllergies(selectedAllergyIds, Number(id))
-      .subscribe(() => {
-        this.loading = true;
-        this.loadUserDetails().subscribe({
-          next: () => (this.loading = false),
-        });
+    this.userpanelService.putUserAllergies(selectedAllergyIds).subscribe(() => {
+      this.loading = true;
+      this.loadUserDetails().subscribe({
+        next: () => (this.loading = false),
       });
+    });
   }
   loadUserDetails(): Observable<UserDetailsResponse> {
-    const id = this.route.snapshot.paramMap.get('id') || '';
-    return this.userpanelService.getUserDetails(Number(id)).pipe(
+    return this.userpanelService.getUserDetails().pipe(
       map((response) => {
         this.userDetails = response.userDetails;
         this.userAllergies = response.userAllergies;
@@ -125,17 +121,11 @@ export class UserpanelComponent implements OnInit {
     );
   }
   submitWeightHeight() {
-    const id = this.route.snapshot.paramMap.get('id') || '';
     const bodyweight = this.formWeightHeight.get('bodyweightInput')?.value;
     const height = this.formWeightHeight.get('heightInput')?.value;
     const selectedAllergyIds = this.userAllergies.map((allergy) => allergy.id);
     this.userpanelService
-      .putUserWeightLength(
-        bodyweight * 1000,
-        height,
-        selectedAllergyIds,
-        Number(id),
-      )
+      .putUserWeightLength(bodyweight * 1000, height, selectedAllergyIds)
       .subscribe(() => {
         this.loading = true;
         this.bmiFadeOutAnimate();
