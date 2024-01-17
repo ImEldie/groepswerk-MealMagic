@@ -14,18 +14,9 @@
 }
 .new-ingredient-container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-
-    width: 100%;
-}
-@keyframes NewInput {
-    from{
-        background-color: rgba(0, 255, 200, 0.2);
-    }
+    margin-bottom: -1.35rem;
 }
 
 .name-column, .name-input {
@@ -36,6 +27,7 @@
 }
 .action-column, .new-dish-action {
     width: 5%;
+    color: transparent;
 }
 .action-column {
     padding-right: 1.3rem;

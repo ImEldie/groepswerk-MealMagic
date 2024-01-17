@@ -1,6 +1,78 @@
-<app-adddish-card [inputValid]="true">
+<app-adddish-card [inputValid]="(createdSteps.length !== 0)">
     <div name="title-icon-type">directions_walk</div>
     <div name="title">Steps</div>
 
+    <div class="new-title-image-container" name="contentrow">
+            <mat-form-field color="accent" class="name-input-field">
+                <mat-label>Step Title</mat-label>
+                <input matInput
+                    type="text"
+                    placeholder="Cutting the onions"
+                    aria-label="Step Title"
+                    [(ngModel)]="stepToAdd.title"
+                    [ngModelOptions]="{standalone: true}"
+                    required="true">
+            </mat-form-field>
     
+            <mat-form-field color="accent" class="image-input-field">
+                <mat-label>Image-URL</mat-label>
+                <input matInput
+                    type="text"
+                    placeholder="https://www.example.org/my-image.jpg"
+                    aria-label="https://www.example.org/my-image.jpg"
+                    [(ngModel)]="stepToAdd.picture"
+                    [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+    </div>
+    
+    <div class="new-description-container">
+        <mat-form-field class="description-input-field" 
+        color="accent" 
+        hintLabel="Max. 255 characters">
+            <mat-label>Description</mat-label>
+            <textarea matInput
+                type="text" 
+                placeholder="Take a sharp knife and cut the onion into small cubes." 
+                maxlength="255"
+                [(ngModel)]="stepToAdd.description"
+                [ngModelOptions]="{standalone: true}">
+            </textarea>
+            <mat-hint align="end">{{stepToAdd.description?.length}}/255</mat-hint>
+        </mat-form-field>
+        @if (stepToAddIsValid()) {
+            <button class="add-step-button"
+                mat-mini-fab color="accent" 
+                (click)="addStep()">
+                    <mat-icon>add</mat-icon>
+            </button>
+        } @else {
+            <button class="add-step-button"
+                mat-mini-fab
+                disabled>
+                    <mat-icon>add</mat-icon>
+            </button>
+        }
+    </div>
+
+    <mat-accordion multi="true">
+        @for (step of createdSteps; track $index) {
+            <mat-expansion-panel>
+                <mat-expansion-panel-header class="steps-panel-header">
+                    <mat-panel-title>
+                        {{step.order}}. {{step.title}}
+                        <div>
+                          @if ($index !== 0) {
+                            <button mat-icon-button (click)="moveStepUp(step)"><mat-icon>keyboard_arrow_up</mat-icon></button>
+                          }
+                          @if ($index !== createdSteps.length - 1) {
+                            <button mat-icon-button (click)="moveStepDown(step)"><mat-icon>keyboard_arrow_down</mat-icon></button>
+                          }
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>{{step.description}}</p>
+                <button mat-flat-button color="warn" (click)="removeStep(step)" [hidden]="false"><mat-icon>delete</mat-icon>Delete this step</button>
+            </mat-expansion-panel>
+        }
+    </mat-accordion>
 </app-adddish-card>
