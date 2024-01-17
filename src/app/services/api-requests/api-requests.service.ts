@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 import { Observable, map } from 'rxjs';
-import { APIResponse } from '../interfaces/api-interface';
+import { APIResponse } from '../../interfaces/api-interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiFunctionsService {
+export class ApiRequestsService {
   constructor(
     private http: HttpClient,
     private auth: AuthService

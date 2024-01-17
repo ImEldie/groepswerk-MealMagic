@@ -3,6 +3,7 @@ import { Ingredient, IngredientApiResponse } from '../../components/interfaces/i
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { ApiRequestsService } from '../api-requests/api-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class IngredientsApiService {
   private ingredients: Array<Ingredient> = [];
 
   constructor(
-    private http: HttpClient,
+    private api: ApiRequestsService,
     private auth: AuthService
   ) {
     this.loadIngredientsFromAPI();
@@ -26,18 +27,7 @@ export class IngredientsApiService {
     return searchedIngredient;
   }
   loadIngredientsFromAPI(): void{
-    const targetLink: string = "https://syntra2023.code-coaching.dev/api/group-2/ingredients/";
-    const token = this.auth.getBearerToken();
-
-    this.http
-      .get<IngredientApiResponse>(targetLink, {
-        headers: new HttpHeaders({
-          Authorization: "Bearer " + token,
-        }),
-      })
-      .pipe(map((data: IngredientApiResponse) => data.data))
-      .subscribe((data: Array<Ingredient>) => {
-        this.ingredients = data;
-      });
+    this.api.getFromApi('/group-2/ingredients')
+      .subscribe((data: Array<Ingredient>) => {this.ingredients = data;});
   }
 }

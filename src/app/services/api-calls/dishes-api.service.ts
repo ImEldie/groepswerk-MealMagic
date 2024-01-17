@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Dish, DishApiResponse } from '../../components/interfaces/interfaces-dishes';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { ApiRequestsService } from '../api-requests/api-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +12,15 @@ export class DishesApiService {
   private dishes: Array<Dish> = [];
 
   constructor(
-    private http: HttpClient,
+    private api: ApiRequestsService,
     private auth: AuthService
   ) {
     this.loadDishesFromApi();
   }
 
   loadDishesFromApi(): void{
-    const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/dishes/";
-    const token = this.auth.getBearerToken();
-
-    this.http
-      .get<DishApiResponse>(targetLink, {
-        headers: new HttpHeaders({
-          Authorization: "Bearer " + token,
-        }),
-      })
-      .pipe(map((data: DishApiResponse) => data.data))
-      .subscribe((dishes: Array<Dish>) => {
-        this.dishes = dishes;
-      });
+    this.api.getFromApi('/group-2/dishes')
+      .subscribe((dishes: Array<Dish>) => {this.dishes = dishes;});
   }
 
   getDishList(): Array<Dish>{

@@ -8,12 +8,11 @@ import { LoginDetails } from '../interfaces/login-interface';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
-  private urlUserId: string =
-    'https://syntra2023.code-coaching.dev/api/group-2/user-details/user/';
+  private urlUserId: string = '/group-2/user-details/user/';
   login(email: string, password: string) {
     return this.http
       .post<LoginDetails>(
-        'https://syntra2023.code-coaching.dev/api/token/login',
+        '/token/login',
         {
           email: email,
           password: password,
