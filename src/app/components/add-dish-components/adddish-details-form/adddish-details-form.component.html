@@ -1,7 +1,6 @@
-<app-adddish-card>
-  <div name="header">
+<app-adddish-card [inputValid]="checkInputsValidity()">
+  <div name="title">
       Details
-      <mat-icon color="accent">check</mat-icon>
   </div>
 
   <mat-form-field class="portion-input-field"
@@ -36,7 +35,7 @@
       <mat-label>Seasons</mat-label>
       <mat-button-toggle-group aria-label="Season">
         @for (season of getApiSeasons(); track $index) {
-          <mat-button-toggle [value]="season">{{season.name}}</mat-button-toggle>
+          <mat-button-toggle [value]="season" (click)="setSelectedSeason(season)">{{season.name}}</mat-button-toggle>
         }
       </mat-button-toggle-group>
   </div>

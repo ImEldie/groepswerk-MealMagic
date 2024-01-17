@@ -38,10 +38,25 @@ export class AdddishDetailsFormComponent {
     this.seasonsApi.loadSeasonsFromApi();
   }
 
+  checkInputsValidity(): boolean {
+    const portionSizeValid: boolean = (this.portionSizeInput !== 0);
+    const prepTimeValid: boolean = (this.preparationTimeInput !== 0);
+    const seasonSelected: boolean = (this.selectedSeason !== undefined);
+    const typesSelected: boolean = (this.selectedTypes.length !== 0);
+
+    console.log(portionSizeValid, prepTimeValid, seasonSelected, typesSelected)
+    return portionSizeValid && prepTimeValid && seasonSelected && typesSelected;
+  }
+
+  // SEASONS
   getApiSeasons(): Array<DishSeason> {
     return this.seasonsApi.getseasonsList();
   }
+  setSelectedSeason(newSeason: DishSeason) {
+    this.selectedSeason = newSeason;
+  }
 
+  // TYPES
   getApiTypes(): Array<DishType> {
     return this.typesApi.getTypesList();
   }

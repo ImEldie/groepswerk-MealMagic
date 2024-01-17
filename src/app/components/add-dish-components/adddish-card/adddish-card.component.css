@@ -1,16 +1,22 @@
 .add-dish-card {
     margin-bottom: 1rem;
     z-index: 2;
-    min-width: 52rem;
+    min-width: 60rem;
+    border-width: 1px;
+    border-style: outset;
+    border-color: transparent;
 }
 .add-dish-card:hover {
     animation: card-glow 1s ease forwards;
     z-index: 3;
-    border-color: var(--color-accent);
 }
 @keyframes card-glow {
+    from {
+        border-color: transparent;
+    }
     to{
         box-shadow: 0 0.5rem 1rem 0.1rem #00000099;
+        border-color: rgba(0, 0, 0, 0.5);
     }
 }
 
@@ -26,4 +32,27 @@
     flex-wrap: nowrap;
     gap: 0.5rem;
     margin-bottom: -1.5rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.validity-icon {
+    animation: ValidityIconRotate 1s ease forwards;
+}
+@keyframes ValidityIconRotate {
+    from {
+        rotate: 720deg;
+        scale: 0;
+        margin-top: -3rem;
+        margin-right: -1rem;
+        opacity: 0;
+    }
+    to {
+        rotate: 0deg;
+        scale: 1;
+    }
 }

@@ -17,4 +17,11 @@ export class AdddishNameInputsComponent {
   nameInput: string = '';
   descriptionInput: string = '';
   imageInput: string = '';
+
+  checkInputsValidity(): boolean {
+    const nameValid: boolean = (this.nameInput !== '');
+    const imageInput: boolean = (this.imageInput !== '');
+
+    return nameValid && imageInput;
+  }
 }

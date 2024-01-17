@@ -1,8 +1,14 @@
 <mat-card class="add-dish-card">
-    <mat-card-header>
+    <mat-card-header class="card-header">
         <mat-card-title>
-            <ng-content select="[name=header]"></ng-content>
+            <ng-content select="[name=title]"></ng-content>
         </mat-card-title>
+
+        @if (inputValid) {
+            <mat-icon color="accent" class="validity-icon">check</mat-icon>
+        } @else {
+            <mat-icon color="warn" class="validity-icon">clear</mat-icon>
+        }
     </mat-card-header>
 
     <mat-card-content class="card-content">
@@ -10,6 +16,8 @@
         <div class="content-row-container">
             <ng-content select="[name=contentrow]"></ng-content>
         </div>
+
         <ng-content></ng-content>
+
     </mat-card-content>
 </mat-card>
