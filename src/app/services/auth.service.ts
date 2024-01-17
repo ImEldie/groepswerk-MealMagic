@@ -10,9 +10,10 @@ export class AuthService {
   constructor(private http: HttpClient) {}
   url: string =
     'https://syntra2023.code-coaching.dev/api/group-2/user-details/user/';
+  private login_id: number = NaN;
   login(email: string, password: string) {
     return this.http
-      .post<loginResponse>(
+      .post<LoginDetails>(
         'https://syntra2023.code-coaching.dev/api/token/login',
         {
           email: email,
@@ -21,34 +22,37 @@ export class AuthService {
       )
       .pipe(
         tap((data) => {
-          localStorage.setItem('login_id', data.user.id);
+          this.login_id = data.user.id;
           localStorage.setItem('token', data.token);
+          this.saveUserId(this.login_id).subscribe();
         }),
       );
   }
-  getLoginId(): number | null {
-    const loginId: number | null = Number(localStorage.getItem('login_id'));
-    return loginId;
-  }
-  getUserIdDatabase(login_id: number) {
+  saveUserId(login_id: number) {
     return this.http
       .get<{ id: string }>(`${this.url}${login_id}`, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.getBearerToken(),
         }),
       })
-      .pipe(tap((data) => localStorage.setItem('id', data.id)));
+      .pipe(tap((data) => localStorage.setItem('id', String(data.id))));
   }
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    this.login_id = NaN;
   }
   getBearerToken(): string | null {
     const bearerToken: string | null = localStorage.getItem('token');
     return bearerToken;
   }
   getUserId(): number | null {
-    const idToken: number | null = Number(localStorage.getItem('id'));
-    return idToken;
+    const idTokenString: string | null = localStorage.getItem('id');
+    if (idTokenString === null) {
+      return null;
+    }
+    const idTokenNumber: number = parseInt(idTokenString, 10);
+    return idTokenNumber;
   }
   get isAuthenticated() {
     return !!localStorage.getItem('token');
