@@ -26,6 +26,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -43,6 +44,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressBarModule,
     MatChipsModule,
     MatTooltipModule,
+    AllergyIconComponent,
   ],
   templateUrl: './userpanel.component.html',
   styleUrl: './userpanel.component.css',
