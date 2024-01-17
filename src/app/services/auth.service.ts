@@ -10,7 +10,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
   private urlUserId: string =
     'https://syntra2023.code-coaching.dev/api/group-2/user-details/user/';
-  private login_id: number = NaN;
   login(email: string, password: string) {
     return this.http
       .post<LoginDetails>(
@@ -22,9 +21,8 @@ export class AuthService {
       )
       .pipe(
         tap((data) => {
-          this.login_id = data.user.id;
           localStorage.setItem('token', data.token);
-          this.getUserId(this.login_id).subscribe();
+          this.getUserId(data.user.id).subscribe();
         }),
       );
   }
@@ -40,7 +38,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
-    this.login_id = NaN;
   }
   getBearerToken(): string | null {
     const bearerToken: string | null = localStorage.getItem('token');
