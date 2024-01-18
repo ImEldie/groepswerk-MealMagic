@@ -39,6 +39,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
+    localStorage.removeItem('login_id');
   }
   getBearerToken(): string | null {
     const bearerToken: string | null = localStorage.getItem('token');
