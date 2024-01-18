@@ -148,7 +148,7 @@
         <section formArrayName="allergyIds">
           @for (id of allergyFormArray.controls; track id; let index = $index) {
             <mat-checkbox [formControlName]="index" class="item-allergy">
-              <span class="name-allergylist">
+              <span>
                 {{ listAllergies[index].name | titlecase }}
               </span>
             </mat-checkbox>
