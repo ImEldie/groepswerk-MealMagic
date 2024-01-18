@@ -11,7 +11,9 @@
   </div>
   @if (authService.isAuthenticated) {
     <div class="user-buttons">
-      <button mat-button (click)="nagivateToUserpanel()">User Panel</button>
+      <button mat-button (click)="router.navigate(['userpanel'])">
+        User Panel
+      </button>
       <button (click)="authService.logout()" mat-button>Logout</button>
     </div>
   } @else {

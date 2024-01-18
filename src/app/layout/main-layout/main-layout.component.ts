@@ -29,7 +29,4 @@ export class MainLayoutComponent {
   navigateToHomepage() {
     this.router.navigate(['']);
   }
-  nagivateToUserpanel() {
-    this.router.navigate(['userpanel', this.authService.getStoredId()]);
-  }
 }
