@@ -25,15 +25,12 @@ export class AuthService {
       );
   }
   private getUserId(login_id: number) {
-    return this.api.get('/user-details/user/' , login_id)
+    return this.api.get('/user-details/user/', login_id)
       .pipe(tap((data) => this.storage.id.set(data.id)));
   }
   logout() {
     this.storage.token.remove();
     this.storage.id.remove();
-  }
-  getStoredId() {
-    return this.storage.id.get();
   }
   get isAuthenticated() {
     return !!this.storage.token.get();

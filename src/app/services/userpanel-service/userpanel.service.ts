@@ -44,8 +44,7 @@ export class UserpanelService {
       );
   }
   getListAllergies(): Observable<Array<Allergy>> {
-    return this.api.get("allergies")
-      .pipe(map((result) => result.data));
+    return this.api.get("allergies");
   }
   putUserWeightLength(
     bodyweightInput: number,
