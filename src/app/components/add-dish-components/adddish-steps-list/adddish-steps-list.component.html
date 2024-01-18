@@ -11,7 +11,7 @@
                     aria-label="Step Title"
                     [(ngModel)]="stepToAdd.title"
                     [ngModelOptions]="{standalone: true}"
-                    required="true">
+                    required>
             </mat-form-field>
     
             <mat-form-field color="accent" class="image-input-field">
@@ -36,7 +36,7 @@
                 maxlength="255"
                 [(ngModel)]="stepToAdd.description"
                 [ngModelOptions]="{standalone: true}"
-                required="true">
+                required>
             </textarea>
             <mat-hint align="end">{{stepToAdd.description?.length}}/255</mat-hint>
         </mat-form-field>

@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { AddDishDetailInputs, AddDishNameInputs } from '../../../interfaces/interfaces-add-dish-forms';
 
 @Component({
   selector: 'app-adddish-card',

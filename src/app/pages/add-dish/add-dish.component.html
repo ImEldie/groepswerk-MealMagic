@@ -5,17 +5,17 @@
         </mat-card-header>
     
         <mat-card-content class="card-content">
-            <app-adddish-name-inputs (UserInputData)="setNameInputs($event)"></app-adddish-name-inputs>
+            <app-adddish-maininfo-form (UserInputData)="setNameInputs($event)"></app-adddish-maininfo-form>
             <app-adddish-details-form (UserInputData)="setDetailInputs($event)"></app-adddish-details-form>
             <app-adddish-ingredient-list (UserInputData)="setSelectedIngredients($event)"></app-adddish-ingredient-list>
             <app-adddish-steps-list (UserInputData)="setCreatedSteps($event)"></app-adddish-steps-list>
         </mat-card-content>
     
         <mat-card-actions class="card-actions">
-            <button class="clear-input-button"
+            <button class="post-button"
                 mat-raised-button color="accent"
                 (click)="postDish()"
-                [disabled]="!allUserInputsValid()">
+                [disabled]="!userInputsValid()">
                 <mat-icon>save</mat-icon>Post Dish
             </button>
         </mat-card-actions>

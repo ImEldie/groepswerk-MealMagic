@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AdddishCardComponent } from '../adddish-card/adddish-card.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ import { AddDishDetailInputs } from '../../../interfaces/interfaces-add-dish-for
   templateUrl: './adddish-details-form.component.html',
   styleUrl: './adddish-details-form.component.css'
 })
-export class AdddishDetailsFormComponent {
+export class AdddishDetailsFormComponent implements OnInit {
   portionSizeInput: number = 0;
   preparationTimeInput: number = 0;
 

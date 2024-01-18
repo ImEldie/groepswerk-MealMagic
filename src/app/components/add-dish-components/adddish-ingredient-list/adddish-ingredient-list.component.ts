@@ -19,7 +19,7 @@ import { AddDishSelectedIngredients } from '../../../interfaces/interfaces-add-d
   templateUrl: './adddish-ingredient-list.component.html',
   styleUrl: './adddish-ingredient-list.component.css'
 })
-export class AdddishIngredientListComponent {
+export class AdddishIngredientListComponent implements OnInit {
   suggestedIngredients: Array<IngredientPostData> = [];
   selectedIngredients: Array<IngredientPostData> = [];
   ingredientToAdd: IngredientPostData = {id: 0, name: '', amount: {value: 0, unit: 'gr'}};
@@ -69,8 +69,6 @@ export class AdddishIngredientListComponent {
     }
   }
   removeIngredient(ingredientToRemove: IngredientPostData){
-    let removalIndex: number = this.selectedIngredients.indexOf(ingredientToRemove);
-
     const tempList = this.selectedIngredients.filter(ingredient => ingredient !== ingredientToRemove);
     this.selectedIngredients = tempList;
     this.emitUserInput();

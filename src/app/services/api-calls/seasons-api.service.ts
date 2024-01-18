@@ -2,44 +2,39 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { DishSeason, SeasonsApiResponse } from '../../interfaces/interfaces-seasons';
+import {
+  DishSeason,
+  SeasonsApiResponse,
+} from '../../interfaces/interfaces-seasons';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class SeasonsApiService {
   private seasons: Array<DishSeason> = [];
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService
-  ) {
-    this.loadSeasonsFromApi();
-  }
+    private auth: AuthService,
+  ) {}
 
-  loadSeasonsFromApi(): void{
-    const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/seasons/";
-    const token = this.auth.getBearerToken();
+  loadSeasonsFromApi() {
+    const targetLink =
+      'https://syntra2023.code-coaching.dev/api/group-2/seasons/';
 
     this.http
       .get<SeasonsApiResponse>(targetLink, {
         headers: new HttpHeaders({
-          Authorization: "Bearer " + token,
+          Authorization: 'Bearer ' + this.auth.getBearerToken(),
         }),
       })
-      .pipe(map((data: SeasonsApiResponse) => data.data))
-      .subscribe((dishes: DishSeason[]) => {
-        this.seasons = dishes;
+      .pipe(map((response) => response.data))
+      .subscribe((seasons: Array<DishSeason>) => {
+        this.seasons = seasons;
       });
   }
 
-  getseasonsList(): Array<DishSeason>{
+  getseasonsList(): Array<DishSeason> {
     return this.seasons;
-  }
-
-  getSeasonIdFromName(seasonName: string | null): number {
-    const seasonId: number | undefined = this.seasons.find((season) => season.name === seasonName)?.id;
-    return (seasonId !== undefined) ? seasonId : 0;
   }
 }

@@ -19,9 +19,7 @@ export class DishesApiService {
     private auth: AuthService,
     private stepsApi: StepsApiService,
     private router: Router
-  ) {
-    this.loadDishesFromApi();
-  }
+  ) {}
 
   loadDishesFromApi(): void{
     const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/dishes/";
@@ -33,8 +31,8 @@ export class DishesApiService {
           Authorization: "Bearer " + token,
         }),
       })
-      .pipe(map((data: DishApiResponse) => data.data))
-      .subscribe((dishes: Dish[]) => {
+      .pipe(map((response: DishApiResponse) => response.data))
+      .subscribe((dishes: Array<Dish>) => {
         this.dishes = dishes;
       });
   }
@@ -43,9 +41,9 @@ export class DishesApiService {
   }
 
   postNewDish(postData: DishPostData, stepsToPost: Array<DishStep>){
-    const StepsObservables: Array<Observable<Step>> = this.stepsApi.createPostObservables(stepsToPost);
+    const stepsObservables: Array<Observable<Step>> = this.stepsApi.postDishSteps(stepsToPost);
 
-    forkJoin(StepsObservables).subscribe(
+    forkJoin(stepsObservables).subscribe(
       (result: Array<Step>) => {
         result.sort((a, b) => a.order - b.order);
         postData.dish_steps = result.map((step) => step.id);
@@ -77,9 +75,7 @@ export class DishesApiService {
         )
       }
     )
-    .subscribe((result) => {
-        console.log(result);
-        this.loadDishesFromApi();
+    .subscribe((d) => {
         this.router.navigate(['']);
       });
   }

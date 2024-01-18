@@ -8,12 +8,11 @@
           <mat-label>Portion size</mat-label>
           <input matInput
             type="number"
-            matInput
             [(ngModel)]="portionSizeInput"
             [ngModelOptions]="{standalone: true}"
             min="1"
             max="24"
-            required="true">
+            required>
   </mat-form-field>
 
   <mat-form-field class="time-input-field"
@@ -25,7 +24,7 @@
             [(ngModel)]="preparationTimeInput"
             [ngModelOptions]="{standalone: true}"
             min="1"
-            required="true">
+            required>
   </mat-form-field>
 
   
@@ -33,7 +32,7 @@
       name="contentrow">
       <mat-label>Seasons</mat-label>
       <mat-button-toggle-group aria-label="Season">
-        @for (season of getApiSeasons(); track $index) {
+        @for (season of getApiSeasons(); track season.id) {
           <mat-button-toggle [value]="season" (click)="setSelectedSeason(season)">{{season.name}}</mat-button-toggle>
         }
       </mat-button-toggle-group>

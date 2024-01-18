@@ -8,13 +8,13 @@ import { AdddishCardComponent } from '../adddish-card/adddish-card.component';
 import { AddDishNameInputs } from '../../../interfaces/interfaces-add-dish-forms';
 
 @Component({
-  selector: 'app-adddish-name-inputs',
+  selector: 'app-adddish-maininfo-form',
   standalone: true,
   imports: [AdddishCardComponent, MatInputModule, MatCardModule, MatIconModule, MatFormFieldModule, FormsModule],
-  templateUrl: './adddish-name-inputs.component.html',
-  styleUrl: './adddish-name-inputs.component.css'
+  templateUrl: './adddish-maininfo-form.component.html',
+  styleUrl: './adddish-maininfo-form.component.css'
 })
-export class AdddishNameInputsComponent {
+export class AdddishMaininfoFormComponent {
   nameInput: string = '';
   descriptionInput: string = '';
   imageInput: string = '';

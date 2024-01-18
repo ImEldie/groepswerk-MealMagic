@@ -11,7 +11,8 @@
         placeholder="Spaghetti Bolognese"
         [(ngModel)]="nameInput"
         [ngModelOptions]="{standalone: true}"
-        required="true">
+        maxlength="72"
+        required>
   </mat-form-field>
 
   <mat-form-field class="image-input-field"
@@ -23,7 +24,7 @@
             placeholder="https://www.example.org/my-image.jpg"
             [(ngModel)]="imageInput"
             [ngModelOptions]="{standalone: true}"
-            required="true">
+            required>
   </mat-form-field>
 
   <mat-form-field class="description-input-field"
@@ -36,7 +37,7 @@
             maxlength="255"
             [(ngModel)]="descriptionInput"
             [ngModelOptions]="{standalone: true}"
-            required="true">
+            required>
           </textarea>
           <mat-hint align="end">{{descriptionInput.length}}/255</mat-hint>
   </mat-form-field>

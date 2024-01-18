@@ -18,7 +18,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './homepage.component.css',
 })
 
-export class HomepageComponent {
+export class HomepageComponent implements OnInit {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
 

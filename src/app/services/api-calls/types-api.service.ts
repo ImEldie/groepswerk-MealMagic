@@ -17,18 +17,17 @@ export class TypesApiService {
     this.loadTypesFromApi();
   }
 
-  loadTypesFromApi(): void{
+  loadTypesFromApi(){
     const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/types/";
-    const token = this.auth.getBearerToken();
 
     this.http
       .get<TypesApiResponse>(targetLink, {
         headers: new HttpHeaders({
-          Authorization: "Bearer " + token,
+          Authorization: "Bearer " + this.auth.getBearerToken(),
         }),
       })
-      .pipe(map((data: TypesApiResponse) => data.data))
-      .subscribe((dishes: DishType[]) => {
+      .pipe(map((response) => response.data))
+      .subscribe((dishes: Array<DishType>) => {
         this.types = dishes;
       });
   }

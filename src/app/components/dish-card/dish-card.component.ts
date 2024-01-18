@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -18,7 +18,7 @@ import { Ingredient } from '../../interfaces/interfaces-ingredients';
   templateUrl: './dish-card.component.html',
   styleUrl: './dish-card.component.css'
 })
-export class DishCardComponent {
+export class DishCardComponent implements OnInit {
   @Input() dish!: Dish;
 
   constructor(

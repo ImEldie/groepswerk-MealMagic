@@ -14,11 +14,10 @@ export class StepsApiService {
   ) {
   }
 
-  createPostObservables(stepsToPost: Array<DishStep>): Array<Observable<Step>> {
+  postDishSteps(stepsToPost: Array<DishStep>): Array<Observable<Step>> {
     const targetLink: string = "https://syntra2023.code-coaching.dev/api/group-2/steps/";
-    const token = this.auth.getBearerToken();
 
-    const ObservablesToReturn: Array<Observable<Step>> = stepsToPost.map(step =>
+    const postedSteps: Array<Observable<Step>> = stepsToPost.map(step =>
       this.http
       .post<Step>(targetLink, 
         {
@@ -29,10 +28,10 @@ export class StepsApiService {
         },
         {
           headers: new HttpHeaders(
-            { Authorization: "Bearer " + token }
+            { Authorization: "Bearer " + this.auth.getBearerToken() }
           )
         }
       ));
-    return ObservablesToReturn;
+    return postedSteps;
   }
 }

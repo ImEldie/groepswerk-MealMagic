@@ -13,9 +13,7 @@ export class IngredientsApiService {
   constructor(
     private http: HttpClient,
     private auth: AuthService,
-  ) {
-    this.loadIngredientsFromAPI();
-  }
+  ) {}
 
   getIngredientList(): Array<Ingredient>{
     return this.ingredients;
@@ -35,8 +33,8 @@ export class IngredientsApiService {
           Authorization: "Bearer " + token,
         }),
       })
-      .pipe(map((data: IngredientApiResponse) => data.data))
-      .subscribe((data: Ingredient[]) => {
+      .pipe(map((response: IngredientApiResponse) => response.data))
+      .subscribe((data: Array<Ingredient>) => {
         this.ingredients = data;
       });
   }

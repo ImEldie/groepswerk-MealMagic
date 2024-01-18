@@ -17,23 +17,6 @@ export interface DishPostData{
   dish_types: Array<number>,
   dish_steps: Array<number>
 }
-interface DishApiLinks {
-  url: string | null;
-  label: string | number;
-  active: boolean;
-}
-
-export interface AddDishFormData {
-  name: string, 
-  description: string, 
-  image: string,
-  types: Array<DishType>,
-  season: string | null,
-  ingredients: Array<IngredientPostData>,
-  amountOfPeople: number,
-  preparationTime: number,
-  steps: Array<DishStep>,
-}
 
 export interface Dish {
     id: number;

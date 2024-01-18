@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AdddishDetailsFormComponent } from '../../components/add-dish-components/adddish-details-form/adddish-details-form.component';
-import { AdddishNameInputsComponent } from '../../components/add-dish-components/adddish-name-inputs/adddish-name-inputs.component';
+import { AdddishMaininfoFormComponent } from '../../components/add-dish-components/adddish-maininfo-form/adddish-maininfo-form.component';
 import { AdddishIngredientListComponent } from '../../components/add-dish-components/adddish-ingredient-list/adddish-ingredient-list.component';
 import { AdddishStepsListComponent } from '../../components/add-dish-components/adddish-steps-list/adddish-steps-list.component';
 import { MatCardModule } from '@angular/material/card';
@@ -13,7 +13,7 @@ import { DishPostData } from '../../interfaces/interfaces-dishes';
 @Component({
   selector: 'app-add-dish',
   standalone: true,
-  imports: [AdddishDetailsFormComponent, AdddishNameInputsComponent, AdddishIngredientListComponent, AdddishStepsListComponent, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [AdddishDetailsFormComponent, AdddishMaininfoFormComponent, AdddishIngredientListComponent, AdddishStepsListComponent, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './add-dish.component.html',
   styleUrl: './add-dish.component.css'
 })
@@ -28,7 +28,7 @@ export class AddDishComponent {
   ){}
 
   postDish(){
-    if (this.allUserInputsValid()) {
+    if (this.userInputsValid()) {
       const postData: DishPostData = {
         name: this.nameInputData!.name,
         description: this.nameInputData!.description,
@@ -51,10 +51,10 @@ export class AddDishComponent {
     const ingredientsDefined = (this.selectedIngredients !== undefined);
     const stepsDefined = (this.createdSteps !== undefined);
 
-    return (namesDefined && detailsDefined && ingredientsDefined && stepsDefined)
+    return namesDefined && detailsDefined && ingredientsDefined && stepsDefined;
   }
 
-  allUserInputsValid(): boolean {
+  userInputsValid(): boolean {
     let returnValue: boolean = false;
     
     if (this.allUserInputsDefined()) {

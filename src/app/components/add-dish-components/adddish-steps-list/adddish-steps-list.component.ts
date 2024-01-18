@@ -43,7 +43,6 @@ export class AdddishStepsListComponent {
 
   checkInputsValidity(): boolean {
     const stepsCreated = (this.createdSteps.length !== 0);
-
     return stepsCreated;
   }
 
@@ -60,31 +59,25 @@ export class AdddishStepsListComponent {
     }
   }
   removeStep(stepToRemove: DishStep){
-    let removalIndex: number = this.createdSteps.indexOf(stepToRemove);
-
-    const tempList: Array<DishStep> = this.createdSteps.filter(step => step !== stepToRemove); // We make a templist and then overwrite the selectedIngredientslist => Angular needs this to properly update the table.
+    const tempList: Array<DishStep> = this.createdSteps.filter(step => step !== stepToRemove); // templist to overwrite visualised list required by Angular to update the table.
     this.createdSteps = tempList;
-
     this.sortCreatedStepsOrders();
     this.emitUserInput();
   }
   stepToAddIsValid(): boolean{
     const titleIsValid: boolean = (this.stepToAdd.title !== '');
     const descriptionIsValid: boolean = (this.stepToAdd.description!.length <= 255 && this.stepToAdd.description !== '');
-
     return (titleIsValid && descriptionIsValid);
   }
   moveStepUp(stepToMove: DishStep){
     const stepIsNotFirst: boolean = (stepToMove.order > 1);
     if (stepIsNotFirst) {
       let tempList: Array<DishStep> = [...this.createdSteps];
-
       const oldIndex: number = this.createdSteps.indexOf(stepToMove);
       const newIndex: number = oldIndex - 1;
 
       tempList[oldIndex] = tempList[newIndex];
       tempList[newIndex] = stepToMove;
-
       this.createdSteps = tempList;
       
       this.sortCreatedStepsOrders();
@@ -96,13 +89,11 @@ export class AdddishStepsListComponent {
     const stepIsNotLast: boolean = (stepToMove.order < this.createdSteps.length);
     if (stepIsNotLast) {
       let tempList: Array<DishStep> = [...this.createdSteps];
-
       const oldIndex: number = this.createdSteps.indexOf(stepToMove);
       const newIndex: number = oldIndex + 1;
 
       tempList[oldIndex] = tempList[newIndex];
       tempList[newIndex] = stepToMove;
-
       this.createdSteps = tempList;
       
       this.sortCreatedStepsOrders();
