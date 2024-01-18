@@ -17,7 +17,6 @@ import {
   FormControl,
 } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
 import {
   Allergy,
   UserDetailsInterface,
@@ -75,7 +74,6 @@ export class UserpanelComponent implements OnInit {
   resetArrow: boolean = false;
   constructor(
     private userpanelService: UserpanelService,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) {}
   ngOnInit() {
