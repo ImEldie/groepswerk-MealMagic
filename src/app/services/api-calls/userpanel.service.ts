@@ -68,7 +68,7 @@ export class UserpanelService {
     return this.http.put(
       `${this.apiUrl}${this.userDetailsEndpoint}${this.auth.getStoredId()}`,
       {
-        user_id: this.auth.getStoredId(),
+        user_id: this.auth.getStoredLoginId(),
         bodyweight: bodyweightInput,
         height: heightInput,
         allergy_ids: selectedAllergyIds,
@@ -83,7 +83,10 @@ export class UserpanelService {
   putUserAllergies(selectedAllergyIds: Array<number>) {
     return this.http.put(
       `${this.apiUrl}${this.userDetailsEndpoint}${this.auth.getStoredId()}`,
-      { user_id: this.auth.getStoredId(), allergy_ids: selectedAllergyIds },
+      {
+        user_id: this.auth.getStoredLoginId(),
+        allergy_ids: selectedAllergyIds,
+      },
       {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.auth.getBearerToken(),
