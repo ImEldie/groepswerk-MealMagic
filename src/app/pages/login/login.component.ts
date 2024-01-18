@@ -51,7 +51,7 @@ export class LoginComponent {
 
   login() {
     const { email, password } = this.loginForm.value;
-    this.authService.login(email, password).subscribe((data) => {
+    this.authService.login(email, password).subscribe(() => {
       this.location.back();
     });
   }
