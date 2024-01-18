@@ -7,6 +7,7 @@
         placeholder="mealmagic@example.com"
         formControlName="email"
         required
+        (keydown.enter)="$event.preventDefault()"
       />
       @if (loginForm.get("email")?.invalid) {
         <mat-error>{{ getEmailErrorMessage() }}</mat-error>
@@ -22,6 +23,7 @@
         required
         formControlName="password"
         [type]="hidePasswordError ? 'password' : 'text'"
+        (keydown.enter)="$event.preventDefault()"
       />
       <button
         mat-icon-button
