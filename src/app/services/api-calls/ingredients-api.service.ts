@@ -3,7 +3,7 @@ import { Ingredient, IngredientApiResponse } from '../../components/interfaces/i
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { ApiRequestsService } from '../api-requests/api-requests.service';
+import { ApiRequestsService } from '../api-requests-service/api-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class IngredientsApiService {
     return searchedIngredient;
   }
   loadIngredientsFromAPI(): void{
-    this.api.getFromApi('/ingredients')
+    this.api.get('/ingredients')
       .subscribe((data: Array<Ingredient>) => {this.ingredients = data;});
   }
 }

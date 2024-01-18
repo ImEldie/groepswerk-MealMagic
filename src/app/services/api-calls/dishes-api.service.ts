@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Dish, DishApiResponse } from '../../components/interfaces/interfaces-dishes';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { ApiRequestsService } from '../api-requests/api-requests.service';
+import { ApiRequestsService } from '../api-requests-service/api-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class DishesApiService {
   }
 
   loadDishesFromApi(): void{
-    this.api.getFromApi('/dishes')
+    this.api.get('dishes')
       .subscribe((dishes: Array<Dish>) => {this.dishes = dishes;});
   }
 

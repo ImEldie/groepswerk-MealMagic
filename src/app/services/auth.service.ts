@@ -1,56 +1,41 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
-import { LoginDetails } from '../interfaces/login-interface';
+import { ApiRequestsService } from './api-requests-service/api-requests.service';
+import { LocalstorageService } from './localstorage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
-  private urlUserId: string = '/group-2/user-details/user/';
+  constructor(
+    private http: HttpClient, 
+    private api: ApiRequestsService,
+    private storage: LocalstorageService,
+  ) {};
+
   login(email: string, password: string) {
-    return this.http
-      .post<LoginDetails>(
-        '/token/login',
-        {
-          email: email,
-          password: password,
-        },
-      )
+    const postData = {email: email , password: password};
+    return this.api.post('/token/login', postData)
       .pipe(
         tap((data) => {
-          localStorage.setItem('token', data.token);
+          this.storage.token.set(data.token);
           this.getUserId(data.user.id).subscribe();
         }),
       );
   }
   private getUserId(login_id: number) {
-    return this.http
-      .get<{ id: string }>(`${this.urlUserId}${login_id}`, {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.getBearerToken(),
-        }),
-      })
-      .pipe(tap((data) => localStorage.setItem('id', String(data.id))));
+    return this.api.get('/user-details/user/' , login_id)
+      .pipe(tap((data) => this.storage.id.set(data.id)));
   }
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('id');
+    this.storage.token.remove();
+    this.storage.id.remove();
   }
-  getBearerToken(): string | null {
-    const bearerToken: string | null = localStorage.getItem('token');
-    return bearerToken;
-  }
-  getStoredId(): number | null {
-    const idTokenString: string | null = localStorage.getItem('id');
-    if (idTokenString === null) {
-      return null;
-    }
-    const idTokenNumber: number = parseInt(idTokenString, 10);
-    return idTokenNumber;
+  getStoredId() {
+    return this.storage.id.get();
   }
   get isAuthenticated() {
-    return !!localStorage.getItem('token');
+    return !!this.storage.token.get();
   }
 }

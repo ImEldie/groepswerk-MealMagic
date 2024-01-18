@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { Observable, map } from 'rxjs';
 import { APIResponse } from '../../interfaces/api-interface';
+import { LocalstorageService } from '../localstorage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,10 @@ import { APIResponse } from '../../interfaces/api-interface';
 export class ApiRequestsService {
   constructor(
     private http: HttpClient,
-    private auth: AuthService
+    private storage: LocalstorageService
   ) {}
 
-  getFromApi(endpoint: string, endpointId: number | void): Observable<any> {
+  get(endpoint: string, endpointId: number | void): Observable<any> {
     if (endpointId) {
       return this.getRequest(this.getEndpointWithId(endpoint, endpointId));
     } else {
@@ -25,13 +25,13 @@ export class ApiRequestsService {
     return this.http
       .get<APIResponse>(endpoint , {
         headers: new HttpHeaders({
-          Authorization: "Bearer " + this.auth.getBearerToken(),
+          Authorization: "Bearer " + this.storage.token.get(),
         }),
       })
   }
 
-  postToApi(endpoint: string, dataToPost: any): Observable<any> {
-    return this.postRequest(endpoint, dataToPost).pipe(map((data: APIResponse) => data.data));
+  post(endpoint: string, dataToPost: any): Observable<any> {
+    return this.postRequest(endpoint, dataToPost);
   }
 
   private postRequest(endpoint: string, dataToPost: any): Observable<any> {
@@ -39,12 +39,12 @@ export class ApiRequestsService {
       .post<APIResponse>(endpoint, dataToPost,
       {
         headers: new HttpHeaders({
-          Authorization: "Bearer " + this.auth.getBearerToken(),
+          Authorization: "Bearer " + this.storage.token.get(),
         }),
       })
   }
   
-  putToApi(endpoint: string, endpointId: number, dataToPut: any): Observable<any> {
+  put(endpoint: string, endpointId: number, dataToPut: any): Observable<any> {
     return this.putRequest(this.getEndpointWithId(endpoint, endpointId), dataToPut);
   }
 
@@ -52,7 +52,7 @@ export class ApiRequestsService {
     return this.http.put(endpoint, dataToPut,
       {
         headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.auth.getBearerToken(),
+          Authorization: 'Bearer ' + this.storage.token.get(),
         }),
       },
     );

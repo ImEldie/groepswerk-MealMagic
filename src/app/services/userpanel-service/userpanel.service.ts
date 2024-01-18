@@ -8,7 +8,7 @@ import {
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { ApiRequestsService } from '../api-requests/api-requests.service';
+import { ApiRequestsService } from '../api-requests-service/api-requests.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class UserpanelService {
   ) {}
 
   getUserDetails(id: number): Observable<UserDetailsResponse> {
-    return this.api.getFromApi("user-details", id)
+    return this.api.get("user-details", id)
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -44,7 +44,7 @@ export class UserpanelService {
       );
   }
   getListAllergies(): Observable<Array<Allergy>> {
-    return this.api.getFromApi("allergies")
+    return this.api.get("allergies")
       .pipe(map((result) => result.data));
   }
   putUserWeightLength(
@@ -55,11 +55,11 @@ export class UserpanelService {
   ) {
     const dataToPut = { user_id: id, bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
 
-    return this.api.putToApi("user-details", id, dataToPut);
+    return this.api.put("user-details", id, dataToPut);
   }
   putUserAllergies(selectedAllergyIds: Array<number>, id: number) {
     const dataToPut = { user_id: id, allergy_ids: selectedAllergyIds }
 
-    return this.api.putToApi("user-details", id, dataToPut);
+    return this.api.put("user-details", id, dataToPut);
   }
 }

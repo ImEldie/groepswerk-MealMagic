@@ -19,9 +19,9 @@ export class exampleService {
     
 ## 2) Use the api-function that you need in your function.
 ```ts
-this.api.getFromApi(endpoint, optionalId); // GET => Get data
-this.api.postToApi(endpoint, dataToPost); // POST => Post fully new data
-this.api.putToApi(endpoint, endpointId, dataToPut); // PUT => Update existing data of data with id 'endpointId'
+this.api.get(endpoint, optionalId); // GET => Get data
+this.api.post(endpoint, dataToPost); // POST => Post fully new data
+this.api.put(endpoint, endpointId, dataToPut); // PUT => Update existing data of data with id 'endpointId'
 ```
 These functions return an Observable of the supplied variables.
 
@@ -29,8 +29,8 @@ These functions return an Observable of the supplied variables.
 The api-request functions require some inputs to work. 
 #### A) GET-Request Inputs: Only requires the endpoint, optionally accepts an ID for specific-calls.
 ```ts
-//getFromApi(endpoint: string, id: number);
-this.api.getFromApi('/ingredients');
+//get(endpoint: string, id: number);
+this.api.get('/ingredients');
 ```
 In this example we want to reach the end-point ``/ingredients``.
 The variable will get ``https://syntra2023.code-coaching.dev/api/group-2`` put in front of it automatically, this is done with an interceptor (base-url.interceptor.ts).
@@ -41,15 +41,15 @@ So in our case, by providing the input ``/ingredients``, we are actually doing  
 If we want to call a specific ingredient, we can supply an id to the function:
 ```ts
 const id = 1;
-this.api.getFromApi('/ingredients', id);
+this.api.get('/ingredients', id);
 ```
 This example returns an Observable of the ingredient with the ID 1.
 You only need to supply an ID if you need to call specific data.
 
 #### B) POST-Request Inputs: Requires endpoint & data to post.
 ```ts
-//postToApi(endpoint: string, dataToPost: Any);
-this.api.postToApi('/ingredients', myData);
+//post(endpoint: string, dataToPost: Any);
+this.api.post('/ingredients', myData);
 ```
 For info about the endpoint, refer to A) GET-Requests Inputs
 
@@ -69,13 +69,13 @@ If you subscribe to an Observable, you get notified about new data.
 Observable.subscribe(ObservableData => this.storedData = ObservableData); // Stores the newest data to this variable 'storedData'
 ```
 
-### GET: Subscribing with getFromApi().
+### GET: Subscribing with get().
 By subscribing to the Observable, we can run a function every time the data is updated. This allows us to, for example, save the new data to a variable every time it's updated.
 Example:
 ```ts
 // subscribe example
 loadIngredientsFromAPI(){
-    this.api.getFromApi('/ingredients')
+    this.api.get('/ingredients')
         // overwrite local variable with new data from Observable:
         .subscribe((data) => {this.ingredients = data;}); 
 }
@@ -83,22 +83,22 @@ loadIngredientsFromAPI(){
 If necesarry you can still do a .pipe before subscribing, be aware that thesefunctions already perform a .pipe for bulk-data, since the back-end sends us a lotof useless information in this situation. ``.pipe(map(data => data.data))`` is notneeded!
 ```ts
 // pipe example
-this.api.getFromApi('/ingredients')
+this.api.get('/ingredients')
     .pipe(map((data) => data.id); // Only allow the data's id's to flow through
     .subscribe((data) => {console.log(data)}); // log the new data, in this case the ID's
 ```
 
-### POST & PUT: Subscribing to postToApi() / putToApi().
+### POST & PUT: Subscribing to post() / put().
 You can subscribe to a post/put, this would return the data that was stored/changed in the backend. You can use this if you need the id of your posted/changed data right after posting it, you can also use it to run a function after a post/put has finished (example: navigating back to the home-page after a post).
 A few examples:
 ```ts
 // log id of posted data
-this.api.postToApi('/ingredients', postData)
+this.api.post('/ingredients', postData)
     .subscribe((data) => {console.log("new data with id: "data.id)}); // log the ID of the newly stored data.
 ```
 ```ts
 // navigate to homepage after post finished
-this.api.postToApi('/ingredients', postData)
+this.api.post('/ingredients', postData)
     .subscribe(this.navigateToHomepage()); // Navigate back to the homepage after POST is completed.
 ```
 
