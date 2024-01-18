@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" class="login-container">
+<form [formGroup]="loginForm" class="login-container" (keydown.enter)="login()">
   <section>
     <mat-form-field class="label">
       <mat-label>Enter your email</mat-label>
