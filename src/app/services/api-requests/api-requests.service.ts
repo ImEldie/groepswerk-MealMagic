@@ -13,34 +13,51 @@ export class ApiRequestsService {
     private auth: AuthService
   ) {}
 
-  getFromApi(endpoint: string): Observable<any> {
+  getFromApi(endpoint: string, endpointId: number | void): Observable<any> {
     endpoint = this.getFormattedEndpoint(endpoint);
 
+    if (endpointId) {
+      endpoint = endpoint + endpointId;
+      console.log(endpoint);
+      return this.getRequest(endpoint);
+    } else {
+      return this.getRequest(endpoint).pipe(map((data: APIResponse) => data.data))
+    }
+  }
+
+  private getRequest(endpoint: string): Observable<any> {
     return this.http
       .get<APIResponse>(endpoint , {
         headers: new HttpHeaders({
           Authorization: "Bearer " + this.auth.getBearerToken(),
         }),
       })
-      .pipe(map((data: APIResponse) => data.data))
   }
 
   postToApi(endpoint: string, dataToPost: any): Observable<any> {
     endpoint = this.getFormattedEndpoint(endpoint);
 
+    return this.postRequest(endpoint, dataToPost).pipe(map((data: APIResponse) => data.data));
+  }
+
+  private postRequest(endpoint: string, dataToPost: any): Observable<any> {
     return this.http
-      .post<APIResponse>(endpoint , {
+      .post<APIResponse>(endpoint, dataToPost,
+      {
         headers: new HttpHeaders({
           Authorization: "Bearer " + this.auth.getBearerToken(),
         }),
       })
-      .pipe(map((data: APIResponse) => data.data))
   }
   
-  putToApi(endpoint: string, dataToPost: any, id: number): Observable<any> {
-    const endpointWithId = this.getFormattedEndpoint(endpoint) + id;
+  putToApi(endpoint: string, endpointId: number, dataToPut: any): Observable<any> {
+    const endpointWithId = this.getFormattedEndpoint(endpoint) + endpointId;
 
-    return this.http.put(endpointWithId, dataToPost,
+    return this.putRequest(endpointWithId, dataToPut);
+  }
+
+  private putRequest(endpoint: string, dataToPut: any) {
+    return this.http.put(endpoint, dataToPut,
       {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.auth.getBearerToken(),
@@ -62,5 +79,4 @@ export class ApiRequestsService {
 
     return endpoint;
   }
-  
 }
