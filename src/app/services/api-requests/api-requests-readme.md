@@ -27,7 +27,7 @@ These functions return an Observable of the supplied variables.
 
 ## 3) Provide the function with Variables
 The api-request functions require some inputs to work. 
-#### A) GET-Request Inputs: Only requires the endpoint, also accepts an ID for specific-calls.
+#### A) GET-Request Inputs: Only requires the endpoint, optionally accepts an ID for specific-calls.
 ```ts
 //getFromApi(endpoint: string, id: number);
 this.api.getFromApi('/ingredients');
@@ -35,6 +35,8 @@ this.api.getFromApi('/ingredients');
 In this example we want to reach the end-point ``/ingredients``.
 The variable will get ``https://syntra2023.code-coaching.dev/api/group-2`` put in front of it automatically, this is done with an interceptor (base-url.interceptor.ts).
 So in our case, by providing the input ``/ingredients``, we are actually doing  an API-request to ``https://syntra2023.code-coaching.dev/api/group-2/ingredients``.
+
+###### NOTE: If you supply an endpoint starting with ``/token``, ``/group-2/`` will be removed from the call-link by the interceptor, since we don't need it in this case.
 
 If we want to call a specific ingredient, we can supply an id to the function:
 ```ts
