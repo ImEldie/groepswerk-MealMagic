@@ -19,7 +19,7 @@ export class DishesApiService {
   }
 
   loadDishesFromApi(): void{
-    this.api.getFromApi('/group-2/dishes')
+    this.api.getFromApi('/dishes')
       .subscribe((dishes: Array<Dish>) => {this.dishes = dishes;});
   }
 

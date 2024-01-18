@@ -20,11 +20,8 @@ export class UserpanelService {
     private auth: AuthService,
   ) {}
 
-  userDetailsEndpoint: string = 'user-details/';
-  allergiesEndpoint: string = 'allergies/';
-
   getUserDetails(id: number): Observable<UserDetailsResponse> {
-    return this.api.getFromApi("group-2/user-details/", id)
+    return this.api.getFromApi("user-details", id)
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -47,7 +44,7 @@ export class UserpanelService {
       );
   }
   getListAllergies(): Observable<Array<Allergy>> {
-    return this.api.getFromApi("group-2/allergies")
+    return this.api.getFromApi("allergies")
       .pipe(map((result) => result.data));
   }
   putUserWeightLength(
@@ -58,11 +55,11 @@ export class UserpanelService {
   ) {
     const dataToPut = { user_id: id, bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
 
-    return this.api.putToApi("group-2/user-details", id, dataToPut);
+    return this.api.putToApi("user-details", id, dataToPut);
   }
   putUserAllergies(selectedAllergyIds: Array<number>, id: number) {
     const dataToPut = { user_id: id, allergy_ids: selectedAllergyIds }
 
-    return this.api.putToApi("group-2/user-details", id, dataToPut);
+    return this.api.putToApi("user-details", id, dataToPut);
   }
 }

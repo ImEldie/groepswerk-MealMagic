@@ -14,12 +14,8 @@ export class ApiRequestsService {
   ) {}
 
   getFromApi(endpoint: string, endpointId: number | void): Observable<any> {
-    endpoint = this.getFormattedEndpoint(endpoint);
-
     if (endpointId) {
-      endpoint = endpoint + endpointId;
-      console.log(endpoint);
-      return this.getRequest(endpoint);
+      return this.getRequest(this.getEndpointWithId(endpoint, endpointId));
     } else {
       return this.getRequest(endpoint).pipe(map((data: APIResponse) => data.data))
     }
@@ -35,8 +31,6 @@ export class ApiRequestsService {
   }
 
   postToApi(endpoint: string, dataToPost: any): Observable<any> {
-    endpoint = this.getFormattedEndpoint(endpoint);
-
     return this.postRequest(endpoint, dataToPost).pipe(map((data: APIResponse) => data.data));
   }
 
@@ -51,9 +45,7 @@ export class ApiRequestsService {
   }
   
   putToApi(endpoint: string, endpointId: number, dataToPut: any): Observable<any> {
-    const endpointWithId = this.getFormattedEndpoint(endpoint) + endpointId;
-
-    return this.putRequest(endpointWithId, dataToPut);
+    return this.putRequest(this.getEndpointWithId(endpoint, endpointId), dataToPut);
   }
 
   private putRequest(endpoint: string, dataToPut: any) {
@@ -66,17 +58,12 @@ export class ApiRequestsService {
     );
   }
 
-  private getFormattedEndpoint(endpoint: string): string {
-    const noBackslashAtStart: boolean = !(endpoint.startsWith("/"));
-    if (noBackslashAtStart) {
-      endpoint = '/' + endpoint;
-    }
-
+  private getEndpointWithId(endpoint: string, id: number): string {
     const noBackslashAtEnd: boolean = !(endpoint.endsWith("/"));
     if (noBackslashAtEnd) {
       endpoint = endpoint + '/';
     }
 
-    return endpoint;
+    return endpoint + id;
   }
 }

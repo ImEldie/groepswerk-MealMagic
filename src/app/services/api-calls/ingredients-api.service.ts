@@ -27,7 +27,7 @@ export class IngredientsApiService {
     return searchedIngredient;
   }
   loadIngredientsFromAPI(): void{
-    this.api.getFromApi('/group-2/ingredients')
+    this.api.getFromApi('/ingredients')
       .subscribe((data: Array<Ingredient>) => {this.ingredients = data;});
   }
 }

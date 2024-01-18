@@ -30,16 +30,16 @@ The api-request functions require some inputs to work.
 #### A) GET-Request Inputs: Only requires the endpoint, also accepts an ID for specific-calls.
 ```ts
 //getFromApi(endpoint: string, id: number);
-this.api.getFromApi('/group-2/ingredients');
+this.api.getFromApi('/ingredients');
 ```
-In this example we want to reach the end-point ``/group-2/ingredients``.
-The variable will get ``https://syntra2023.code-coaching.dev/api`` put in front of it automatically, this is done with an interceptor (base-url.interceptor.ts).
-So in our case, by providing the input ``/group-2/ingredients``, we are actually doing  an API-request to ``https://syntra2023.code-coaching.dev/api/group-2/ingredients``.
+In this example we want to reach the end-point ``/ingredients``.
+The variable will get ``https://syntra2023.code-coaching.dev/api/group-2`` put in front of it automatically, this is done with an interceptor (base-url.interceptor.ts).
+So in our case, by providing the input ``/ingredients``, we are actually doing  an API-request to ``https://syntra2023.code-coaching.dev/api/group-2/ingredients``.
 
 If we want to call a specific ingredient, we can supply an id to the function:
 ```ts
 const id = 1;
-this.api.getFromApi('/group-2/ingredients', id);
+this.api.getFromApi('/ingredients', id);
 ```
 This example returns an Observable of the ingredient with the ID 1.
 You only need to supply an ID if you need to call specific data.
@@ -47,7 +47,7 @@ You only need to supply an ID if you need to call specific data.
 #### B) POST-Request Inputs: Requires endpoint & data to post.
 ```ts
 //postToApi(endpoint: string, dataToPost: Any);
-this.api.postToApi('/group-2/ingredients', myData);
+this.api.postToApi('/ingredients', myData);
 ```
 For info about the endpoint, refer to A) GET-Requests Inputs
 
@@ -73,7 +73,7 @@ Example:
 ```ts
 // subscribe example
 loadIngredientsFromAPI(){
-    this.api.getFromApi('/group-2/ingredients')
+    this.api.getFromApi('/ingredients')
         // overwrite local variable with new data from Observable:
         .subscribe((data) => {this.ingredients = data;}); 
 }
@@ -81,7 +81,7 @@ loadIngredientsFromAPI(){
 If necesarry you can still do a .pipe before subscribing, be aware that thesefunctions already perform a .pipe for bulk-data, since the back-end sends us a lotof useless information in this situation. ``.pipe(map(data => data.data))`` is notneeded!
 ```ts
 // pipe example
-this.api.getFromApi('/group-2/ingredients')
+this.api.getFromApi('/ingredients')
     .pipe(map((data) => data.id); // Only allow the data's id's to flow through
     .subscribe((data) => {console.log(data)}); // log the new data, in this case the ID's
 ```
@@ -91,12 +91,12 @@ You can subscribe to a post/put, this would return the data that was stored/chan
 A few examples:
 ```ts
 // log id of posted data
-this.api.postToApi('/group-2/ingredients', postData)
+this.api.postToApi('/ingredients', postData)
     .subscribe((data) => {console.log("new data with id: "data.id)}); // log the ID of the newly stored data.
 ```
 ```ts
 // navigate to homepage after post finished
-this.api.postToApi('/group-2/ingredients', postData)
+this.api.postToApi('/ingredients', postData)
     .subscribe(this.navigateToHomepage()); // Navigate back to the homepage after POST is completed.
 ```
 
