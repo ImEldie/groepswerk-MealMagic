@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import { ApiRequestsService } from './api-requests-service/api-requests.service';
@@ -9,7 +8,6 @@ import { LocalstorageService } from './localstorage.service';
 })
 export class AuthService {
   constructor(
-    private http: HttpClient, 
     private api: ApiRequestsService,
     private storage: LocalstorageService,
   ) {};
