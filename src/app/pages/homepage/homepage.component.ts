@@ -81,12 +81,13 @@ export class HomepageComponent {
     this.filterOnFridge = !this.filterOnFridge;
     console.log(this.filterOnFridge);
   }
+
+  //JASPER
   getFridgeIngredients() {
     this.fridgeService.getFridgeIngredients(1).subscribe((data) => {
       console.log(data);
     });
   }
-  //JASPER
   getFridgeIdFromFridges() {
     this.fridgeService.getFridgeIdFromFridges(1).subscribe((data) => {
       console.log(data);
