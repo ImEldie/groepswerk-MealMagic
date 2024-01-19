@@ -9,23 +9,36 @@ import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthService } from '../../services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [DishCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule, MatProgressBarModule],
+  imports: [
+    DishCardComponent,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    FormsModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+  ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })
-
 export class HomepageComponent {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
 
   constructor(
     public dishesApi: DishesApiService,
-    public auth: AuthService
-  ){};
+    public auth: AuthService,
+  ) {}
 
   getSearchResultAmount(): number {
     return this.getSearchResults().length;
@@ -36,20 +49,24 @@ export class HomepageComponent {
 
     return this.dishList;
   }
-  private filterDishesFromSearch(){
+  private filterDishesFromSearch() {
     const recipesFromSearch: Array<Dish> = this.getSearchResults();
-    const hasResults = (recipesFromSearch.length !== 0);
+    const hasResults = recipesFromSearch.length !== 0;
 
     if (hasResults) {
       this.dishList = recipesFromSearch;
     }
   }
   private getSearchResults(): Array<Dish> {
-    const searchResults: Array<Dish> = this.dishesApi.getDishList().filter(
-      (dish: Dish) => dish.name.toLocaleLowerCase().includes(this.searchInput.toLowerCase())
-    );
+    const searchResults: Array<Dish> = this.dishesApi
+      .getDishList()
+      .filter((dish: Dish) =>
+        dish.name.toLocaleLowerCase().includes(this.searchInput.toLowerCase()),
+      );
 
     return searchResults;
   }
-
+  filterOnFridge(): boolean {
+    let buttonclicked: boolean = false;
+  }
 }
