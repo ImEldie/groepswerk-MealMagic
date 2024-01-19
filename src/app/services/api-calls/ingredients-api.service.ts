@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Ingredient, IngredientApiResponse } from '../../components/interfaces/interfaces-ingredients';
+import { Ingredient, IngredientApiResponse } from '../../interfaces/interfaces-ingredients';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -13,7 +13,6 @@ export class IngredientsApiService {
 
   constructor(
     private api: ApiRequestsService,
-    private auth: AuthService
   ) {
     this.loadIngredientsFromAPI();
   }

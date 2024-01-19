@@ -1,0 +1,46 @@
+.portion-input-field, .time-input-field {
+    width: 100%;
+    min-width: 10rem;
+}
+
+.types-form {
+    max-height: 7rem;
+}
+.types-form-field {
+    width: 100%;
+}
+
+.seasons-container {
+    background-color: rgba(128, 128, 128, 0.15);
+    color: rgba(255, 255, 255, 0.473);
+    border-color: rgba(255, 255, 255, 0.4);
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-radius: 0.3rem 0.3rem 0rem 0rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 0.18rem 1rem;
+    gap: 0.8rem;
+    width: fit-content;
+    min-height: 3rem;
+    height: 100%;
+    cursor: default;
+}
+.seasons-container:hover {
+    background-color: rgba(128, 128, 128, 0.3);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+mat-button-toggle {
+    animation: ToggleButtonGrowWidth 2s ease forwards;
+}
+@keyframes ToggleButtonGrowWidth {
+    from {
+        width: 0rem;
+        opacity: 0;
+    }
+    to {
+        width: 4.5rem;
+        opacity: 1;
+    }
+}

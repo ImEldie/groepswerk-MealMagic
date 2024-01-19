@@ -1,0 +1,65 @@
+<app-adddish-card [inputValid]="checkInputsValidity()">
+    <div name="title-icon-type">fastfood</div>
+    <div name="title">Ingredients</div>
+
+    <div class="ingredient-list-content" name="contentrow">
+      <form class="new-ingredient-container">
+        <mat-form-field color="accent" class="name-input">
+            <mat-label>New Ingredient</mat-label>
+            <input matInput
+              type="text"
+              placeholder="Name"
+              aria-label="Ingredient"
+              [matAutocomplete]="autoIngredient"
+              [(ngModel)]="ingredientToAdd.name"
+              [ngModelOptions]="{standalone: true}"
+              (input)="filterIngredients()"
+              (focus)="filterIngredients()">
+            <mat-autocomplete #autoIngredient="matAutocomplete">
+              @for (ingredient of suggestedIngredients; track ingredient.id) {
+                <mat-option [value]="ingredient.name" (click)="setIngredientToAddData(ingredient)">{{ingredient.name}}</mat-option>
+              }
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field color="accent" class="amount-input">
+            <mat-label>Amount Needed ({{ingredientToAdd.amount.unit}})</mat-label>
+            <input matInput
+              type="number"
+              placeholder="Number"
+              aria-label="Amount"
+              [(ngModel)]="ingredientToAdd.amount.value"
+              [ngModelOptions]="{standalone: true}"
+              min="1">
+        </mat-form-field>
+
+        <div class="new-dish-action">
+          <button mat-mini-fab color="accent" 
+            (click)="addIngredient()"
+            [disabled]="!ingredientToAddIsValid()">
+              <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </form>
+    @if (selectedIngredients.length !== 0) {
+      <table mat-table [dataSource]="selectedIngredients" class="ingredient-table">
+        <ng-container matColumnDef="name" class="name-column">
+          <th mat-header-cell *matHeaderCellDef class="name-column">Ingredient</th>
+          <td mat-cell *matCellDef="let ingredient" class="name-column">{{ingredient.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="amount" class="amount-column">
+          <th mat-header-cell *matHeaderCellDef class="amount-column">Amount</th>
+          <td mat-cell *matCellDef="let ingredient" class="amount-column">{{ ingredient.amount.value }}{{ ingredient.amount.unit }}</td>
+        </ng-container>
+        <ng-container matColumnDef="action" class="action-column">
+          <th mat-header-cell *matHeaderCellDef class="action-column"></th>
+          <td mat-cell *matCellDef="let ingredient" class="action-column">
+            <button mat-mini-fab color="warn" (click)="removeIngredient(ingredient)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['name', 'amount', 'action']" class="table-header"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'amount', 'action']" class="table-row"></tr>
+      </table>
+    }
+  </div>
+</app-adddish-card>
