@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Allergy,
-  ListAllergies,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
@@ -20,8 +19,8 @@ export class UserpanelService {
     private auth: AuthService,
   ) {}
 
-  getUserDetails(id: number): Observable<UserDetailsResponse> {
-    return this.api.get("user-details", id)
+  getUserDetails(): Observable<UserDetailsResponse> {
+    return this.api.get("user-details", this.auth.getStoredId()!)
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -50,15 +49,14 @@ export class UserpanelService {
     bodyweightInput: number,
     heightInput: number,
     selectedAllergyIds: Array<number>,
-    id: number,
   ) {
-    const dataToPut = { user_id: id, bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
+    const dataToPut = { user_id: this.auth.getStoredLoginId(), bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
 
-    return this.api.put("user-details", id, dataToPut);
+    return this.api.put("user-details", this.auth.getStoredId()!, dataToPut);
   }
-  putUserAllergies(selectedAllergyIds: Array<number>, id: number) {
-    const dataToPut = { user_id: id, allergy_ids: selectedAllergyIds }
+  putUserAllergies(selectedAllergyIds: Array<number>) {
+    const dataToPut = { user_id: this.auth.getStoredLoginId(), allergy_ids: selectedAllergyIds }
 
-    return this.api.put("user-details", id, dataToPut);
+    return this.api.put("user-details", this.auth.getStoredId()!, dataToPut);
   }
 }

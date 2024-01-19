@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -23,10 +23,10 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class MainLayoutComponent {
   constructor(
-    public router: Router, public authService: AuthService
-    ){};
-
-  navigateToHomepage(){
+    public router: Router,
+    public authService: AuthService,
+  ) {}
+  navigateToHomepage() {
     this.router.navigate(['']);
   }
 }

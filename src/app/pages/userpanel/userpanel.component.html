@@ -15,7 +15,16 @@
         <p>Your selected allergies are:</p>
         <div class="info-allergies-chips">
           @for (allergy of userAllergies; track allergy.id) {
-            <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
+            <mat-chip>
+              <app-allergy-icon
+                class="user-allergies-icons"
+                matChipAvatar
+                [iconType]="allergy.name"
+                [withText]="false"
+                [hideTooltip]="true"
+              ></app-allergy-icon>
+              {{ allergy.name | titlecase }}</mat-chip
+            >
           }
         </div>
         @if (userAllergies.length === 0) {
@@ -139,8 +148,10 @@
         <section formArrayName="allergyIds">
           @for (id of allergyFormArray.controls; track id; let index = $index) {
             <mat-checkbox [formControlName]="index" class="item-allergy">
-              {{ listAllergies[index].name | titlecase }}</mat-checkbox
-            >
+              <span>
+                {{ listAllergies[index].name | titlecase }}
+              </span>
+            </mat-checkbox>
           }
         </section>
         <br />
