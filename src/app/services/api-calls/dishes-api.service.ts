@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Dish, DishApiResponse } from '../../components/interfaces/interfaces-dishes';
 import { map } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { ApiRequestsService } from '../api-requests-service/api-requests.service';
+import { AuthService } from './auth.service';
+import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
 
 @Injectable({
   providedIn: 'root'

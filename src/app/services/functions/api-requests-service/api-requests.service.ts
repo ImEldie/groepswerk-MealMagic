@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { APIResponse } from '../../interfaces/api-interface';
+import { APIResponse } from '../../../interfaces/api-interface';
 import { LocalstorageService } from '../localstorage.service';
 
 @Injectable({

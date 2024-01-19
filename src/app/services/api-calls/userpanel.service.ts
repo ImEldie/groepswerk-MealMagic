@@ -6,8 +6,9 @@ import {
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { ApiRequestsService } from '../api-requests-service/api-requests.service';
+import { AuthService } from './auth.service';
+import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
+import { LocalstorageService } from '../functions/localstorage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +16,12 @@ import { ApiRequestsService } from '../api-requests-service/api-requests.service
 export class UserpanelService {
   constructor(
     private api: ApiRequestsService,
-    private http: HttpClient,
     private auth: AuthService,
+    private storage: LocalstorageService
   ) {}
 
   getUserDetails(): Observable<UserDetailsResponse> {
-    return this.api.get("user-details", this.auth.getStoredId()!)
+    return this.api.get("user-details", this.storage.userId.get()!)
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -50,13 +51,13 @@ export class UserpanelService {
     heightInput: number,
     selectedAllergyIds: Array<number>,
   ) {
-    const dataToPut = { user_id: this.auth.getStoredLoginId(), bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
+    const dataToPut = { user_id: this.storage.loginId.get(), bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
 
-    return this.api.put("user-details", this.auth.getStoredId()!, dataToPut);
+    return this.api.put("user-details", this.storage.userId.get(), dataToPut);
   }
   putUserAllergies(selectedAllergyIds: Array<number>) {
-    const dataToPut = { user_id: this.auth.getStoredLoginId(), allergy_ids: selectedAllergyIds }
+    const dataToPut = { user_id: this.storage.loginId.get(), allergy_ids: selectedAllergyIds }
 
-    return this.api.put("user-details", this.auth.getStoredId()!, dataToPut);
+    return this.api.put("user-details", this.storage.userId.get(), dataToPut);
   }
 }
