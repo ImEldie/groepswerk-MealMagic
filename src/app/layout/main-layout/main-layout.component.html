@@ -9,15 +9,13 @@
       </div>
     </button>
   </div>
-  @if (authService.isAuthenticated) {
-    <div class="user-buttons">
+  <div class="user-buttons">
+    @if (authService.isAuthenticated) {
       <button mat-button (click)="router.navigate(['userpanel'])">
         User Panel
       </button>
       <button (click)="authService.logout()" mat-button>Logout</button>
-    </div>
-  } @else {
-    <div class="user-buttons">
+    } @else {
       <button
         class="login-button"
         (click)="router.navigate(['login'])"
@@ -25,8 +23,8 @@
       >
         Login
       </button>
-    </div>
-  }
+    }
+  </div>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
