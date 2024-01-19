@@ -2,12 +2,146 @@
   <mat-card class="dish-card">
     <mat-card-header class="header-container">
       <div>
+        <mat-card-title class="header-title">{{
+          getDish()?.name | titlecase
+        }}</mat-card-title>
+        <div class="dish-allergens">
+          @for (type of getDish()?.dish_types; track type) {
+            <mat-card-subtitle class="dish-type">{{
+              type.name | titlecase
+            }}</mat-card-subtitle>
+          }
+          <app-allergy-icon
+            [iconType]="'eggs'"
+            [iconSize]="'40px'"
+            [withText]="true"
+            [hideTooltip]="false"
+          ></app-allergy-icon>
+          <app-allergy-icon
+            [iconType]="'sulphite'"
+            [iconSize]="'40px'"
+            [withText]="true"
+            [hideTooltip]="false"
+          ></app-allergy-icon>
+          <app-allergy-icon
+            [iconType]="'soybeans'"
+            [iconSize]="'40px'"
+            [withText]="true"
+            [hideTooltip]="false"
+          ></app-allergy-icon>
+        </div>
+        <div class="clock">
+          <mat-icon class="clock-icon" color="white">timelapse</mat-icon
+          ><span class="clock-text">Active: 50min. | Total: 1h 20min.</span
+          ><mat-icon class="serves-icon">group</mat-icon
+          ><span class="serves-text">Serves 6</span>
+        </div>
+
+        <mat-card-content class="recipe-text">
+          This simple grilled dinner is all about fresh summer produce. Herbs
+          and smashed garlic quickly infuse charred sweet peppers, capturing
+          their heat straight from the grill.
+        </mat-card-content>
+      </div>
+
+      <div class="header-right">
+        <mat-card-actions>
+          <button mat-button (click)="copyUrlToClipboard()">
+            <mat-icon>share</mat-icon> SHARE
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Button with a heart icon"
+          >
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card-header>
+
+    <img
+      class="dish-image"
+      mat-card-image
+      src="https://www.foodandwine.com/thmb/ShdGiNaSJ3N-bHHXe28RntzvOKA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/balsamic-and-soy-marinated-skirt-steaks-with-charred-peppers-FT-RECIPE0919-b2d752c2d1894680967ec57f501d7cd8.jpg"
+      alt="Photo of Balsamic and Soy Marinated Skirt Steaks with Charred
+      Peppers"
+    />
+    <div class="content-container">
+      <mat-card-title class="card-title">Ingredients</mat-card-title>
+      <mat-card-content class="ingredients">
+        <ul>
+          <li>1/4 cup balsamic vinegar</li>
+          <li>1/4 cup low-sodium soy sauce or tamari</li>
+          <li>1 1/2 teaspoon plus a pinch of kosher salt, divided</li>
+          <li>2 pounds skirt steak, trimmed and cut into 6-inch pieces</li>
+          <li>1 pound mini sweet peppers</li>
+          <li>1 (13-ounce) onion, cut into 1/2-inch-thick slices</li>
+          <li>1 tablespoon extra-virgin olive oil</li>
+          <li>1 teaspoon black pepper, divided</li>
+          <li>1/2 cup chopped fresh cilantro</li>
+          <li>2 tablespoons chopped fresh chives</li>
+          <li>2 tablespoons fresh lemon juice</li>
+          <li>1 garlic clove, smashed</li>
+          <li>Grilled ciabatta, for serving</li>
+        </ul>
+      </mat-card-content>
+
+      <mat-card-title class="card-title">Directions</mat-card-title>
+      <mat-card-content class="directions">
+        <ol>
+          <li>
+            Stir together balsamic vinegar, soy sauce, and a pinch of salt in a
+            large bowl. Add steak, and turn to ensure steak is evenly coated in
+            marinade. Cover and refrigerate at least 2 hours or up to 8 hours.
+          </li>
+          <br />
+          <li>
+            Preheat a grill to medium-high (400°F to 450°F), or heat a grill pan
+            over medium-high. Toss together bell peppers, onion slices, olive
+            oil, 1 teaspoon salt, and 1/2 teaspoon black pepper in a medium
+            bowl. Place bell pepper mixture on oiled grates, and grill,
+            uncovered, turning occasionally, until charred and softened, 10 to
+            12 minutes. Immediately return mixture to bowl, and toss with
+            cilantro, chives, lemon juice, and garlic. Cover with plastic wrap,
+            and let steam 15 minutes.
+          </li>
+          <br />
+          <li>
+            Remove steak from marinade; discard marinade. Wipe excess marinade
+            off steak. Place steak on oiled grates, and grill, uncovered,
+            turning occasionally, until lightly charred on both sides and
+            medium-rare, 10 to 15 minutes. Transfer to a cutting board; let rest
+            15 minutes.
+          </li>
+          <br />
+          <li>
+            Thinly slice steak against the grain; season with remaining 1/2
+            teaspoon salt and remaining 1/2 teaspoon black pepper. Serve steak
+            with charred pepper mixture and grilled ciabatta.
+          </li>
+        </ol>
+
+        <mat-card-title>Make Ahead</mat-card-title>
+        <p>Skirt steak may be marinated up to 8 hours or overnight.</p>
+
+        <mat-card-title>Suggested Pairing</mat-card-title>
+        <p>Intense, smoky Petite Sirah. Originally appeared: September 2019</p>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>
+
+<!-- <div class="dish-container">
+  <mat-card class="dish-card">
+    <mat-card-header class="header-container">
+      <div>
         <mat-card-title class="header-title"
           >Balsamic and Soy Marinated Skirt Steaks with Charred
           Peppers</mat-card-title
         >
         <div class="dish-allergens">
-          <mat-card-subtitle class="dish-subtitle"
+          <mat-card-subtitle class="dish-type"
             >Vegan - Italian</mat-card-subtitle
           >
           <app-allergy-icon
@@ -31,7 +165,9 @@
         </div>
         <div class="clock">
           <mat-icon class="clock-icon" color="white">timelapse</mat-icon
-          ><span class="clock-text">Active: 20min. | Total: 45min.</span>
+          ><span class="clock-text">Active: 50min. | Total: 1h 20min.</span
+          ><mat-icon class="serves-icon">group</mat-icon
+          ><span class="serves-text">Serves 6</span>
         </div>
 
         <mat-card-content class="recipe-text">
@@ -43,7 +179,9 @@
 
       <div class="header-right">
         <mat-card-actions>
-          <button mat-button><mat-icon>share</mat-icon>SHARE</button>
+          <button mat-button (click)="copyUrlToClipboard()">
+            <mat-icon>share</mat-icon> SHARE
+          </button>
           <button
             mat-icon-button
             color="warn"
@@ -55,74 +193,74 @@
       </div>
     </mat-card-header>
 
-    <div class="recipe-info">
-      <img
-        class="dish-image"
-        mat-card-image
-        src="https://www.foodandwine.com/thmb/ShdGiNaSJ3N-bHHXe28RntzvOKA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/balsamic-and-soy-marinated-skirt-steaks-with-charred-peppers-FT-RECIPE0919-b2d752c2d1894680967ec57f501d7cd8.jpg"
-        alt="Photo of a vegan Recipe"
-      />
+    <img
+      class="dish-image"
+      mat-card-image
+      src="https://www.foodandwine.com/thmb/ShdGiNaSJ3N-bHHXe28RntzvOKA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/balsamic-and-soy-marinated-skirt-steaks-with-charred-peppers-FT-RECIPE0919-b2d752c2d1894680967ec57f501d7cd8.jpg"
+      alt="Photo of Balsamic and Soy Marinated Skirt Steaks with Charred
+      Peppers"
+    />
+    <div class="content-container">
+      <mat-card-title class="card-title">Ingredients</mat-card-title>
+      <mat-card-content class="ingredients">
+        <ul>
+          <li>1/4 cup balsamic vinegar</li>
+          <li>1/4 cup low-sodium soy sauce or tamari</li>
+          <li>1 1/2 teaspoon plus a pinch of kosher salt, divided</li>
+          <li>2 pounds skirt steak, trimmed and cut into 6-inch pieces</li>
+          <li>1 pound mini sweet peppers</li>
+          <li>1 (13-ounce) onion, cut into 1/2-inch-thick slices</li>
+          <li>1 tablespoon extra-virgin olive oil</li>
+          <li>1 teaspoon black pepper, divided</li>
+          <li>1/2 cup chopped fresh cilantro</li>
+          <li>2 tablespoons chopped fresh chives</li>
+          <li>2 tablespoons fresh lemon juice</li>
+          <li>1 garlic clove, smashed</li>
+          <li>Grilled ciabatta, for serving</li>
+        </ul>
+      </mat-card-content>
+
+      <mat-card-title class="card-title">Directions</mat-card-title>
+      <mat-card-content class="directions">
+        <ol>
+          <li>
+            Stir together balsamic vinegar, soy sauce, and a pinch of salt in a
+            large bowl. Add steak, and turn to ensure steak is evenly coated in
+            marinade. Cover and refrigerate at least 2 hours or up to 8 hours.
+          </li>
+          <br />
+          <li>
+            Preheat a grill to medium-high (400°F to 450°F), or heat a grill pan
+            over medium-high. Toss together bell peppers, onion slices, olive
+            oil, 1 teaspoon salt, and 1/2 teaspoon black pepper in a medium
+            bowl. Place bell pepper mixture on oiled grates, and grill,
+            uncovered, turning occasionally, until charred and softened, 10 to
+            12 minutes. Immediately return mixture to bowl, and toss with
+            cilantro, chives, lemon juice, and garlic. Cover with plastic wrap,
+            and let steam 15 minutes.
+          </li>
+          <br />
+          <li>
+            Remove steak from marinade; discard marinade. Wipe excess marinade
+            off steak. Place steak on oiled grates, and grill, uncovered,
+            turning occasionally, until lightly charred on both sides and
+            medium-rare, 10 to 15 minutes. Transfer to a cutting board; let rest
+            15 minutes.
+          </li>
+          <br />
+          <li>
+            Thinly slice steak against the grain; season with remaining 1/2
+            teaspoon salt and remaining 1/2 teaspoon black pepper. Serve steak
+            with charred pepper mixture and grilled ciabatta.
+          </li>
+        </ol>
+
+        <mat-card-title>Make Ahead</mat-card-title>
+        <p>Skirt steak may be marinated up to 8 hours or overnight.</p>
+
+        <mat-card-title>Suggested Pairing</mat-card-title>
+        <p>Intense, smoky Petite Sirah. Originally appeared: September 2019</p>
+      </mat-card-content>
     </div>
-
-    <mat-card-content class="recipe-ingredients">
-      <h1 style="font-size: 1.75rem">Ingredients</h1>
-      <ul>
-        <li>1/4 cup balsamic vinegar</li>
-        <li>1/4 cup low-sodium soy sauce or tamari</li>
-        <li>1 1/2 teaspoon plus a pinch of kosher salt, divided</li>
-        <li>2 pounds skirt steak, trimmed and cut into 6-inch pieces</li>
-        <li>1 pound mini sweet peppers</li>
-        <li>1 (13-ounce) onion, cut into 1/2-inch-thick slices</li>
-        <li>1 tablespoon extra-virgin olive oil</li>
-        <li>1 teaspoon black pepper, divided</li>
-        <li>1/2 cup chopped fresh cilantro</li>
-        <li>2 tablespoons chopped fresh chives</li>
-        <li>2 tablespoons fresh lemon juice</li>
-        <li>1 garlic clove, smashed</li>
-        <li>Grilled ciabatta, for serving</li>
-      </ul>
-    </mat-card-content>
-
-    <mat-card-content class="recipe-directions">
-      <h1 style="font-size: 1.75rem">Directions</h1>
-      <h3>Step 1</h3>
-      <p>
-        Stir together balsamic vinegar, soy sauce, and a pinch of salt in a
-        large bowl. Add steak, and turn to ensure steak is evenly coated in
-        marinade. Cover and refrigerate at least 2 hours or up to 8 hours.
-      </p>
-
-      <h4>Step 2</h4>
-      <p>
-        Preheat a grill to medium-high (400°F to 450°F), or heat a grill pan
-        over medium-high. Toss together bell peppers, onion slices, olive oil, 1
-        teaspoon salt, and 1/2 teaspoon black pepper in a medium bowl. Place
-        bell pepper mixture on oiled grates, and grill, uncovered, turning
-        occasionally, until charred and softened, 10 to 12 minutes. Immediately
-        return mixture to bowl, and toss with cilantro, chives, lemon juice, and
-        garlic. Cover with plastic wrap, and let steam 15 minutes.
-      </p>
-
-      <h4>Step 3</h4>
-      <p>
-        Remove steak from marinade; discard marinade. Wipe excess marinade off
-        steak. Place steak on oiled grates, and grill, uncovered, turning
-        occasionally, until lightly charred on both sides and medium-rare, 10 to
-        15 minutes. Transfer to a cutting board; let rest 15 minutes.
-      </p>
-
-      <h4>Step 4</h4>
-      <p>
-        Thinly slice steak against the grain; season with remaining 1/2 teaspoon
-        salt and remaining 1/2 teaspoon black pepper. Serve steak with charred
-        pepper mixture and grilled ciabatta.
-      </p>
-
-      <h1>Make Ahead</h1>
-      Skirt steak may be marinated up to 8 hours or overnight.
-
-      <h1>Suggested Pairing</h1>
-      Intense, smoky Petite Sirah. Originally appeared: September 2019
-    </mat-card-content>
   </mat-card>
-</div>
+</div> -->

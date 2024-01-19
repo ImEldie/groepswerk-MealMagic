@@ -1,38 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Ingredient, IngredientApiResponse } from '../../components/interfaces/interfaces-ingredients';
+import {
+  Ingredient,
+  IngredientApiResponse,
+} from '../../interfaces/interfaces-ingredients';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IngredientsApiService {
   private ingredients: Array<Ingredient> = [];
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService
+    private auth: AuthService,
   ) {
     this.loadIngredientsFromAPI();
   }
 
-  getIngredientList(): Array<Ingredient>{
+  getIngredientList(): Array<Ingredient> {
     return this.ingredients;
   }
-  getIngredientFromId(searchId: number): Ingredient | undefined{
-    const searchedIngredient = this.ingredients.find(ingredient => ingredient.id === searchId);
+  getIngredientFromId(searchId: number): Ingredient | undefined {
+    const searchedIngredient = this.ingredients.find(
+      (ingredient) => ingredient.id === searchId,
+    );
 
     return searchedIngredient;
   }
-  loadIngredientsFromAPI(): void{
-    const targetLink: string = "https://syntra2023.code-coaching.dev/api/group-2/ingredients/";
+  loadIngredientsFromAPI(): void {
+    const targetLink: string =
+      'https://syntra2023.code-coaching.dev/api/group-2/ingredients/';
     const token = this.auth.getBearerToken();
 
     this.http
       .get<IngredientApiResponse>(targetLink, {
         headers: new HttpHeaders({
-          Authorization: "Bearer " + token,
+          Authorization: 'Bearer ' + token,
         }),
       })
       .pipe(map((data: IngredientApiResponse) => data.data))
