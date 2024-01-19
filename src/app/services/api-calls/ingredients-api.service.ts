@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Ingredient, IngredientApiResponse } from '../../components/interfaces/interfaces-ingredients';
+import { Ingredient, IngredientApiResponse } from '../../interfaces/interfaces-ingredients';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AuthService } from '../auth.service';
@@ -12,10 +12,8 @@ export class IngredientsApiService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService
-  ) {
-    this.loadIngredientsFromAPI();
-  }
+    private auth: AuthService,
+  ) {}
 
   getIngredientList(): Array<Ingredient>{
     return this.ingredients;
@@ -35,7 +33,7 @@ export class IngredientsApiService {
           Authorization: "Bearer " + token,
         }),
       })
-      .pipe(map((data: IngredientApiResponse) => data.data))
+      .pipe(map((response: IngredientApiResponse) => response.data))
       .subscribe((data: Array<Ingredient>) => {
         this.ingredients = data;
       });

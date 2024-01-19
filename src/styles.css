@@ -2,3 +2,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@keyframes NewInput {
+    from{
+        background-color: rgba(0, 255, 200, 0.2);
+    }
+}

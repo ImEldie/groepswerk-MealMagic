@@ -1,0 +1,80 @@
+.add-dish-card {
+    margin-bottom: 1rem;
+    z-index: 2;
+    min-width: 60rem;
+    border-width: 1px;
+    border-style: outset;
+    border-color: transparent;
+}
+.add-dish-card:hover {
+    animation: card-glow 1s ease forwards;
+    z-index: 3;
+}
+@keyframes card-glow {
+    from {
+        border-color: transparent;
+    }
+    to{
+        box-shadow: 0 0.5rem 1rem 0.1rem #00000099;
+        border-color: rgba(0, 0, 0, 0.5);
+    }
+}
+.card-header {
+    justify-content: space-between;
+}
+.card-title {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.icon-checkmark {
+    animation: RotateIconIn 1s ease forwards;
+}
+@keyframes RotateIconIn {
+    from {
+        rotate: 720deg;
+        scale: 0;
+        margin-top: -3rem;
+        margin-right: -1rem;
+        opacity: 0;
+    }
+    to {
+        rotate: 0deg;
+        scale: 1;
+    }
+}
+.icon-cross {
+    animation: ShakeIcon 200ms ease forwards 5;
+    transform-origin: 1rem center;
+}
+@keyframes ShakeIcon {
+    0%, 50%, 100% {
+        rotate: 0deg;
+        margin-right: 0rem;
+        
+    }
+    25% {
+        rotate: 15deg;
+        margin-right: 0.5rem;
+    }
+    75% {
+        rotate: -15deg;
+        margin-right: -0.5rem;
+    }
+}
+
+.card-content {
+    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.content-row-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-bottom: -0.9rem;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DishCardComponent } from '../../components/dish-card/dish-card.component';
-import { Dish } from '../../components/interfaces/interfaces-dishes';
+import { Dish } from '../../interfaces/interfaces-dishes';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -32,7 +32,7 @@ import { FridgeService } from '../../services/api-calls/fridge.service';
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })
-export class HomepageComponent {
+export class HomepageComponent implements OnInit {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
   filterOnFridge: boolean;
@@ -42,6 +42,10 @@ export class HomepageComponent {
     public fridgeService: FridgeService,
   ) {
     this.filterOnFridge = false;
+  }
+
+  ngOnInit() {
+    this.dishesApi.loadDishesFromApi();
   }
 
   getSearchResultAmount(): number {
