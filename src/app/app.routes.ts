@@ -26,7 +26,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'd',
+        path: 'dish/:id',
         loadComponent: () =>
           import('./pages/dish-view/dish-view.component').then(
             (c) => c.DishViewComponent,

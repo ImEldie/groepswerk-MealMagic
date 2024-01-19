@@ -23,7 +23,7 @@
   font-size: 1.2rem;
   margin-top: 0.4rem;
 }
-.clock {
+.details.container {
   margin-left: -0.2rem;
   align-items: center;
   height: 2rem;
@@ -47,7 +47,18 @@
   font-size: 0.75rem;
   font-style: italic;
 }
-.recipe-text {
+.season-icon {
+  margin-top: 0.2rem;
+  margin-right: 0.3rem;
+  margin-bottom: -0.4rem;
+  margin-left: 1rem;
+}
+.season-text {
+  font-size: 0.75rem;
+  font-style: italic;
+  margin-left: -0.2rem;
+}
+.recipe-description {
   margin-top: 1rem;
   margin-left: -1rem;
   max-width: 70%;
@@ -74,10 +85,15 @@
   margin-left: 1rem;
   font-size: 1.7rem;
 }
-.ingredients {
+.dish-ingredients {
   font-size: 1rem;
 }
-.directions {
+.dish-directions {
+  margin-top: 1rem;
+  font-size: 1rem;
+  max-width: 70%;
+}
+.dish-description {
   margin-top: 1rem;
   font-size: 1rem;
   max-width: 70%;
