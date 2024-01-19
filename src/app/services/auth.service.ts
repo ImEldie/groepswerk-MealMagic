@@ -22,6 +22,7 @@ export class AuthService {
       .pipe(
         tap((data) => {
           localStorage.setItem('token', data.token);
+          localStorage.setItem('login_id', String(data.user.id));
           this.getUserId(data.user.id).subscribe();
         }),
       );
@@ -38,10 +39,19 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
+    localStorage.removeItem('login_id');
   }
   getBearerToken(): string | null {
     const bearerToken: string | null = localStorage.getItem('token');
     return bearerToken;
+  }
+  getStoredLoginId(): number | null {
+    const loginIdTokenString: string | null = localStorage.getItem('login_id');
+    if (loginIdTokenString === null) {
+      return null;
+    }
+    const loginIdTokenNumber: number = parseInt(loginIdTokenString, 10);
+    return loginIdTokenNumber;
   }
   getStoredId(): number | null {
     const idTokenString: string | null = localStorage.getItem('id');
