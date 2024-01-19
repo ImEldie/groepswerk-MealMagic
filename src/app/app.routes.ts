@@ -19,7 +19,7 @@ export const routes: Routes = [
           import('./pages/login/login.component').then((c) => c.LoginComponent),
       },
       {
-        path: 'userpanel/:id',
+        path: 'userpanel',
         loadComponent: () =>
           import('./pages/userpanel/userpanel.component').then(
             (c) => c.UserpanelComponent,

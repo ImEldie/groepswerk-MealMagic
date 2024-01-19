@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import { UserpanelService } from '../../services/userpanel-service/userpanel.service';
+import { UserpanelService } from '../../services/api-calls/userpanel.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
@@ -17,7 +17,6 @@ import {
   FormControl,
 } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
 import {
   Allergy,
   UserDetailsInterface,
@@ -26,6 +25,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -43,6 +43,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressBarModule,
     MatChipsModule,
     MatTooltipModule,
+    AllergyIconComponent,
   ],
   templateUrl: './userpanel.component.html',
   styleUrl: './userpanel.component.css',
@@ -73,7 +74,6 @@ export class UserpanelComponent implements OnInit {
   resetArrow: boolean = false;
   constructor(
     private userpanelService: UserpanelService,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) {}
   ngOnInit() {
@@ -102,19 +102,16 @@ export class UserpanelComponent implements OnInit {
     );
   }
   private putUserAllergies(selectedAllergyIds: Array<number>) {
-    const id = this.route.snapshot.paramMap.get('id') || '';
-    this.userpanelService
-      .putUserAllergies(selectedAllergyIds, Number(id))
-      .subscribe(() => {
-        this.loading = true;
-        this.loadUserDetails().subscribe({
-          next: () => (this.loading = false),
-        });
+    this.userpanelService.putUserAllergies(selectedAllergyIds).subscribe(() => {
+      this.loading = true;
+      this.loadUserDetails().subscribe({
+        next: () => (this.loading = false),
+        error: () => (this.loading = false),
       });
+    });
   }
   loadUserDetails(): Observable<UserDetailsResponse> {
-    const id = this.route.snapshot.paramMap.get('id') || '';
-    return this.userpanelService.getUserDetails(Number(id)).pipe(
+    return this.userpanelService.getUserDetails().pipe(
       map((response) => {
         this.userDetails = response.userDetails;
         this.userAllergies = response.userAllergies;
@@ -123,17 +120,11 @@ export class UserpanelComponent implements OnInit {
     );
   }
   submitWeightHeight() {
-    const id = this.route.snapshot.paramMap.get('id') || '';
     const bodyweight = this.formWeightHeight.get('bodyweightInput')?.value;
     const height = this.formWeightHeight.get('heightInput')?.value;
     const selectedAllergyIds = this.userAllergies.map((allergy) => allergy.id);
     this.userpanelService
-      .putUserWeightLength(
-        bodyweight * 1000,
-        height,
-        selectedAllergyIds,
-        Number(id),
-      )
+      .putUserWeightLength(bodyweight * 1000, height, selectedAllergyIds)
       .subscribe(() => {
         this.loading = true;
         this.bmiFadeOutAnimate();

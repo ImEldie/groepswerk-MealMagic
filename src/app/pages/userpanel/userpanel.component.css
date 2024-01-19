@@ -20,7 +20,7 @@
 }
 .item-allergy {
   width: 20%;
-  min-width: 8rem;
+  min-width: 9.5rem;
 }
 .submit-allergies {
   align-self: flex-end;
@@ -183,4 +183,11 @@
   content: "Your BMI is:";
   font-size: 10px;
   color: #ffffffbd;
+}
+.user-allergies-icons {
+  padding-left: 0px;
+  padding-right: 12px;
+  padding-bottom: 13px;
+  margin-bottom: 0px;
+  margin-top: -11px;
 }
