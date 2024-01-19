@@ -50,8 +50,8 @@ export class AuthService {
     if (loginIdTokenString === null) {
       return null;
     }
-    const LoginIdTokenNumber: number = parseInt(loginIdTokenString, 10);
-    return LoginIdTokenNumber;
+    const loginIdTokenNumber: number = parseInt(loginIdTokenString, 10);
+    return loginIdTokenNumber;
   }
   getStoredId(): number | null {
     const idTokenString: string | null = localStorage.getItem('id');
