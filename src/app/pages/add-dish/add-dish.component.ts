@@ -28,7 +28,7 @@ export class AddDishComponent {
   ){}
 
   postDish(){
-    if (this.userInputsValid()) {
+    if (this.userInputsValid() && this.allUserInputsDefined()) {
       const postData: DishPostData = {
         name: this.nameInputData!.name,
         description: this.nameInputData!.description,

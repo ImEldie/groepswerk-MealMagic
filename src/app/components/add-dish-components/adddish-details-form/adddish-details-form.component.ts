@@ -40,10 +40,10 @@ export class AdddishDetailsFormComponent implements OnInit {
   }
 
   checkInputsValidity(): boolean {
-    const portionSizeValid: boolean = (this.portionSizeInput !== 0);
-    const prepTimeValid: boolean = (this.preparationTimeInput !== 0);
-    const seasonSelected: boolean = (this.selectedSeason !== undefined);
-    const typesSelected: boolean = (this.selectedTypes.length !== 0);
+    const portionSizeValid = (this.portionSizeInput !== 0);
+    const prepTimeValid = (this.preparationTimeInput !== 0);
+    const seasonSelected = (this.selectedSeason !== undefined);
+    const typesSelected = (this.selectedTypes.length !== 0);
 
     return portionSizeValid && prepTimeValid && seasonSelected && typesSelected;
   }

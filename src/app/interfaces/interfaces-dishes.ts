@@ -19,17 +19,17 @@ export interface DishPostData{
 }
 
 export interface Dish {
-    id: number;
-    name: string;
-    image_url: string;
-    description?: string;
-    duration: number; 
-    amount_of_people: number;
-    season: DishSeason;
-    ingredients: Array<DishIngredient>;
-    dish_types: Array<DishType>;
-    dish_steps?: Array<DishStep>;
-  };
+  id: number;
+  name: string;
+  image_url: string;
+  description?: string;
+  duration: number; 
+  amount_of_people: number;
+  season: DishSeason;
+  ingredients: Array<DishIngredient>;
+  dish_types: Array<DishType>;
+  dish_steps?: Array<DishStep>;
+};
 
 interface DishIngredient {
   id: number;

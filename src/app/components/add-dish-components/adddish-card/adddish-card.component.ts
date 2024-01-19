@@ -11,5 +11,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './adddish-card.component.css',
 })
 export class AdddishCardComponent {
-  @Input({required: true}) inputValid: boolean = false;
+  @Input({required: true}) inputValid = false;
 }
