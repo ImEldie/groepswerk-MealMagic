@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FridgeService } from '../../services/api-calls/fridge.service';
 
 @Component({
   selector: 'app-homepage',
@@ -34,11 +35,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class HomepageComponent {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
-
+  filterOnFridge: boolean;
   constructor(
     public dishesApi: DishesApiService,
     public auth: AuthService,
-  ) {}
+    public fridgeService: FridgeService,
+  ) {
+    this.filterOnFridge = false;
+  }
 
   getSearchResultAmount(): number {
     return this.getSearchResults().length;
@@ -60,13 +64,32 @@ export class HomepageComponent {
   private getSearchResults(): Array<Dish> {
     const searchResults: Array<Dish> = this.dishesApi
       .getDishList()
-      .filter((dish: Dish) =>
-        dish.name.toLocaleLowerCase().includes(this.searchInput.toLowerCase()),
-      );
-
+      .filter((dish: Dish) => {
+        if (!this.filterOnFridge) {
+          return dish.name
+            .toLocaleLowerCase()
+            .includes(this.searchInput.toLowerCase());
+        } else {
+          return dish.name
+            .toLocaleLowerCase()
+            .includes(this.searchInput.toLowerCase());
+        }
+      });
     return searchResults;
   }
-  filterOnFridge(): boolean {
-    let buttonclicked: boolean = false;
+  filterForFridge() {
+    this.filterOnFridge = !this.filterOnFridge;
+    console.log(this.filterOnFridge);
+  }
+  getFridgeIngredients() {
+    this.fridgeService.getFridgeIngredients(1).subscribe((data) => {
+      console.log(data);
+    });
+  }
+  //JASPER
+  getFridgeIdFromFridges() {
+    this.fridgeService.getFridgeIdFromFridges(1).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

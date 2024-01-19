@@ -9,7 +9,11 @@
       />
       <mat-hint>Results: {{ getSearchResultAmount() }}</mat-hint>
     </mat-form-field>
-    <button mat-mini-fab matTooltip="Sort by your fridge-ingredients">
+    <button
+      mat-mini-fab
+      matTooltip="Sort by your fridge-ingredients"
+      (click)="filterForFridge()"
+    >
       <mat-icon>sort</mat-icon>
     </button>
   </mat-toolbar>
