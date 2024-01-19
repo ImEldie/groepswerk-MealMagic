@@ -106,6 +106,7 @@ export class UserpanelComponent implements OnInit {
       this.loading = true;
       this.loadUserDetails().subscribe({
         next: () => (this.loading = false),
+        error: () => (this.loading = false),
       });
     });
   }
