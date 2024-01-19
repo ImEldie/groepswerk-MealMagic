@@ -16,7 +16,7 @@
 .user-allergies {
   display: flex;
   flex-direction: column;
-  vertical-align: middle;
+  align-items: center;
 }
 .item-allergy {
   width: 20%;
