@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs';
-import { AuthService } from '../auth.service';
-import {
-  DishSeason,
-  SeasonsApiResponse,
-} from '../../interfaces/interfaces-seasons';
+import { DishSeason } from '../../interfaces/interfaces-seasons';
+import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,21 +9,11 @@ export class SeasonsApiService {
   private seasons: Array<DishSeason> = [];
 
   constructor(
-    private http: HttpClient,
-    private auth: AuthService,
+    private api: ApiRequestsService
   ) {}
 
   loadSeasonsFromApi() {
-    const targetLink =
-      'https://syntra2023.code-coaching.dev/api/group-2/seasons/';
-
-    this.http
-      .get<SeasonsApiResponse>(targetLink, {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.auth.getBearerToken(),
-        }),
-      })
-      .pipe(map((response) => response.data))
+    this.api.get('seasons')
       .subscribe((seasons: Array<DishSeason>) => {
         this.seasons = seasons;
       });

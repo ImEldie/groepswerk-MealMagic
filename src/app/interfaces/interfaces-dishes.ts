@@ -2,10 +2,6 @@ import { DishSeason } from "./interfaces-seasons";
 import { DishStep } from "./interfaces-steps";
 import { DishType } from "./interfaces-types";
 
-export interface DishApiResponse {
-  data: Array<Dish>;
-}
-
 export interface DishPostData{
   name: string,
   image_url: string,

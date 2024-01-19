@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Allergy,
@@ -16,7 +15,6 @@ import { LocalstorageService } from '../functions/localstorage.service';
 export class UserpanelService {
   constructor(
     private api: ApiRequestsService,
-    private auth: AuthService,
     private storage: LocalstorageService
   ) {}
 

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Dish, DishApiResponse, DishPostData } from '../../interfaces/interfaces-dishes';
-import { Observable, forkJoin, map } from 'rxjs';
-import { AuthService } from './auth.service';
+import { Dish, DishPostData } from '../../interfaces/interfaces-dishes';
+import { forkJoin } from 'rxjs';
 import { StepsApiService } from './steps-api.service';
 import { DishStep, Step } from '../../interfaces/interfaces-steps';
 import { Ingredient } from '../../interfaces/interfaces-ingredients';

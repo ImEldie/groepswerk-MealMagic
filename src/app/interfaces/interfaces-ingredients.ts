@@ -1,7 +1,3 @@
-export interface IngredientApiResponse{
-  data: Array<Ingredient>;
-}
-
 export interface Ingredient {
   id: number;
   name: string;

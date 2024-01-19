@@ -23,23 +23,32 @@ class localStorageData {
 
   set(value: any){
     const valueIsNotString = (typeof value !== 'string');
-    if (!valueIsNotString) {
-      value = JSON.stringify(value);
+    if (this.dataIsNumber) {
+      localStorage.setItem(this.key, value);
+    } else {
+      const storageObject = this.convertToObjectString(value);
+      localStorage.setItem(this.key, storageObject);
     }
-    localStorage.setItem(this.key, value);
+    
   }
   get(){
-    let item: string | number | null = localStorage.getItem(this.key);
-    if (item !== null) {
+    let value: string | number | null = localStorage.getItem(this.key);
+    if (value !== null) {
       if (this.dataIsNumber) {
-        return parseInt(item, 10);
+        return parseInt(value, 10);
       } else {
-        return JSON.parse(item);
+        const result = JSON.parse(value);
+        return result.data;
       }
     }
     return null;
   }
   remove(){
     localStorage.removeItem(this.key);
+  }
+
+  private convertToObjectString(value: string | number): string {
+    const storageObject = {data: value};
+    return JSON.stringify(storageObject);
   }
 }

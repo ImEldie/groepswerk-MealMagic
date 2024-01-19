@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { DishType, TypesApiResponse } from '../../interfaces/interfaces-types';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { DishType } from '../../interfaces/interfaces-types';
+import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +9,13 @@ export class TypesApiService {
   private types: Array<DishType> = [];
 
   constructor(
-    private http: HttpClient,
-    private auth: AuthService
+    private api: ApiRequestsService
   ) {
     this.loadTypesFromApi();
   }
 
   loadTypesFromApi(){
-    const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/types/";
-
-    this.http
-      .get<TypesApiResponse>(targetLink, {
-        headers: new HttpHeaders({
-          Authorization: "Bearer " + this.auth.getBearerToken(),
-        }),
-      })
-      .pipe(map((response) => response.data))
+    this.api.get("types")
       .subscribe((dishes: Array<DishType>) => {
         this.types = dishes;
       });

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Ingredient, IngredientApiResponse } from '../../interfaces/interfaces-ingredients';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs';
-import { AuthService } from './auth.service';
+import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
 
 @Injectable({
@@ -22,7 +19,6 @@ export class IngredientsApiService {
   }
   getIngredientFromId(searchId: number): Ingredient | undefined{
     const searchedIngredient = this.ingredients.find(ingredient => ingredient.id === searchId);
-
     return searchedIngredient;
   }
   loadIngredientsFromAPI(): void{
