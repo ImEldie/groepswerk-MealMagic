@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class LocalstorageService {
   token = new localStorageData('token');
   id = new localStorageData('user_id', true);
-
 }
 
 class localStorageData {

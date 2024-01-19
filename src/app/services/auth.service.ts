@@ -31,6 +31,7 @@ export class AuthService {
     this.storage.id.remove();
   }
   get isAuthenticated() {
-    return !!this.storage.token.get();
+    const userAuthenticated = this.storage.token.get() !== null;
+    return userAuthenticated;
   }
 }
