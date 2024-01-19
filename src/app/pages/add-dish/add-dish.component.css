@@ -13,6 +13,6 @@
 .card-actions {
     justify-content: right;
 }
-.post-button, .clear-input-button {
+.post-button {
     width: 10rem;
 }
