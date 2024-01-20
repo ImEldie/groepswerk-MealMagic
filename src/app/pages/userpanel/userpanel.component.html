@@ -162,6 +162,23 @@
     </section>
     <mat-action-row>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="accent" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+  <br />
+  <mat-expansion-panel
+    class="reviews-panel"
+    [expanded]="step === 2"
+    (opened)="setStep(2)"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>Your reviews</mat-panel-title>
+      <mat-panel-description
+        >All the recipes you have reviewed</mat-panel-description
+      >
+    </mat-expansion-panel-header>
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="accent" (click)="nextStep()">End</button>
     </mat-action-row>
   </mat-expansion-panel>
