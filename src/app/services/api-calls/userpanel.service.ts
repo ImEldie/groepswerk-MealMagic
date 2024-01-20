@@ -5,7 +5,6 @@ import {
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
-import { AuthService } from './auth.service';
 import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
 import { LocalstorageService } from '../functions/localstorage.service';
 
