@@ -1,6 +1,7 @@
 .info-card,
 .info-panel,
-.allergies-panel {
+.allergies-panel,
+.reviews-panel {
   margin-left: 8rem;
   margin-right: 8rem;
 }
