@@ -19,6 +19,8 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import {
   Allergy,
+  DishReview,
+  Review,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
@@ -72,6 +74,9 @@ export class UserpanelComponent implements OnInit {
   bmiFadeIn: boolean = false;
   bmiFadeOut: boolean = false;
   resetArrow: boolean = false;
+  reviewDishdetails: Array<DishReview> = [];
+  userReviewStars: number = NaN;
+  starArray: Array<number> = [];
   constructor(
     private userpanelService: UserpanelService,
     private formBuilder: FormBuilder,
@@ -192,5 +197,25 @@ export class UserpanelComponent implements OnInit {
   }
   isDisabled(): boolean {
     return !(this.userDetails?.bodyweight && this.userDetails?.height);
+  }
+  loadUserReviews() {
+    this.userpanelService
+      .getUserReviews()
+      .subscribe((userReviews: Array<Review>) => {
+        userReviews.forEach((userReview) => {
+          this.userpanelService
+            .getDishDetails(userReview.dish_id)
+            .subscribe((dishDetails) => {
+              this.reviewDishdetails = dishDetails;
+              this.userReviewStars = userReview.stars;
+              this.starArray = Array.from(
+                { length: this.userReviewStars },
+                (_, index) => index + 1,
+              );
+              console.log(this.userReviewStars);
+              console.log(this.reviewDishdetails);
+            });
+        });
+      });
   }
 }
