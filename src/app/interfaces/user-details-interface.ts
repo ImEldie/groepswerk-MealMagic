@@ -16,3 +16,12 @@ export interface UserDetailsResponse {
   userDetails: UserDetailsInterface;
   userAllergies: Allergy[];
 }
+export interface ReviewsResponse {
+  data: Array<Review>;
+}
+export interface Review {
+  id: number;
+  dish_id: number;
+  user_id: number;
+  stars: number;
+}
