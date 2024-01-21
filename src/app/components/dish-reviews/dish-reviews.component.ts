@@ -26,7 +26,6 @@ export class DishReviewsComponent implements OnInit {
     this.starRatingForm = this.formBuilder.group({
       rating: [null],
     });
-    console.log('test: ', this.ratingControl.value);
   }
   get ratingControl() {
     return this.starRatingForm.get('rating') as FormControl;
