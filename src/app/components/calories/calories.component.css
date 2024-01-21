@@ -1,0 +1,46 @@
+.nutrition {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+  font-size: 1.1em;
+  width: 4em;
+  line-height: 1.5em;
+  margin: 0 0.3em;
+}
+.nutrition {
+  padding: 0.5em 1em 0.2em;
+  width: inherit;
+  border-radius: 100%;
+  position: relative;
+  left: -1em;
+  overflow: hidden;
+  background: #bbb;
+}
+.nutrition {
+  margin-top: 0.3em;
+  display: inline-block;
+  position: relative;
+}
+.nutrition:before {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 100%;
+  bottom: -1em;
+  content: "";
+  height: 3em;
+  left: 1.5em;
+  position: absolute;
+  width: 3em;
+}
+.nutrition.green {
+  background: #78d1af;
+}
+.nutrition.beige {
+  background: #dcd397;
+}
+.nutrition.blue {
+  background: #60b5de;
+}
+.nutrition.rose {
+  background: #dc97a0;
+}
