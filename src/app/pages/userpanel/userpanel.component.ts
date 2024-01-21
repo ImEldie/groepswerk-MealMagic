@@ -223,9 +223,6 @@ export class UserpanelComponent implements OnInit {
                   (_, index) => index + 1,
                 ),
               );
-              console.log(this.userReviewStars);
-              console.log(this.reviewDishdetails);
-              console.log(this.starArray);
             });
         });
       });
