@@ -78,8 +78,10 @@ export class UserpanelComponent implements OnInit {
   resetArrow: boolean = false;
   reviewDishdetails: Array<DishReview> = [];
   userReviewStars: number = NaN;
-  starArray: Array<number> = [];
+  starArray: Array<Array<number>> = [];
   userReviewDishId: number = NaN;
+  moveIndex: number = 0;
+  userReviews: Array<DishReview> = [];
   constructor(
     private userpanelService: UserpanelService,
     private formBuilder: FormBuilder,
@@ -95,6 +97,7 @@ export class UserpanelComponent implements OnInit {
       allergyIds: new FormArray([]),
     });
     this.loadUserDetails().subscribe();
+    this.loadUserReviews();
   }
   private loadListAllergies() {
     this.userpanelService.getListAllergies().subscribe((response) => {
@@ -210,18 +213,31 @@ export class UserpanelComponent implements OnInit {
           this.userReviewDishId = userReview.dish_id;
           this.userpanelService
             .getDishDetails(userReview.dish_id)
-            .subscribe((dishDetails) => {
-              this.reviewDishdetails = dishDetails;
-
+            .subscribe((dishreview) => {
+              this.userReviews.push(dishreview);
+              this.reviewDishdetails = this.userReviews;
               this.userReviewStars = userReview.stars;
-              this.starArray = Array.from(
-                { length: this.userReviewStars },
-                (_, index) => index + 1,
+              this.starArray.push(
+                Array.from(
+                  { length: this.userReviewStars },
+                  (_, index) => index + 1,
+                ),
               );
               console.log(this.userReviewStars);
               console.log(this.reviewDishdetails);
+              console.log(this.starArray);
             });
         });
       });
+  }
+  nextCard() {
+    if (this.moveIndex < this.reviewDishdetails.length - 1) {
+      this.moveIndex++;
+    }
+  }
+  prevCard() {
+    if (this.moveIndex > 0) {
+      this.moveIndex--;
+    }
   }
 }

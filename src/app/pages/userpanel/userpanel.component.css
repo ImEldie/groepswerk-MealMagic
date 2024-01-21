@@ -192,45 +192,97 @@
   margin-bottom: 0px;
   margin-top: -11px;
 }
+.review-cards-container {
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  transition: transform 0.3s ease-in-out;
+}
 .review-card {
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
-  width: 200px;
-  height: 200px;
-  box-sizing: border-box;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 1rem 1rem 1rem 1rem;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  z-index: 1;
+  max-width: 200px;
+  flex: 0 0 33%;
+  transition: transform 0.3s ease-in-out;
+}
+.active {
+  transform: scale(1.1);
 }
 .review-title {
-  background: blueviolet;
-  box-sizing: border-box;
-  text-align: center;
-  font-weight: bold;
+  font-size: 14px;
+  margin-left: 2px;
 }
 .review-image {
-  background: green;
-  height: 70%;
-  width: 70%;
-  box-sizing: border-box;
-  border-radius: 1rem 1rem 1rem 1rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  align-self: center;
 }
 .rating-container {
-  position: absolute;
 }
 .star-rating {
   color: #ffe400;
-  z-index: 2;
+  font-weight: bold;
 }
 .review-button {
+  margin-top: 10px;
 }
-.no-reviews {
+.arrow-button-left,
+.arrow-button-right {
+  position: absolute;
+  top: 50%;
+  cursor: pointer;
+  z-index: 5;
+}
+.arrow-button-left {
+  left: 0;
+}
+.arrow-button-right {
+  right: 0;
+}
+.no-reviews-container {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2rem;
+  z-index: 1;
+}
+.no-reviews-text {
   font-weight: bold;
-  text-align: center;
+  z-index: 1;
+  margin: auto;
+  padding-top: 1rem;
+}
+.no-reviews-button {
+  margin: auto;
   z-index: 1;
 }
 .background {
   filter: blur(1px);
   position: absolute;
   z-index: 0;
+}
+.background:first-child {
   top: 50%;
-  left: 50%;
+  left: 15%;
+}
+.background:last-child {
+  top: 50%;
+  left: 75%;
+}
+.background-1 {
+  filter: blur(1px);
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 15%;
+}
+.background-2 {
+  filter: blur(1px);
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 75%;
 }

@@ -177,31 +177,74 @@
         >All the recipes you have reviewed</mat-panel-description
       >
     </mat-expansion-panel-header>
-    <section>
-      <button (click)="loadUserReviews()"></button>
-      @for (dish of reviewDishdetails; track dish.name) {
-        <div class="review-card">
-          <div class="review-title">{{ dish.name | titlecase }}</div>
-          <img src="{{ dish.image_url }}" alt="" class="review-image" />
-          <span class="rating-container">
-            @for (star of starArray; track star) {
-              <span class="star-rating">★</span>
-            }
-          </span>
+    <section class="reviews-section">
+      @if (reviewDishdetails.length > 0) {
+        <button
+          (click)="prevCard()"
+          mat-mini-fab
+          color="primary"
+          class="arrow-button-left"
+        >
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <div
+          class="review-cards-container"
+          [style.transform]="'translateX(' + -moveIndex * 20 + '%)'"
+        >
+          @for (dish of reviewDishdetails; track dish.name; let i = $index) {
+            <mat-card class="review-card" [class.active]="i === moveIndex">
+              <mat-card-title class="review-title">{{
+                dish.name | titlecase
+              }}</mat-card-title>
+              <mat-card-subtitle class="rating-container">
+                @for (star of starArray[i]; track star) {
+                  <span class="star-rating">★</span>
+                }
+              </mat-card-subtitle>
+              <mat-card-content
+                ><img
+                  mat-card-md-image
+                  src="{{ dish.image_url }}"
+                  alt=""
+                  class="review-image"
+              /></mat-card-content>
+              <mat-card-actions>
+                <button
+                  mat-raised-button
+                  color="accent"
+                  class="review-button"
+                  (click)="router.navigate(['dish', userReviewDishId])"
+                >
+                  Go to the recipe
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+        <button
+          (click)="nextCard()"
+          mat-mini-fab
+          color="primary"
+          class="arrow-button-right"
+        >
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      }
+      @if (reviewDishdetails.length === 0) {
+        <div class="no-reviews-container">
+          <div class="no-reviews-text">No reviews made yet</div>
           <button
             mat-raised-button
             color="accent"
-            class="review-button"
-            (click)="router.navigate(['dish', userReviewDishId])"
+            class="no-reviews-button"
+            (click)="router.navigate([''])"
           >
-            Go to the recipe
+            To the recipes!
           </button>
         </div>
+        <span class="background-1">Meal<mat-icon>fastfood</mat-icon>Magic</span>
+        <span class="background-2">Meal<mat-icon>fastfood</mat-icon>Magic</span>
       }
-      @if (reviewDishdetails.length === 0) {
-        <div class="no-reviews">No reviews made yet</div>
-      }
-      <span class="background">Meal<mat-icon>fastfood</mat-icon>Magic</span>
     </section>
     <mat-action-row>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
