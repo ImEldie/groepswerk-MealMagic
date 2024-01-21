@@ -192,3 +192,45 @@
   margin-bottom: 0px;
   margin-top: -11px;
 }
+.review-card {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+  width: 200px;
+  height: 200px;
+  box-sizing: border-box;
+}
+.review-title {
+  background: blueviolet;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+}
+.review-image {
+  background: green;
+  height: 70%;
+  width: 70%;
+  box-sizing: border-box;
+  border-radius: 1rem 1rem 1rem 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+.rating-container {
+  position: absolute;
+}
+.star-rating {
+  color: #ffe400;
+  z-index: 2;
+}
+.review-button {
+}
+.no-reviews {
+  font-weight: bold;
+  text-align: center;
+  z-index: 1;
+}
+.background {
+  filter: blur(1px);
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+}
