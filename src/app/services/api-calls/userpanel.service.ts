@@ -2,12 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Allergy,
+  DishReview,
   ListAllergies,
+  ReviewsResponse,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { Dish } from '../../interfaces/interfaces-dishes';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +23,8 @@ export class UserpanelService {
   apiUrl: string = 'https://syntra2023.code-coaching.dev/api/group-2/';
   userDetailsEndpoint: string = 'user-details/';
   allergiesEndpoint: string = 'allergies/';
+  reviewsEndpoint: string = 'reviews/';
+  dishEndpoint: string = 'dishes/';
   getUserDetails(): Observable<UserDetailsResponse> {
     return this.http
       .get<UserDetailsInterface>(
@@ -93,5 +98,40 @@ export class UserpanelService {
         }),
       },
     );
+  }
+  getUserReviews() {
+    return this.http
+      .get<ReviewsResponse>(`${this.apiUrl}${this.reviewsEndpoint}`, {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        }),
+      })
+      .pipe(
+        map((response) => response.data),
+        map((reviews) =>
+          reviews.filter(
+            (review) => review.user_id === this.auth.getStoredId(),
+          ),
+        ),
+      );
+  }
+  getDishDetails(dishId: number) {
+    return this.http
+      .get<Dish>(`${this.apiUrl}${this.dishEndpoint}${dishId}`, {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + this.auth.getBearerToken(),
+        }),
+      })
+      .pipe(
+        map((data) => {
+          const dishreview: DishReview = {
+            name: data.name,
+            image_url: data.image_url,
+          };
+          let userReviews: Array<DishReview> = [];
+          userReviews.push(dishreview);
+          return userReviews;
+        }),
+      );
   }
 }
