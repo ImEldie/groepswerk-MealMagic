@@ -26,9 +26,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
+import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews.component';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
+  templateUrl: './userpanel.component.html',
+  styleUrl: './userpanel.component.css',
   imports: [
     FormsModule,
     MatFormFieldModule,
@@ -44,9 +47,8 @@ import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon
     MatChipsModule,
     MatTooltipModule,
     AllergyIconComponent,
+    DishReviewsComponent,
   ],
-  templateUrl: './userpanel.component.html',
-  styleUrl: './userpanel.component.css',
 })
 export class UserpanelComponent implements OnInit {
   public step = 0;
