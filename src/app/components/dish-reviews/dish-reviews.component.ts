@@ -13,7 +13,7 @@ import { ReviewsService } from '../../services/api-calls/reviews-api.service';
   styleUrl: './dish-reviews.component.css',
 })
 export class DishReviewsComponent implements OnInit {
-  userReviews: Array<Review> = [];
+  userReviews: Array<{ id: number; review: Review }> = [];
   starRatingForm!: FormGroup;
   loadedRating: number | null = null;
   constructor(
@@ -34,10 +34,10 @@ export class DishReviewsComponent implements OnInit {
   getUserReview() {
     this.reviewService
       .getUserReviews(this.auth.getStoredId(), 1) //DishId 1 XX HARDCODED
-      .subscribe((filteredReviews: Array<Review>) => {
-        this.userReviews = filteredReviews;
-        if (filteredReviews.length > 0) {
-          const userReviewStars = this.userReviews[0].stars;
+      .subscribe((userReviewsWithId) => {
+        this.userReviews = userReviewsWithId;
+        if (userReviewsWithId.length > 0) {
+          const userReviewStars = this.userReviews[0].review.stars;
           this.ratingControl.setValue(userReviewStars);
           this.loadedRating = userReviewStars;
         }
@@ -46,13 +46,13 @@ export class DishReviewsComponent implements OnInit {
   onRatingChange() {
     const hasUserReview = this.userReviews.length > 0;
     if (hasUserReview) {
+      const reviewId = this.userReviews[0].id;
       const updatedReview = {
         dish_id: 1,
         user_id: this.auth.getStoredId(),
         stars: this.starRatingForm.value.rating,
       }; //DishId 1 XX HARDCODED HALEN UIT DISHPAGE
-      console.log(updatedReview);
-      this.reviewService.putReview(updatedReview).subscribe();
+      this.reviewService.putReview(reviewId, updatedReview).subscribe();
       this.loadedRating = updatedReview.stars;
     } else {
       const newReview = {
@@ -62,6 +62,7 @@ export class DishReviewsComponent implements OnInit {
       }; //DishId 1 XX HARDCODED HALEN UIT DISHPAGE
       this.reviewService.postReview(newReview).subscribe();
       this.loadedRating = newReview.stars;
+      this.getUserReview();
     }
   }
 }

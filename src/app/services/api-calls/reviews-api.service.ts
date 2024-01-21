@@ -25,11 +25,12 @@ export class ReviewsService {
       })
       .pipe(
         map((response) => response.data),
-        map((reviews) =>
-          reviews.filter(
+        map((reviews) => {
+          const filteredReviews = reviews.filter(
             (review) => review.user_id === userId && review.dish_id === dishId,
-          ),
-        ),
+          );
+          return filteredReviews.map((review) => ({ id: review.id, review }));
+        }),
       );
   }
   postReview(newReview: {
@@ -43,13 +44,16 @@ export class ReviewsService {
       }),
     });
   }
-  putReview(updatedReview: {
-    dish_id: number;
-    user_id: number | null;
-    stars: number;
-  }) {
+  putReview(
+    reviewId: number,
+    updatedReview: {
+      dish_id: number;
+      user_id: number | null;
+      stars: number;
+    },
+  ) {
     return this.http.put(
-      `${this.apiUrl}${this.reviewsEndpoint}1`, //HARDCODED 1 XXX Marnik
+      `${this.apiUrl}${this.reviewsEndpoint}${reviewId}`,
       updatedReview,
       {
         headers: new HttpHeaders({
