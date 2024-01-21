@@ -177,6 +177,25 @@
         >All the recipes you have reviewed</mat-panel-description
       >
     </mat-expansion-panel-header>
+    <section>
+      <button (click)="loadUserReviews()"></button>
+      @for (dish of reviewDishdetails; track dish.name) {
+        <div class="review-card">
+          <div class="review-title">{{ dish.name | titlecase }}</div>
+          <img src="{{ dish.image_url }}" alt="" class="review-image" />
+          <span class="rating-container">
+            @for (star of starArray; track star) {
+              <span class="star-rating">★</span>
+            }
+          </span>
+          <button mat-button class="review-button">Go to the recipe</button>
+        </div>
+      }
+      @if (reviewDishdetails.length === 0) {
+        <div class="no-reviews">No reviews made yet</div>
+      }
+      <span class="background">Meal<mat-icon>fastfood</mat-icon>Magic</span>
+    </section>
     <mat-action-row>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="accent" (click)="nextStep()">End</button>
