@@ -193,7 +193,6 @@
   margin-top: -11px;
 }
 .review-cards-container {
-  overflow: hidden;
   display: flex;
   flex-flow: row nowrap;
   transition: transform 0.3s ease-in-out;
