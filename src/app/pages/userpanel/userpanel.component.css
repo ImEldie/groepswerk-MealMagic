@@ -221,8 +221,6 @@
 .review-image {
   align-self: center;
 }
-.rating-container {
-}
 .star-rating {
   color: #ffe400;
   font-weight: bold;
@@ -259,30 +257,17 @@
   margin: auto;
   z-index: 1;
 }
-.background {
-  filter: blur(1px);
-  position: absolute;
-  z-index: 0;
-}
-.background:first-child {
-  top: 50%;
-  left: 15%;
-}
-.background:last-child {
-  top: 50%;
-  left: 75%;
-}
-.background-1 {
-  filter: blur(1px);
-  position: absolute;
-  z-index: 0;
-  top: 50%;
-  left: 15%;
-}
+.background-1,
 .background-2 {
   filter: blur(1px);
   position: absolute;
   z-index: 0;
+}
+.background-1 {
+  top: 50%;
+  left: 15%;
+}
+.background-2 {
   top: 50%;
   left: 75%;
 }
