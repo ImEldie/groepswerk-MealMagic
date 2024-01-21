@@ -28,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
+import { Router, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -46,6 +47,7 @@ import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon
     MatChipsModule,
     MatTooltipModule,
     AllergyIconComponent,
+    RouterOutlet,
   ],
   templateUrl: './userpanel.component.html',
   styleUrl: './userpanel.component.css',
@@ -77,9 +79,11 @@ export class UserpanelComponent implements OnInit {
   reviewDishdetails: Array<DishReview> = [];
   userReviewStars: number = NaN;
   starArray: Array<number> = [];
+  userReviewDishId: number = NaN;
   constructor(
     private userpanelService: UserpanelService,
     private formBuilder: FormBuilder,
+    public router: Router,
   ) {}
   ngOnInit() {
     this.loadListAllergies();
@@ -203,10 +207,12 @@ export class UserpanelComponent implements OnInit {
       .getUserReviews()
       .subscribe((userReviews: Array<Review>) => {
         userReviews.forEach((userReview) => {
+          this.userReviewDishId = userReview.dish_id;
           this.userpanelService
             .getDishDetails(userReview.dish_id)
             .subscribe((dishDetails) => {
               this.reviewDishdetails = dishDetails;
+
               this.userReviewStars = userReview.stars;
               this.starArray = Array.from(
                 { length: this.userReviewStars },

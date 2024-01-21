@@ -188,7 +188,14 @@
               <span class="star-rating">★</span>
             }
           </span>
-          <button mat-button class="review-button">Go to the recipe</button>
+          <button
+            mat-raised-button
+            color="accent"
+            class="review-button"
+            (click)="router.navigate(['dish', userReviewDishId])"
+          >
+            Go to the recipe
+          </button>
         </div>
       }
       @if (reviewDishdetails.length === 0) {
