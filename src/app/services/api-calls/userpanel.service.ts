@@ -128,9 +128,7 @@ export class UserpanelService {
             name: data.name,
             image_url: data.image_url,
           };
-          let userReviews: Array<DishReview> = [];
-          userReviews.push(dishreview);
-          return userReviews;
+          return dishreview;
         }),
       );
   }
