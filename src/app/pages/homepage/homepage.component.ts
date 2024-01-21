@@ -102,12 +102,16 @@ export class HomepageComponent implements OnInit {
       fridgeIngredientIds.includes(ingredient.id),
     ).length;
   }
+
   filterForFridge() {
     this.filterOnFridge = !this.filterOnFridge;
     if (this.filterOnFridge) {
-      this.fridgeService.getFridgeIngredients(1).subscribe((data) => {
+      this.fridgeService.getFridgeIngredients().subscribe((data) => {
         this.fridgeIngredients = data;
       });
     }
   }
+  // getFridgeId() {
+  //   return this.fridgeService.getFridgeIdFromFridges();
+  // }
 }
