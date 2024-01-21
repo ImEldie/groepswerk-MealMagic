@@ -29,12 +29,10 @@ export class FridgeService {
       })
       .pipe(
         map((response) => {
-          console.log(response);
           return response.data.filter((point) => point.fridge_id === id);
         }),
       );
   }
-  //JASPER
   getFridgeIdFromFridges(id: number) {
     return this.http
       .get<FridgeRespone>(`${this.apiUrlFridge}`, {
@@ -44,7 +42,6 @@ export class FridgeService {
       })
       .pipe(
         map((response) => {
-          console.log(response);
           let fridge = response.data.find(
             (object) => object.user_detail_id === id,
           );
