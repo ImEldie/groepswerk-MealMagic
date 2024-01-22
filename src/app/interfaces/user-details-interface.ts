@@ -18,6 +18,9 @@ export interface UserDetailsInterface {
   height: number;
   allergies: Array<Allergy>;
 }
+export interface AllergyList {
+  data: Array<Allergy>;
+}
 export interface Allergy {
   id: number;
   name: string;

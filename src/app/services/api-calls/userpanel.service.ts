@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Allergy,
+  AllergyList,
   UserDetailApiResponse,
   UserDetailsInterface,
   UserDetailsResponse,
@@ -42,7 +43,7 @@ export class UserpanelService {
       );
   }
   getListAllergies(): Observable<Array<Allergy>> {
-    return this.http.get<Array<Allergy>>("allergies");
+    return this.http.get<AllergyList>("allergies").pipe(map(d => d.data));
   }
   putUserWeightLength(
     bodyweightInput: number,
