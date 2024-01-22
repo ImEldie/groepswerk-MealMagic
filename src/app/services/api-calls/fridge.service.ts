@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Fridges, IngredientInfo, UserDetails, Ingredient, Ingredients, Fridge } from '../../interfaces/fridge-interface';
-import { AuthService } from '../auth.service';
+import { LocalstorageService } from '../functions/localstorage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FridgeService {
 
-
-apiUrl = "https://syntra2023.code-coaching.dev/api/group-2/";
-token = this.auth.getBearerToken();
-
  constructor(
   private http: HttpClient,
-  public auth: AuthService
+  private storage: LocalstorageService
   ) { }
 
   public addIngredients: number | null = null  ;
@@ -34,22 +30,14 @@ token = this.auth.getBearerToken();
 
   loadIngredients(): Observable<Array<{ id: number, name: string }>> {
     
-    return this.http.get<IngredientInfo>(`${this.apiUrl}ingredients`, {
-      headers: {
-        Authorization: "Bearer " + this.token,
-      },
-    })
+    return this.http.get<IngredientInfo>(`ingredients`)
     .pipe(map((data) => {
       return data.data.map((ingredient) =>  ({ id: ingredient.id, name: ingredient.name }));
   }))
   }
  
  getIngredientDetails(id: number): Observable<Ingredient> {
-  return this.http.get<Ingredient>(`${this.apiUrl}ingredients/${id}`, {
-    headers: {
-      Authorization: "Bearer " + this.token,
-    },
-  })
+  return this.http.get<Ingredient>(`ingredients/${id}`)
   .pipe(map
     ((data) => {
        const ingredientInfo: Ingredient = { 
@@ -67,11 +55,7 @@ token = this.auth.getBearerToken();
   }
 
  getUserDetails(): Observable<Array<number>> {
-  return this.http.get<UserDetails>(`${this.apiUrl}user-details`, {
-    headers: {
-      Authorization: "Bearer "+ this.token,
-    },
-  })
+  return this.http.get<UserDetails>(`user-details`)
   .pipe(map((data) => {
     return data.data.map((details) =>
   details.id);
@@ -79,11 +63,7 @@ token = this.auth.getBearerToken();
 }
 
  getFridge(): Observable<Array<number>> {
-  return this.http.get<Fridges>(`${this.apiUrl}fridges`, {
-    headers: {
-      Authorization: "Bearer "+ this.token,
-    },
-  })
+  return this.http.get<Fridges>(`fridges`)
   .pipe(map((data) => {
     return data.data.map((fridge) =>
   fridge.id);
@@ -98,16 +78,12 @@ token = this.auth.getBearerToken();
   console.log('attempting to post: ', amount, fridgeId);
 
   return this.http
-    .post< Ingredients >(`${this.apiUrl}ingredients-fridges`, 
+    .post< Ingredients >(`ingredients-fridges`, 
       {
         fridge_id: fridgeId,
         ingredient_id: ingredientId,
         amount: amount,
-      }, 
-      {
-        headers: {
-        Authorization: "Bearer " + this.token,
-      }})
+      })
   /*  .subscribe((data)=> {
       const ingredientsFridgeId = data.id;
       return ingredientsFridgeId;
@@ -123,16 +99,11 @@ putAmount(
   ){
   console.log('attempting to put: ', amount);
   this.http
-    .put<{amount: number}>(`${this.apiUrl}ingredients-fridges/${id}`, 
+    .put<{amount: number}>(`ingredients-fridges/${id}`, 
       {
        fridge_id: fridgeId,
        ingredient_id: ingredientId,
        amount: amount,
-      }, 
-      {
-        headers: {
-          Authorization: "Bearer " + this.token,
-        }
       })
        .subscribe((data)=> console.log(data));
 }
@@ -150,12 +121,7 @@ getIngredientsFridgeId(){
 }
 */
 deleteIngredientsFridge(id: number) {
-  this.http.delete(`${this.apiUrl}ingredients-fridges/${id}`,
-  {
-    headers: {
-      Authorization: "Bearer " + this.token,
-    }
-  })
+  this.http.delete(`ingredients-fridges/${id}`)
   .subscribe();
 }
 
@@ -170,11 +136,7 @@ testLog() {
 
 getFridgeIdFromFridges(id: number) {
   return this.http
-    .get<Fridges>(`${this.apiUrl}fridges`, {
-      headers: {
-        Authorization: "Bearer " + this.token,
-      }
-    })
+    .get<Fridges>(`fridges`)
     .pipe(
       map((response) => {
         console.log(response);
@@ -187,12 +149,7 @@ getFridgeIdFromFridges(id: number) {
 }
 
 getIngredientIdsInFridge(fridgeId: number){
-  return this.http.get<Fridge>(`${this.apiUrl}fridges/${fridgeId}`,
-  {
-    headers: {
-      Authorization: "Bearer " + this.token,
-    }
-  })
+  return this.http.get<Fridge>(`fridges/${fridgeId}`)
   .pipe(
     map((data) => {
      return data.ingredients?.map((ingredients) => {
@@ -208,12 +165,7 @@ getIngredientIdsInFridge(fridgeId: number){
 }
 
 getIngredientsFridgesDetails(ingredientFridgesId: number){
-  return this.http.get<Ingredients>(`${this.apiUrl}ingredients-fridges/${ingredientFridgesId}`,
-  {
-    headers: {
-      Authorization: "Bearer " + this.token,
-    }
-  })
+  return this.http.get<Ingredients>(`ingredients-fridges/${ingredientFridgesId}`)
   .pipe(
     map((data) => {
       const ingredientFridgeInfo: 

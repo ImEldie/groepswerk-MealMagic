@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DishCardComponent } from '../../components/dish-card/dish-card.component';
 import { Dish } from '../../interfaces/interfaces-dishes';
 import { MatToolbarModule } from '@angular/material/toolbar';
