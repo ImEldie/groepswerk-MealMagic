@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import { UserpanelService } from '../../services/api-calls/userpanel.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
@@ -26,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
+import { UserpanelService } from '../../services/api-calls/userpanel.service';
 import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews.component';
 @Component({
   selector: 'app-userpanel',
@@ -100,7 +100,7 @@ export class UserpanelComponent implements OnInit {
   }
   private addCheckboxes() {
     this.listAllergies.forEach(() =>
-      this.allergyFormArray.push(new FormControl(false)),
+      this.allergyFormArray.push(new FormControl()),
     );
   }
   private putUserAllergies(selectedAllergyIds: Array<number>) {
