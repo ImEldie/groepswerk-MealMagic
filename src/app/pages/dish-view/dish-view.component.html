@@ -18,8 +18,7 @@
             ></app-allergy-icon>
           }
         </div>
-
-        <div class="details-container">
+        <div>
           <mat-icon class="clock-icon" color="white">timelapse</mat-icon
           ><span class="clock-text">{{ getDish()?.duration }}min.</span
           ><mat-icon class="serves-icon">group</mat-icon
@@ -29,13 +28,11 @@
           <mat-icon class="season-icon">wb_sunny</mat-icon>
           <span class="season-text"> {{ getDish()?.season?.name }}</span>
         </div>
-
         <mat-card-content class="recipe-description">
           {{ getDish()?.description }}
         </mat-card-content>
       </div>
-
-      <div class="header-right">
+      <div class="clipboard-container">
         <mat-card-actions>
           <button mat-button (click)="copyUrlToClipboard()">
             <mat-icon>file_copy</mat-icon> SHARE
@@ -43,32 +40,28 @@
         </mat-card-actions>
       </div>
     </mat-card-header>
-
     <img class="dish-image" mat-card-image [src]="getDish()?.image_url" />
-
     <div class="content-container">
       <mat-card-title class="card-title">Ingredients</mat-card-title>
       <mat-card-content class="dish-ingredients">
         <ul>
-          @for (ingredient of getDish()?.ingredients; track $index) {
+          @for (ingredient of getDish()?.ingredients; track ingredient.id) {
             <li>{{ ingredient.name }}</li>
           }
         </ul>
       </mat-card-content>
-
       <mat-card-title class="card-title">Directions</mat-card-title>
       <mat-card-content class="dish-directions">
         <ol>
-          @for (steps of getDish()?.dish_steps; track $index) {
+          @for (steps of getDish()?.dish_steps; track steps) {
             <li>{{ steps.title }}</li>
           }
         </ol>
       </mat-card-content>
-
       <mat-card-title class="card-title"> Description </mat-card-title>
       <mat-card-content class="dish-description">
-        @for (steps of getDish()?.dish_steps; track $index) {
-          <p>{{ steps.title }}</p>
+        @for (steps of getDish()?.dish_steps; track steps) {
+          <p>{{ steps.description }}</p>
         }
       </mat-card-content>
     </div>

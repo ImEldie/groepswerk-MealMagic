@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -32,6 +33,7 @@ export class HomepageComponent {
   constructor(
     public dishesApi: DishesApiService,
     public auth: AuthService,
+    public router: Router,
   ) {}
 
   getSearchResultAmount(): number {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -10,15 +10,14 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Dish } from '../../interfaces/interfaces-dishes';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
-import { MatRippleModule } from '@angular/material/core';
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dish-view',
   standalone: true,
   imports: [
-    MatRippleModule,
     MatDividerModule,
     MatChipsModule,
     CommonModule,
@@ -32,7 +31,9 @@ import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 })
 export class DishViewComponent {
   getDish(): Dish | undefined {
-    return this.dishAPI.getDishByID(1);
+    const id = this.route.snapshot.paramMap.get('id') || '';
+
+    return this.dishAPI.getDishByID(Number(id));
   }
 
   constructor(
@@ -40,6 +41,7 @@ export class DishViewComponent {
     private snackBar: MatSnackBar,
     private ingredientAPI: IngredientsApiService,
     private dishAPI: DishesApiService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {

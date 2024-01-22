@@ -23,11 +23,6 @@
   font-size: 1.2rem;
   margin-top: 0.4rem;
 }
-.details.container {
-  margin-left: -0.2rem;
-  align-items: center;
-  height: 2rem;
-}
 .clock-icon {
   margin-top: 0.2rem;
   margin-right: 0.3rem;
@@ -64,7 +59,7 @@
   max-width: 70%;
   font-size: 1rem;
 }
-.header-right {
+.clipboard-container {
   position: absolute;
   right: 0.8rem;
   top: 0.6rem;
