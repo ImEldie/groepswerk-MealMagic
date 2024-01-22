@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import {MatButtonModule} from '@angular/material/button';
-import { Subscription } from 'rxjs';
+import { FridgeIngredient } from '../../interfaces/fridge-interface';
 
 @Component({
   selector: 'app-fridge-ingredients',
@@ -18,45 +18,72 @@ export class FridgeIngredientsComponent implements OnInit {
   constructor( 
     private fridgeService: FridgeService,
   ){}
-
+  
   count: number = 1;
   ingredient: string | null = '';
-  loadedIngredient: string[] = [];
-  ingredientId: number = 0;
-
-
+  @Input({required: true}) loadedFridgeId: number = 0; //FridgeIngredient = {id: 0, name: ''};
+  ingredientId: number | null = null ;
+  ingredientsFridgeId: number | null = null;
+  fridgeId: number | null = null;
 
   ngOnInit() {
-    this.fridgeService.loadIngredients()
-    .subscribe({ 
-      next: (Response) => {
-        this.loadedIngredient = Response;
-      }}) 
-      
+ // this.getFridgeId();
+  if ( this.ingredientsFridgeId !== null) {
+  this.fridgeService.getIngredientsFridgesDetails(this.ingredientsFridgeId!)
+  .subscribe( {next: (response) => {
+    this.count = response.amount;
+    this.ingredientId = response.ingredient_id
+  }})
+} 
+this.fridgeService.getIngredientDetails(this.ingredientId!)
+  .subscribe( {next: (response) => {
+    this.ingredient = response.name; 
+  }})
 }
 
-ingredientValue(){
-   this.ingredient = this.fridgeService.getAddIngredients();
-   
+getIngredientData() {
+  const data = this.fridgeService.getAddIngredients()
+  if ( data.id !== null) {
+    // this.ingredientId = data.id;
+    // this.ingredient = data.name;
+  }
 }
 
   plusOne(){
     this.count  += 1;
+    this.putCount();
       } 
     minOne(){
         this.count  -= 1;
+        this.putCount();
       }
   resetCount() {
      if (this.count < 1) {
-       this.count = 1;
-      console.log(this.count)
-    }
+       this.fridgeService.deleteIngredientsFridge(this.ingredientsFridgeId!)
+      }
   }
-
+/*
   postIngredient() {
-
+this.fridgeService.postIngredientsFridge( this.fridgeId!, this.ingredientId!, 1)
+.subscribe({
+  next: (data) => {
+    this.ingredientsFridgeId = data.id;}})
   }
-  
+*/
+  putCount(){
+    this.fridgeService.putAmount(this.ingredientsFridgeId!, this.fridgeId!, this.ingredientId!, this.count)
+  }
+/*
+  getFridgeId() {
+    this.fridgeService.getFridgeIdFromFridges(1)
+    .subscribe({
+      next: (data) => {
+        this.fridgeId = data;
+      }
+    }
+    )
+  }
+  */
 }
 
 

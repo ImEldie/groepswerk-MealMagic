@@ -5,23 +5,33 @@ export const routes: Routes = [
     {
         path: "",
         component: MainLayoutComponent,
-        children: [ 
-           
+        children: [
         {
             path: "",
             loadComponent: () =>
                 import("./pages/homepage/homepage.component").then(
                     (c) => c.HomepageComponent
                 ),
-            
         },
         {
-            path: "fridge",
-               loadComponent: () =>
-            import("./pages/fridge/fridge.component").then(
-              (c) =>  c.FridgeComponent
-            ), 
+          path: 'login',
+          loadComponent: () =>
+            import('./pages/login/login.component').then((c) => c.LoginComponent),
         },
+        {
+          path: 'userpanel/:id',
+          loadComponent: () =>
+            import('./pages/userpanel/userpanel.component').then(
+              (c) => c.UserpanelComponent
+            ),
+        },
+        {
+          path: "fridge",
+             loadComponent: () =>
+          import("./pages/fridge/fridge.component").then(
+            (c) =>  c.FridgeComponent
+          ), 
+      },
         ]
     }
 ];

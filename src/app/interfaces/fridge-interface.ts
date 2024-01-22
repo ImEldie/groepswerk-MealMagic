@@ -29,18 +29,24 @@ export interface Fridges {
   data: Array<Fridge>
 }
 
-interface Fridge {
+export interface Fridge {
   id: number;
   user_detail_id: number;
+  ingredients?: [Ingredients]
 }
 
 export interface FridgeIngredients {
   data: Array<Ingredients>
 }
 
-interface Ingredients {
+ export interface Ingredients {
   id: number;
   fridge_id: number;
   ingredient_id: number;
   amount: number;
+}
+
+export interface FridgeIngredient {
+  id: number;
+  name: string;
 }

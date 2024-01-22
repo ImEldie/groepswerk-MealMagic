@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -13,6 +13,7 @@ import {MatListModule} from '@angular/material/list';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
 import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
+import { FridgeIngredient } from '../../interfaces/fridge-interface';
 
 
 @Component({
@@ -41,12 +42,25 @@ export class FridgeComponent implements OnInit {
     ){}
   
 
-  ingredientInput = new FormControl('');
+  ingredientInput = new FormControl();
   options: string[] = [];
+  ingredientList: {id: number; name: string}[] = [];
   filteredOptions!: Observable<string[]>;
-  loadedIngredient: string[] = [];
+  selectedIngredients: FridgeIngredient[] = [];
+
+  ingredientsFridgeId: number = 0;
+  fridgeId: number | null = null;
+  ingredientsInFridge: number[] | undefined = []
+  ingredientFridgeId: number[] | undefined = []
 
     ngOnInit() {
+      this.fridgeService.getIngredientIdsInFridge(1) //FridgeId toevoegen
+      .subscribe({ 
+        next: (response) => {
+          this.ingredientsInFridge = response?.map(ingredients => ingredients.ingredient_id);
+          this.ingredientFridgeId = response?.map(ingredients => ingredients.fridge_id);
+        }
+      });
       this.filteredOptions = this.ingredientInput.valueChanges.pipe(
         startWith(''),
         map(value => 
@@ -54,42 +68,58 @@ export class FridgeComponent implements OnInit {
       );
       this.fridgeService.loadIngredients()
       .subscribe({ 
-        next: (Response) => {
-          this.loadedIngredient = Response;
-          this.options = this.loadedIngredient;
-          console.log(this.loadedIngredient);
+        next: (response) => {
+          this.ingredientList = response;
+          this.options = [...new Set(response.map(ingredientInfo => ingredientInfo.name))];
           }})
-          const ingredient = this.ingredientInput.value;
-      this.fridgeService.setAddIngredients(ingredient);
-    this.clearInput();
+    this.saveData();
+   
     }
 
-    private _filter(value: string): string[] {
-      const filterValue = value.toLowerCase();
+     private _filter(value: string): string[] {
+       const filterValue = value.toLowerCase();
   
-      return this.options.filter(option => option.toLowerCase().includes(filterValue));
-    }
+       return this.options.filter(option => option.toLowerCase().includes(filterValue));
+     }
 
-    saveData(): void {
-      this.fridgeService.setAddIngredients(this.ingredientInput.value);
-    }
-
-    ingredientValue() {
-      const ingredient = this.ingredientInput.value;
-      this.fridgeService.setAddIngredients(ingredient);
+     saveData(): void {
+      const selectedOption = this.ingredientInput.value;
+      const selectedIngredient = this.ingredientList.find(ingredientList => ingredientList.name === selectedOption);
+    
+      if (selectedIngredient) {
+        const selectedIngredientId = selectedIngredient.id;
+        this.fridgeService.setAddIngredients(selectedOption, selectedIngredientId);
+      }
     }
 
     clearInput() {
-      console.log(this.ingredientInput.value);
       this.ingredientInput.reset();
     }
 
-    postIngredient () {
-      if (this.ingredientInput.value !== null){
-        
-      }
+    addToSelected(ingredient: FridgeIngredient) {
+      this.selectedIngredients.push(ingredient);
     }
-  
+
+    postIngredient() { 
+      const selectedOption = this.ingredientInput.value;
+      const selectedIngredient = this.ingredientList.find(ingredientList => ingredientList.name === selectedOption);
+      if (!this.ingredientsInFridge!.includes(selectedIngredient?.id!) ){
+      this.fridgeService.postIngredientsFridge( this.fridgeId!, selectedIngredient?.id!, 1)
+      .subscribe({
+        next: (data) => {
+          this.ingredientsFridgeId = data.id;}})
+        }
+      }
+
+      getFridgeId() {
+        this.fridgeService.getFridgeIdFromFridges(1)
+        .subscribe({
+          next: (data) => {
+            this.fridgeId = data;
+          }
+        }
+        )
+      }
   }
 
      

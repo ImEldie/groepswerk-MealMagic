@@ -1,0 +1,115 @@
+<br />
+<mat-card class="info-card">
+  <mat-card-header>
+    <mat-card-title>User Panel</mat-card-title>
+    <mat-card-subtitle>Your info:</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      <mat-icon>monitor_weight</mat-icon>
+      Weight: {{ userDetails?.bodyweight }} kg.
+    </p>
+    <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
+    <section>
+      <p>
+        Your selected allergies are:
+        @for (allergy of userAllergies; track allergy.name) {
+          <mat-chip>{{ allergy.name | titlecase }}</mat-chip>
+        }
+        @if (userAllergies.length === 0) {
+          No allergies selected
+        }
+      </p>
+    </section>
+  </mat-card-content>
+  <mat-card-footer>
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+    }
+  </mat-card-footer>
+</mat-card>
+<br />
+<mat-accordion>
+  <mat-expansion-panel
+    class="info-panel"
+    [expanded]="step === 0"
+    (opened)="setStep(0)"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>Weight & Height</mat-panel-title>
+      <mat-panel-description>Give your weight and height</mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="formWeightHeight" (ngSubmit)="submitWeightHeight()">
+      <div class="weight-height-form">
+        <mat-form-field class="weight-height-input">
+          <mat-label>Weight</mat-label>
+          <input
+            type="number"
+            matInput
+            min="1"
+            max="650"
+            required
+            formControlName="bodyweightInput"
+            placeholder="Kilogram"
+          />
+        </mat-form-field>
+        <mat-form-field class="weight-height-input">
+          <mat-label>Height</mat-label>
+          <input
+            type="number"
+            matInput
+            min="1"
+            max="300"
+            required
+            formControlName="heightInput"
+            placeholder="Centimeter"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="accent"
+          [disabled]="!formWeightHeight.valid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+    <mat-action-row>
+      <button mat-button color="accent" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+  <br />
+  <mat-expansion-panel
+    class="allergies-panel"
+    [expanded]="step === 1"
+    (opened)="setStep(1)"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>Allergies</mat-panel-title>
+      <mat-panel-description>What are your allergies?</mat-panel-description>
+    </mat-expansion-panel-header>
+    <section>
+      <form
+        [formGroup]="formAllergy"
+        (ngSubmit)="submitAllergyIds()"
+        class="user-allergies"
+      >
+        <section formArrayName="allergyIds">
+          @for (id of allergyFormArray.controls; track id; let index = $index) {
+            <mat-checkbox [formControlName]="index" class="item-allergy">
+              {{ listAllergies[index].name | titlecase }}</mat-checkbox
+            >
+          }
+        </section>
+        <br />
+        <div class="submit-allergies">
+          <button mat-raised-button color="accent">Submit</button>
+        </div>
+      </form>
+    </section>
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="accent" (click)="nextStep()">End</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
