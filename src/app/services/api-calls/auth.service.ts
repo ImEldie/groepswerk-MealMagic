@@ -22,17 +22,17 @@ export class AuthService {
           const loginId = data.user.id;
           this.storage.token.set(data.token);
           this.storage.loginId.set(loginId);
-          this.getUserId(loginId)
-            .pipe(catchError(() => this.postNewUserDetails(loginId)))
-            .subscribe(
-              (userData) => { 
-                this.storage.userId.set(userData.id)
-              });
+          this.getUserId(loginId);
         }),
       );
   }
   private getUserId(login_id: number) {
-    return this.http.get<UserDetailsInterface>('/user-details/user/' + login_id);
+    return this.http.get<UserDetailsInterface>('/user-details/user/' + login_id)
+      .pipe(catchError(() => this.postNewUserDetails(login_id)))
+      .subscribe(
+        (userData) => { 
+          this.storage.userId.set(userData.id)
+        });
   }
   private postNewUserDetails(login_id: number){
     const newUserData: UserDetailsPost = {

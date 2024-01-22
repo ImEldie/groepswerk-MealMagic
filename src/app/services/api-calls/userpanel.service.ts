@@ -20,7 +20,7 @@ export class UserpanelService {
   ) {}
 
   getUserDetails(): Observable<UserDetailsResponse> {
-      return this.http.get<UserDetailApiResponse>("user-details/" + this.storage.userId.get())
+    return this.http.get<UserDetailApiResponse>("user-details/" + this.storage.userId.get())
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
