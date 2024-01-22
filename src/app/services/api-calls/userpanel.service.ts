@@ -19,12 +19,8 @@ export class UserpanelService {
     private storage: LocalstorageService
   ) {}
 
-  getUserDetails(): Observable<UserDetailsResponse> | void {
-    const userId = this.storage.userId.get();
-    console.log(userId);
-    
-    if (userId) {
-      return this.http.get<UserDetailApiResponse>("user-details/" + userId)
+  getUserDetails(): Observable<UserDetailsResponse> {
+      return this.http.get<UserDetailApiResponse>("user-details/" + this.storage.userId.get())
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -45,7 +41,6 @@ export class UserpanelService {
           return { userDetails, userAllergies };
         }),
       );
-    }
   }
   getListAllergies(): Observable<Array<Allergy>> {
     return this.http.get<AllergyList>("allergies").pipe(map(d => d.data));
