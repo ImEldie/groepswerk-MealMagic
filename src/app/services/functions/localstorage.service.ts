@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LocalstorageService {
-  token = new localStorageData('token');
-  userId = new localStorageData('user_id', true);
-  loginId = new localStorageData('login_id', true);
+  token = new LocalStorageData('token');
+  userId = new LocalStorageData('user_id', true);
+  loginId = new LocalStorageData('login_id', true);
 }
 
-class localStorageData {
+class LocalStorageData {
   private key: string;
   private dataIsNumber: boolean;
 

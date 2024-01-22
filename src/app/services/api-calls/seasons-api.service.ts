@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DishSeason } from '../../interfaces/interfaces-seasons';
-import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
+import { DishSeason, SeasonList } from '../../interfaces/interfaces-seasons';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,12 +10,13 @@ export class SeasonsApiService {
   private seasons: Array<DishSeason> = [];
 
   constructor(
-    private api: ApiRequestsService
+    private http: HttpClient
   ) {}
 
   loadSeasonsFromApi() {
-    this.api.get('seasons')
-      .subscribe((seasons: Array<DishSeason>) => {
+    this.http.get<SeasonList>('seasons')
+      .pipe(map(d => d.data))
+      .subscribe((seasons) => {
         this.seasons = seasons;
       });
   }

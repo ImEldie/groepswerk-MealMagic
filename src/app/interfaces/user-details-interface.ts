@@ -1,3 +1,11 @@
+export interface UserDetailApiResponse {
+  id: number;
+  user_id: number;
+  bodyweight: number;
+  height: number;
+  allergies: Array<Allergy>;
+}
+
 export interface UserDetailsInterface {
   id: number;
   user_id: number;

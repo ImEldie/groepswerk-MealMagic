@@ -14,6 +14,10 @@ export interface DishPostData{
   dish_steps: Array<number>
 }
 
+export interface DishList {
+  data: Array<Dish>
+}
+
 export interface Dish {
   id: number;
   name: string;

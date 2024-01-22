@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Dish, DishPostData } from '../../interfaces/interfaces-dishes';
-import { forkJoin } from 'rxjs';
+import { Dish, DishList, DishPostData } from '../../interfaces/interfaces-dishes';
+import { forkJoin, map } from 'rxjs';
 import { StepsApiService } from './steps-api.service';
 import { DishStep, Step } from '../../interfaces/interfaces-steps';
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { Router } from '@angular/router';
-import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
-
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,14 +13,15 @@ export class DishesApiService {
   private dishes: Array<Dish> = [];
 
   constructor(
-    private api: ApiRequestsService,
+    private http: HttpClient,
     private stepsApi: StepsApiService,
     private router: Router
   ) {}
 
   loadDishesFromApi(): void{
-    this.api.get('dishes')
-      .subscribe((dishes: Array<Dish>) => {this.dishes = dishes;});
+    this.http.get<DishList>('dishes')
+      .pipe(map(d => d.data))
+      .subscribe((dishes) => this.dishes = dishes);
   }
   getDishList(): Array<Dish>{
     return this.dishes;
@@ -37,7 +37,7 @@ export class DishesApiService {
     )
   }
   private postDish(postData: DishPostData){
-    this.api.post('/dishes/', postData)
+    this.http.post('/dishes', postData)
     .subscribe(() => {
         this.router.navigate(['']);
       });

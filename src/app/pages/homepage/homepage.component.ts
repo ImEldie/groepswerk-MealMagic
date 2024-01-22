@@ -49,7 +49,9 @@ export class HomepageComponent implements OnInit {
     }
   }
   private getSearchResults(): Array<Dish> {
-    const searchResults: Array<Dish> = this.dishesApi.getDishList().filter(
+    const dishList = this.dishesApi.getDishList();
+    
+    const searchResults: Array<Dish> = dishList.filter(
       (dish: Dish) => dish.name.toLocaleLowerCase().includes(this.searchInput.toLowerCase())
     );
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Ingredient } from '../../interfaces/interfaces-ingredients';
-import { ApiRequestsService } from '../functions/api-requests-service/api-requests.service';
+import { Ingredient, IngredientList } from '../../interfaces/interfaces-ingredients';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class IngredientsApiService {
   private ingredients: Array<Ingredient> = [];
 
   constructor(
-    private api: ApiRequestsService,
+    private http: HttpClient,
   ) {
     this.loadIngredientsFromAPI();
   }
@@ -22,7 +23,8 @@ export class IngredientsApiService {
     return searchedIngredient;
   }
   loadIngredientsFromAPI(): void{
-    this.api.get('/ingredients')
-      .subscribe((data: Array<Ingredient>) => {this.ingredients = data;});
+    this.http.get<IngredientList>('/ingredients')
+      .pipe(map(d => d.data))
+      .subscribe((data) => this.ingredients = data);
   }
 }
