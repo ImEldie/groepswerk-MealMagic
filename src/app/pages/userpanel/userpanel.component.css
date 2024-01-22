@@ -20,8 +20,174 @@
 }
 .item-allergy {
   width: 20%;
-  min-width: 8rem;
+  min-width: 9.5rem;
 }
 .submit-allergies {
   align-self: flex-end;
+}
+.info-card-content {
+  display: flex;
+  justify-content: space-between;
+}
+.info-allergies-chips {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 4px;
+}
+.bmi-container {
+  position: relative;
+  opacity: 0;
+  width: 240px;
+  height: 115px;
+  transform: translateY(10px);
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.bmi-fade-in {
+  animation: bmiFadeIn 1s forwards;
+}
+@keyframes bmiFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.bmi-fade-out {
+  animation: bmiFadeOut 0.5s forwards;
+}
+@keyframes bmiFadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.bmi-meter {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  padding: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  background:
+    radial-gradient(#ffffff00 0 0) content-box,
+    conic-gradient(
+      from -90deg,
+      #c1262c 0 30.84deg,
+      #db5c23 0 35.98deg,
+      #ffe400 0 43.69deg,
+      #1eaa59 0 77.1deg,
+      #ffe400 0 102.8deg,
+      #e67e22 0 128.5deg,
+      #c1262c 0 154.2deg,
+      #7b0d11 0 180deg,
+      #ffffff00 0
+    );
+  box-shadow: 0 -4px 0px 0px rgba(0, 0, 0, 0.1);
+}
+.bmi-arrow {
+  position: absolute;
+  width: 6rem;
+  height: 7px;
+  bottom: 7rem;
+  left: 1rem;
+  background: #15222e;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 100%;
+  border-top-right-radius: 5px;
+  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.4);
+  transform-origin: 100% 0px;
+  animation:
+    arrowmove 4s forwards 2.5s,
+    arrowidle 2s linear 6s infinite;
+}
+@keyframes arrowmove {
+  to {
+    transform: rotate(calc((var(--bmi) - 10) * 5.14deg));
+  }
+}
+@keyframes arrowidle {
+  0% {
+    transform: rotate(calc((var(--bmi) - 10) * 5.14deg));
+  }
+  25% {
+    transform: rotate(calc((var(--bmi) - 9.8) * 5.14deg));
+  }
+  75% {
+    transform: rotate(calc((var(--bmi) - 10.2) * 5.14deg));
+  }
+  100% {
+    transform: rotate(calc((var(--bmi) - 10) * 5.14deg));
+  }
+}
+.reset-arrow {
+  animation: arrowreset 1s forwards;
+}
+@keyframes arrowreset {
+  to {
+    transform: rotate(0deg);
+  }
+}
+.bmi-numbers-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -6px;
+  left: -12px;
+  transform: rotate(-90deg);
+  font-size: 10px;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+.bmi-number {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  transform: rotate(var(--position));
+  transform-origin: 50% calc(100% + 6.5rem);
+  color: #ffffff;
+}
+.score-container {
+  position: absolute;
+  width: 72%;
+  height: 36%;
+  bottom: 50%;
+  right: 14%;
+  box-shadow: 0 -13px 15px -10px rgba(0, 0, 0, 0.28);
+  background: #15222e;
+  border-radius: 100px 100px 0 0;
+}
+.bmi-result {
+  position: absolute;
+  width: 115px;
+  text-align: center;
+  top: 1.5rem;
+  left: 1.5rem;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+}
+.bmi-amount {
+  position: absolute;
+  top: 3.5rem;
+  left: 4rem;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+.bmi-amount::before {
+  position: absolute;
+  width: 6rem;
+  top: -1rem;
+  left: -0.7rem;
+  content: "Your BMI is:";
+  font-size: 10px;
+  color: #ffffffbd;
+}
+.user-allergies-icons {
+  padding-left: 0px;
+  padding-right: 12px;
+  padding-bottom: 13px;
+  margin-bottom: 0px;
+  margin-top: -11px;
 }

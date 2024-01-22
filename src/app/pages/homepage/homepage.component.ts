@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/api-calls/auth.service';
 
 @Component({
   selector: 'app-homepage',
@@ -18,7 +18,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './homepage.component.css',
 })
 
-export class HomepageComponent {
+export class HomepageComponent implements OnInit {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
 
@@ -26,6 +26,10 @@ export class HomepageComponent {
     public dishesApi: DishesApiService,
     public auth: AuthService
   ){};
+
+  ngOnInit(){
+    this.dishesApi.loadDishesFromApi();
+  }
 
   getSearchResultAmount(): number {
     return this.getSearchResults().length;

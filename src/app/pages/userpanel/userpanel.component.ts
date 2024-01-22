@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import { UserpanelService } from '../../services/userpanel-service/userpanel.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
@@ -17,14 +16,16 @@ import {
   FormControl,
 } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
 import {
   Allergy,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { MatButtonModule } from '@angular/material/button';
-import { Observable, map, switchMap, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
+import { UserpanelService } from '../../services/api-calls/userpanel.service';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -41,6 +42,8 @@ import { Observable, map, switchMap, tap } from 'rxjs';
     MatButtonModule,
     MatProgressBarModule,
     MatChipsModule,
+    MatTooltipModule,
+    AllergyIconComponent,
   ],
   templateUrl: './userpanel.component.html',
   styleUrl: './userpanel.component.css',
@@ -64,9 +67,13 @@ export class UserpanelComponent implements OnInit {
   userAllergies: Allergy[] = [];
   formAllergy!: FormGroup;
   formWeightHeight!: FormGroup;
+  bmiAmount: number = NaN;
+  bmiResult: string = '';
+  bmiFadeIn: boolean = false;
+  bmiFadeOut: boolean = false;
+  resetArrow: boolean = false;
   constructor(
     private userpanelService: UserpanelService,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) {}
   ngOnInit() {
@@ -91,23 +98,20 @@ export class UserpanelComponent implements OnInit {
   }
   private addCheckboxes() {
     this.listAllergies.forEach(() =>
-      this.allergyFormArray.push(new FormControl(false)),
-    );
+      this.allergyFormArray.push(new FormControl())
+      );
   }
   private putUserAllergies(selectedAllergyIds: Array<number>) {
-    const id = this.route.snapshot.paramMap.get('id') || '';
-    this.userpanelService
-      .putUserAllergies(selectedAllergyIds, Number(id))
-      .subscribe(() => {
-        this.loading = true;
-        this.loadUserDetails().subscribe({
-          next: () => (this.loading = false),
-        });
+    this.userpanelService.putUserAllergies(selectedAllergyIds).subscribe(() => {
+      this.loading = true;
+      this.loadUserDetails().subscribe({
+        next: () => (this.loading = false),
+        error: () => (this.loading = false),
       });
+    });
   }
   loadUserDetails(): Observable<UserDetailsResponse> {
-    const id = this.route.snapshot.paramMap.get('id') || '';
-    return this.userpanelService.getUserDetails(Number(id)).pipe(
+    return this.userpanelService.getUserDetails().pipe(
       map((response) => {
         this.userDetails = response.userDetails;
         this.userAllergies = response.userAllergies;
@@ -116,19 +120,16 @@ export class UserpanelComponent implements OnInit {
     );
   }
   submitWeightHeight() {
-    const id = this.route.snapshot.paramMap.get('id') || '';
     const bodyweight = this.formWeightHeight.get('bodyweightInput')?.value;
     const height = this.formWeightHeight.get('heightInput')?.value;
     const selectedAllergyIds = this.userAllergies.map((allergy) => allergy.id);
     this.userpanelService
-      .putUserWeightLength(
-        bodyweight * 1000,
-        height,
-        selectedAllergyIds,
-        Number(id),
-      )
+      .putUserWeightLength(bodyweight * 1000, height, selectedAllergyIds)
       .subscribe(() => {
         this.loading = true;
+        this.bmiFadeOutAnimate();
+        this.resetArrow = true;
+        this.bmiAmount = NaN;
         this.loadUserDetails().subscribe({
           next: () => {
             this.loading = false;
@@ -147,5 +148,49 @@ export class UserpanelComponent implements OnInit {
       )
       .filter((v: boolean) => v != null);
     this.putUserAllergies(selectedAllergyIds);
+  }
+  createBmiMeter() {
+    this.resetArrow = false;
+    this.bmiFadeInAnimate();
+    this.calculateBmi();
+    this.resultBmi();
+  }
+  private calculateBmi(): number {
+    if (this.userDetails?.bodyweight && this.userDetails?.height) {
+      this.bmiAmount =
+        this.userDetails.bodyweight /
+        ((this.userDetails.height / 100) * (this.userDetails.height / 100));
+    }
+    return this.bmiAmount;
+  }
+  private resultBmi(): string {
+    if (this.bmiAmount < 18.5) {
+      this.bmiResult = 'Underweight';
+    } else if (18.5 <= this.bmiAmount && this.bmiAmount <= 24.9) {
+      this.bmiResult = 'Healthy';
+    } else if (25 <= this.bmiAmount && this.bmiAmount <= 29.9) {
+      this.bmiResult = 'Overweight';
+    } else if (30 <= this.bmiAmount && this.bmiAmount <= 34.9) {
+      this.bmiResult = 'Obese';
+    } else if (35 <= this.bmiAmount) {
+      this.bmiResult = 'Extremely obese';
+    }
+    return this.bmiResult;
+  }
+  private bmiFadeInAnimate() {
+    this.bmiFadeOut = false;
+    this.bmiFadeIn = true;
+  }
+  private bmiFadeOutAnimate() {
+    this.bmiFadeOut = true;
+    this.bmiFadeIn = false;
+  }
+  maxKeyframesBmi(bmiAmount: number) {
+    const maxBmiAmount = 45;
+    const limitedBmiAmount = Math.min(bmiAmount, maxBmiAmount);
+    return limitedBmiAmount;
+  }
+  isDisabled(): boolean {
+    return !(this.userDetails?.bodyweight && this.userDetails?.height);
   }
 }

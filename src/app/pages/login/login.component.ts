@@ -14,7 +14,7 @@ import {
   FormGroup,
   FormBuilder,
 } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/api-calls/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -51,7 +51,7 @@ export class LoginComponent {
 
   login() {
     const { email, password } = this.loginForm.value;
-    this.authService.login(email, password).subscribe((data) => {
+    this.authService.login(email, password).subscribe(() => {
       this.location.back();
     });
   }

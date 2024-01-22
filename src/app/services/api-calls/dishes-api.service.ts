@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Dish, DishApiResponse } from '../../interfaces/interfaces-dishes';
-import { map } from 'rxjs';
-import { AuthService } from '../auth.service';
-
+import { Dish, DishList, DishPostData } from '../../interfaces/interfaces-dishes';
+import { forkJoin, map } from 'rxjs';
+import { StepsApiService } from './steps-api.service';
+import { DishStep, Step } from '../../interfaces/interfaces-steps';
+import { Ingredient } from '../../interfaces/interfaces-ingredients';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,28 +14,36 @@ export class DishesApiService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService
-  ) {
-    this.loadDishesFromApi();
-  }
+    private stepsApi: StepsApiService,
+    private router: Router
+  ) {}
 
   loadDishesFromApi(): void{
-    const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/dishes/";
-    const token = this.auth.getBearerToken();
-
-    this.http
-      .get<DishApiResponse>(targetLink, {
-        headers: new HttpHeaders({
-          Authorization: "Bearer " + token,
-        }),
-      })
-      .pipe(map((data: DishApiResponse) => data.data))
-      .subscribe((dishes: Array<Dish>) => {
-        this.dishes = dishes;
-      });
+    this.http.get<DishList>('dishes')
+      .pipe(map(d => d.data))
+      .subscribe((dishes) => this.dishes = dishes);
   }
-
   getDishList(): Array<Dish>{
     return this.dishes;
+  }
+
+  postNewDish(postData: DishPostData, stepsToPost: Array<DishStep>){
+    forkJoin(this.stepsApi.postDishSteps(stepsToPost)).subscribe(
+      (result: Array<Step>) => {
+        result.sort((a, b) => a.order - b.order);
+        postData.dish_steps = result.map((step) => step.id);
+        this.postDish(postData);
+      },
+    )
+  }
+  private postDish(postData: DishPostData){
+    this.http.post('/dishes', postData)
+    .subscribe(() => {
+        this.router.navigate(['']);
+      });
+  }
+  convertToIdArray(arrayToConvert: Array<Step|Ingredient>): Array<number> {
+    let idArray: Array<number> = arrayToConvert.map((data) => data.id);
+    return idArray;
   }
 }
