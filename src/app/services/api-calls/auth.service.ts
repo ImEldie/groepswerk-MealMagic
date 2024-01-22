@@ -20,7 +20,6 @@ export class AuthService {
       .pipe(
         tap((data) => {
           const loginId = data.user.id;
-
           this.storage.token.set(data.token);
           this.storage.loginId.set(loginId);
           this.getUserId(loginId)
