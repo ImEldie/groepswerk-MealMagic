@@ -1,26 +1,19 @@
 .nutrition {
   position: relative;
-  display: inline-block;
   overflow: hidden;
   text-align: center;
-  font-size: 1.1em;
   width: 4em;
   line-height: 1.5em;
   margin: 0 0.3em;
 }
 .nutrition {
   padding: 0.5em 1em 0.2em;
-  width: inherit;
   border-radius: 100%;
-  position: relative;
   left: -1em;
-  overflow: hidden;
-  background: #bbb;
 }
 .nutrition {
   margin-top: 0.3em;
   display: inline-block;
-  position: relative;
 }
 .nutrition:before {
   background: rgba(255, 255, 255, 0.7);
@@ -33,14 +26,14 @@
   width: 3em;
 }
 .nutrition.green {
-  background: #78d1af;
+  background: #85e8c2;
 }
 .nutrition.beige {
-  background: #dcd397;
+  background: #f0e6a4;
 }
 .nutrition.blue {
-  background: #60b5de;
+  background: #6ac6f4;
 }
 .nutrition.rose {
-  background: #dc97a0;
+  background: #eca2ac;
 }
