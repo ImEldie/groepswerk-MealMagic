@@ -80,7 +80,6 @@ export class UserpanelComponent implements OnInit {
   userReviewStars: number = NaN;
   starArray: Array<Array<number>> = [];
   userReviewDishId: number = NaN;
-  moveIndex: number = 0;
   userReviews: Array<DishReview> = [];
   constructor(
     private userpanelService: UserpanelService,
@@ -226,15 +225,5 @@ export class UserpanelComponent implements OnInit {
             });
         });
       });
-  }
-  nextCard() {
-    if (this.moveIndex < this.reviewDishdetails.length - 1) {
-      this.moveIndex++;
-    }
-  }
-  prevCard() {
-    if (this.moveIndex > 0) {
-      this.moveIndex--;
-    }
   }
 }

@@ -174,25 +174,14 @@
     <mat-expansion-panel-header>
       <mat-panel-title>Your reviews</mat-panel-title>
       <mat-panel-description
-        >All the recipes you have reviewed</mat-panel-description
+        >Your latest recipes you have reviewed</mat-panel-description
       >
     </mat-expansion-panel-header>
     <section class="reviews-section">
       @if (reviewDishdetails.length > 0) {
-        <button
-          (click)="prevCard()"
-          mat-mini-fab
-          color="primary"
-          class="arrow-button-left"
-        >
-          <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-        <div
-          class="review-cards-container"
-          [style.transform]="'translateX(' + -moveIndex * 20 + '%)'"
-        >
+        <div class="review-cards-container">
           @for (dish of reviewDishdetails; track dish.name; let i = $index) {
-            <mat-card class="review-card" [class.active]="i === moveIndex">
+            <mat-card class="review-card">
               <mat-card-title class="review-title">{{
                 dish.name | titlecase
               }}</mat-card-title>
@@ -201,7 +190,7 @@
                   <span class="star-rating">★</span>
                 }
               </mat-card-subtitle>
-              <mat-card-content
+              <mat-card-content class="review-image"
                 ><img
                   mat-card-md-image
                   src="{{ dish.image_url }}"
@@ -220,14 +209,6 @@
             </mat-card>
           }
         </div>
-        <button
-          (click)="nextCard()"
-          mat-mini-fab
-          color="primary"
-          class="arrow-button-right"
-        >
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
       }
       @if (reviewDishdetails.length === 0) {
         <div class="no-reviews-container">

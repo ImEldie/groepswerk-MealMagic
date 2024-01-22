@@ -195,7 +195,7 @@
 .review-cards-container {
   display: flex;
   flex-flow: row nowrap;
-  transition: transform 0.3s ease-in-out;
+  overflow-x: auto;
 }
 .review-card {
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5);
@@ -208,34 +208,26 @@
   z-index: 1;
   max-width: 200px;
   flex: 0 0 33%;
-  transition: transform 0.3s ease-in-out;
-}
-.active {
-  transform: scale(1.1);
 }
 .review-title {
   font-size: 14px;
-  margin-left: 2px;
+  margin-left: 1rem;
+}
+.rating-container {
+  margin-left: 1rem;
 }
 .star-rating {
   color: #ffe400;
   font-weight: bold;
 }
+.review-image {
+  display: flex;
+  justify-content: center;
+}
 .review-button {
   margin-top: 10px;
-}
-.arrow-button-left,
-.arrow-button-right {
-  position: absolute;
-  top: 50%;
-  cursor: pointer;
-  z-index: 5;
-}
-.arrow-button-left {
-  left: 0;
-}
-.arrow-button-right {
-  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 .no-reviews-container {
   display: flex;
