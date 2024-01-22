@@ -19,20 +19,21 @@ export class AuthService {
     return this.http.post<LoginDetails>('/token/login', postData)
       .pipe(
         tap((data) => {
+          const loginId = data.user.id;
+
           this.storage.token.set(data.token);
-          this.storage.loginId.set(data.user.id);
-          this.getUserId(data.user.id).subscribe();
+          this.storage.loginId.set(loginId);
+          this.getUserId(loginId)
+            .pipe(catchError(() => this.postNewUserDetails(loginId)))
+            .subscribe(
+              (userData) => { 
+                this.storage.userId.set(userData.id)
+              });
         }),
       );
   }
   private getUserId(login_id: number) {
-    return this.http.get<UserDetailsInterface>('/user-details/user/' + login_id)
-      .pipe(tap((userData) => this.storage.userId.set(userData.id)),
-      catchError(() => {
-        return this.postNewUserDetails(login_id)
-          .pipe(tap((newUser) => this.storage.userId.set(newUser.id)));
-      })
-      );
+    return this.http.get<UserDetailsInterface>('/user-details/user/' + login_id);
   }
   private postNewUserDetails(login_id: number){
     const newUserData: UserDetailsPost = {
@@ -41,7 +42,8 @@ export class AuthService {
       height: 0,
       allergies: []
     }
-    return this.http.post<UserDetailsInterface>('user-details', newUserData);
+    return this.http.post<UserDetailsInterface>('user-details', newUserData)
+      .pipe(tap((userData) => this.storage.userId.set(userData.id)));
   }
   logout() {
     this.storage.token.remove();
