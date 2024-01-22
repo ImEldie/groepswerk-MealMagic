@@ -26,7 +26,8 @@ import { Router } from '@angular/router';
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })
-export class HomepageComponent {
+
+export class HomepageComponent implements OnInit {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
 
@@ -35,6 +36,10 @@ export class HomepageComponent {
     public auth: AuthService,
     public router: Router,
   ) {}
+
+  ngOnInit(){
+    this.dishesApi.loadDishesFromApi();
+  }
 
   getSearchResultAmount(): number {
     return this.getSearchResults().length;

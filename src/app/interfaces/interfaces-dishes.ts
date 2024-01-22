@@ -1,6 +1,23 @@
+import { DishSeason } from "./interfaces-seasons";
+import { DishStep } from "./interfaces-steps";
+import { DishType } from "./interfaces-types";
+
 export interface DishApiResponse {
   data: Array<Dish>;
 }
+
+export interface DishPostData{
+  name: string,
+  image_url: string,
+  description?: string,
+  duration: number,
+  amount_of_people: number,
+  season_id: number,
+  ingredients: Array<number>,
+  dish_types: Array<number>,
+  dish_steps: Array<number>
+}
+
 export interface Dish {
   id: number;
   name: string;
@@ -8,7 +25,7 @@ export interface Dish {
   description?: string;
   duration: number; 
   amount_of_people: number;
-  season: Season;
+  season: DishSeason;
   ingredients: Array<DishIngredient>;
   dish_types: Array<DishType>;
   dish_steps?: Array<DishStep>;
@@ -20,20 +37,15 @@ interface DishIngredient {
   protein: number;
   carbohydrates: number;
   fat: number;
+  pivot: any;
 }
 
-interface DishType {
-  id: number;
-  name: string;
+export interface IngredientPostData {
+  id: number,
+  name: string,
+  amount: IngredientAmount
 }
-
-interface DishStep {
-  title: string;
-  description: string;
-  img: string;
-}
-
-interface Season {
-  id: number;
-  name: string;
+interface IngredientAmount {
+  value: number,
+  unit: string
 }

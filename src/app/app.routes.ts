@@ -25,13 +25,13 @@ export const routes: Routes = [
             (c) => c.UserpanelComponent,
           ),
       },
-      {
-        path: 'dish/:id',
-        loadComponent: () =>
-          import('./pages/dish-view/dish-view.component').then(
-            (c) => c.DishViewComponent,
-          ),
-      },
+        {
+          path: 'add-dish',
+          loadComponent: () =>
+            import('./pages/add-dish/add-dish.component').then(
+              (c) => c.AddDishComponent
+            ),
+        },
     ],
   },
 ];
