@@ -14,7 +14,7 @@ import {
   FormGroup,
   FormBuilder,
 } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/api-calls/auth.service';
 
 @Component({
   selector: 'app-login',

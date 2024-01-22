@@ -1,5 +1,5 @@
-export interface IngredientApiResponse{
-  data: Array<Ingredient>;
+export interface IngredientList {
+  data: Array<Ingredient>
 }
 
 export interface Ingredient {
