@@ -53,13 +53,11 @@ export class HomepageComponent implements OnInit {
   }
   getDishes(): Array<Dish> {
     this.filterDishesFromSearch();
-
     return this.dishList;
   }
   private filterDishesFromSearch() {
     const recipesFromSearch: Array<Dish> = this.getSearchResults();
     const hasResults = recipesFromSearch.length !== 0;
-
     if (hasResults) {
       this.dishList = recipesFromSearch;
     }
@@ -81,7 +79,7 @@ export class HomepageComponent implements OnInit {
   }
   private MatchingIngredients(dish: Dish): boolean {
     const fridgeIngredientIds = this.fridgeIngredients.map(
-      (fridgeIngredient) => fridgeIngredient.id,
+      (fridgeIngredient) => fridgeIngredient.ingredient_id,
     );
     return dish.ingredients.some((ingredient) =>
       fridgeIngredientIds.includes(ingredient.id),
@@ -96,22 +94,20 @@ export class HomepageComponent implements OnInit {
   }
   private countMatchingIngredients(dish: Dish): number {
     const fridgeIngredientIds = this.fridgeIngredients.map(
-      (fridgeIngredient) => fridgeIngredient.id,
+      (fridgeIngredient) => fridgeIngredient.ingredient_id,
     );
     return dish.ingredients.filter((ingredient) =>
       fridgeIngredientIds.includes(ingredient.id),
     ).length;
   }
-
   filterForFridge() {
     this.filterOnFridge = !this.filterOnFridge;
     if (this.filterOnFridge) {
       this.fridgeService.getFridgeIngredients().subscribe((data) => {
         this.fridgeIngredients = data;
       });
+    } else {
+      this.dishList = this.dishesApi.getDishList();
     }
   }
-  // getFridgeId() {
-  //   return this.fridgeService.getFridgeIdFromFridges();
-  // }
 }

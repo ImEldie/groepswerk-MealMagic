@@ -5,9 +5,12 @@ export interface Fridge {
 export interface FridgeRespone {
   data: Array<Fridge>;
 }
-export interface FridgeIngredientResponse {
-  data: Array<FridgeIngredient>;
+export interface FridgeFromUser {
+  id: number;
+  user_detail_id: number;
+  ingredients: FridgeIngredient[];
 }
+
 export interface FridgeIngredient {
   id: number;
   ingredient_id: number;
