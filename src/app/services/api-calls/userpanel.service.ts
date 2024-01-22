@@ -1,13 +1,14 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Allergy,
-  ListAllergies,
+  AllergyList,
+  UserDetailApiResponse,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { LocalstorageService } from '../functions/localstorage.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -15,21 +16,11 @@ import { AuthService } from '../auth.service';
 export class UserpanelService {
   constructor(
     private http: HttpClient,
-    private auth: AuthService,
+    private storage: LocalstorageService
   ) {}
-  apiUrl: string = 'https://syntra2023.code-coaching.dev/api/group-2/';
-  userDetailsEndpoint: string = 'user-details/';
-  allergiesEndpoint: string = 'allergies/';
+
   getUserDetails(): Observable<UserDetailsResponse> {
-    return this.http
-      .get<UserDetailsInterface>(
-        `${this.apiUrl}${this.userDetailsEndpoint}${this.auth.getStoredId()}`,
-        {
-          headers: new HttpHeaders({
-            Authorization: 'Bearer ' + this.auth.getBearerToken(),
-          }),
-        },
-      )
+    return this.http.get<UserDetailApiResponse>("user-details/" + this.storage.userId.get())
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -39,8 +30,8 @@ export class UserpanelService {
             height: data.height,
             allergies: data.allergies,
           };
-          let userAllergies: Allergy[] = [];
-          data.allergies.map((allergies) => {
+          let userAllergies: Array<Allergy> = [];
+          data.allergies.map((allergies: Allergy) => {
             const allergy: Allergy = {
               id: allergies.id,
               name: allergies.name,
@@ -52,46 +43,20 @@ export class UserpanelService {
       );
   }
   getListAllergies(): Observable<Array<Allergy>> {
-    return this.http
-      .get<ListAllergies>(`${this.apiUrl}${this.allergiesEndpoint}`, {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.auth.getBearerToken(),
-        }),
-      })
-      .pipe(map((result) => result.data));
+    return this.http.get<AllergyList>("allergies").pipe(map(d => d.data));
   }
   putUserWeightLength(
     bodyweightInput: number,
     heightInput: number,
     selectedAllergyIds: Array<number>,
   ) {
-    return this.http.put(
-      `${this.apiUrl}${this.userDetailsEndpoint}${this.auth.getStoredId()}`,
-      {
-        user_id: this.auth.getStoredLoginId(),
-        bodyweight: bodyweightInput,
-        height: heightInput,
-        allergy_ids: selectedAllergyIds,
-      },
-      {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.auth.getBearerToken(),
-        }),
-      },
-    );
+    const dataToPut = { user_id: this.storage.loginId.get(), bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
+
+    return this.http.put("user-details/" + this.storage.userId.get(), dataToPut);
   }
   putUserAllergies(selectedAllergyIds: Array<number>) {
-    return this.http.put(
-      `${this.apiUrl}${this.userDetailsEndpoint}${this.auth.getStoredId()}`,
-      {
-        user_id: this.auth.getStoredLoginId(),
-        allergy_ids: selectedAllergyIds,
-      },
-      {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.auth.getBearerToken(),
-        }),
-      },
-    );
+    const dataToPut = { user_id: this.storage.loginId.get(), allergy_ids: selectedAllergyIds }
+
+    return this.http.put("user-details/" + this.storage.userId.get(), dataToPut);
   }
 }

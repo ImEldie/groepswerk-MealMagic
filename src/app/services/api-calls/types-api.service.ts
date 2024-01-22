@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DishType, TypesApiResponse } from '../../interfaces/interfaces-types';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DishType, TypeList } from '../../interfaces/interfaces-types';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,25 +10,15 @@ export class TypesApiService {
   private types: Array<DishType> = [];
 
   constructor(
-    private http: HttpClient,
-    private auth: AuthService
+    private http: HttpClient
   ) {
     this.loadTypesFromApi();
   }
 
   loadTypesFromApi(){
-    const targetLink = "https://syntra2023.code-coaching.dev/api/group-2/types/";
-
-    this.http
-      .get<TypesApiResponse>(targetLink, {
-        headers: new HttpHeaders({
-          Authorization: "Bearer " + this.auth.getBearerToken(),
-        }),
-      })
-      .pipe(map((response) => response.data))
-      .subscribe((dishes: Array<DishType>) => {
-        this.types = dishes;
-      });
+    this.http.get<TypeList>("types")
+      .pipe(map(d => d.data))
+      .subscribe((types) => this.types = types);
   }
 
   getTypesList(): Array<DishType>{
