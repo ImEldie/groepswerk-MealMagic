@@ -98,8 +98,8 @@ export class UserpanelComponent implements OnInit {
   }
   private addCheckboxes() {
     this.listAllergies.forEach(() =>
-      this.allergyFormArray.push(new FormControl(false)),
-    );
+      this.allergyFormArray.push(new FormControl())
+      );
   }
   private putUserAllergies(selectedAllergyIds: Array<number>) {
     this.userpanelService.putUserAllergies(selectedAllergyIds).subscribe(() => {
