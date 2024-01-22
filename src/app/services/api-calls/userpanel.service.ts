@@ -77,28 +77,24 @@ export class UserpanelService {
     );
   }
   getUserReviews() {
-    return this.http
-      .get<ReviewsResponse>('reviews/' + this.storage.userId.get())
-      .pipe(
-        map((response) => response.data),
-        map((reviews) =>
-          reviews.filter(
-            (review) => review.user_id === this.storage.userId.get(),
-          ),
+    return this.http.get<ReviewsResponse>('reviews/').pipe(
+      map((response) => response.data),
+      map((reviews) =>
+        reviews.filter(
+          (review) => review.user_id === this.storage.userId.get(),
         ),
-      );
+      ),
+    );
   }
   getDishDetails(dishId: number) {
-    return this.http
-      .get<Dish>('dishes/' + `${dishId}` + this.storage.userId.get())
-      .pipe(
-        map((data) => {
-          const dishreview: DishReview = {
-            name: data.name,
-            image_url: data.image_url,
-          };
-          return dishreview;
-        }),
-      );
+    return this.http.get<Dish>('dishes/' + `${dishId}`).pipe(
+      map((data) => {
+        const dishreview: DishReview = {
+          name: data.name,
+          image_url: data.image_url,
+        };
+        return dishreview;
+      }),
+    );
   }
 }
