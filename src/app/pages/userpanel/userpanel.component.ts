@@ -113,8 +113,6 @@ export class UserpanelComponent implements OnInit {
     this.listAllergies.forEach(() =>
       this.allergyFormArray.push(new FormControl()),
     );
-      this.allergyFormArray.push(new FormControl()),
-    );
   }
   private putUserAllergies(selectedAllergyIds: Array<number>) {
     this.userpanelService.putUserAllergies(selectedAllergyIds).subscribe(() => {
