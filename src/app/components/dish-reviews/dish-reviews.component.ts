@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/api-calls/auth.service';
 import { Review } from '../../interfaces/user-details-interface';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReviewsService } from '../../services/api-calls/reviews-api.service';
+import { LocalstorageService } from '../../services/functions/localstorage.service';
 @Component({
   selector: 'app-dish-reviews',
   standalone: true,
@@ -19,7 +20,7 @@ export class DishReviewsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private reviewService: ReviewsService,
-    private auth: AuthService,
+    private storage: LocalstorageService,
   ) {}
   ngOnInit() {
     this.getUserReview();
@@ -32,7 +33,7 @@ export class DishReviewsComponent implements OnInit {
   }
   getUserReview() {
     this.reviewService
-      .getUserReviews(this.auth.getStoredId(), 1) //DishId 1 XX HARDCODED
+      .getUserReviews(this.storage.userId.get(), 1) //DishId 1 XX HARDCODED
       .subscribe((userReviewsWithId) => {
         this.userReviews = userReviewsWithId;
         if (userReviewsWithId.length > 0) {
@@ -48,7 +49,7 @@ export class DishReviewsComponent implements OnInit {
       const reviewId = this.userReviews[0].id;
       const updatedReview = {
         dish_id: 1,
-        user_id: this.auth.getStoredId(),
+        user_id: this.storage.userId.get(),
         stars: this.starRatingForm.value.rating,
       }; //DishId 1 XX HARDCODED HALEN UIT DISHPAGE
       this.reviewService.putReview(reviewId, updatedReview).subscribe();
@@ -56,7 +57,7 @@ export class DishReviewsComponent implements OnInit {
     } else {
       const newReview = {
         dish_id: 1,
-        user_id: this.auth.getStoredId(),
+        user_id: this.storage.userId.get(),
         stars: this.starRatingForm.value.rating,
       }; //DishId 1 XX HARDCODED HALEN UIT DISHPAGE
       this.reviewService.postReview(newReview).subscribe();
