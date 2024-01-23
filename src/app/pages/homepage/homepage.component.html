@@ -9,6 +9,13 @@
       />
       <mat-hint>Results: {{ getSearchResultAmount() }}</mat-hint>
     </mat-form-field>
+    <button
+      mat-mini-fab
+      matTooltip="Sort by your fridge-ingredients"
+      (click)="filterForFridge()"
+    >
+      <mat-icon>kitchen</mat-icon>
+    </button>
   </mat-toolbar>
 
   @for (dish of getDishes(); track $index) {
