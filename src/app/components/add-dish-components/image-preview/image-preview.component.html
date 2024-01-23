@@ -1,0 +1,6 @@
+<div (mouseenter)="showPreview()" (mouseleave)="hidePreview()">
+    <button mat-mini-fab color="primary" [disabled]="checkImageInvalid()"><mat-icon>image</mat-icon></button>
+    <div class="image-preview" [hidden]="hidePreviewState">
+        <img class="image" [src]="imageUrl">
+    </div>
+</div>

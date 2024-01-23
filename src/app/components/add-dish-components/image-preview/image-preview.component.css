@@ -1,0 +1,35 @@
+.image-preview {
+    position: absolute;
+    background-color: gray;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    height: fit-content;
+    min-width: 2rem;
+    z-index: 2;
+    animation: PreviewAppear 1s ease forwards;
+    transform-origin: top right;
+    cursor: default;
+    margin-top: 0.1rem;
+}
+@keyframes PreviewAppear {
+    from {
+        opacity: 0.2;
+        rotate: -30deg;
+        margin-top: -2rem;
+        margin-left: 1rem;
+    }
+}
+
+.image{
+    border-radius: 0.5rem;
+    animation: ImageGrow 750ms linear forwards;
+    margin-bottom: -0.3rem;
+}
+@keyframes ImageGrow {
+    from{
+        width: 1rem;
+    }
+    to{
+        width: 10rem;
+    }
+}
