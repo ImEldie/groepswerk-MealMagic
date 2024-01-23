@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Dish } from '../../interfaces/interfaces-dishes';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-calories',
   standalone: true,
-  imports: [],
+  imports: [MatTooltipModule],
   templateUrl: './calories.component.html',
   styleUrl: './calories.component.css',
 })
@@ -59,3 +60,5 @@ export class CaloriesComponent implements OnInit {
     return totalFat;
   }
 }
+// Carbs Protein Fat Grams per day
+// 250g 150g 44.4g

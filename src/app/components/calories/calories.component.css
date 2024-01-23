@@ -21,9 +21,10 @@
   margin-top: 0.3em;
   display: inline-block;
   position: relative;
+  color: rgb(61, 61, 61);
 }
 .nutrition > *:before {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(232, 232, 232, 0.782);
   border-radius: 100%;
   bottom: -1rem;
   content: "";
@@ -32,15 +33,15 @@
   position: absolute;
   width: 3rem;
 }
-.green > * {
+.kcal > * {
   background: #78d1af;
 }
-.beige > * {
+.protein > * {
   background: #dcd397;
 }
-.blue > * {
+.carbs > * {
   background: #60b5de;
 }
-.rose > * {
+.fat > * {
   background: #dc97a0;
 }
