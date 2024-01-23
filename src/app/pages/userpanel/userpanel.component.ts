@@ -26,7 +26,6 @@ import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
 import { UserpanelService } from '../../services/api-calls/userpanel.service';
-import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews.component';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -47,7 +46,6 @@ import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews
     MatChipsModule,
     MatTooltipModule,
     AllergyIconComponent,
-    DishReviewsComponent,
   ],
 })
 export class UserpanelComponent implements OnInit {

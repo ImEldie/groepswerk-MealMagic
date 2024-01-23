@@ -17,24 +17,22 @@ export class ReviewsService {
     if (userId === null || dishId === null) {
       return of([]);
     }
-    return this.http
-      .get<ReviewsResponse>('reviews/' + this.storage.userId.get())
-      .pipe(
-        map((response) => response.data),
-        map((reviews) => {
-          const filteredReviews = reviews.filter(
-            (review) => review.user_id === userId && review.dish_id === dishId,
-          );
-          return filteredReviews.map((review) => ({ id: review.id, review }));
-        }),
-      );
+    return this.http.get<ReviewsResponse>('reviews/').pipe(
+      map((response) => response.data),
+      map((reviews) => {
+        const filteredReviews = reviews.filter(
+          (review) => review.user_id === userId && review.dish_id === dishId,
+        );
+        return filteredReviews.map((review) => ({ id: review.id, review }));
+      }),
+    );
   }
   postReview(dataToPut: {
     dish_id: number;
     user_id: number | null;
     stars: number;
   }) {
-    return this.http.post('reviews/' + this.storage.userId.get(), dataToPut);
+    return this.http.post('reviews/', dataToPut);
   }
   putReview(
     reviewId: number,
@@ -44,9 +42,6 @@ export class ReviewsService {
       stars: number;
     },
   ) {
-    return this.http.put(
-      'reviews/' + reviewId + this.storage.userId.get(),
-      dataToPut,
-    );
+    return this.http.put('reviews/' + reviewId, dataToPut);
   }
 }
