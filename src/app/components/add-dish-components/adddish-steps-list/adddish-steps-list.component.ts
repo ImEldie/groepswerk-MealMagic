@@ -7,11 +7,12 @@ import { MatInputModule } from '@angular/material/input';
 import { DishStep } from '../../../interfaces/interfaces-steps';
 import { MatIconModule } from '@angular/material/icon';
 import { AddDishCreatedSteps } from '../../../interfaces/interfaces-add-dish-forms';
+import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 
 @Component({
   selector: 'app-adddish-steps-list',
   standalone: true,
-  imports: [AdddishCardComponent, MatExpansionModule, MatButtonModule, FormsModule, MatInputModule, MatIconModule],
+  imports: [ImagePreviewComponent ,AdddishCardComponent, MatExpansionModule, MatButtonModule, FormsModule, MatInputModule, MatIconModule],
   templateUrl: './adddish-steps-list.component.html',
   styleUrl: './adddish-steps-list.component.css'
 })
@@ -102,7 +103,7 @@ export class AdddishStepsListComponent {
     }
   }
   private initialiseUserStepInput(){
-    this.stepToAdd = {title: '', description: '', order: 0};
+    this.stepToAdd = {title: '', description: '', order: 0, picture: ''};
   }
   private sortCreatedStepsOrders(){
     for (let i = 0; i < this.createdSteps.length; i++) {

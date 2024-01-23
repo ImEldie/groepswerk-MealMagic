@@ -23,6 +23,8 @@
                     [(ngModel)]="stepToAdd.picture"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
+
+            <app-image-preview class="new-step-img-preview" [imageUrl]="stepToAdd.picture"></app-image-preview>
     </div>
     
     <div class="new-description-container">
@@ -59,10 +61,15 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
-                    <div class="panel-content" [hidden]="(step.description === '')">
-                        <p>{{step.description}}</p>
+                    <div class="panel-content-container">
+                        <div class="panel-content" [hidden]="(step.description === '')">
+                            <p>{{step.description}}</p>
+                        </div>
+                        @if (step.picture !== '') {
+                            <img class="step-img-preview" [src]="step.picture">
+                        }
                     </div>
-
+                    
                     <div class="panel-actions">
                         @if ($index !== 0) {
                             <button mat-raised-button (click)="moveStepUp(step)" color="accent"><mat-icon>keyboard_arrow_up</mat-icon>Move up</button>
