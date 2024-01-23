@@ -1,15 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReviewsResponse } from '../../interfaces/user-details-interface';
 import { map, of } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { LocalstorageService } from '../functions/localstorage.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ReviewsService {
   constructor(
     private http: HttpClient,
-    private auth: AuthService,
+    private storage: LocalstorageService,
   ) {}
   apiUrl: string = 'https://syntra2023.code-coaching.dev/api/group-2/';
   reviewsEndpoint: string = 'reviews/';
@@ -18,11 +18,7 @@ export class ReviewsService {
       return of([]);
     }
     return this.http
-      .get<ReviewsResponse>(`${this.apiUrl}${this.reviewsEndpoint}`, {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-        }),
-      })
+      .get<ReviewsResponse>('reviews/' + this.storage.userId.get())
       .pipe(
         map((response) => response.data),
         map((reviews) => {
@@ -33,33 +29,24 @@ export class ReviewsService {
         }),
       );
   }
-  postReview(newReview: {
+  postReview(dataToPut: {
     dish_id: number;
     user_id: number | null;
     stars: number;
   }) {
-    return this.http.post(`${this.apiUrl}${this.reviewsEndpoint}`, newReview, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.auth.getBearerToken(),
-      }),
-    });
+    return this.http.post('reviews/' + this.storage.userId.get(), dataToPut);
   }
   putReview(
     reviewId: number,
-    updatedReview: {
+    dataToPut: {
       dish_id: number;
       user_id: number | null;
       stars: number;
     },
   ) {
     return this.http.put(
-      `${this.apiUrl}${this.reviewsEndpoint}${reviewId}`,
-      updatedReview,
-      {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.auth.getBearerToken(),
-        }),
-      },
+      'reviews/' + reviewId + this.storage.userId.get(),
+      dataToPut,
     );
   }
 }
