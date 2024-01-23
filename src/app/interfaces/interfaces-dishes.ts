@@ -30,7 +30,6 @@ export interface Dish {
   dish_types: Array<DishType>;
   dish_steps?: Array<DishStep>;
 };
-
 interface DishIngredient {
   id: number;
   name: string;

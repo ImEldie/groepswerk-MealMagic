@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
   Allergy,
+  DishReview,
+  ReviewsResponse,
   AllergyList,
   UserDetailApiResponse,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
+import { Dish } from '../../interfaces/interfaces-dishes';
 import { LocalstorageService } from '../functions/localstorage.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -16,11 +19,11 @@ import { HttpClient } from '@angular/common/http';
 export class UserpanelService {
   constructor(
     private http: HttpClient,
-    private storage: LocalstorageService
+    private storage: LocalstorageService,
   ) {}
-
   getUserDetails(): Observable<UserDetailsResponse> {
-    return this.http.get<UserDetailApiResponse>("user-details/" + this.storage.userId.get())
+    return this.http
+      .get<UserDetailApiResponse>('user-details/' + this.storage.userId.get())
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -43,20 +46,53 @@ export class UserpanelService {
       );
   }
   getListAllergies(): Observable<Array<Allergy>> {
-    return this.http.get<AllergyList>("allergies").pipe(map(d => d.data));
+    return this.http.get<AllergyList>('allergies').pipe(map((d) => d.data));
   }
   putUserWeightLength(
     bodyweightInput: number,
     heightInput: number,
     selectedAllergyIds: Array<number>,
   ) {
-    const dataToPut = { user_id: this.storage.loginId.get(), bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
-
-    return this.http.put("user-details/" + this.storage.userId.get(), dataToPut);
+    const dataToPut = {
+      user_id: this.storage.loginId.get(),
+      bodyweight: bodyweightInput,
+      height: heightInput,
+      allergy_ids: selectedAllergyIds,
+    };
+    return this.http.put(
+      'user-details/' + this.storage.userId.get(),
+      dataToPut,
+    );
   }
   putUserAllergies(selectedAllergyIds: Array<number>) {
-    const dataToPut = { user_id: this.storage.loginId.get(), allergy_ids: selectedAllergyIds }
-
-    return this.http.put("user-details/" + this.storage.userId.get(), dataToPut);
+    const dataToPut = {
+      user_id: this.storage.loginId.get(),
+      allergy_ids: selectedAllergyIds,
+    };
+    return this.http.put(
+      'user-details/' + this.storage.userId.get(),
+      dataToPut,
+    );
+  }
+  getUserReviews() {
+    return this.http.get<ReviewsResponse>('reviews/').pipe(
+      map((response) => response.data),
+      map((reviews) =>
+        reviews.filter(
+          (review) => review.user_id === this.storage.userId.get(),
+        ),
+      ),
+    );
+  }
+  getDishDetails(dishId: number) {
+    return this.http.get<Dish>('dishes/' + `${dishId}`).pipe(
+      map((data) => {
+        const dishreview: DishReview = {
+          name: data.name,
+          image_url: data.image_url,
+        };
+        return dishreview;
+      }),
+    );
   }
 }
