@@ -4,19 +4,15 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StepsApiService {
-  constructor(
-    private http: HttpClient
-  ) {
-  }
+  constructor(private http: HttpClient) {}
 
   postDishSteps(stepsToPost: Array<DishStep>): Array<Observable<Step>> {
-    const postedSteps: Array<Observable<Step>> = stepsToPost
-      .map(step =>
-        this.http.post<Step>("/steps/", step
-        ));
+    const postedSteps: Array<Observable<Step>> = stepsToPost.map((step) =>
+      this.http.post<Step>('/steps/', step),
+    );
 
     return postedSteps;
   }

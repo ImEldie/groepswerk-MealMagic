@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/api-calls/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -58,6 +59,7 @@ export class HomepageComponent implements OnInit {
   private filterDishesFromSearch() {
     const recipesFromSearch: Array<Dish> = this.getSearchResults();
     const hasResults = recipesFromSearch.length !== 0;
+
     if (hasResults) {
       this.dishList = recipesFromSearch;
     }
