@@ -1,47 +1,60 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Dish } from '../../interfaces/interfaces-dishes';
-import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
-import { MatIconModule } from '@angular/material/icon';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
-import { MatRippleModule } from '@angular/material/core';
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
+import { DishesApiService } from '../../services/api-calls/dishes-api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-dish-card',
+  selector: 'app-dish-view',
   standalone: true,
   imports: [
-    MatRippleModule,
-    AllergyIconComponent,
-    MatButtonModule,
-    MatCardModule,
-    MatChipsModule,
     MatDividerModule,
+    MatChipsModule,
     CommonModule,
+    MatCardModule,
+    MatButtonModule,
     MatIconModule,
+    AllergyIconComponent,
   ],
-  templateUrl: './dish-card.component.html',
-  styleUrl: './dish-card.component.css',
+  templateUrl: './dish-view.component.html',
+  styleUrl: './dish-view.component.css',
 })
-export class DishCardComponent implements OnInit {
-  @Input() dish!: Dish;
+export class DishViewComponent {
+  dish!: Dish;
 
-  constructor(private ingredientAPI: IngredientsApiService) {}
+  constructor(
+    private clipboard: Clipboard,
+    private snackBar: MatSnackBar,
+    private ingredientAPI: IngredientsApiService,
+    private dishAPI: DishesApiService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
-    this.ingredientAPI.loadIngredientsFromAPI();
+    this.getDish();
   }
-
+  getDish() {
+    const id = this.route.snapshot.paramMap.get('id') || '';
+    return this.dishAPI.GetDishService(Number(id)).subscribe((dish) => {
+      this.dish = dish;
+    });
+  }
   getDishAllergies(): Array<string> {
     let allergies: Array<string> = [];
 
     if (this.ingredientAPI.getIngredientList().length !== 0) {
-      for (let i = 0; i < this.dish.ingredients.length; i++) {
-        const ingredientId = this.dish.ingredients[i].id;
+      for (let i = 0; i < this.dish?.ingredients.length; i++) {
+        const ingredientId = this.dish?.ingredients[i].id;
         const ingredientData =
           this.ingredientAPI.getIngredientFromId(ingredientId);
 
@@ -52,7 +65,6 @@ export class DishCardComponent implements OnInit {
     }
     return allergies;
   }
-
   private getNewIngredientAllergies(
     ingredientData: Ingredient,
     allergiesToAddTo: Array<string>,
@@ -65,5 +77,14 @@ export class DishCardComponent implements OnInit {
       }
     }
     return allergiesToAddTo;
+  }
+
+  copyUrlToClipboard() {
+    const currentUrl = window.location.href;
+    this.clipboard.copy(currentUrl);
+
+    this.snackBar.open('Recipe copied to clipboard', 'Dismiss', {
+      duration: 3000,
+    });
   }
 }
