@@ -43,6 +43,7 @@ export class HomepageComponent implements OnInit {
     public dishesApi: DishesApiService,
     public auth: AuthService,
     public fridgeService: FridgeService,
+    public router: Router,
   ) {
     this.filterOnFridge = false;
   }
