@@ -8,12 +8,22 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/api-calls/auth.service';
 import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
+  imports: [
+    DishCardComponent,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    FormsModule,
+    MatProgressBarModule,
+  ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
   imports: [
@@ -34,6 +44,7 @@ export class HomepageComponent implements OnInit {
   constructor(
     public dishesApi: DishesApiService,
     public auth: AuthService,
+    public router: Router,
   ) {}
 
   ngOnInit() {

@@ -16,11 +16,12 @@ import { HttpClient } from '@angular/common/http';
 export class UserpanelService {
   constructor(
     private http: HttpClient,
-    private storage: LocalstorageService
+    private storage: LocalstorageService,
   ) {}
 
   getUserDetails(): Observable<UserDetailsResponse> {
-    return this.http.get<UserDetailApiResponse>("user-details/" + this.storage.userId.get())
+    return this.http
+      .get<UserDetailApiResponse>('user-details/' + this.storage.userId.get())
       .pipe(
         map((data) => {
           const userDetails: UserDetailsInterface = {
@@ -43,20 +44,34 @@ export class UserpanelService {
       );
   }
   getListAllergies(): Observable<Array<Allergy>> {
-    return this.http.get<AllergyList>("allergies").pipe(map(d => d.data));
+    return this.http.get<AllergyList>('allergies').pipe(map((d) => d.data));
   }
   putUserWeightLength(
     bodyweightInput: number,
     heightInput: number,
     selectedAllergyIds: Array<number>,
   ) {
-    const dataToPut = { user_id: this.storage.loginId.get(), bodyweight: bodyweightInput, height: heightInput, allergy_ids: selectedAllergyIds };
+    const dataToPut = {
+      user_id: this.storage.loginId.get(),
+      bodyweight: bodyweightInput,
+      height: heightInput,
+      allergy_ids: selectedAllergyIds,
+    };
 
-    return this.http.put("user-details/" + this.storage.userId.get(), dataToPut);
+    return this.http.put(
+      'user-details/' + this.storage.userId.get(),
+      dataToPut,
+    );
   }
   putUserAllergies(selectedAllergyIds: Array<number>) {
-    const dataToPut = { user_id: this.storage.loginId.get(), allergy_ids: selectedAllergyIds }
+    const dataToPut = {
+      user_id: this.storage.loginId.get(),
+      allergy_ids: selectedAllergyIds,
+    };
 
-    return this.http.put("user-details/" + this.storage.userId.get(), dataToPut);
+    return this.http.put(
+      'user-details/' + this.storage.userId.get(),
+      dataToPut,
+    );
   }
 }

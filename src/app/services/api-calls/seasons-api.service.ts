@@ -9,13 +9,12 @@ import { map } from 'rxjs';
 export class SeasonsApiService {
   private seasons: Array<DishSeason> = [];
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   loadSeasonsFromApi() {
-    this.http.get<SeasonList>('seasons')
-      .pipe(map(d => d.data))
+    this.http
+      .get<SeasonList>('seasons')
+      .pipe(map((d) => d.data))
       .subscribe((seasons) => {
         this.seasons = seasons;
       });
