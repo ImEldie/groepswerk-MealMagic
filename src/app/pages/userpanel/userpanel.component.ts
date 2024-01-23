@@ -18,6 +18,8 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import {
   Allergy,
+  DishReview,
+  Review,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
@@ -25,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
+import { Router, RouterOutlet } from '@angular/router';
 import { UserpanelService } from '../../services/api-calls/userpanel.service';
 @Component({
   selector: 'app-userpanel',
@@ -46,6 +49,7 @@ import { UserpanelService } from '../../services/api-calls/userpanel.service';
     MatChipsModule,
     MatTooltipModule,
     AllergyIconComponent,
+    RouterOutlet,
   ],
 })
 export class UserpanelComponent implements OnInit {
@@ -72,9 +76,15 @@ export class UserpanelComponent implements OnInit {
   bmiFadeIn: boolean = false;
   bmiFadeOut: boolean = false;
   resetArrow: boolean = false;
+  reviewDishdetails: Array<DishReview> = [];
+  userReviewStars: number = NaN;
+  starArray: Array<Array<number>> = [];
+  userReviewDishId: number = NaN;
+  userReviews: Array<DishReview> = [];
   constructor(
     private userpanelService: UserpanelService,
     private formBuilder: FormBuilder,
+    public router: Router,
   ) {}
   ngOnInit() {
     this.loadListAllergies();
@@ -86,6 +96,7 @@ export class UserpanelComponent implements OnInit {
       allergyIds: new FormArray([]),
     });
     this.loadUserDetails().subscribe();
+    this.loadUserReviews();
   }
   private loadListAllergies() {
     this.userpanelService.getListAllergies().subscribe((response) => {
@@ -192,5 +203,27 @@ export class UserpanelComponent implements OnInit {
   }
   isDisabled(): boolean {
     return !(this.userDetails?.bodyweight && this.userDetails?.height);
+  }
+  loadUserReviews() {
+    this.userpanelService
+      .getUserReviews()
+      .subscribe((userReviews: Array<Review>) => {
+        userReviews.forEach((userReview) => {
+          this.userReviewDishId = userReview.dish_id;
+          this.userpanelService
+            .getDishDetails(userReview.dish_id)
+            .subscribe((dishreview) => {
+              this.userReviews.push(dishreview);
+              this.reviewDishdetails = this.userReviews;
+              this.userReviewStars = userReview.stars;
+              this.starArray.push(
+                Array.from(
+                  { length: this.userReviewStars },
+                  (_, index) => index + 1,
+                ),
+              );
+            });
+        });
+      });
   }
 }

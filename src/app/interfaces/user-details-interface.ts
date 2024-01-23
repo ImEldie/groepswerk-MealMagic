@@ -33,3 +33,7 @@ export interface Review {
   user_id: number;
   stars: number;
 }
+export interface DishReview {
+  name: string;
+  image_url: string;
+}
