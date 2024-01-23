@@ -26,7 +26,6 @@ import { AuthService } from '../../services/api-calls/auth.service';
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })
-
 export class HomepageComponent implements OnInit {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
@@ -37,7 +36,7 @@ export class HomepageComponent implements OnInit {
     public router: Router,
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.dishesApi.loadDishesFromApi();
   }
 

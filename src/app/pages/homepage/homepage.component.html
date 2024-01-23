@@ -12,7 +12,10 @@
   </mat-toolbar>
 
   @for (dish of getDishes(); track $index) {
-    <app-dish-card (click)="router.navigate(['dish', dish.id])" [dish]="dish"></app-dish-card>
+    <app-dish-card
+      (click)="router.navigate(['dish', dish.id])"
+      [dish]="dish"
+    ></app-dish-card>
   } @empty {
     @if (auth.isAuthenticated) {
       <p>Looking for dishes...</p>
