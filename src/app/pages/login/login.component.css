@@ -1,36 +1,30 @@
 .login-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 89vh;
+}
+.login-box {
+  display: flex;
+  align-items: center;
   flex-flow: column wrap;
   width: 30rem;
-  align-items: center;
   background-color: rgb(69, 67, 67);
   border-radius: 3%;
-  margin: 9rem 15rem 9rem 28rem;
   padding: 5rem;
 }
-
-section {
-  display: table;
+.login-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
-
 .label {
   width: 22rem;
 }
-
-.forgot-button {
-  font-size: 0.6rem;
-}
-
 .sign-button {
   margin-top: 2rem;
   margin-bottom: -0.5rem;
   background-color: rgb(78, 76, 69);
   border: 0.1mm solid rgb(78, 76, 69);
   width: 8rem;
-}
-
-.create {
-  font-size: small;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
 }
