@@ -8,28 +8,39 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/api-calls/auth.service';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [FridgeComponent, DishCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule, MatProgressBarModule, MatSidenavModule],
+  imports: [
+    FridgeComponent,
+    DishCardComponent,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    FormsModule,
+    MatProgressBarModule,
+    MatSidenavModule,
+  ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })
-
 export class HomepageComponent implements OnInit {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
 
   constructor(
     public dishesApi: DishesApiService,
-    public auth: AuthService
-  ){};
+    public auth: AuthService,
+    public router: Router,
+  ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.dishesApi.loadDishesFromApi();
   }
 
@@ -42,20 +53,21 @@ export class HomepageComponent implements OnInit {
 
     return this.dishList;
   }
-  private filterDishesFromSearch(){
+  private filterDishesFromSearch() {
     const recipesFromSearch: Array<Dish> = this.getSearchResults();
-    const hasResults = (recipesFromSearch.length !== 0);
+    const hasResults = recipesFromSearch.length !== 0;
 
     if (hasResults) {
       this.dishList = recipesFromSearch;
     }
   }
   private getSearchResults(): Array<Dish> {
-    const searchResults: Array<Dish> = this.dishesApi.getDishList().filter(
-      (dish: Dish) => dish.name.toLocaleLowerCase().includes(this.searchInput.toLowerCase())
-    );
+    const searchResults: Array<Dish> = this.dishesApi
+      .getDishList()
+      .filter((dish: Dish) =>
+        dish.name.toLocaleLowerCase().includes(this.searchInput.toLowerCase()),
+      );
 
     return searchResults;
   }
-
 }

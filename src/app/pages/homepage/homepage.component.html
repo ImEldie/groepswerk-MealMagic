@@ -1,26 +1,34 @@
 <div class="homepage">
-<mat-sidenav-container>
+  <mat-sidenav-container>
     <mat-sidenav-content>
-        <app-fridge-component></app-fridge-component>
+      <app-fridge-component></app-fridge-component>
     </mat-sidenav-content>
-</mat-sidenav-container>
-<div class="content">
+  </mat-sidenav-container>
+  <div class="content">
     <mat-toolbar class="list-toolbar">
-        <mat-form-field class="search-bar">
-            <input [(ngModel)]="searchInput" placeholder="Search..." type="string" matInput>
-            <mat-hint>Results: {{getSearchResultAmount()}}</mat-hint>
-        </mat-form-field>
+      <mat-form-field class="search-bar">
+        <input
+          [(ngModel)]="searchInput"
+          placeholder="Search..."
+          type="string"
+          matInput
+        />
+        <mat-hint>Results: {{ getSearchResultAmount() }}</mat-hint>
+      </mat-form-field>
     </mat-toolbar>
 
     @for (dish of getDishes(); track $index) {
-        <app-dish-card [dish]="dish"></app-dish-card>
+      <app-dish-card
+        (click)="router.navigate(['dish', dish.id])"
+        [dish]="dish"
+      ></app-dish-card>
     } @empty {
-        @if (auth.isAuthenticated) {
-            <p>Looking for dishes...</p>
-            <mat-progress-bar mode="buffer" class="buffer-bar"></mat-progress-bar>
-        } @else {
-            <h1>Login required!</h1>
-        }
+      @if (auth.isAuthenticated) {
+        <p>Looking for dishes...</p>
+        <mat-progress-bar mode="buffer" class="buffer-bar"></mat-progress-bar>
+      } @else {
+        <h1>Login required!</h1>
+      }
     }
-</div>
+  </div>
 </div>
