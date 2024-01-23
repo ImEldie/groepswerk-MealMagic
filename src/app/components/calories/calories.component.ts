@@ -15,13 +15,20 @@ export class CaloriesComponent implements OnInit {
     private dishService: DishesApiService,
   ) {}
   dish!: Dish;
+  getDish() {
+    const id = this.route.snapshot.paramMap.get('id') || '';
+    return this.dishService
+      .GetDishService(Number(id))
+      .subscribe((dish: Dish) => {
+        this.dish = dish;
+      });
+  }
   ngOnInit() {
+    this.getDish();
     this.countKcal();
-    // const id = this.route.snapshot.paramMap.get('id') || '';
-    return this.dishService.GetDishService(1).subscribe((dish) => {
-      this.dish = dish;
-      console.log(this.dish);
-    }); // XXX HARDCODEDD XXX
+    this.countProtein();
+    this.countCarbohydrates();
+    this.countFat();
   }
   countKcal() {
     let totalKcal = 0;

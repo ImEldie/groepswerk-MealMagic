@@ -13,6 +13,7 @@ import { IngredientsApiService } from '../../services/api-calls/ingredients-api.
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
+import { CaloriesComponent } from '../../components/calories/calories.component';
 
 @Component({
   selector: 'app-dish-view',
@@ -25,6 +26,7 @@ import { ActivatedRoute } from '@angular/router';
     MatButtonModule,
     MatIconModule,
     AllergyIconComponent,
+    CaloriesComponent,
   ],
   templateUrl: './dish-view.component.html',
   styleUrl: './dish-view.component.css',
