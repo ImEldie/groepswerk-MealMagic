@@ -1,42 +1,46 @@
 .nutrition {
   position: relative;
+  display: inline-block;
   overflow: hidden;
   text-align: center;
+  font-size: 1.1em;
   width: 4em;
-  line-height: 1.5rem;
-  margin: 0 0.3rem;
-  display: flex;
-  flex-flow: column nowrap;
-  border-radius: 50% 50% 75% 75% / 0% 0% 60% 60%;
+  line-height: 1.5em;
+  margin: 0 0.3em;
 }
-.nutrition:before {
-  padding: 0.5rem 1rem 0.2rem;
-  left: -1rem;
+.nutrition > * {
+  padding: 0.5em 1em 0.2em;
+  width: inherit;
+  border-radius: 100%;
+  position: relative;
+  left: -1em;
+  overflow: hidden;
+  background: #bbb;
 }
-.nutrition:before {
+.nutrition span {
+  margin-top: 0.3em;
+  display: inline-block;
+  position: relative;
+}
+.nutrition > *:before {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 100%;
-  bottom: -1rem;
+  bottom: -1em;
   content: "";
-  height: 3rem;
-  left: -0.8rem;
-  top: 2.9rem;
+  height: 3em;
+  left: 1.5em;
   position: absolute;
-  width: 3rem;
+  width: 3em;
 }
-.nutrition.green {
-  background: #85e8c2;
+.nutrition.green > * {
+  background: #78d1af;
 }
-.nutrition.beige {
-  background: #f0e6a4;
+.nutrition.beige > * {
+  background: #dcd397;
 }
-.nutrition.blue {
-  background: #6ac6f4;
+.nutrition.blue > * {
+  background: #60b5de;
 }
-.nutrition.rose {
-  background: #eca2ac;
-}
-.nutrition-percentage {
-  font-weight: bold;
-  color: black;
+.nutrition.rose > * {
+  background: #dc97a0;
 }
