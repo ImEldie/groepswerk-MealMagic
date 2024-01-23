@@ -65,7 +65,9 @@
                         <div class="panel-content" [hidden]="(step.description === '')">
                             <p>{{step.description}}</p>
                         </div>
-                        <app-image-preview class="step-img-preview" [imageUrl]="step.picture"></app-image-preview>
+                        @if (step.picture !== '') {
+                            <img class="step-img-preview" [src]="step.picture">
+                        }
                     </div>
                     
                     <div class="panel-actions">
