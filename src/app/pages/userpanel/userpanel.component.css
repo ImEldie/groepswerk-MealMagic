@@ -1,6 +1,7 @@
 .info-card,
 .info-panel,
-.allergies-panel {
+.allergies-panel,
+.reviews-panel {
   margin-left: 8rem;
   margin-right: 8rem;
 }
@@ -190,4 +191,71 @@
   padding-bottom: 13px;
   margin-bottom: 0px;
   margin-top: -11px;
+}
+.review-cards-container {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: auto;
+}
+.review-card {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 1rem 1rem 1rem 1rem;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  z-index: 1;
+  max-width: 200px;
+  flex: 0 0 33%;
+}
+.review-title {
+  font-size: 14px;
+  margin-left: 1rem;
+}
+.rating-container {
+  margin-left: 1rem;
+}
+.star-rating {
+  color: #ffe400;
+  font-weight: bold;
+}
+.review-image {
+  display: flex;
+  justify-content: center;
+}
+.review-button {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.no-reviews-container {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2rem;
+  z-index: 1;
+}
+.no-reviews-text {
+  font-weight: bold;
+  z-index: 1;
+  margin: auto;
+  padding-top: 1rem;
+}
+.no-reviews-button {
+  margin: auto;
+  z-index: 1;
+}
+.background-1,
+.background-2 {
+  filter: blur(1px);
+  position: absolute;
+  z-index: 0;
+}
+.background-1 {
+  top: 50%;
+  left: 15%;
+}
+.background-2 {
+  top: 50%;
+  left: 75%;
 }

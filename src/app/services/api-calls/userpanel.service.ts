@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
   Allergy,
+  DishReview,
+  ReviewsResponse,
   AllergyList,
   UserDetailApiResponse,
   UserDetailsInterface,
   UserDetailsResponse,
 } from '../../interfaces/user-details-interface';
 import { Observable, map } from 'rxjs';
+import { Dish } from '../../interfaces/interfaces-dishes';
 import { LocalstorageService } from '../functions/localstorage.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,7 +21,6 @@ export class UserpanelService {
     private http: HttpClient,
     private storage: LocalstorageService,
   ) {}
-
   getUserDetails(): Observable<UserDetailsResponse> {
     return this.http
       .get<UserDetailApiResponse>('user-details/' + this.storage.userId.get())
@@ -57,7 +59,6 @@ export class UserpanelService {
       height: heightInput,
       allergy_ids: selectedAllergyIds,
     };
-
     return this.http.put(
       'user-details/' + this.storage.userId.get(),
       dataToPut,
@@ -68,10 +69,30 @@ export class UserpanelService {
       user_id: this.storage.loginId.get(),
       allergy_ids: selectedAllergyIds,
     };
-
     return this.http.put(
       'user-details/' + this.storage.userId.get(),
       dataToPut,
+    );
+  }
+  getUserReviews() {
+    return this.http.get<ReviewsResponse>('reviews/').pipe(
+      map((response) => response.data),
+      map((reviews) =>
+        reviews.filter(
+          (review) => review.user_id === this.storage.userId.get(),
+        ),
+      ),
+    );
+  }
+  getDishDetails(dishId: number) {
+    return this.http.get<Dish>('dishes/' + `${dishId}`).pipe(
+      map((data) => {
+        const dishreview: DishReview = {
+          name: data.name,
+          image_url: data.image_url,
+        };
+        return dishreview;
+      }),
     );
   }
 }
