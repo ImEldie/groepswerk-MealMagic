@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
+  providedIn: 'root',
 })
 export class DishesApiService {
   private dishes: Array<Dish> = [];
@@ -20,8 +21,14 @@ export class DishesApiService {
     private http: HttpClient,
     private stepsApi: StepsApiService,
     private router: Router,
+    private router: Router,
   ) {}
 
+  loadDishesFromApi(): void {
+    this.http
+      .get<DishList>('dishes')
+      .pipe(map((d) => d.data))
+      .subscribe((dishes) => (this.dishes = dishes));
   loadDishesFromApi(): void {
     this.http
       .get<DishList>('dishes')
@@ -32,6 +39,7 @@ export class DishesApiService {
     return this.dishes;
   }
   postNewDish(postData: DishPostData, stepsToPost: Array<DishStep>) {
+  postNewDish(postData: DishPostData, stepsToPost: Array<DishStep>) {
     forkJoin(this.stepsApi.postDishSteps(stepsToPost)).subscribe(
       (result: Array<Step>) => {
         result.sort((a, b) => a.order - b.order);
@@ -39,12 +47,18 @@ export class DishesApiService {
         this.postDish(postData);
       },
     );
+    );
   }
   private postDish(postData: DishPostData) {
     this.http.post('/dishes', postData).subscribe(() => {
       this.router.navigate(['']);
     });
+  private postDish(postData: DishPostData) {
+    this.http.post('/dishes', postData).subscribe(() => {
+      this.router.navigate(['']);
+    });
   }
+  convertToIdArray(arrayToConvert: Array<Step | Ingredient>): Array<number> {
   convertToIdArray(arrayToConvert: Array<Step | Ingredient>): Array<number> {
     let idArray: Array<number> = arrayToConvert.map((data) => data.id);
     return idArray;

@@ -14,6 +14,7 @@ import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { CaloriesComponent } from '../../components/calories/calories.component';
+import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews.component';
 
 @Component({
   selector: 'app-dish-view',
@@ -27,6 +28,7 @@ import { CaloriesComponent } from '../../components/calories/calories.component'
     MatIconModule,
     AllergyIconComponent,
     CaloriesComponent,
+    DishReviewsComponent,
   ],
   templateUrl: './dish-view.component.html',
   styleUrl: './dish-view.component.css',
