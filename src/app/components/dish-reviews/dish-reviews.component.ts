@@ -39,6 +39,7 @@ export class DishReviewsComponent implements OnInit {
         if (userReviewsWithId.length > 0) {
           const userReviewStars = this.userReviews[0].review.stars;
           this.loadedRating = userReviewStars;
+          this.starRatingForm.setValue(userReviewStars);
         }
       });
   }
