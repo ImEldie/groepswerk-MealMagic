@@ -21,6 +21,7 @@ export class DishesApiService {
     private stepsApi: StepsApiService,
     private router: Router,
   ) {}
+
   loadDishesFromApi(): void {
     this.http
       .get<DishList>('dishes')
