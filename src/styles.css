@@ -8,3 +8,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         background-color: rgba(0, 255, 200, 0.2);
     }
 }
+
+.page-container {
+    justify-content: center;
+    padding: 2rem;
+    display: flex;
+}
