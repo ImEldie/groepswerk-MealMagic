@@ -29,7 +29,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { UserpanelService } from '../../services/api-calls/userpanel.service';
-import { CaloriesComponent } from '../../components/calories/calories.component';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -51,7 +50,6 @@ import { CaloriesComponent } from '../../components/calories/calories.component'
     MatTooltipModule,
     AllergyIconComponent,
     RouterOutlet,
-    CaloriesComponent,
   ],
 })
 export class UserpanelComponent implements OnInit {
