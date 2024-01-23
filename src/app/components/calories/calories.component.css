@@ -17,7 +17,7 @@
   overflow: hidden;
   background: #bbb;
 }
-.nutrition span {
+.nutrition-percentage {
   margin-top: 0.3em;
   display: inline-block;
   position: relative;
@@ -32,15 +32,15 @@
   position: absolute;
   width: 3rem;
 }
-.nutrition.green > * {
+.green > * {
   background: #78d1af;
 }
-.nutrition.beige > * {
+.beige > * {
   background: #dcd397;
 }
-.nutrition.blue > * {
+.blue > * {
   background: #60b5de;
 }
-.nutrition.rose > * {
+.rose > * {
   background: #dc97a0;
 }

@@ -35,27 +35,27 @@ export class CaloriesComponent implements OnInit {
     for (let i = 0; i < this.dish.ingredients.length; i++) {
       totalKcal += this.dish.ingredients[i].kcal;
     }
-    console.log('Total kcal: ' + totalKcal);
+    return totalKcal;
   }
   countProtein() {
     let totalProtein = 0;
     for (let i = 0; i < this.dish.ingredients.length; i++) {
       totalProtein += this.dish.ingredients[i].protein;
     }
-    console.log('Total protein: ' + totalProtein);
+    return totalProtein;
   }
   countCarbohydrates() {
     let totalCarbohydrates = 0;
     for (let i = 0; i < this.dish.ingredients.length; i++) {
       totalCarbohydrates += this.dish.ingredients[i].carbohydrates;
     }
-    console.log('Total Carbohydrates: ' + totalCarbohydrates);
+    return totalCarbohydrates;
   }
   countFat() {
     let totalFat = 0;
     for (let i = 0; i < this.dish.ingredients.length; i++) {
       totalFat += this.dish.ingredients[i].fat;
     }
-    console.log('Total Fat: ' + totalFat);
+    return totalFat;
   }
 }

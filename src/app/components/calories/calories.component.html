@@ -2,29 +2,29 @@
   <div class="nutrition green">
     <div>
       kcal<br />
-      <strong></strong><br />
-      <span>20%</span>
+      {{ countKcal() }}<br />
+      <span class="nutrition-percentage">20%</span>
     </div>
   </div>
   <div class="nutrition beige">
     <div>
       protein<br />
-      <strong>2g</strong><br />
-      <span>1%</span>
+      {{ countProtein() }} g<br />
+      <span class="nutrition-percentage">1%</span>
     </div>
   </div>
   <div class="nutrition blue">
     <div>
-      carbohydrates<br />
-      <strong>52g</strong><br />
-      <span>5%</span>
+      carbo.<br />
+      {{ countCarbohydrates() }}<br />
+      <span class="nutrition-percentage">5%</span>
     </div>
   </div>
   <div class="nutrition rose">
     <div>
       fat<br />
-      <strong>20g</strong><br />
-      <span>3%</span>
+      {{ countFat() }} g<br />
+      <span class="nutrition-percentage">3%</span>
     </div>
   </div>
 </div>
