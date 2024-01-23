@@ -4,7 +4,7 @@ import {
   DishList,
   DishPostData,
 } from '../../interfaces/interfaces-dishes';
-import { forkJoin, map } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
 import { StepsApiService } from './steps-api.service';
 import { DishStep, Step } from '../../interfaces/interfaces-steps';
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
@@ -51,15 +51,8 @@ export class DishesApiService {
     let idArray: Array<number> = arrayToConvert.map((data) => data.id);
     return idArray;
   }
-  getDishByID(id: number): Dish | undefined {
-    let dish;
-    for (let i = 0; i < this.dishes.length; i++) {
-      const currentId = this.dishes[i].id;
-      if (currentId === id) {
-        dish = this.dishes[i];
-        break;
-      }
-    }
-    return dish;
+
+  GetDishService(dishId: number): Observable<Dish> {
+    return this.http.get<Dish>('dishes/' + dishId);
   }
 }

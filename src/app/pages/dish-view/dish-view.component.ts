@@ -30,11 +30,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './dish-view.component.css',
 })
 export class DishViewComponent {
-  getDish(): Dish | undefined {
-    const id = this.route.snapshot.paramMap.get('id') || '';
+  // getDish(): Dish | undefined {
+  //   const id = this.route.snapshot.paramMap.get('id') || '';
 
-    return this.dishAPI.getDishByID(Number(id));
-  }
+  //   return this.dishAPI.getDishByID(Number(id));
+  // }
+
+  dish!: Dish;
 
   constructor(
     private clipboard: Clipboard,
@@ -45,16 +47,22 @@ export class DishViewComponent {
   ) {}
 
   ngOnInit() {
-    this.ingredientAPI.loadIngredientsFromAPI();
-    this.dishAPI.loadDishesFromApi();
+    // this.ingredientAPI.loadIngredientsFromAPI();
+    // this.dishAPI.loadDishesFromApi();
+    this.getDish();
   }
-
+  getDish() {
+    const id = this.route.snapshot.paramMap.get('id') || '';
+    return this.dishAPI.GetDishService(Number(id)).subscribe((dish) => {
+      this.dish = dish;
+    });
+  }
   getDishAllergies(): Array<string> {
     let allergies: Array<string> = [];
 
     if (this.ingredientAPI.getIngredientList().length !== 0) {
-      for (let i = 0; i < this.getDish()!.ingredients.length; i++) {
-        const ingredientId = this.getDish()!.ingredients[i].id;
+      for (let i = 0; i < this.dish?.ingredients.length; i++) {
+        const ingredientId = this.dish?.ingredients[i].id;
         const ingredientData =
           this.ingredientAPI.getIngredientFromId(ingredientId);
 
@@ -65,7 +73,6 @@ export class DishViewComponent {
     }
     return allergies;
   }
-
   private getNewIngredientAllergies(
     ingredientData: Ingredient,
     allergiesToAddTo: Array<string>,
