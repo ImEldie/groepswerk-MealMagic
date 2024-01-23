@@ -5,12 +5,19 @@ import {
   DishPostData,
 } from '../../interfaces/interfaces-dishes';
 import { Observable, forkJoin, map } from 'rxjs';
+import {
+  Dish,
+  DishList,
+  DishPostData,
+} from '../../interfaces/interfaces-dishes';
+import { Observable, forkJoin, map } from 'rxjs';
 import { StepsApiService } from './steps-api.service';
 import { DishStep, Step } from '../../interfaces/interfaces-steps';
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
+  providedIn: 'root',
   providedIn: 'root',
 })
 export class DishesApiService {
@@ -27,11 +34,18 @@ export class DishesApiService {
       .get<DishList>('dishes')
       .pipe(map((d) => d.data))
       .subscribe((dishes) => (this.dishes = dishes));
+  loadDishesFromApi(): void {
+    this.http
+      .get<DishList>('dishes')
+      .pipe(map((d) => d.data))
+      .subscribe((dishes) => (this.dishes = dishes));
   }
+
   getDishList(): Array<Dish> {
     return this.dishes;
   }
 
+  postNewDish(postData: DishPostData, stepsToPost: Array<DishStep>) {
   postNewDish(postData: DishPostData, stepsToPost: Array<DishStep>) {
     forkJoin(this.stepsApi.postDishSteps(stepsToPost)).subscribe(
       (result: Array<Step>) => {
@@ -40,12 +54,18 @@ export class DishesApiService {
         this.postDish(postData);
       },
     );
+    );
   }
   private postDish(postData: DishPostData) {
     this.http.post('/dishes', postData).subscribe(() => {
       this.router.navigate(['']);
     });
+  private postDish(postData: DishPostData) {
+    this.http.post('/dishes', postData).subscribe(() => {
+      this.router.navigate(['']);
+    });
   }
+  convertToIdArray(arrayToConvert: Array<Step | Ingredient>): Array<number> {
   convertToIdArray(arrayToConvert: Array<Step | Ingredient>): Array<number> {
     let idArray: Array<number> = arrayToConvert.map((data) => data.id);
     return idArray;

@@ -4,24 +4,23 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TypesApiService {
   private types: Array<DishType> = [];
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     this.loadTypesFromApi();
   }
 
-  loadTypesFromApi(){
-    this.http.get<TypeList>("types")
-      .pipe(map(d => d.data))
-      .subscribe((types) => this.types = types);
+  loadTypesFromApi() {
+    this.http
+      .get<TypeList>('types')
+      .pipe(map((d) => d.data))
+      .subscribe((types) => (this.types = types));
   }
 
-  getTypesList(): Array<DishType>{
+  getTypesList(): Array<DishType> {
     return this.types;
   }
 }
