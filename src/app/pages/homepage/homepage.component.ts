@@ -9,11 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthService } from '../../services/api-calls/auth.service';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [DishCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule, MatProgressBarModule],
+  imports: [FridgeComponent, DishCardComponent, MatToolbarModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, FormsModule, MatProgressBarModule, MatSidenavModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })

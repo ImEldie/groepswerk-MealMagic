@@ -1,0 +1,50 @@
+<div class="fridge">
+  <mat-card>
+    <mat-card-content>
+      <h1>Ingredients:</h1>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Add ingredients</mat-label>
+          <input
+            class="input"
+            type="string"
+            placeholder="Pick one"
+            aria-label="Ingredients"
+            matInput
+            [formControl]="ingredientInput"
+            [matAutocomplete]="auto"
+            (click)="clearInput()"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            @for (ingredient of ingredientList; track ingredient) {
+              <mat-option
+                [value]="ingredient.name"
+                (click)="setSelectedIngredient(ingredient); postIngredient()"
+                >{{ ingredient.name }}</mat-option
+              >
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+      <div>
+        <mat-list role="list">
+          @for (fridgeIngredient of ingredientsInFridge; track $index) {
+            <mat-list-item role="listitem">
+              <app-fridge-ingredients
+                [fridgeIngredient]="fridgeIngredient"
+                (fridgeIngredientOutput)="
+                  setNewIngredientAmount($event, $index)
+                "
+              ></app-fridge-ingredients>
+            </mat-list-item>
+          }
+        </mat-list>
+      </div>
+      <div class="saveButton">
+        <button mat-raised-button color="accent" (click)="saveFridgeToApi()">
+          <mat-icon>update</mat-icon>Save fridge
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

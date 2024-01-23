@@ -32,13 +32,6 @@ export const routes: Routes = [
               (c) => c.AddDishComponent
             ),
         },
-        {
-          path: "fridge",
-             loadComponent: () =>
-          import("./pages/fridge/fridge.component").then(
-            (c) =>  c.FridgeComponent
-          ), 
-      },
       ]
     }
 ];
