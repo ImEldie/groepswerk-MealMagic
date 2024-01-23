@@ -59,17 +59,6 @@ export class UserpanelService {
       height: heightInput,
       allergy_ids: selectedAllergyIds,
     };
-    const dataToPut = {
-      user_id: this.storage.loginId.get(),
-      bodyweight: bodyweightInput,
-      height: heightInput,
-      allergy_ids: selectedAllergyIds,
-    };
-
-    return this.http.put(
-      'user-details/' + this.storage.userId.get(),
-      dataToPut,
-    );
     return this.http.put(
       'user-details/' + this.storage.userId.get(),
       dataToPut,
@@ -80,11 +69,6 @@ export class UserpanelService {
       user_id: this.storage.loginId.get(),
       allergy_ids: selectedAllergyIds,
     };
-    const dataToPut = {
-      user_id: this.storage.loginId.get(),
-      allergy_ids: selectedAllergyIds,
-    };
-
     return this.http.put(
       'user-details/' + this.storage.userId.get(),
       dataToPut,
