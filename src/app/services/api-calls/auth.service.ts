@@ -12,21 +12,21 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private storage: LocalstorageService,
-  ) {};
+  ) {}
 
   login(email: string, password: string) {
-    const postData = {email: email , password: password};
-    return this.http.post<LoginDetails>('/token/login', postData)
-      .pipe(
-        tap((data) => {
-          this.storage.token.set(data.token);
-          this.storage.loginId.set(data.user.id);
-          this.getUserId(data.user.id).subscribe();
-        }),
-      );
+    const postData = { email: email, password: password };
+    return this.http.post<LoginDetails>('/token/login', postData).pipe(
+      tap((data) => {
+        this.storage.token.set(data.token);
+        this.storage.loginId.set(data.user.id);
+        this.getUserId(data.user.id).subscribe();
+      }),
+    );
   }
   private getUserId(login_id: number) {
-    return this.http.get<UserDetailsInterface>('/user-details/user/' + login_id)
+    return this.http
+      .get<UserDetailsInterface>('/user-details/user/' + login_id)
       .pipe(tap((data) => this.storage.userId.set(data.id)));
   }
   logout() {

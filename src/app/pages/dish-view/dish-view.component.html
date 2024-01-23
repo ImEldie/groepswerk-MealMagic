@@ -3,10 +3,10 @@
     <mat-card-header class="header-container">
       <div>
         <mat-card-title class="header-title">{{
-          dish?.name | titlecase
+          dish.name | titlecase
         }}</mat-card-title>
         <div class="dish-allergens">
-          @for (type of dish?.dish_types; track type) {
+          @for (type of dish.dish_types; track type) {
             <mat-chip class="dish-type"> {{ type.name | titlecase }}</mat-chip>
           }
           @for (allergy of getDishAllergies(); track allergy) {
@@ -20,14 +20,14 @@
         </div>
         <div>
           <mat-icon class="clock-icon" color="white">timelapse</mat-icon
-          ><span class="clock-text">{{ dish?.duration }}min.</span
+          ><span class="clock-text">{{ dish.duration }}min.</span
           ><mat-icon class="serves-icon">group</mat-icon
-          ><span class="serves-text">Serves: {{ dish?.amount_of_people }}</span>
+          ><span class="serves-text">Serves: {{ dish.amount_of_people }}</span>
           <mat-icon class="season-icon">wb_sunny</mat-icon>
-          <span class="season-text"> {{ dish?.season?.name }}</span>
+          <span class="season-text"> {{ dish.season.name }}</span>
         </div>
         <mat-card-content class="recipe-description">
-          {{ dish?.description }}
+          {{ dish.description }}
         </mat-card-content>
       </div>
       <div class="clipboard-container">
@@ -38,12 +38,12 @@
         </mat-card-actions>
       </div>
     </mat-card-header>
-    <img class="dish-image" mat-card-image [src]="dish?.image_url" />
+    <img class="dish-image" mat-card-image [src]="dish.image_url" />
     <div class="content-container">
       <mat-card-title class="card-title">Ingredients</mat-card-title>
       <mat-card-content class="dish-ingredients">
         <ul>
-          @for (ingredient of dish?.ingredients; track ingredient.id) {
+          @for (ingredient of dish.ingredients; track ingredient.id) {
             <li>{{ ingredient.name }}</li>
           }
         </ul>
@@ -51,14 +51,14 @@
       <mat-card-title class="card-title">Directions</mat-card-title>
       <mat-card-content class="dish-directions">
         <ol>
-          @for (steps of dish?.dish_steps; track steps) {
+          @for (steps of dish.dish_steps; track steps) {
             <li>{{ steps.title }}</li>
           }
         </ol>
       </mat-card-content>
       <mat-card-title class="card-title"> Description </mat-card-title>
       <mat-card-content class="dish-description">
-        @for (steps of dish?.dish_steps; track steps) {
+        @for (steps of dish.dish_steps; track steps) {
           <p>{{ steps.description }}</p>
         }
       </mat-card-content>

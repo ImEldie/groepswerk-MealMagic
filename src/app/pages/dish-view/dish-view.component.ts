@@ -30,12 +30,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './dish-view.component.css',
 })
 export class DishViewComponent {
-  // getDish(): Dish | undefined {
-  //   const id = this.route.snapshot.paramMap.get('id') || '';
-
-  //   return this.dishAPI.getDishByID(Number(id));
-  // }
-
   dish!: Dish;
 
   constructor(
@@ -47,8 +41,6 @@ export class DishViewComponent {
   ) {}
 
   ngOnInit() {
-    // this.ingredientAPI.loadIngredientsFromAPI();
-    // this.dishAPI.loadDishesFromApi();
     this.getDish();
   }
   getDish() {
