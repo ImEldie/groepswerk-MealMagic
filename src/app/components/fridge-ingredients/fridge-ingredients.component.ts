@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import {MatButtonModule} from '@angular/material/button';
-import { FridgeIngredient } from '../../interfaces/fridge-interface';
+import { FridgeIngredient, Ingredient, Ingredients } from '../../interfaces/fridge-interface';
+import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 
 @Component({
   selector: 'app-fridge-ingredients',
@@ -13,77 +14,40 @@ import { FridgeIngredient } from '../../interfaces/fridge-interface';
 })
 
 export class FridgeIngredientsComponent implements OnInit {
-
-
   constructor( 
-    private fridgeService: FridgeService,
+    private ingredientApi: IngredientsApiService
   ){}
   
   count: number = 1;
-  ingredient: string | null = '';
-  @Input({required: true}) loadedFridgeId: number = 0; //FridgeIngredient = {id: 0, name: ''};
-  ingredientId: number | null = null ;
-  ingredientsFridgeId: number | null = null;
-  fridgeId: number | null = null;
+  @Input({required: true}) fridgeIngredient: Ingredients = {id: 0, ingredient_id: 0, fridge_id: 0, amount: 0};
+  @Output() fridgeIngredientOutput = new EventEmitter<number>();
 
   ngOnInit() {
- // this.getFridgeId();
-  if ( this.ingredientsFridgeId !== null) {
-  this.fridgeService.getIngredientsFridgesDetails(this.ingredientsFridgeId!)
-  .subscribe( {next: (response) => {
-    this.count = response.amount;
-    this.ingredientId = response.ingredient_id
-  }})
-} 
-this.fridgeService.getIngredientDetails(this.ingredientId!)
-  .subscribe( {next: (response) => {
-    this.ingredient = response.name; 
-  }})
-}
-
-getIngredientData() {
-  const data = this.fridgeService.getAddIngredients()
-  if ( data.id !== null) {
-    // this.ingredientId = data.id;
-    // this.ingredient = data.name;
+    this.ingredientApi.loadIngredientsFromAPI();
+    this.count = this.fridgeIngredient.amount;
   }
-}
+
+  emitUserInput() {
+    this.fridgeIngredientOutput.emit(this.count);
+  }
+
+  getIngredientName() {
+    const ingredientData = this.ingredientApi.getIngredientFromId(this.fridgeIngredient.ingredient_id);
+    let ingredientName = "";
+    if (ingredientData) {
+    ingredientName = ingredientData.name;
+    }
+    return ingredientName;
+  }
 
   plusOne(){
     this.count  += 1;
-    this.putCount();
-      } 
-    minOne(){
-        this.count  -= 1;
-        this.putCount();
-      }
-  resetCount() {
-     if (this.count < 1) {
-       this.fridgeService.deleteIngredientsFridge(this.ingredientsFridgeId!)
-      }
+    this.emitUserInput();
+  } 
+  minOne(){
+    this.count  -= 1;
+    this.emitUserInput();
   }
-/*
-  postIngredient() {
-this.fridgeService.postIngredientsFridge( this.fridgeId!, this.ingredientId!, 1)
-.subscribe({
-  next: (data) => {
-    this.ingredientsFridgeId = data.id;}})
-  }
-*/
-  putCount(){
-    this.fridgeService.putAmount(this.ingredientsFridgeId!, this.fridgeId!, this.ingredientId!, this.count)
-  }
-/*
-  getFridgeId() {
-    this.fridgeService.getFridgeIdFromFridges(1)
-    .subscribe({
-      next: (data) => {
-        this.fridgeId = data;
-      }
-    }
-    )
-  }
-  */
 }
 
 

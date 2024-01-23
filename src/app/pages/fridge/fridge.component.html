@@ -18,23 +18,23 @@
           @for (ingredient of ingredientList; track ingredient) {
             <mat-option
               [value]="ingredient.name"
-              (click)="addToSelected(ingredient); this.postIngredient()"
+              (click)="setSelectedIngredient(ingredient)"
               >{{ ingredient.name }}</mat-option
             >
           }
         </mat-autocomplete>
       </mat-form-field>
+      <button (click)="postIngredient()">ADD</button>
     </form>
     <mat-list role="list">
-      @for (id of ingredientFridgeId; track id){
-      @for (ingredient of selectedIngredients; track ingredient.id){} 
-      <mat-list-item role="listitem">
+      @for (fridgeIngredient of ingredientsInFridge; track $index) {
+        <mat-list-item role="listitem">
           <app-fridge-ingredients
-            [loadedFridgeId]="id"
+            [fridgeIngredient]="fridgeIngredient"
+            (fridgeIngredientOutput)="setNewIngredientAmount($event, $index)"
           ></app-fridge-ingredients>
-      </mat-list-item>
-  }
+        </mat-list-item>
+      }
     </mat-list>
   </mat-card-content>
 </mat-card>
-<div>{{ saveData() }}</div>

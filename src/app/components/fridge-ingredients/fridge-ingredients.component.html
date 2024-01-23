@@ -1,18 +1,14 @@
-
-  @if (this.count > 0) {
-    <div>{{this.getIngredientData()}}</div>
-    <span
-      >{{ ingredient }}
-      <span>
-        <button (click)="minOne()" mat-mini-fab color="warn">
-          <mat-icon>remove</mat-icon>
-        </button>
-        <span> {{ count }} </span>
-        <button (click)="plusOne()" mat-mini-fab color="accent">
-          <mat-icon>add</mat-icon>
-        </button>
-      </span>
+@if (this.count > 0) {
+  <span
+    >{{ getIngredientName() }}
+    <span>
+      <button (click)="minOne()" mat-mini-fab color="warn">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <span> {{ count }} </span>
+      <button (click)="plusOne()" mat-mini-fab color="accent">
+        <mat-icon>add</mat-icon>
+      </button>
     </span>
-  }
- 
-
+  </span>
+}
