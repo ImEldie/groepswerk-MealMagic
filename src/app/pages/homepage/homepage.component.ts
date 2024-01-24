@@ -7,7 +7,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/api-calls/auth.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { FridgeIngredient } from '../../interfaces/fridge-interface';
+import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 
 @Component({
@@ -22,12 +22,12 @@ import { IngredientsApiService } from '../../services/api-calls/ingredients-api.
   standalone: true,
   imports: [
     DishCardComponent,
+    LoadingVisualiserComponent,
     MatToolbarModule,
     MatFormFieldModule,
     MatAutocompleteModule,
     MatInputModule,
     FormsModule,
-    MatProgressBarModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
