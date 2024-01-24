@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -37,7 +37,7 @@ import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/frid
 export class FridgeComponent implements OnInit {
   ingredientInput = new FormControl();
   options: Array<string> = [];
-  ingredientList: Array<CompactFridgeIngredient> = [];
+  @Input({required: true}) ingredientList: Array<CompactFridgeIngredient> = [];
   filteredOptions?: Observable<string[]>;
   selectedIngredient: CompactFridgeIngredient = {id: 0, name: ''};
   fridgeId: number = 2;
@@ -51,7 +51,7 @@ export class FridgeComponent implements OnInit {
   ngOnInit() {
     this.getFridgeIngredients();
     this.getFilteredOptions();
-    this.updateIngredientsList();
+    this.initOptionsList();
     }
 
     private filter(value: string): string[] {
@@ -77,13 +77,8 @@ export class FridgeComponent implements OnInit {
       );
     }
 
-    private updateIngredientsList(){
-      this.fridgeService.loadIngredients()
-      .subscribe({ 
-        next: (response) => {
-          this.ingredientList = response;
-          this.options = [...new Set(response.map(ingredientInfo => ingredientInfo.name))];
-          }})
+    private initOptionsList(){
+      this.options = [...new Set(this.ingredientList.map(ingredientInfo => ingredientInfo.name))];
     }
 
     clearInput() {

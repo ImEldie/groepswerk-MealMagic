@@ -14,30 +14,14 @@ export class FridgeService {
     private storage: LocalstorageService,
   ) {}
 
+  /*
   loadIngredients(): Observable<Array<CompactFridgeIngredient>> {
     return this.http.get<IngredientList>(`ingredients`)
     .pipe(map((response) => {
-      return response.data.map((ingredient) =>  ({ id: ingredient.id, name: ingredient.name }));
+      return response.data.map((ingredient) => ({ id: ingredient.id, name: ingredient.name }));
   }))
   }
- 
- getIngredientDetails(id: number): Observable<Ingredient> {
-  return this.http.get<Ingredient>(`ingredients/${id}`)
-  .pipe(map
-    ((data) => {
-       const ingredientInfo: Ingredient = { 
-             id: data.id,
-             name: data.name,
-             kcal: data.kcal,
-             protein: data.protein,
-             carbohydrates: data.carbohydrates,
-             fat: data.fat,
-             allergies: data.allergies,
-           };
-         return ingredientInfo 
-        })
-    );
-  }
+  */
 
  postIngredientsFridge(
   fridgeId: number,
