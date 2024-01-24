@@ -4,12 +4,13 @@
   display: flex;
 }
 .dish-card {
+  min-width: 55rem;
   width: 90%;
   box-shadow: var(--box-shadow-maincard);
 }
 .dish-image, .header-container {
-  min-height: 15rem;
-  max-height: 15rem;
+  min-height: 16rem;
+  max-height: 16rem;
 }
 .dish-image {
   position: absolute;
@@ -73,30 +74,39 @@
   margin-top: 1rem;
   margin-left: -1rem;
   max-width: 70%;
+  max-height: 8rem;
   font-size: 1rem;
 }
-.clipboard-container {
+.actions-container {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   right: 0.8rem;
   top: 0.6rem;
+  height: 16rem;
+}
+.share-button {
+  width: 100%;
+  margin-bottom: 0.5rem;
 }
 .content-container {
-  margin-top: 0.5rem;
+  margin-top: -1.5rem;
   margin-left: 0.5rem;
   max-width: 85%;
+  padding: 1rem;
 }
 .card-title {
-  margin-top: 2rem;
-  margin-left: 1rem;
   font-size: 1.7rem;
 }
 .dish-ingredients {
   font-size: 1rem;
+  margin-bottom: 1rem;
 }
 .dish-directions {
-  margin-top: 1rem;
   font-size: 1rem;
   max-width: 70%;
+  margin-top: 0.5rem;
 }
 .dish-description {
   margin-top: 1rem;

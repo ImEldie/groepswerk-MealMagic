@@ -34,15 +34,17 @@
             {{ dish.description }}
           </mat-card-content>
         </div>
-        <div class="clipboard-container">
-          <mat-card-actions>
-            <button mat-button (click)="copyUrlToClipboard()">
+        <div class="actions-container">
+          <div>
+            <button mat-raised-button (click)="copyUrlToClipboard()" color="accent" class="share-button">
               <mat-icon>file_copy</mat-icon> SHARE
             </button>
-          </mat-card-actions>
-          <app-dish-reviews></app-dish-reviews>
+            <app-dish-reviews></app-dish-reviews>
+          </div>
+          <app-calories [dish]="dish"></app-calories>
         </div>
       </mat-card-header>
+
       <div class="content-container">
         <mat-card-title class="card-title">Ingredients</mat-card-title>
         <mat-card-content class="dish-ingredients">
@@ -53,14 +55,13 @@
           </ul>
         </mat-card-content>
       
-      <mat-card-title class="card-title">Directions</mat-card-title>
-        <mat-card-content class="dish-directions">
-            @for (step of dish.dish_steps; track step) {
-              <app-dish-step-card [step]="step"></app-dish-step-card>
-            }
-        </mat-card-content>
-      </div>
-      <app-calories [dish]="dish"></app-calories>
+        <mat-card-title class="card-title">Directions</mat-card-title>
+          <mat-card-content class="dish-directions">
+              @for (step of dish.dish_steps; track step) {
+                <app-dish-step-card [step]="step"></app-dish-step-card>
+              }
+          </mat-card-content>
+        </div>
     } @else {
       <app-loading-visualiser
         [loadingText]="'Loading dish info...'"
