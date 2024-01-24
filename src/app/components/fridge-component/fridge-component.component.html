@@ -41,7 +41,7 @@
         </mat-list>
       </div>
       <div class="save-button">
-        <button mat-raised-button color="accent" (click)="saveFridgeToApi()">
+        <button mat-raised-button color="accent" (click)="saveFridgeToApi()" [disabled]="disableFridgeButtons()">
           <mat-icon>update</mat-icon>Save fridge
         </button>
       </div>
