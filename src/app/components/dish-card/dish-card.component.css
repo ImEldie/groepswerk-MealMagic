@@ -14,7 +14,7 @@
 @keyframes card-glow {
     to{
         background-color: #eecbff2c;
-        box-shadow: 0 0 5vw 2vh #000;
+        box-shadow: 0 0 5vw 2vh var(--shadow-color);
     }
 }
 .card-container {
@@ -32,7 +32,7 @@
     object-fit: cover;
     object-position: center;
     border-radius: 0 1rem 1rem 20rem;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0); 
+    box-shadow: 0 0 1rem var(--shadow-color); 
 }
 mat-divider {
     margin-top: 0.1rem;
@@ -100,7 +100,7 @@ mat-chip {
     left: 0;
     width: 100%;
     height: 50%;
-    background: linear-gradient(transparent, #211e21);
+    background: linear-gradient(transparent, var(--shadow-color));
     opacity: 1;
     transition: opacity 1.5s ease;
 }

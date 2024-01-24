@@ -5,6 +5,7 @@
 }
 .dish-card {
   width: 90%;
+  box-shadow: var(--box-shadow-maincard);
 }
 .dish-image, .header-container {
   min-height: 15rem;
@@ -26,8 +27,6 @@
   margin-left: 0.5rem;
   max-width: 70%;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 0.3rem;
 }
 .header-title {
   font-size: 1.85rem;
