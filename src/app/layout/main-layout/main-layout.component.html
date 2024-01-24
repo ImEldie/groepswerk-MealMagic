@@ -20,14 +20,16 @@
           <mat-icon>person_outline</mat-icon>My Account
         </button>
       }
-      <button mat-button (click)="authService.logout()">Logout</button>
+      <button mat-button (click)="authService.logout()">
+        <mat-icon>exit_to_app</mat-icon>Logout
+      </button>
     } @else {
       <button
         class="login-button"
         (click)="router.navigate(['login'])"
         mat-button
       >
-        <mat-icon>exit_to_app</mat-icon>
+        <mat-icon>arrow_downward</mat-icon>
         Login
       </button>
     }
