@@ -4,7 +4,6 @@
 .reviews-panel {
   margin-left: 8rem;
   margin-right: 8rem;
-  /* margin-bottom: ; */
   padding: 0.5rem;
 }
 .header-title {
@@ -244,7 +243,7 @@
   display: flex;
   justify-content: center;
   }
-.image {
+.dish-image {
   margin-left: -1rem;
   min-width: 110px;
   max-width: 110px;
