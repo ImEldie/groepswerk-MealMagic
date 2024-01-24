@@ -15,11 +15,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { FridgeIngredient } from '../../interfaces/fridge-interface';
 import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
   imports: [
+    FridgeComponent,
     DishCardComponent,
     LoadingVisualiserComponent,
     MatToolbarModule,
@@ -31,6 +34,7 @@ import { LoadingVisualiserComponent } from '../../components/loading-visualiser/
     MatButtonModule,
     MatTooltipModule,
     RouterOutlet,
+    MatSidenavModule,
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',

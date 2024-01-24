@@ -16,6 +16,9 @@
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
-a {
-  font-style: normal;
+.buffer-bar {
+    width: 30rem;
+    height: 1rem;
+    background-color: gray;
+    border-radius: 1rem;
 }
