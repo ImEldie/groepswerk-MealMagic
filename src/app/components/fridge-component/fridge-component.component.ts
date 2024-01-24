@@ -13,7 +13,7 @@ import {MatListModule} from '@angular/material/list';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
 import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
-import { Ingredients } from '../../interfaces/fridge-interface';
+import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
 
 
 @Component({
@@ -43,24 +43,42 @@ export class FridgeComponent implements OnInit {
   
   ingredientInput = new FormControl();
   options: string[] = [];
-  ingredientList: {id: number; name: string}[] = [];
-  filteredOptions!: Observable<string[]>;
-  selectedIngredient: {id: number; name: string} = {id: 0, name: ''};
+  ingredientList: CompactFridgeIngredient[] = [];
+  filteredOptions?: Observable<string[]>;
+  selectedIngredient: CompactFridgeIngredient = {id: 0, name: ''};
   fridgeId: number = 2;
-  ingredientsInFridge?: Ingredients[] = []
+  ingredientsInFridge?: FridgeIngredient[] = []
 
   ngOnInit() {
-      this.fridgeService.getIngredientIdsInFridge(this.fridgeId)
+    this.getFridgeIngredients();
+    this.getFilteredOptions();
+    this.updateIngredientsList();
+    }
+
+    private filter(value: string): string[] {
+      const filterValue = value.toLowerCase();
+
+      return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    }
+
+    private getFridgeIngredients(){
+      this.fridgeService.getFridgeIngredients(this.fridgeId)
       .subscribe({ 
         next: (response) => {
           this.ingredientsInFridge = response;
         }
       });
+    }
+
+    private getFilteredOptions(){
       this.filteredOptions = this.ingredientInput.valueChanges.pipe(
         startWith(''),
         map(value => 
-          this._filter(value || '')),
+          this.filter(value || '')),
       );
+    }
+
+    private updateIngredientsList(){
       this.fridgeService.loadIngredients()
       .subscribe({ 
         next: (response) => {
@@ -69,17 +87,11 @@ export class FridgeComponent implements OnInit {
           }})
     }
 
-    private _filter(value: string): string[] {
-      const filterValue = value.toLowerCase();
-
-      return this.options.filter(option => option.toLowerCase().includes(filterValue));
-    }
-
     clearInput() {
       this.ingredientInput.reset();
     }
 
-    setSelectedIngredient(ingredient: {id: number; name: string}){
+    setSelectedIngredient(ingredient: CompactFridgeIngredient){
       this.selectedIngredient = ingredient;
     }
 
@@ -104,8 +116,8 @@ export class FridgeComponent implements OnInit {
       }
 
       saveFridgeToApi() {
-        let ingredientsToDelete: Ingredients[] = [];
-        let ingredientAmountsToPut: Ingredients[] = [];
+        let ingredientsToDelete: FridgeIngredient[] = [];
+        let ingredientAmountsToPut: FridgeIngredient[] = [];
         
         if (this.ingredientsInFridge) {
           for (let i = 0; i < this.ingredientsInFridge.length; i++) {

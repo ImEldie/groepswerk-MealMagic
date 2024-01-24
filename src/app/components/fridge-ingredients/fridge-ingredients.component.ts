@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Ingredients } from '../../interfaces/fridge-interface';
+import { FridgeIngredient } from '../../interfaces/fridge-interface';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class FridgeIngredientsComponent implements OnInit {
   ){}
   
   count: number = 1;
-  @Input({required: true}) fridgeIngredient: Ingredients = {id: 0, ingredient_id: 0, fridge_id: 0, amount: 0};
+  @Input({required: true}) fridgeIngredient: FridgeIngredient = {id: 0, ingredient_id: 0, fridge_id: 0, amount: 0};
   @Output() fridgeIngredientOutput = new EventEmitter<number>();
 
   ngOnInit() {

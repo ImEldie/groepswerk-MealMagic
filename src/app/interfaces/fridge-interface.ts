@@ -1,30 +1,3 @@
-export interface IngredientInfo {
-  data: Array<Ingredient>
-  
-}
-
- export interface Ingredient {
-  id: number;
-  name: string;
-  kcal: number;
-  protein: number;
-  carbohydrates: number;
-  fat: number;
-  allergy_ids?: [];
-}
-
-export interface UserDetails {
-  data: Array<Details>
-}
-
-interface Details {
-  id: number;
-  user_id: number;
-  bodyweight: number;
-  height: number;
-  allergy_ids?: [];
-}
-
 export interface Fridges {
   data: Array<Fridge>
 }
@@ -32,21 +5,21 @@ export interface Fridges {
 export interface Fridge {
   id: number;
   user_detail_id: number;
-  ingredients?: [Ingredients]
+  ingredients?: [FridgeIngredient]
 }
 
 export interface FridgeIngredients {
-  data: Array<Ingredients>
+  data: Array<FridgeIngredient>
 }
 
- export interface Ingredients {
+ export interface FridgeIngredient {
   id: number;
   fridge_id: number;
   ingredient_id: number;
   amount: number;
 }
 
-export interface FridgeIngredient {
+export interface CompactFridgeIngredient {
   id: number;
   name: string;
 }

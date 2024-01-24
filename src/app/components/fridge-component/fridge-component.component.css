@@ -1,15 +1,10 @@
-.example-button-container {
-    display: flex;
-    justify-content: center;
-    width: 120px;
-  }
-.example-form {
+.fridge-form {
     min-width: 150px;
     max-width: 500px;
     width: 100%;
   }
   
-.example-full-width {
+.fridge-full-width {
     width: 100%;
   }
 .fridge {
@@ -17,7 +12,7 @@
 align-items: center;
 }
 
-.saveButton {
+.save-button {
   display: flex;
   justify-content: flex-end;
 }

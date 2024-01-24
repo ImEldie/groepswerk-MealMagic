@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, map } from 'rxjs';
-import { IngredientInfo, Ingredient, Ingredients, Fridge } from '../../interfaces/fridge-interface';
+import { FridgeIngredient, Fridge, CompactFridgeIngredient } from '../../interfaces/fridge-interface';
+import { Ingredient, IngredientList } from '../../interfaces/interfaces-ingredients';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,12 @@ export class FridgeService {
 
  constructor(
   private http: HttpClient,
-  
   ) { }
 
-  loadIngredients(): Observable<Array<{ id: number, name: string }>> {
-    
-    return this.http.get<IngredientInfo>(`ingredients`)
-    .pipe(map((data) => {
-      return data.data.map((ingredient) =>  ({ id: ingredient.id, name: ingredient.name }));
+  loadIngredients(): Observable<Array<CompactFridgeIngredient>> {
+    return this.http.get<IngredientList>(`ingredients`)
+    .pipe(map((response) => {
+      return response.data.map((ingredient) =>  ({ id: ingredient.id, name: ingredient.name }));
   }))
   }
  
@@ -32,9 +31,9 @@ export class FridgeService {
              protein: data.protein,
              carbohydrates: data.carbohydrates,
              fat: data.fat,
-             allergy_ids: data.allergy_ids,
+             allergies: data.allergies,
            };
-         return  ingredientInfo 
+         return ingredientInfo 
         })
     );
   }
@@ -49,15 +48,15 @@ export class FridgeService {
     ingredient_id: ingredientId,
     amount: amount
   }
-  this.http.post<Ingredients>(`ingredients-fridges`, postData);
+  this.http.post<FridgeIngredient>(`ingredients-fridges`, postData);
 }
 
-getIngredientIdsInFridge(fridgeId: number){
+getFridgeIngredients(fridgeId: number){
   return this.http.get<Fridge>(`fridges/${fridgeId}`)
   .pipe(
     map((data) => {
       return data.ingredients?.map((ingredients) => {
-        const ingredientsFridgeInfo: Ingredients = {
+        const ingredientsFridgeInfo: FridgeIngredient = {
           id: ingredients.id,
           fridge_id: ingredients.fridge_id,
           ingredient_id: ingredients.ingredient_id,
@@ -68,12 +67,11 @@ getIngredientIdsInFridge(fridgeId: number){
   },))
 }
 
-  putUpdatedFridgeIngredients(ingredientsToPut: Ingredients[]){
-    const observables = ingredientsToPut.map(ingredient => this.putFridgeIngredient(ingredient));
-    forkJoin(observables)
+  putUpdatedFridgeIngredients(ingredientsToPut: FridgeIngredient[]){
+    ingredientsToPut.map(ingredient => this.putFridgeIngredient(ingredient));
   }
 
-  private putFridgeIngredient(ingredient: Ingredients) {
+  private putFridgeIngredient(ingredient: FridgeIngredient) {
     const postData = {
       fridge_id: ingredient.fridge_id,
       ingredient_id: ingredient.ingredient_id,
@@ -82,11 +80,10 @@ getIngredientIdsInFridge(fridgeId: number){
     return this.http.put("ingredients-fridges/" + ingredient.id, postData);
   }
 
-  deleteUpdatedFridgeIngredients(ingredientsToDelete: Ingredients[]){
-    const observables = ingredientsToDelete.map(ingredient => this.deleteFridgeIngredient(ingredient));
-    forkJoin(observables)
+  deleteUpdatedFridgeIngredients(ingredientsToDelete: FridgeIngredient[]){
+    ingredientsToDelete.map(ingredient => this.deleteFridgeIngredient(ingredient));
   }
-  private deleteFridgeIngredient(ingredient: Ingredients) {
+  private deleteFridgeIngredient(ingredient: FridgeIngredient) {
     return this.http.delete("ingredients-fridges/" + ingredient.id);
   }
 }
