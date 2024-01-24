@@ -49,7 +49,7 @@ export class DishesApiService {
     let idArray: Array<number> = arrayToConvert.map((data) => data.id);
     return idArray;
   }
-  GetDishService(dishId: number): Observable<Dish> {
+  getDishService(dishId: number): Observable<Dish> {
     return this.http.get<Dish>('dishes/' + dishId);
   }
 }

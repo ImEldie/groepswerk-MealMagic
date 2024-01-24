@@ -49,7 +49,7 @@ export class DishViewComponent {
   }
   getDish() {
     const id = this.route.snapshot.paramMap.get('id') || '';
-    return this.dishAPI.GetDishService(Number(id)).subscribe((dish) => {
+    return this.dishAPI.getDishService(Number(id)).subscribe((dish) => {
       this.dish = dish;
     });
   }

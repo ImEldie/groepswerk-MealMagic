@@ -20,7 +20,7 @@ export class CaloriesComponent implements OnInit {
   getDish() {
     const id = this.route.snapshot.paramMap.get('id') || '';
     return this.dishService
-      .GetDishService(Number(id))
+      .getDishService(Number(id))
       .subscribe((dish: Dish) => {
         this.dish = dish;
       });
