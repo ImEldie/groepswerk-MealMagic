@@ -24,11 +24,6 @@
       [dish]="dish"
     ></app-dish-card>
   } @empty {
-    @if (auth.isAuthenticated) {
-      <p>Looking for dishes...</p>
-      <mat-progress-bar mode="buffer" class="buffer-bar"></mat-progress-bar>
-    } @else {
-      <h1>Login required!</h1>
-    }
+    <app-loading-visualiser [loadingText]="'Loading dishes...'"></app-loading-visualiser>
   }
 </div>

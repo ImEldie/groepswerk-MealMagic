@@ -1,27 +1,21 @@
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
 }
 .list-toolbar {
-    width: 51rem;
-    margin-bottom: 1rem;
-    height: auto;
-    padding: 1rem;
-    border-radius: 1rem;
+  width: 51rem;
+  margin-bottom: 1rem;
+  height: auto;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 .search-bar {
-    width: 100%;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-}
-.buffer-bar {
-    width: 30rem;
-    height: 1rem;
-    background-color: gray;
-    border-radius: 1rem;
+  width: 100%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 a {
-    font-style: normal;
+  font-style: normal;
 }
