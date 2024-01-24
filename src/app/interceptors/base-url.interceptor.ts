@@ -3,7 +3,6 @@ import { HttpInterceptorFn } from '@angular/common/http';
 export const baseUrlInterceptor: HttpInterceptorFn = (req, next) => {
   let urlPath: string = "https://syntra2023.code-coaching.dev/api";
   const endpoint: string = formatEndpoint(req.url);
-  console.log(endpoint);
   if (!endpoint.startsWith('/token')){
     urlPath = urlPath + "/group-2";
   }
