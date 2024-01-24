@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DishesApiService } from '../../services/api-calls/dishes-api.service';
-import { ActivatedRoute } from '@angular/router';
 import { Dish } from '../../interfaces/interfaces-dishes';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
@@ -13,17 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class CaloriesComponent implements OnInit {
   @Input() dish: Dish | undefined;
-  constructor() {} // private dishService: DishesApiService, // private route: ActivatedRoute,
-  // getDish() {
-  //   const id = this.route.snapshot.paramMap.get('id') || '';
-  //   return this.dishService
-  //     .getDishService(Number(id))
-  //     .subscribe((dish: Dish) => {
-  //       this.dish = dish;
-  //     });
-  // }
+  constructor() {}
   ngOnInit() {
-    // this.getDish();
     if (this.dish) {
       this.countKcal();
       this.countProtein();
