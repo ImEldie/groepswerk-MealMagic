@@ -14,43 +14,34 @@ export class FridgeService {
     private storage: LocalstorageService,
   ) {}
 
-  /*
-  loadIngredients(): Observable<Array<CompactFridgeIngredient>> {
-    return this.http.get<IngredientList>(`ingredients`)
-    .pipe(map((response) => {
-      return response.data.map((ingredient) => ({ id: ingredient.id, name: ingredient.name }));
-  }))
+  postIngredientsFridge(
+    fridgeId: number,
+    ingredientId: number,
+    amount: number) {
+    
+    const postData = {
+      fridge_id: fridgeId,
+      ingredient_id: ingredientId,
+      amount: amount
+    }
+    this.http.post<FridgeIngredient>(`ingredients-fridges`, postData).subscribe();
   }
-  */
 
- postIngredientsFridge(
-  fridgeId: number,
-  ingredientId: number,
-  amount: number) {
-  
-  const postData = {
-    fridge_id: fridgeId,
-    ingredient_id: ingredientId,
-    amount: amount
-  }
-  this.http.post<FridgeIngredient>(`ingredients-fridges`, postData).subscribe();
-}
-
-getUniqueFridgeIngredients(fridgeId: number){
-  return this.http.get<Fridge>(`fridges/${fridgeId}`)
-  .pipe(
-    map((data) => {
-      return data.ingredients?.map((ingredients) => {
-        const ingredientsFridgeInfo: FridgeIngredient = {
-          id: ingredients.id,
-          fridge_id: ingredients.fridge_id,
-          ingredient_id: ingredients.ingredient_id,
-          amount: ingredients.amount,
-        };
-        return ingredientsFridgeInfo
-      })
-    },))
-  }
+  getUniqueFridgeIngredients(fridgeId: number){
+    return this.http.get<Fridge>(`fridges/${fridgeId}`)
+    .pipe(
+      map((data) => {
+        return data.ingredients?.map((ingredients) => {
+          const ingredientsFridgeInfo: FridgeIngredient = {
+            id: ingredients.id,
+            fridge_id: ingredients.fridge_id,
+            ingredient_id: ingredients.ingredient_id,
+            amount: ingredients.amount,
+          };
+          return ingredientsFridgeInfo
+        })
+      },))
+    }
 
   putUpdatedFridgeIngredients(ingredientsToPut: FridgeIngredient[]){
     return forkJoin(ingredientsToPut.map(ingredient => this.putFridgeIngredient(ingredient)));

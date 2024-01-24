@@ -18,7 +18,6 @@ import { LoadingVisualiserComponent } from '../../components/loading-visualiser/
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
-import { Ingredient } from '../../interfaces/interfaces-ingredients';
 
 @Component({
   selector: 'app-homepage',
