@@ -10,6 +10,14 @@
 .header-title {
   font-size: 1.35rem;
 }
+.info-card-content {
+  display: flex;
+  justify-content: space-between;
+}
+.weight-icon {
+  margin-top: 0.2rem;
+  margin-bottom: -0.5rem;
+}
 .weight-height-form {
   display: flex;
   flex-flow: row wrap;
@@ -30,10 +38,6 @@
 }
 .submit-allergies {
   align-self: flex-end;
-}
-.info-card-content {
-  display: flex;
-  justify-content: space-between;
 }
 .info-allergies-chips {
   display: flex;

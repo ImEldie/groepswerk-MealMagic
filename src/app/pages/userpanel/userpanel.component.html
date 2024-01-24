@@ -5,7 +5,7 @@
     <mat-card-subtitle>Your info:</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="info-card-content">
-    <div class="info-container">
+    <div>
       <p>
         <mat-icon class="weight-icon">monitor_weight</mat-icon>
         Weight: {{ userDetails?.bodyweight }} kg.
@@ -28,7 +28,7 @@
           }
         </div>
         @if (userAllergies.length === 0) {
-          <i>No allergies selected</i>
+          <i style="color:rgba(177, 22, 228, 0.658)">No allergies selected</i>
         }
       </section>
     </div>
@@ -88,7 +88,9 @@
   >
     <mat-expansion-panel-header>
       <mat-panel-title>Weight & Height</mat-panel-title>
-      <mat-panel-description>Enter your weight and height</mat-panel-description>
+      <mat-panel-description
+        >Enter your weight and height</mat-panel-description
+      >
     </mat-expansion-panel-header>
     <form [formGroup]="formWeightHeight" (ngSubmit)="submitWeightHeight()">
       <div class="weight-height-form">
