@@ -10,7 +10,11 @@
         <mat-icon class="weight-icon">monitor_weight</mat-icon>
         Weight: {{ userDetails?.bodyweight }} kg.
       </p>
-      <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
+      <p>
+        <mat-icon class="height-icon">height</mat-icon> Height:
+        {{ userDetails?.height }} cm.
+      </p>
+      <br>
       <section>
         <p>Your selected allergies are:</p>
         <div class="info-allergies-chips">
@@ -28,7 +32,7 @@
           }
         </div>
         @if (userAllergies.length === 0) {
-          <i style="color:rgba(177, 22, 228, 0.658)">No allergies selected</i>
+          <i style="color: rgba(228, 159, 22, 0.658)">No allergies selected</i>
         }
       </section>
     </div>
@@ -139,7 +143,7 @@
   >
     <mat-expansion-panel-header>
       <mat-panel-title>Allergies</mat-panel-title>
-      <mat-panel-description>What are your allergies?</mat-panel-description>
+      <mat-panel-description>Select your allergies if you have any</mat-panel-description>
     </mat-expansion-panel-header>
     <section>
       <form
@@ -176,7 +180,7 @@
     <mat-expansion-panel-header>
       <mat-panel-title>Your reviews</mat-panel-title>
       <mat-panel-description
-        >Your latest recipes you have reviewed</mat-panel-description
+        >Latest recipes you have reviewed</mat-panel-description
       >
     </mat-expansion-panel-header>
     <section class="reviews-section">
