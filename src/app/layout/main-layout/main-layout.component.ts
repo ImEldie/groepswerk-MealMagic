@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,12 +21,22 @@ import { MatDividerModule } from '@angular/material/divider';
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css',
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit {
+  hideAddDishButton: boolean = false;
+  hideMyAccountButton: boolean = false;
   constructor(
     public router: Router,
     public authService: AuthService,
   ) {}
   navigateToHomepage() {
     this.router.navigate(['']);
+  }
+  ngOnInit() {
+    this.router.events.subscribe((hideButton) => {
+      if (hideButton instanceof NavigationEnd) {
+        this.hideAddDishButton = !this.router.url.includes('/add-dish');
+        this.hideMyAccountButton = !this.router.url.includes('userpanel');
+      }
+    });
   }
 }
