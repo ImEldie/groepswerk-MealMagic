@@ -7,6 +7,11 @@
   min-width: 55rem;
   width: 90%;
   box-shadow: var(--box-shadow-maincard);
+  border-radius: var(--borderradius-default);
+  overflow: hidden;
+  border-style: outset;
+  border-color: lightgray;
+  border-width: 1px;
 }
 .dish-image, .header-container {
   min-height: 16rem;
@@ -19,7 +24,7 @@
   max-width: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 0.3rem 0rem 0rem 0rem;
+  border-radius: var(--borderradius-default) var(--borderradius-default) 0rem 0rem;
   opacity: 0.5;
   z-index: 1;
 }

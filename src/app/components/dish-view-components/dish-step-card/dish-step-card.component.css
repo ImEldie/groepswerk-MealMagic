@@ -4,7 +4,12 @@
     margin-bottom: 0.5rem;
     margin-left: 0.5rem;
     max-width: 50rem;
+    border-radius: var(--borderradius-default);
     box-shadow: var(--box-shadow-mild);
+    background-color: lightyellow;
+    border-style: outset;
+    border-color: lightgray;
+    border-width: 1px;
 }
 .card-text-content {
     width: 70%;
@@ -31,6 +36,5 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    border-radius: 0 0.3rem 0.3rem 0;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0);
+    border-radius: 0rem var(--borderradius-default) var(--borderradius-default) 0rem;
 }
