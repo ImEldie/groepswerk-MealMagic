@@ -10,8 +10,12 @@
   </div>
   <div class="user-buttons">
     @if (authService.isAuthenticated) {
-      <button mat-button (click)="router.navigate(['add-dish'])">Add Dish</button>
-      <button mat-button (click)="router.navigate(['userpanel'])">User Panel</button>
+      <button mat-button (click)="router.navigate(['add-dish'])">
+        Add Dish
+      </button>
+      <button mat-button (click)="router.navigate(['userpanel'])">
+        My Account
+      </button>
       <button mat-button (click)="authService.logout()">Logout</button>
     } @else {
       <button
