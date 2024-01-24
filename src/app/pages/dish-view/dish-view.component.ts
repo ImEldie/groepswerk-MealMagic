@@ -13,7 +13,9 @@ import { IngredientsApiService } from '../../services/api-calls/ingredients-api.
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
+import { CaloriesComponent } from '../../components/calories/calories.component';
 import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews.component';
+import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
 
 @Component({
   selector: 'app-dish-view',
@@ -26,13 +28,15 @@ import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews
     MatButtonModule,
     MatIconModule,
     AllergyIconComponent,
+    CaloriesComponent,
     DishReviewsComponent,
+    LoadingVisualiserComponent
   ],
   templateUrl: './dish-view.component.html',
   styleUrl: './dish-view.component.css',
 })
 export class DishViewComponent {
-  dish!: Dish;
+  dish?: Dish;
 
   constructor(
     private clipboard: Clipboard,
@@ -47,15 +51,15 @@ export class DishViewComponent {
   }
   getDish() {
     const id = this.route.snapshot.paramMap.get('id') || '';
-    return this.dishAPI.GetDishService(Number(id)).subscribe((dish) => {
+    return this.dishAPI.getDishService(Number(id)).subscribe((dish) => {
       this.dish = dish;
     });
   }
   getDishAllergies(): Array<string> {
     let allergies: Array<string> = [];
 
-    if (this.ingredientAPI.getIngredientList().length !== 0) {
-      for (let i = 0; i < this.dish?.ingredients.length; i++) {
+    if (this.ingredientAPI.getIngredientList().length !== 0 && this.dish) {
+      for (let i = 0; i < this.dish.ingredients.length; i++) {
         const ingredientId = this.dish?.ingredients[i].id;
         const ingredientData =
           this.ingredientAPI.getIngredientFromId(ingredientId);

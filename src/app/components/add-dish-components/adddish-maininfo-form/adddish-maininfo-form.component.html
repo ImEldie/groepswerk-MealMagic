@@ -1,7 +1,7 @@
 <app-adddish-card [inputValid]="checkInputsValidity()" (input)="emitUserInput()">
   <div name="title-icon-type">local_dining</div>        
   <div name="title">Dish Description</div>
-
+  
   <mat-form-field class="name-input-field"
   color="accent"
   name="contentrow">
@@ -26,6 +26,8 @@
             [ngModelOptions]="{standalone: true}"
             required>
   </mat-form-field>
+  
+  <app-image-preview name="contentrow" [imageUrl]="imageInput"></app-image-preview>
 
   <mat-form-field class="description-input-field"
       color="accent" 
