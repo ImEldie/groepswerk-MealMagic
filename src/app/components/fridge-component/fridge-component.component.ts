@@ -61,7 +61,7 @@ export class FridgeComponent implements OnInit {
     }
 
     private getFridgeIngredients(){
-      this.fridgeService.getFridgeIngredients(this.fridgeId)
+      this.fridgeService.getUniqueFridgeIngredients(this.fridgeId)
       .subscribe({ 
         next: (response) => {
           this.ingredientsInFridge = response;
