@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
-import { FridgeIngredient, Fridge, CompactFridgeIngredient, Fridges } from '../../interfaces/fridge-interface';
-import { Ingredient, IngredientList } from '../../interfaces/interfaces-ingredients';
+import { FridgeIngredient, Fridge, Fridges } from '../../interfaces/fridge-interface';
 import { LocalstorageService } from '../functions/localstorage.service';
 
 @Injectable({
