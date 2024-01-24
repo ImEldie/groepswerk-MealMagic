@@ -13,9 +13,10 @@ import { IngredientsApiService } from '../../services/api-calls/ingredients-api.
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { CaloriesComponent } from '../../components/calories/calories.component';
-import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews.component';
+import { CaloriesComponent } from '../../components/dish-view-components/calories/calories.component';
+import { DishReviewsComponent } from '../../components/dish-view-components/dish-reviews/dish-reviews.component';
 import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
+import { DishStepCardComponent } from '../../components/dish-view-components/dish-step-card/dish-step-card.component';
 
 @Component({
   selector: 'app-dish-view',
@@ -30,7 +31,8 @@ import { LoadingVisualiserComponent } from '../../components/loading-visualiser/
     AllergyIconComponent,
     CaloriesComponent,
     DishReviewsComponent,
-    LoadingVisualiserComponent
+    LoadingVisualiserComponent,
+    DishStepCardComponent
   ],
   templateUrl: './dish-view.component.html',
   styleUrl: './dish-view.component.css',
