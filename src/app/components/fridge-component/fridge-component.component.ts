@@ -3,7 +3,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -36,7 +35,6 @@ import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/frid
 export class FridgeComponent implements OnInit {
   ingredientInput = new FormControl();
   ingredientList: Array<CompactFridgeIngredient> = [];
-  filteredOptions?: Observable<string[]>;
   selectedIngredient: CompactFridgeIngredient = {id: 0, name: ''};
   fridgeId: number = 2;
   ingredientsInFridge?: Array<FridgeIngredient> = []
