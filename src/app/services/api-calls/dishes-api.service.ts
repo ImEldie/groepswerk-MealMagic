@@ -28,11 +28,9 @@ export class DishesApiService {
       .pipe(map((d) => d.data))
       .subscribe((dishes) => (this.dishes = dishes));
   }
-
   getDishList(): Array<Dish> {
     return this.dishes;
   }
-
   postNewDish(postData: DishPostData, stepsToPost: Array<DishStep>) {
     forkJoin(this.stepsApi.postDishSteps(stepsToPost)).subscribe(
       (result: Array<Step>) => {
@@ -51,8 +49,7 @@ export class DishesApiService {
     let idArray: Array<number> = arrayToConvert.map((data) => data.id);
     return idArray;
   }
-
-  GetDishService(dishId: number): Observable<Dish> {
+  getDishService(dishId: number): Observable<Dish> {
     return this.http.get<Dish>('dishes/' + dishId);
   }
 }

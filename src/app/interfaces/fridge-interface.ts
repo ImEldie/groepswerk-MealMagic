@@ -5,7 +5,7 @@ export interface Fridges {
 export interface Fridge {
   id: number;
   user_detail_id: number;
-  ingredients?: Array<FridgeIngredient>
+  ingredients: Array<FridgeIngredient>
 }
 
 export interface FridgeIngredients {

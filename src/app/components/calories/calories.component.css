@@ -1,0 +1,47 @@
+.nutrition {
+  display: inline-block;
+  position: relative;
+  width: 4rem;
+  overflow: hidden;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  margin: 0 0.3rem;
+}
+.nutrition div {
+  position: relative;
+  width: inherit;
+  left: -1rem;
+  overflow: hidden;
+  padding: 0.5rem 1rem 0.2rem;
+  border-radius: 100%;
+  background: #bbb;
+}
+.nutrition-percentage {
+  position: relative;
+  display: inline-block;
+  margin-top: 0.3em;
+  color: rgb(61, 61, 61);
+}
+.nutrition div:before {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  bottom: -1rem;
+  left: 1.5rem;
+  content: "";
+  border-radius: 100%;
+  background: rgba(232, 232, 232, 0.782);
+}
+.kcal div {
+  background: #78d1af;
+}
+.protein div {
+  background: #dcd397;
+}
+.carbs div {
+  background: #60b5de;
+}
+.fat div {
+  background: #dc97a0;
+}

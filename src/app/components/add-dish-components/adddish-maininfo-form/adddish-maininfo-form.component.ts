@@ -6,11 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AdddishCardComponent } from '../adddish-card/adddish-card.component';
 import { AddDishNameInputs } from '../../../interfaces/interfaces-add-dish-forms';
+import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 
 @Component({
   selector: 'app-adddish-maininfo-form',
   standalone: true,
-  imports: [AdddishCardComponent, MatInputModule, MatCardModule, MatIconModule, MatFormFieldModule, FormsModule],
+  imports: [ImagePreviewComponent, AdddishCardComponent, MatInputModule, MatCardModule, MatIconModule, MatFormFieldModule, FormsModule],
   templateUrl: './adddish-maininfo-form.component.html',
   styleUrl: './adddish-maininfo-form.component.css'
 })

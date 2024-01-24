@@ -32,6 +32,8 @@ import { UserpanelService } from '../../services/api-calls/userpanel.service';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
+  templateUrl: './userpanel.component.html',
+  styleUrl: './userpanel.component.css',
   imports: [
     FormsModule,
     MatFormFieldModule,
@@ -49,8 +51,6 @@ import { UserpanelService } from '../../services/api-calls/userpanel.service';
     AllergyIconComponent,
     RouterOutlet,
   ],
-  templateUrl: './userpanel.component.html',
-  styleUrl: './userpanel.component.css',
 })
 export class UserpanelComponent implements OnInit {
   public step = 0;
