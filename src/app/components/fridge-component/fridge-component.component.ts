@@ -1,20 +1,19 @@
 import { Component, OnInit} from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {AsyncPipe} from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatListModule} from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
 import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
 import { ChangedFridgeIngredient, CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
-
 
 @Component({
   selector: 'app-fridge-component',
