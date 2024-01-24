@@ -4,7 +4,7 @@
 .reviews-panel {
   margin-left: 8rem;
   margin-right: 8rem;
-  margin-bottom: ;
+  /* margin-bottom: ; */
   padding: 0.5rem;
 }
 .header-title {
@@ -213,7 +213,7 @@
 }
 .review-card {
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5);
-  border-radius: 1rem 1rem 1rem 1rem;
+  border-radius: 3%;
   overflow: hidden;
   margin-left: 20px;
   margin-right: 10px;
@@ -223,24 +223,35 @@
   max-width: 200px;
   flex: 0 0 33%;
 }
-.review-title {
-  font-size: 14px;
+.review-title-container {
   margin-left: 1rem;
 }
+.review-title {
+  font-size: 14px;
+  /* margin-left: 1rem; */
+}
 .rating-container {
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
 .star-rating {
   color: #ffe400;
   font-weight: bold;
+  margin-left: 0.11rem;
 }
 .review-image {
+  margin-left: -3.2rem;
   display: flex;
   justify-content: center;
+  max-width: 5rem;
+  max-height: 7rem;
+  }
+.image {
+  max-width: 80%;
+  max-height: 80%;
 }
 .review-button {
   margin-top: 10px;
-  margin-left: auto;
+  margin-left: -0.3rem;
   margin-right: auto;
 }
 .no-reviews-container {
