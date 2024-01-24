@@ -6,7 +6,8 @@
     name="rating"
     value="5"
     [formControl]="ratingControl"
-    (change)="onRatingChange()"
+    [checked]="loadedRating === 5"
+    (change)="onRatingChange($event)"
   />
   <label for="star5" title="5 stars">5 stars</label>
   <input
@@ -15,7 +16,8 @@
     name="rating"
     value="4"
     [formControl]="ratingControl"
-    (change)="onRatingChange()"
+    [checked]="loadedRating === 4"
+    (change)="onRatingChange($event)"
   />
   <label for="star4" title="4 stars">4 stars</label>
   <input
@@ -24,7 +26,8 @@
     name="rating"
     value="3"
     [formControl]="ratingControl"
-    (change)="onRatingChange()"
+    [checked]="loadedRating === 3"
+    (change)="onRatingChange($event)"
   />
   <label for="star3" title="3 stars">3 stars</label>
   <input
@@ -33,7 +36,8 @@
     name="rating"
     value="2"
     [formControl]="ratingControl"
-    (change)="onRatingChange()"
+    [checked]="loadedRating === 2"
+    (change)="onRatingChange($event)"
   />
   <label for="star2" title="2 stars">2 stars</label>
   <input
@@ -42,7 +46,8 @@
     name="rating"
     value="1"
     [formControl]="ratingControl"
-    (change)="onRatingChange()"
+    [checked]="loadedRating === 1"
+    (change)="onRatingChange($event)"
   />
   <label for="star1" title="1 star">1 star</label>
 </div>

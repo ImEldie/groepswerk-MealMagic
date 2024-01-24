@@ -15,8 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DishReviewsComponent implements OnInit {
   userReviews: Array<{ id: number; review: Review }> = [];
-  starRatingForm!: FormGroup;
-  loadedRating: number | null = null;
+  starRatingForm!: FormGroup<number>;
+  loadedRating: number = 0;
   constructor(
     private formBuilder: FormBuilder,
     private reviewService: ReviewsService,
@@ -25,9 +25,7 @@ export class DishReviewsComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.getUserReview();
-    this.starRatingForm = this.formBuilder.group({
-      rating: [null],
-    });
+    this.starRatingForm = this.formBuilder.group(0);
   }
   get ratingControl() {
     return this.starRatingForm.get('rating') as FormControl;
@@ -40,12 +38,13 @@ export class DishReviewsComponent implements OnInit {
         this.userReviews = userReviewsWithId;
         if (userReviewsWithId.length > 0) {
           const userReviewStars = this.userReviews[0].review.stars;
-          this.ratingControl.setValue(userReviewStars);
           this.loadedRating = userReviewStars;
+          this.starRatingForm.setValue(userReviewStars);
         }
       });
   }
-  onRatingChange() {
+  onRatingChange(event: any) {
+    const newRating = parseInt(event.target.value, 10);
     const id = this.route.snapshot.paramMap.get('id') || '';
     const hasUserReview = this.userReviews.length > 0;
     if (hasUserReview) {
@@ -53,18 +52,18 @@ export class DishReviewsComponent implements OnInit {
       const updatedReview = {
         dish_id: Number(id),
         user_id: this.storage.userId.get(),
-        stars: this.starRatingForm.value.rating,
+        stars: newRating,
       };
       this.reviewService.putReview(reviewId, updatedReview).subscribe();
-      this.loadedRating = updatedReview.stars;
+      this.loadedRating = newRating;
     } else {
       const newReview = {
         dish_id: Number(id),
         user_id: this.storage.userId.get(),
-        stars: this.starRatingForm.value.rating,
+        stars: newRating,
       };
       this.reviewService.postReview(newReview).subscribe();
-      this.loadedRating = newReview.stars;
+      this.loadedRating = newRating;
       this.getUserReview();
     }
   }
