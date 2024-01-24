@@ -3,10 +3,11 @@ import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Dish } from '../../interfaces/interfaces-dishes';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-calories',
   standalone: true,
-  imports: [MatTooltipModule],
+  imports: [MatTooltipModule, CommonModule],
   templateUrl: './calories.component.html',
   styleUrl: './calories.component.css',
 })
@@ -59,6 +60,16 @@ export class CaloriesComponent implements OnInit {
     }
     return totalFat;
   }
+  dailyPercentageKcal() {
+    return this.countKcal() / 2000;
+  }
+  dailyPercentageProtein() {
+    return this.countProtein() / 150;
+  }
+  dailyPercentageCarbohydrates() {
+    return this.countCarbohydrates() / 250;
+  }
+  dailyPercentageFat() {
+    return this.countFat() / 44.4;
+  }
 }
-// Carbs Protein Fat Grams per day
-// 250g 150g 44.4g
