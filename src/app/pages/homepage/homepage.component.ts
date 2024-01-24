@@ -7,7 +7,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/api-calls/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,6 +30,7 @@ import { LoadingVisualiserComponent } from '../../components/loading-visualiser/
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    RouterOutlet,
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',

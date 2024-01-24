@@ -13,6 +13,7 @@ import { IngredientsApiService } from '../../services/api-calls/ingredients-api.
 import { Ingredient } from '../../interfaces/interfaces-ingredients';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
+import { CaloriesComponent } from '../../components/calories/calories.component';
 import { DishReviewsComponent } from '../../components/dish-reviews/dish-reviews.component';
 import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
 
@@ -27,6 +28,7 @@ import { LoadingVisualiserComponent } from '../../components/loading-visualiser/
     MatButtonModule,
     MatIconModule,
     AllergyIconComponent,
+    CaloriesComponent,
     DishReviewsComponent,
     LoadingVisualiserComponent
   ],
@@ -49,7 +51,7 @@ export class DishViewComponent {
   }
   getDish() {
     const id = this.route.snapshot.paramMap.get('id') || '';
-    return this.dishAPI.GetDishService(Number(id)).subscribe((dish) => {
+    return this.dishAPI.getDishService(Number(id)).subscribe((dish) => {
       this.dish = dish;
     });
   }
