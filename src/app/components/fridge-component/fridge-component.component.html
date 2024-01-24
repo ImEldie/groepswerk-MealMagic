@@ -16,7 +16,7 @@
             (click)="clearInput()"
           />
           <mat-autocomplete #auto="matAutocomplete">
-            @for (ingredient of ingredientList; track ingredient) {
+            @for (ingredient of getFilteredIngredientsList(); track ingredient) {
               <mat-option
                 [value]="ingredient.name"
                 (click)="setSelectedIngredient(ingredient)"
