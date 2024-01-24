@@ -9,12 +9,17 @@
 }
 .header-title {
   font-size: 1.35rem;
+  margin-bottom: 0.75rem;
 }
 .info-card-content {
   display: flex;
   justify-content: space-between;
 }
 .weight-icon {
+  margin-top: 0.2rem;
+  margin-bottom: -0.5rem;
+}
+.height-icon {
   margin-top: 0.2rem;
   margin-bottom: -0.5rem;
 }
