@@ -1,6 +1,7 @@
 <div class="dish-container">
   <mat-card class="dish-card">
     @if (dish) {
+      <img class="dish-image" mat-card-image [src]="dish.image_url"/>
       <mat-card-header class="header-container">
         <div>
           <mat-card-title class="header-title">{{
@@ -16,8 +17,6 @@
               <app-allergy-icon
                 [iconType]="allergy"
                 [iconSize]="'40px'"
-                [withText]="true"
-                [hideTooltip]="false"
               ></app-allergy-icon>
             }
           </div>
@@ -44,7 +43,6 @@
           <app-dish-reviews></app-dish-reviews>
         </div>
       </mat-card-header>
-      <img class="dish-image" mat-card-image [src]="dish.image_url" />
       <div class="content-container">
         <mat-card-title class="card-title">Ingredients</mat-card-title>
         <mat-card-content class="dish-ingredients">

@@ -32,7 +32,7 @@
     object-fit: cover;
     object-position: center;
     border-radius: 0 1rem 1rem 20rem;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0); 
 }
 mat-divider {
     margin-top: 0.1rem;

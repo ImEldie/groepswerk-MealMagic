@@ -6,16 +6,33 @@
 .dish-card {
   width: 90%;
 }
+.dish-image, .header-container {
+  min-height: 15rem;
+  max-height: 15rem;
+}
+.dish-image {
+  position: absolute;
+  top: 0rem;
+  min-width: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.3rem 0rem 0rem 0rem;
+  opacity: 0.5;
+  z-index: 1;
+}
 .header-container {
   margin-top: 0.5rem;
   margin-left: 0.5rem;
   max-width: 70%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.3rem;
 }
 .header-title {
   font-size: 1.85rem;
 }
 .dish-allergens {
-  margin-top: 0.5rem;
   display: flex;
   gap: 0.3rem;
 }
@@ -63,12 +80,6 @@
   position: absolute;
   right: 0.8rem;
   top: 0.6rem;
-}
-.dish-image {
-  display: flex;
-  min-width: 70%;
-  max-width: 70%;
-  margin-left: 0.5rem;
 }
 .content-container {
   margin-top: 0.5rem;
