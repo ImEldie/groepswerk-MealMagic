@@ -113,7 +113,6 @@ export class FridgeComponent implements OnInit {
     if (this.ingredientsInFridge) {
       this.updateChangedIngredientsList(newAmount, this.ingredientsInFridge[index]);
       this.ingredientsInFridge[index].amount = newAmount;
-      console.log(this.ingredientsInFridge[index].amount);
     }
   }
   private updateChangedIngredientsList(newAmount: number, fridgeIngredient: FridgeIngredient) {
@@ -157,7 +156,6 @@ export class FridgeComponent implements OnInit {
           }
         }
       }
-      console.log(ingredientAmountsToPut);
       this.fridgeService.putUpdatedFridgeIngredients(ingredientAmountsToPut)
         .subscribe(() => this.fridgeService.deleteUpdatedFridgeIngredients(ingredientsToDelete)
           .subscribe(() => this.changedIngredients = []));
