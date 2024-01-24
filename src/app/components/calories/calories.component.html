@@ -1,0 +1,47 @@
+<div class="nutrition-container">
+  <div class="nutrition kcal">
+    <div>
+      Kcal<br />
+      {{ countKcal() }}<br />
+      <span
+        class="nutrition-percentage"
+        matTooltip="Percentage of daily recommended intake"
+        >{{ dailyPercentageKcal() | percent: "1.0" }}</span
+      >
+    </div>
+  </div>
+  <div class="nutrition protein">
+    <div>
+      Protein<br />
+      {{ countProtein() }}g<br />
+      <span
+        class="nutrition-percentage"
+        matTooltip="Percentage of daily recommended intake"
+        >{{ dailyPercentageProtein() | percent: "1.0" }}</span
+      >
+    </div>
+  </div>
+  <div class="nutrition carbs">
+    <div>
+      Carbs.<br />
+      {{ countCarbohydrates() }}<br />
+      <span
+        class="nutrition-percentage"
+        matTooltip="Percentage of daily recommended intake"
+        >{{ dailyPercentageCarbohydrates() | percent: "1.0" }}</span
+      >
+    </div>
+  </div>
+  <div class="nutrition fat">
+    <div>
+      Fat<br />
+      {{ countFat() }}g<br />
+      <span
+        class="nutrition-percentage"
+        matTooltip="Percentage of daily recommended intake"
+        matTooltipPosition="below"
+        >{{ dailyPercentageFat() | percent: "1.0" }}</span
+      >
+    </div>
+  </div>
+</div>

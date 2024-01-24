@@ -1,22 +1,28 @@
-<div class="content">
-  <mat-toolbar class="list-toolbar">
-    <mat-form-field class="search-bar">
-      <input
-        [(ngModel)]="searchInput"
-        placeholder="Search..."
-        type="string"
-        matInput
-      />
-      <mat-hint>Results: {{ getSearchResultAmount() }}</mat-hint>
-    </mat-form-field>
-    <button
-      mat-mini-fab
-      matTooltip="Sort by your fridge-ingredients"
-      (click)="filterForFridge()"
-    >
-      <mat-icon>kitchen</mat-icon>
-    </button>
-  </mat-toolbar>
+<div class="homepage">
+  <mat-sidenav-container>
+    <mat-sidenav-content>
+      <app-fridge-component></app-fridge-component>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <div class="content">
+    <mat-toolbar class="list-toolbar">
+      <mat-form-field class="search-bar">
+        <input
+         [(ngModel)]="searchInput"
+         placeholder="Search..."
+         type="string"
+         matInput
+       />
+       <mat-hint>Results: {{ getSearchResultAmount() }}</mat-hint>
+     </mat-form-field>
+     <button
+     mat-mini-fab
+     matTooltip="Sort by your fridge-ingredients"
+     (click)="filterForFridge()"
+   >
+     <mat-icon>kitchen</mat-icon>
+   </button>
+   </mat-toolbar>
 
   @for (dish of getDishes(); track $index) {
     <app-dish-card

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Review } from '../../interfaces/user-details-interface';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DishReviewsComponent implements OnInit {
   userReviews: Array<{ id: number; review: Review }> = [];
-  starRatingForm!: FormGroup<number>;
+  starRatingForm?: FormGroup<number>;
   loadedRating: number = 0;
   constructor(
     private formBuilder: FormBuilder,
@@ -27,9 +27,6 @@ export class DishReviewsComponent implements OnInit {
     this.getUserReview();
     this.starRatingForm = this.formBuilder.group(0);
   }
-  get ratingControl() {
-    return this.starRatingForm.get('rating') as FormControl;
-  }
   getUserReview() {
     const id = this.route.snapshot.paramMap.get('id') || '';
     this.reviewService
@@ -39,7 +36,7 @@ export class DishReviewsComponent implements OnInit {
         if (userReviewsWithId.length > 0) {
           const userReviewStars = this.userReviews[0].review.stars;
           this.loadedRating = userReviewStars;
-          this.starRatingForm.setValue(userReviewStars);
+          this.starRatingForm?.setValue(userReviewStars);
         }
       });
   }
