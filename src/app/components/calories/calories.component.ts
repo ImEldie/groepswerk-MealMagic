@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Dish } from '../../interfaces/interfaces-dishes';
@@ -12,51 +12,50 @@ import { CommonModule } from '@angular/common';
   styleUrl: './calories.component.css',
 })
 export class CaloriesComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private dishService: DishesApiService,
-  ) {}
-  dish!: Dish;
-  getDish() {
-    const id = this.route.snapshot.paramMap.get('id') || '';
-    return this.dishService
-      .getDishService(Number(id))
-      .subscribe((dish: Dish) => {
-        this.dish = dish;
-      });
-  }
+  @Input() dish: Dish | undefined;
+  constructor() {} // private dishService: DishesApiService, // private route: ActivatedRoute,
+  // getDish() {
+  //   const id = this.route.snapshot.paramMap.get('id') || '';
+  //   return this.dishService
+  //     .getDishService(Number(id))
+  //     .subscribe((dish: Dish) => {
+  //       this.dish = dish;
+  //     });
+  // }
   ngOnInit() {
-    this.getDish();
-    this.countKcal();
-    this.countProtein();
-    this.countCarbohydrates();
-    this.countFat();
+    // this.getDish();
+    if (this.dish) {
+      this.countKcal();
+      this.countProtein();
+      this.countCarbohydrates();
+      this.countFat();
+    }
   }
   countKcal() {
     let totalKcal = 0;
-    for (let i = 0; i < this.dish.ingredients.length; i++) {
-      totalKcal += this.dish.ingredients[i].kcal;
+    for (const ingredient of this.dish?.ingredients || []) {
+      totalKcal += ingredient?.kcal || 0;
     }
     return totalKcal;
   }
   countProtein() {
     let totalProtein = 0;
-    for (let i = 0; i < this.dish.ingredients.length; i++) {
-      totalProtein += this.dish.ingredients[i].protein;
+    for (const ingredient of this.dish?.ingredients || []) {
+      totalProtein += ingredient?.protein || 0;
     }
     return totalProtein;
   }
   countCarbohydrates() {
     let totalCarbohydrates = 0;
-    for (let i = 0; i < this.dish.ingredients.length; i++) {
-      totalCarbohydrates += this.dish.ingredients[i].carbohydrates;
+    for (const ingredient of this.dish?.ingredients || []) {
+      totalCarbohydrates += ingredient?.carbohydrates || 0;
     }
     return totalCarbohydrates;
   }
   countFat() {
     let totalFat = 0;
-    for (let i = 0; i < this.dish.ingredients.length; i++) {
-      totalFat += this.dish.ingredients[i].fat;
+    for (const ingredient of this.dish?.ingredients || []) {
+      totalFat += ingredient?.fat || 0;
     }
     return totalFat;
   }
