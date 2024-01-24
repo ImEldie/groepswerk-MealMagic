@@ -10,15 +10,26 @@
   </div>
   <div class="user-buttons">
     @if (authService.isAuthenticated) {
-      <button mat-button (click)="router.navigate(['add-dish'])">Add Dish</button>
-      <button mat-button (click)="router.navigate(['userpanel'])"><mat-icon>person_outline</mat-icon>User Panel</button>
-      <button mat-button (click)="authService.logout()">Logout</button>
+      @if (hideAddDishButton) {
+        <button mat-button (click)="router.navigate(['add-dish'])">
+          <mat-icon>library_add</mat-icon>Add Dish
+        </button>
+      }
+      @if (hideMyAccountButton) {
+        <button mat-button (click)="router.navigate(['userpanel'])">
+          <mat-icon>person_outline</mat-icon>My Account
+        </button>
+      }
+      <button mat-button (click)="authService.logout()">
+        <mat-icon>exit_to_app</mat-icon>Logout
+      </button>
     } @else {
       <button
         class="login-button"
         (click)="router.navigate(['login'])"
         mat-button
       >
+        <mat-icon>arrow_downward</mat-icon>
         Login
       </button>
     }
