@@ -30,25 +30,24 @@ import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/frid
     AsyncPipe,
     MatListModule, 
     FridgeIngredientsComponent],
-    templateUrl: './fridge-component.component.html',
-    styleUrl: './fridge-component.component.css'
-  
+  templateUrl: './fridge-component.component.html',
+  styleUrl: './fridge-component.component.css'
 })
+
 export class FridgeComponent implements OnInit {
- 
+  ingredientInput = new FormControl();
+  options: Array<string> = [];
+  ingredientList: Array<CompactFridgeIngredient> = [];
+  filteredOptions?: Observable<string[]>;
+  selectedIngredient: CompactFridgeIngredient = {id: 0, name: ''};
+  fridgeId: number = 2;
+  ingredientsInFridge?: Array<FridgeIngredient> = []
+
   constructor(
     public router: Router,
     public fridgeService: FridgeService
     ){}
   
-  ingredientInput = new FormControl();
-  options: string[] = [];
-  ingredientList: CompactFridgeIngredient[] = [];
-  filteredOptions?: Observable<string[]>;
-  selectedIngredient: CompactFridgeIngredient = {id: 0, name: ''};
-  fridgeId: number = 2;
-  ingredientsInFridge?: FridgeIngredient[] = []
-
   ngOnInit() {
     this.getFridgeIngredients();
     this.getFilteredOptions();
@@ -117,8 +116,8 @@ export class FridgeComponent implements OnInit {
       }
 
       saveFridgeToApi() {
-        let ingredientsToDelete: FridgeIngredient[] = [];
-        let ingredientAmountsToPut: FridgeIngredient[] = [];
+        let ingredientsToDelete: Array<FridgeIngredient> = [];
+        let ingredientAmountsToPut: Array<FridgeIngredient> = [];
         
         if (this.ingredientsInFridge) {
           for (let i = 0; i < this.ingredientsInFridge.length; i++) {

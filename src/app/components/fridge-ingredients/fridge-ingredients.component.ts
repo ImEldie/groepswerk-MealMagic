@@ -13,14 +13,14 @@ import { IngredientsApiService } from '../../services/api-calls/ingredients-api.
 })
 
 export class FridgeIngredientsComponent implements OnInit {
+  count: number = 1;
+  @Input({required: true}) fridgeIngredient: FridgeIngredient = {id: 0, ingredient_id: 0, fridge_id: 0, amount: 0};
+  @Output() fridgeIngredientOutput = new EventEmitter<number>();
+  
   constructor( 
     private ingredientApi: IngredientsApiService
   ){}
   
-  count: number = 1;
-  @Input({required: true}) fridgeIngredient: FridgeIngredient = {id: 0, ingredient_id: 0, fridge_id: 0, amount: 0};
-  @Output() fridgeIngredientOutput = new EventEmitter<number>();
-
   ngOnInit() {
     this.ingredientApi.loadIngredientsFromAPI();
     this.count = this.fridgeIngredient.amount;
