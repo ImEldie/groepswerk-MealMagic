@@ -48,7 +48,7 @@ export class FridgeService {
     ingredient_id: ingredientId,
     amount: amount
   }
-  this.http.post<FridgeIngredient>(`ingredients-fridges`, postData);
+  this.http.post<FridgeIngredient>(`ingredients-fridges`, postData).subscribe();
 }
 
 getFridgeIngredients(fridgeId: number){
@@ -68,9 +68,8 @@ getFridgeIngredients(fridgeId: number){
 }
 
   putUpdatedFridgeIngredients(ingredientsToPut: FridgeIngredient[]){
-    ingredientsToPut.map(ingredient => this.putFridgeIngredient(ingredient));
+    return forkJoin(ingredientsToPut.map(ingredient => this.putFridgeIngredient(ingredient)));
   }
-
   private putFridgeIngredient(ingredient: FridgeIngredient) {
     const postData = {
       fridge_id: ingredient.fridge_id,
@@ -81,7 +80,7 @@ getFridgeIngredients(fridgeId: number){
   }
 
   deleteUpdatedFridgeIngredients(ingredientsToDelete: FridgeIngredient[]){
-    ingredientsToDelete.map(ingredient => this.deleteFridgeIngredient(ingredient));
+    return forkJoin(ingredientsToDelete.map(ingredient => this.deleteFridgeIngredient(ingredient)));
   }
   private deleteFridgeIngredient(ingredient: FridgeIngredient) {
     return this.http.delete("ingredients-fridges/" + ingredient.id);

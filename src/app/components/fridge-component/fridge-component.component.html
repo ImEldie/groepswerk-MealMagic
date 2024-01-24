@@ -19,7 +19,7 @@
             @for (ingredient of ingredientList; track ingredient) {
               <mat-option
                 [value]="ingredient.name"
-                (click)="setSelectedIngredient(ingredient); postIngredient()"
+                (click)="setSelectedIngredient(ingredient)"
                 >{{ ingredient.name }}</mat-option
               >
             }

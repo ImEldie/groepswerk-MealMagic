@@ -93,6 +93,7 @@ export class FridgeComponent implements OnInit {
 
     setSelectedIngredient(ingredient: CompactFridgeIngredient){
       this.selectedIngredient = ingredient;
+      this.postIngredient();
     }
 
     postIngredient() { 
@@ -129,8 +130,8 @@ export class FridgeComponent implements OnInit {
               ingredientAmountsToPut.push(this.ingredientsInFridge[i])
             }
           }
-          this.fridgeService.putUpdatedFridgeIngredients(ingredientAmountsToPut);
-          this.fridgeService.deleteUpdatedFridgeIngredients(ingredientsToDelete);
-        }
+          this.fridgeService.putUpdatedFridgeIngredients(ingredientAmountsToPut)
+          .subscribe(() => this.fridgeService.deleteUpdatedFridgeIngredients(ingredientsToDelete).subscribe());
+       }
       }
     }
