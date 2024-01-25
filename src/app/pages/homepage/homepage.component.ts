@@ -13,8 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FridgeService } from '../../services/api-calls/fridge.service';
-import { FridgeIngredient } from '../../interfaces/fridge-interface';
+import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
 import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
+import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
 
@@ -49,11 +50,13 @@ export class HomepageComponent implements OnInit {
     public auth: AuthService,
     public fridgeService: FridgeService,
     public router: Router,
+    public ingredientAPI: IngredientsApiService
   ) {
     this.filterOnFridge = false;
   }
   ngOnInit() {
     this.dishesApi.loadDishesFromApi();
+    this.ingredientAPI.loadIngredientsFromAPI();
   }
   getSearchResultAmount(): number {
     return this.getSearchResults().length;
@@ -116,6 +119,17 @@ export class HomepageComponent implements OnInit {
       });
     } else {
       this.dishList = this.dishesApi.getDishList();
+    }
+  }
+  getCompactFridgeIngredients(): Array<CompactFridgeIngredient> {
+    const ingredientList = this.ingredientAPI.getIngredientList().map(ingredient => {
+      return { id: ingredient.id, name: ingredient.name };
+    })
+    
+    if (ingredientList) {
+      return ingredientList;
+    } else {
+      return [];
     }
   }
 }
