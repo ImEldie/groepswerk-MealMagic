@@ -1,136 +1,125 @@
-import { Component, OnInit} from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {AsyncPipe} from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatListModule} from '@angular/material/list';
+import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
 import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
-import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
-
+import {
+  CompactFridgeIngredient,
+  FridgeIngredient,
+} from '../../interfaces/fridge-interface';
 
 @Component({
   selector: 'app-fridge-component',
   standalone: true,
-  imports: [MatCardModule, 
-    MatButtonModule, 
-    MatIconModule, 
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
     AsyncPipe,
-    MatListModule, 
-    FridgeIngredientsComponent],
+    MatListModule,
+    FridgeIngredientsComponent,
+  ],
   templateUrl: './fridge-component.component.html',
-  styleUrl: './fridge-component.component.css'
+  styleUrl: './fridge-component.component.css',
 })
-
 export class FridgeComponent implements OnInit {
   ingredientInput = new FormControl();
-  options: Array<string> = [];
-  ingredientList: Array<CompactFridgeIngredient> = [];
-  filteredOptions?: Observable<string[]>;
-  selectedIngredient: CompactFridgeIngredient = {id: 0, name: ''};
-  fridgeId: number = 2;
-  ingredientsInFridge?: Array<FridgeIngredient> = []
+  selectedIngredient: CompactFridgeIngredient = { id: 0, name: '' };
 
   constructor(
     public router: Router,
-    public fridgeService: FridgeService
-    ){}
-  
+    public fridgeService: FridgeService,
+  ) {}
+
   ngOnInit() {
-    this.getFridgeIngredients();
-    this.getFilteredOptions();
-    this.updateIngredientsList();
-    }
+    this.fridgeService.loadUniqueFridgeIngredients();
+    this.fridgeService.loadCompactIngredients();
+  }
 
-    private filter(value: string): string[] {
-      const filterValue = value.toLowerCase();
+  private getOptions() { // wordt niet gebruikt maar is nodig voor toekomstige merge!
+    const ingredients = this.fridgeService.getCompactIngredients();
+    return [
+      ...new Set(ingredients.map((ingredientInfo) => ingredientInfo.name)),
+    ];
+  }
 
-      return this.options.filter(option => option.toLowerCase().includes(filterValue));
-    }
+  clearInput() {
+    this.ingredientInput.reset();
+  }
 
-    private getFridgeIngredients(){
-      this.fridgeService.getUniqueFridgeIngredients(this.fridgeId)
-      .subscribe({ 
-        next: (response) => {
-          this.ingredientsInFridge = response;
-        }
-      });
-    }
+  setSelectedIngredient(ingredient: CompactFridgeIngredient) {
+    this.selectedIngredient = ingredient;
+    this.postIngredient();
+  }
 
-    private getFilteredOptions(){
-      this.filteredOptions = this.ingredientInput.valueChanges.pipe(
-        startWith(''),
-        map(value => 
-          this.filter(value || '')),
+  postIngredient() {
+    const selectedOption = this.ingredientInput.value;
+    const selectedIngredient = this.fridgeService
+      .getCompactIngredients()
+      .find((ingredientList) => ingredientList.name === selectedOption);
+    const fridgeIngredientIdList = this.fridgeService
+      .getIngredientsInFridge()
+      .map((d) => d.ingredient_id);
+
+    if (selectedIngredient && fridgeIngredientIdList) {
+      const ingredientNotInFridge = !fridgeIngredientIdList.includes(
+        selectedIngredient.id,
       );
+
+      if (ingredientNotInFridge) {
+        this.fridgeService.postIngredientsFridge(selectedIngredient.id);
+      }
     }
+  }
 
-    private updateIngredientsList(){
-      this.fridgeService.loadIngredients()
-      .subscribe({ 
-        next: (response) => {
-          this.ingredientList = response;
-          this.options = [...new Set(response.map(ingredientInfo => ingredientInfo.name))];
-          }})
+  setNewIngredientAmount(newAmount: number, index: number) {
+    if (this.fridgeService.getIngredientsInFridge()) {
+      this.fridgeService.getIngredientsInFridge()[index].amount = newAmount;
     }
+  }
 
-    clearInput() {
-      this.ingredientInput.reset();
-    }
+  saveFridgeToApi() {
+    let ingredientsToDelete: Array<FridgeIngredient> = [];
+    let ingredientAmountsToPut: Array<FridgeIngredient> = [];
 
-    setSelectedIngredient(ingredient: CompactFridgeIngredient){
-      this.selectedIngredient = ingredient;
-      this.postIngredient();
-    }
+    if (this.fridgeService.getIngredientsInFridge()) {
+      for (
+        let i = 0;
+        i < this.fridgeService.getIngredientsInFridge().length;
+        i++
+      ) {
+        const amount = this.fridgeService.getIngredientsInFridge()[i].amount;
 
-    postIngredient() { 
-      const selectedOption = this.ingredientInput.value;
-      const selectedIngredient = this.ingredientList.find(ingredientList => ingredientList.name === selectedOption);
-      const fridgeIngredientIdList = this.ingredientsInFridge?.map(d => d.ingredient_id);
-
-      if (selectedIngredient && fridgeIngredientIdList) {
-        const ingredientNotInFridge = !fridgeIngredientIdList.includes(selectedIngredient.id);
-
-        if (ingredientNotInFridge){
-          this.fridgeService.postIngredientsFridge( this.fridgeId, selectedIngredient.id, 1)
+        if (amount <= 0) {
+          ingredientsToDelete.push(
+            this.fridgeService.getIngredientsInFridge()[i],
+          );
+        } else {
+          ingredientAmountsToPut.push(
+            this.fridgeService.getIngredientsInFridge()[i],
+          );
         }
       }
+      this.fridgeService
+        .putUpdatedFridgeIngredients(ingredientAmountsToPut)
+        .subscribe(() =>
+          this.fridgeService
+            .deleteUpdatedFridgeIngredients(ingredientsToDelete)
+            .subscribe(() => this.fridgeService.loadUniqueFridgeIngredients()),
+        );
     }
-
-      setNewIngredientAmount(newAmount: number, index: number) {
-        if (this.ingredientsInFridge) {
-          this.ingredientsInFridge[index].amount = newAmount;
-         }
-      }
-
-      saveFridgeToApi() {
-        let ingredientsToDelete: Array<FridgeIngredient> = [];
-        let ingredientAmountsToPut: Array<FridgeIngredient> = [];
-        
-        if (this.ingredientsInFridge) {
-          for (let i = 0; i < this.ingredientsInFridge.length; i++) {
-            const amount = this.ingredientsInFridge[i].amount;
-            
-            if (amount <= 0 ){
-              ingredientsToDelete.push(this.ingredientsInFridge[i])
-            } else {
-              ingredientAmountsToPut.push(this.ingredientsInFridge[i])
-            }
-          }
-          this.fridgeService.putUpdatedFridgeIngredients(ingredientAmountsToPut)
-          .subscribe(() => this.fridgeService.deleteUpdatedFridgeIngredients(ingredientsToDelete).subscribe());
-       }
-      }
-    }
+  }
+}

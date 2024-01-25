@@ -1,95 +1,115 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
-import { FridgeIngredient, Fridge, CompactFridgeIngredient, Fridges } from '../../interfaces/fridge-interface';
-import { Ingredient, IngredientList } from '../../interfaces/interfaces-ingredients';
+import {
+  FridgeIngredient,
+  Fridge,
+  CompactFridgeIngredient,
+  Fridges,
+} from '../../interfaces/fridge-interface';
+import {
+  Ingredient,
+  IngredientList,
+} from '../../interfaces/interfaces-ingredients';
 import { LocalstorageService } from '../functions/localstorage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FridgeService {
+  private ingredientsInFridge: Array<FridgeIngredient> = [];
+  private compactIngredientList: Array<CompactFridgeIngredient> = [];
+  private fridgeId: number = 2;
+
   constructor(
     private http: HttpClient,
     private storage: LocalstorageService,
   ) {}
 
-  loadIngredients(): Observable<Array<CompactFridgeIngredient>> {
-    return this.http.get<IngredientList>(`ingredients`)
-    .pipe(map((response) => {
-      return response.data.map((ingredient) =>  ({ id: ingredient.id, name: ingredient.name }));
-  }))
+  loadCompactIngredients() {
+    this.getCompactIngredientsFromApi().subscribe({
+      next: (response) => {
+        this.compactIngredientList = response;
+      },
+    });
   }
- 
- getIngredientDetails(id: number): Observable<Ingredient> {
-  return this.http.get<Ingredient>(`ingredients/${id}`)
-  .pipe(map
-    ((data) => {
-       const ingredientInfo: Ingredient = { 
-             id: data.id,
-             name: data.name,
-             kcal: data.kcal,
-             protein: data.protein,
-             carbohydrates: data.carbohydrates,
-             fat: data.fat,
-             allergies: data.allergies,
-           };
-         return ingredientInfo 
-        })
+
+  private getCompactIngredientsFromApi(): Observable<
+    Array<CompactFridgeIngredient>
+  > {
+    return this.http.get<IngredientList>(`ingredients`).pipe(
+      map((response) => {
+        return response.data.map((ingredient) => ({
+          id: ingredient.id,
+          name: ingredient.name,
+        }));
+      }),
     );
   }
 
- postIngredientsFridge(
-  fridgeId: number,
-  ingredientId: number,
-  amount: number) {
-  
-  const postData = {
-    fridge_id: fridgeId,
-    ingredient_id: ingredientId,
-    amount: amount
-  }
-  this.http.post<FridgeIngredient>(`ingredients-fridges`, postData).subscribe();
-}
-
-getUniqueFridgeIngredients(fridgeId: number){
-  return this.http.get<Fridge>(`fridges/${fridgeId}`)
-  .pipe(
-    map((data) => {
-      return data.ingredients?.map((ingredients) => {
-        const ingredientsFridgeInfo: FridgeIngredient = {
-          id: ingredients.id,
-          fridge_id: ingredients.fridge_id,
-          ingredient_id: ingredients.ingredient_id,
-          amount: ingredients.amount,
-        };
-        return ingredientsFridgeInfo
-      })
-    },))
+  postIngredientsFridge(ingredientId: number) {
+    const postData = {
+      fridge_id: this.fridgeId,
+      ingredient_id: ingredientId,
+      amount: 1,
+    };
+    this.http
+      .post<FridgeIngredient>(`ingredients-fridges`, postData)
+      .subscribe(() => this.loadUniqueFridgeIngredients());
   }
 
-  putUpdatedFridgeIngredients(ingredientsToPut: FridgeIngredient[]){
-    return forkJoin(ingredientsToPut.map(ingredient => this.putFridgeIngredient(ingredient)));
+  loadUniqueFridgeIngredients() {
+    this.getUniqueFridgeIngredientsFromApi().subscribe((response) => {
+      this.ingredientsInFridge = response;
+    });
+  }
+
+  private getUniqueFridgeIngredientsFromApi() {
+    return this.http.get<Fridge>(`fridges/${this.fridgeId}`).pipe(
+      map((data) => {
+        return data.ingredients?.map((ingredients) => {
+          const ingredientsFridgeInfo: FridgeIngredient = {
+            id: ingredients.id,
+            fridge_id: ingredients.fridge_id,
+            ingredient_id: ingredients.ingredient_id,
+            amount: ingredients.amount,
+          };
+          return ingredientsFridgeInfo;
+        });
+      }),
+    );
+  }
+
+  putUpdatedFridgeIngredients(ingredientsToPut: FridgeIngredient[]) {
+    return forkJoin(
+      ingredientsToPut.map((ingredient) =>
+        this.putFridgeIngredient(ingredient),
+      ),
+    );
   }
 
   private putFridgeIngredient(ingredient: FridgeIngredient) {
     const postData = {
       fridge_id: ingredient.fridge_id,
       ingredient_id: ingredient.ingredient_id,
-      amount: ingredient.amount
-    }
-    return this.http.put("ingredients-fridges/" + ingredient.id, postData);
+      amount: ingredient.amount,
+    };
+    return this.http.put('ingredients-fridges/' + ingredient.id, postData);
   }
 
-  deleteUpdatedFridgeIngredients(ingredientsToDelete: FridgeIngredient[]){
-    return forkJoin(ingredientsToDelete.map(ingredient => this.deleteFridgeIngredient(ingredient)));
+  deleteUpdatedFridgeIngredients(ingredientsToDelete: FridgeIngredient[]) {
+    return forkJoin(
+      ingredientsToDelete.map((ingredient) =>
+        this.deleteFridgeIngredient(ingredient),
+      ),
+    );
   }
 
   private deleteFridgeIngredient(ingredient: FridgeIngredient) {
-    return this.http.delete("ingredients-fridges/" + ingredient.id);
+    return this.http.delete('ingredients-fridges/' + ingredient.id);
   }
 
-  getFridgeIdFromFridges(): Observable<Fridge | null> {
+  private getFridgeIdFromFridges(): Observable<Fridge | null> {
     return this.http.get<Fridges>('fridges/').pipe(
       map((response) => {
         let fridge = response.data.find(
@@ -112,5 +132,13 @@ getUniqueFridgeIngredients(fridgeId: number){
         }
       }),
     );
+  }
+
+  getIngredientsInFridge() {
+    return this.ingredientsInFridge;
+  }
+
+  getCompactIngredients() {
+    return this.compactIngredientList;
   }
 }
