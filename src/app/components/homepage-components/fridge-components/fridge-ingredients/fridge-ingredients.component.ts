@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { FridgeIngredient } from '../../interfaces/fridge-interface';
-import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
+import { IngredientsApiService } from '../../../../services/api-calls/ingredients-api.service';
+import { FridgeIngredient } from '../../../../interfaces/fridge-interface';
 
 @Component({
   selector: 'app-fridge-ingredients',

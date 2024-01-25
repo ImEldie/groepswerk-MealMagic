@@ -4,12 +4,6 @@
     margin-bottom: 0.5rem;
     margin-left: 0.5rem;
     max-width: 50rem;
-    border-radius: var(--borderradius-default);
-    box-shadow: var(--box-shadow-mild);
-    background-color: lightyellow;
-    border-style: outset;
-    border-color: lightgray;
-    border-width: 1px;
 }
 .card-text-content {
     width: 70%;

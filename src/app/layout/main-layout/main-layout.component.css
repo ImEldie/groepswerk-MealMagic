@@ -8,6 +8,14 @@
   display: flex;
   gap: 1rem;
 }
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  max-width: 100vw;
+  height: fit-content;
+}
 /* ### HOME-BUTTON / MEALMAGIC-BUTTON ### */
 .title-button-content {
   padding-top: 0.3rem;

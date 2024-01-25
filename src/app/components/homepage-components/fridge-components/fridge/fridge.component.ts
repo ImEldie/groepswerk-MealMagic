@@ -10,14 +10,15 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatListModule} from '@angular/material/list';
-import { FridgeService } from '../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
-import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
-import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
+import { FridgeIngredientsComponent } from '../fridge-ingredients/fridge-ingredients.component';
+import { FridgeService } from '../../../../services/api-calls/fridge.service';
+import { CompactFridgeIngredient, FridgeIngredient } from '../../../../interfaces/fridge-interface';
+import { LargeCardComponent } from '../../../standard-components/large-card/large-card.component';
 
 
 @Component({
-  selector: 'app-fridge-component',
+  selector: 'app-fridge',
   standalone: true,
   imports: [MatCardModule, 
     MatButtonModule, 
@@ -29,9 +30,11 @@ import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/frid
     ReactiveFormsModule,
     AsyncPipe,
     MatListModule, 
-    FridgeIngredientsComponent],
-  templateUrl: './fridge-component.component.html',
-  styleUrl: './fridge-component.component.css'
+    FridgeIngredientsComponent,
+    LargeCardComponent
+  ],
+  templateUrl: './fridge.component.html',
+  styleUrl: './fridge.component.css'
 })
 
 export class FridgeComponent implements OnInit {

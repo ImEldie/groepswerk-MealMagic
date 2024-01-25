@@ -1,245 +1,246 @@
-<br />
-<mat-card class="info-card">
-  <mat-card-header>
-    <mat-card-title class="header-title">User Panel</mat-card-title>
-    <mat-card-subtitle>Your info:</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content class="info-card-content">
-    <div>
-      <p>
-        <mat-icon class="weight-icon">monitor_weight</mat-icon>
-        Weight: {{ userDetails?.bodyweight }} kg.
-      </p>
-      <p>
-        <mat-icon class="height-icon">height</mat-icon> Height:
-        {{ userDetails?.height }} cm.
-      </p>
-      <br />
-      <section>
-        <p>Your selected allergies are:</p>
-        <div class="info-allergies-chips">
-          @for (allergy of userAllergies; track allergy.id) {
-            <mat-chip>
-              <app-allergy-icon
-                class="user-allergies-icons"
-                matChipAvatar
-                [iconType]="allergy.name"
-                [withText]="false"
-                [hideTooltip]="true"
-              ></app-allergy-icon>
-              {{ allergy.name | titlecase }}</mat-chip
-            >
-          }
-        </div>
-        @if (userAllergies.length === 0) {
-          <i style="color: rgb(83, 3, 153)">No allergies selected</i>
-        }
-      </section>
-    </div>
-    <div
-      class="bmi-container"
-      [ngClass]="{ 'bmi-fade-in': bmiFadeIn, 'bmi-fade-out': bmiFadeOut }"
-    >
-      <div class="bmi-meter">
-        <div class="bmi-numbers-container">
-          <span class="bmi-number" style="--position: 23.84deg">16</span>
-          <span class="bmi-number" style="--position: 31.98deg">17</span>
-          <span class="bmi-number" style="--position: 42.69deg">18.5</span>
-          <span class="bmi-number" style="--position: 77.1deg">25</span>
-          <span class="bmi-number" style="--position: 102.8deg">30</span>
-          <span class="bmi-number" style="--position: 130.5deg">35</span>
-          <span class="bmi-number" style="--position: 157.2deg">40</span>
-        </div>
-        <div
-          class="bmi-arrow"
-          [ngStyle]="{ '--bmi': maxKeyframesBmi(bmiAmount) }"
-          [ngClass]="{ 'reset-arrow': resetArrow }"
-        ></div>
-        <div class="score-container">
-          <span class="bmi-result">{{ bmiResult }}</span>
-          <span class="bmi-amount">{{ bmiAmount | number: "1.0-0" }}</span>
-        </div>
-      </div>
-    </div>
-  </mat-card-content>
-  <mat-card-actions>
-    <div
-      matTooltip="Please give your weight and height first"
-      [matTooltipDisabled]="!isDisabled()"
-    >
-      <button
-        mat-raised-button
-        color="accent"
-        (click)="createBmiMeter()"
-        [disabled]="isDisabled()"
-      >
-        Calculate BMI
-      </button>
-    </div>
-  </mat-card-actions>
-  <mat-card-footer>
-    @if (loading) {
-      <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
-    }
-  </mat-card-footer>
-</mat-card>
-<br />
-<mat-accordion>
-  <mat-expansion-panel
-    class="info-panel"
-    [expanded]="step === 0"
-    (opened)="setStep(0)"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>Weight & Height</mat-panel-title>
-      <mat-panel-description
-        >Enter your weight and height</mat-panel-description
-      >
-    </mat-expansion-panel-header>
-    <form [formGroup]="formWeightHeight" (ngSubmit)="submitWeightHeight()">
-      <div class="weight-height-form">
-        <mat-form-field class="weight-height-input">
-          <mat-label><i>Weight</i></mat-label>
-          <input
-            type="number"
-            matInput
-            min="1"
-            max="650"
-            required
-            formControlName="bodyweightInput"
-            placeholder="Kilogram"
-          />
-        </mat-form-field>
-        <mat-form-field class="weight-height-input">
-          <mat-label><i>Height</i></mat-label>
-          <input
-            type="number"
-            matInput
-            min="1"
-            max="300"
-            required
-            formControlName="heightInput"
-            placeholder="Centimeter"
-          />
-        </mat-form-field>
-        <button
-          mat-raised-button
-          color="accent"
-          [disabled]="!formWeightHeight.valid"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
-    <mat-action-row>
-      <button mat-button color="accent" (click)="nextStep()">Next</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-  <br />
-  <mat-expansion-panel
-    class="allergies-panel"
-    [expanded]="step === 1"
-    (opened)="setStep(1)"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>Allergies</mat-panel-title>
-      <mat-panel-description
-        >Select your allergies if you have any</mat-panel-description
-      >
-    </mat-expansion-panel-header>
-    <section>
-      <form
-        [formGroup]="formAllergy"
-        (ngSubmit)="submitAllergyIds()"
-        class="user-allergies"
-      >
-        <section formArrayName="allergyIds">
-          @for (id of allergyFormArray.controls; track id; let index = $index) {
-            <mat-checkbox [formControlName]="index" class="item-allergy">
-              <span>
-                {{ listAllergies[index].name | titlecase }}
-              </span>
-            </mat-checkbox>
+<app-large-card class="user-panel-card">
+  <app-small-card class="info-card">
+    <mat-card-header>
+      <mat-card-title class="header-title">User Panel</mat-card-title>
+      <mat-card-subtitle>Your info:</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="info-card-content">
+      <div>
+        <p>
+          <mat-icon class="weight-icon">monitor_weight</mat-icon>
+          Weight: {{ userDetails?.bodyweight }} kg.
+        </p>
+        <p>
+          <mat-icon class="height-icon">height</mat-icon> Height:
+          {{ userDetails?.height }} cm.
+        </p>
+        <br />
+        <section>
+          <p>Your selected allergies are:</p>
+          <div class="info-allergies-chips">
+            @for (allergy of userAllergies; track allergy.id) {
+              <mat-chip>
+                <app-allergy-icon
+                  class="user-allergies-icons"
+                  matChipAvatar
+                  [iconType]="allergy.name"
+                  [withText]="false"
+                  [hideTooltip]="true"
+                ></app-allergy-icon>
+                {{ allergy.name | titlecase }}</mat-chip
+              >
+            }
+          </div>
+          @if (userAllergies.length === 0) {
+            <i style="color: rgb(83, 3, 153)">No allergies selected</i>
           }
         </section>
-        <br />
-        <div class="submit-allergies">
-          <button mat-raised-button color="accent">Submit</button>
-        </div>
-      </form>
-    </section>
-    <mat-action-row>
-      <button mat-button color="warn" (click)="prevStep()">Previous</button>
-      <button mat-button color="accent" (click)="nextStep()">Next</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-  <br />
-  <mat-expansion-panel
-    class="reviews-panel"
-    [expanded]="step === 2"
-    (opened)="setStep(2)"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>Your reviews</mat-panel-title>
-      <mat-panel-description
-        >Latest recipes you have reviewed</mat-panel-description
-      >
-    </mat-expansion-panel-header>
-  <section class="reviews-section">
-    @if (reviewDishdetails.length > 0) {
-      <div class="review-cards-container">
-        @for (dish of reviewDishdetails; track dish.name; let i = $index) {
-          <mat-card class="review-card">
-            <div class="review-title-container">
-              <mat-card-title class="review-title">{{
-                dish.name | titlecase
-              }}</mat-card-title>
-
-              <mat-card-subtitle class="rating-container">
-                @for (star of starArray[i]; track star) {
-                  <span class="star-rating">★</span>
-                }
-              </mat-card-subtitle>
-            </div>
-            <mat-card-content class="review-image"
-              ><img
-                class="dish-image"
-                src="{{ dish.image_url }}"
-                alt="Image of the dish"
-            /></mat-card-content>
-            <mat-card-actions>
-              <button
-                mat-raised-button
-                color="accent"
-                class="review-button"
-                (click)="router.navigate(['dish', userReviewDishId])"
-              >
-                Go to recipe
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        }
       </div>
-    }
-    @if (reviewDishdetails.length === 0) {
-      <div class="no-reviews-container">
-        <div class="no-reviews-text">No reviews made yet</div>
+      <div
+        class="bmi-container"
+        [ngClass]="{ 'bmi-fade-in': bmiFadeIn, 'bmi-fade-out': bmiFadeOut }"
+      >
+        <div class="bmi-meter">
+          <div class="bmi-numbers-container">
+            <span class="bmi-number" style="--position: 23.84deg">16</span>
+            <span class="bmi-number" style="--position: 31.98deg">17</span>
+            <span class="bmi-number" style="--position: 42.69deg">18.5</span>
+            <span class="bmi-number" style="--position: 77.1deg">25</span>
+            <span class="bmi-number" style="--position: 102.8deg">30</span>
+            <span class="bmi-number" style="--position: 130.5deg">35</span>
+            <span class="bmi-number" style="--position: 157.2deg">40</span>
+          </div>
+          <div
+            class="bmi-arrow"
+            [ngStyle]="{ '--bmi': maxKeyframesBmi(bmiAmount) }"
+            [ngClass]="{ 'reset-arrow': resetArrow }"
+          ></div>
+          <div class="score-container">
+            <span class="bmi-result">{{ bmiResult }}</span>
+            <span class="bmi-amount">{{ bmiAmount | number: "1.0-0" }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div
+        matTooltip="Please give your weight and height first"
+        [matTooltipDisabled]="!isDisabled()"
+      >
         <button
           mat-raised-button
           color="accent"
-          class="no-reviews-button"
-          (click)="router.navigate([''])"
+          (click)="createBmiMeter()"
+          [disabled]="isDisabled()"
         >
-          To the recipes!
+          Calculate BMI
         </button>
       </div>
-      <span class="background-1">Meal<mat-icon>fastfood</mat-icon>Magic</span>
-      <span class="background-2">Meal<mat-icon>fastfood</mat-icon>Magic</span>
-    }
-  </section>
-  <mat-action-row>
-      <button mat-button color="warn" (click)="prevStep()">Previous</button>
-      <button mat-button color="accent" (click)="nextStep()">End</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+    </mat-card-actions>
+    <mat-card-footer>
+      @if (loading) {
+        <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+      }
+    </mat-card-footer>
+  </app-small-card>
+  <br />
+  <mat-accordion>
+    <mat-expansion-panel
+      class="info-panel"
+      [expanded]="step === 0"
+      (opened)="setStep(0)"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>Weight & Height</mat-panel-title>
+        <mat-panel-description
+          >Enter your weight and height</mat-panel-description
+        >
+      </mat-expansion-panel-header>
+      <form [formGroup]="formWeightHeight" (ngSubmit)="submitWeightHeight()">
+        <div class="weight-height-form">
+          <mat-form-field class="weight-height-input">
+            <mat-label><i>Weight</i></mat-label>
+            <input
+              type="number"
+              matInput
+              min="1"
+              max="650"
+              required
+              formControlName="bodyweightInput"
+              placeholder="Kilogram"
+            />
+          </mat-form-field>
+          <mat-form-field class="weight-height-input">
+            <mat-label><i>Height</i></mat-label>
+            <input
+              type="number"
+              matInput
+              min="1"
+              max="300"
+              required
+              formControlName="heightInput"
+              placeholder="Centimeter"
+            />
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="accent"
+            [disabled]="!formWeightHeight.valid"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+      <mat-action-row>
+        <button mat-button color="accent" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <br />
+    <mat-expansion-panel
+      class="allergies-panel"
+      [expanded]="step === 1"
+      (opened)="setStep(1)"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>Allergies</mat-panel-title>
+        <mat-panel-description
+          >Select your allergies if you have any</mat-panel-description
+        >
+      </mat-expansion-panel-header>
+      <section>
+        <form
+          [formGroup]="formAllergy"
+          (ngSubmit)="submitAllergyIds()"
+          class="user-allergies"
+        >
+          <section formArrayName="allergyIds">
+            @for (id of allergyFormArray.controls; track id; let index = $index) {
+              <mat-checkbox [formControlName]="index" class="item-allergy">
+                <span>
+                  {{ listAllergies[index].name | titlecase }}
+                </span>
+              </mat-checkbox>
+            }
+          </section>
+          <br />
+          <div class="submit-allergies">
+            <button mat-raised-button color="accent">Submit</button>
+          </div>
+        </form>
+      </section>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="accent" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <br />
+    <mat-expansion-panel
+      class="reviews-panel"
+      [expanded]="step === 2"
+      (opened)="setStep(2)"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>Your reviews</mat-panel-title>
+        <mat-panel-description
+          >Latest recipes you have reviewed</mat-panel-description
+        >
+      </mat-expansion-panel-header>
+    <section class="reviews-section">
+      @if (reviewDishdetails.length > 0) {
+        <div class="review-cards-container">
+          @for (dish of reviewDishdetails; track dish.name; let i = $index) {
+            <mat-card class="review-card">
+              <div class="review-title-container">
+                <mat-card-title class="review-title">{{
+                  dish.name | titlecase
+                }}</mat-card-title>
+
+                <mat-card-subtitle class="rating-container">
+                  @for (star of starArray[i]; track star) {
+                    <span class="star-rating">★</span>
+                  }
+                </mat-card-subtitle>
+              </div>
+              <mat-card-content class="review-image"
+                ><img
+                  class="dish-image"
+                  src="{{ dish.image_url }}"
+                  alt="Image of the dish"
+              /></mat-card-content>
+              <mat-card-actions>
+                <button
+                  mat-raised-button
+                  color="accent"
+                  class="review-button"
+                  (click)="router.navigate(['dish', userReviewDishId])"
+                >
+                  Go to recipe
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      }
+      @if (reviewDishdetails.length === 0) {
+        <div class="no-reviews-container">
+          <div class="no-reviews-text">No reviews made yet</div>
+          <button
+            mat-raised-button
+            color="accent"
+            class="no-reviews-button"
+            (click)="router.navigate([''])"
+          >
+            To the recipes!
+          </button>
+        </div>
+        <span class="background-1">Meal<mat-icon>fastfood</mat-icon>Magic</span>
+        <span class="background-2">Meal<mat-icon>fastfood</mat-icon>Magic</span>
+      }
+    </section>
+    <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="accent" (click)="nextStep()">End</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</app-large-card>

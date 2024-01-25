@@ -9,10 +9,7 @@
   align-items: center;
   flex-flow: column wrap;
   width: 30rem;
-  background-color: rgb(233, 233, 233);
-  border-radius: 3%;
   padding: 5rem;
-  border: 0.1rem solid rgba(106, 5, 214, 0.658)
 }
 .login-title {
   display: flex;
@@ -26,6 +23,6 @@
   margin-top: 2rem;
   margin-bottom: -0.5rem;
   background-color: rgb(255, 255, 255);
-  border: 0.1rem solid rgba(106, 5, 214, 0.658);
+  border: 0.1rem solid var(--primary-color);
   width: 8rem;
 }

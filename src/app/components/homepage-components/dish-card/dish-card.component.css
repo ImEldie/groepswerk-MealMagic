@@ -4,18 +4,7 @@
     width: 50rem;
     min-width: 30rem;
     min-height: 10rem;
-    border-radius: 1rem;
     z-index: 2;
-}
-.dish-card:hover {
-    animation: card-glow 1s ease-in forwards;
-    z-index: 3;
-}
-@keyframes card-glow {
-    to{
-        background-color: #eecbff2c;
-        box-shadow: 0 0 5vw 2vh var(--shadow-color);
-    }
 }
 .card-container {
     display: flex;
@@ -80,7 +69,7 @@ mat-chip {
 }
 
 .description-container {
-    background-color: #eecbff13;
+    background-color: rgba(255, 255, 177, 0.4);
     font-size: 1rem;
     position: relative;
     min-height: 3.5rem;
@@ -101,7 +90,7 @@ mat-chip {
     width: 100%;
     height: 50%;
     background: linear-gradient(transparent, var(--shadow-color));
-    opacity: 1;
+    opacity: 0.7;
     transition: opacity 1.5s ease;
 }
 .dish-card:hover .gradient-effect {

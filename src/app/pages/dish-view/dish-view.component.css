@@ -1,17 +1,6 @@
-.page-container {
-  justify-content: center;
-  padding: 2rem;
-  display: flex;
-}
 .dish-card {
   min-width: 55rem;
   width: 90%;
-  box-shadow: var(--box-shadow-maincard);
-  border-radius: var(--borderradius-default);
-  overflow: hidden;
-  border-style: outset;
-  border-color: lightgray;
-  border-width: 1px;
 }
 .dish-image, .header-container {
   min-height: 16rem;

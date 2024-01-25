@@ -15,6 +15,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { AuthService } from '../../services/api-calls/auth.service';
+import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ import { AuthService } from '../../services/api-calls/auth.service';
     MatCheckboxModule,
     MatInputModule,
     MatFormFieldModule,
+    LargeCardComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',

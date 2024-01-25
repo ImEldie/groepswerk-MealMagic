@@ -7,15 +7,30 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
-import { AddDishCreatedSteps, AddDishDetailInputs, AddDishNameInputs, AddDishSelectedIngredients } from '../../interfaces/interfaces-add-dish-forms';
+import {
+  AddDishCreatedSteps,
+  AddDishDetailInputs,
+  AddDishNameInputs,
+  AddDishSelectedIngredients,
+} from '../../interfaces/interfaces-add-dish-forms';
 import { DishPostData } from '../../interfaces/interfaces-dishes';
+import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 
 @Component({
   selector: 'app-add-dish',
   standalone: true,
-  imports: [AdddishDetailsFormComponent, AdddishMaininfoFormComponent, AdddishIngredientListComponent, AdddishStepsListComponent, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [
+    AdddishDetailsFormComponent,
+    AdddishMaininfoFormComponent,
+    AdddishIngredientListComponent,
+    AdddishStepsListComponent,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    LargeCardComponent
+  ],
   templateUrl: './add-dish.component.html',
-  styleUrl: './add-dish.component.css'
+  styleUrl: './add-dish.component.css',
 })
 export class AddDishComponent {
   nameInputData: AddDishNameInputs | undefined = undefined;
@@ -23,13 +38,16 @@ export class AddDishComponent {
   selectedIngredients: AddDishSelectedIngredients | undefined = undefined;
   createdSteps: AddDishCreatedSteps | undefined = undefined;
 
-  constructor(
-    private dishApi: DishesApiService,
-  ){}
+  constructor(private dishApi: DishesApiService) {}
 
-  postDish(){
+  postDish() {
     if (this.userInputsValid()) {
-      if (this.nameInputData !== undefined && this.detailInputData !== undefined && this.selectedIngredients !== undefined && this.createdSteps !== undefined) {
+      if (
+        this.nameInputData !== undefined &&
+        this.detailInputData !== undefined &&
+        this.selectedIngredients !== undefined &&
+        this.createdSteps !== undefined
+      ) {
         const postData: DishPostData = {
           name: this.nameInputData.name,
           description: this.nameInputData.description,
@@ -40,46 +58,46 @@ export class AddDishComponent {
           ingredients: this.selectedIngredients.ingredientIds,
           dish_types: this.detailInputData.selectedTypeIds,
           dish_steps: [],
-        }     
+        };
         this.dishApi.postNewDish(postData, this.createdSteps!.createdSteps);
       }
     }
   }
 
   private allUserInputsDefined(): boolean {
-    const namesDefined = (this.nameInputData !== undefined);
-    const detailsDefined = (this.detailInputData !== undefined);
-    const ingredientsDefined = (this.selectedIngredients !== undefined);
-    const stepsDefined = (this.createdSteps !== undefined);
+    const namesDefined = this.nameInputData !== undefined;
+    const detailsDefined = this.detailInputData !== undefined;
+    const ingredientsDefined = this.selectedIngredients !== undefined;
+    const stepsDefined = this.createdSteps !== undefined;
 
     return namesDefined && detailsDefined && ingredientsDefined && stepsDefined;
   }
 
   userInputsValid(): boolean {
     let returnValue: boolean = false;
-    
+
     if (this.allUserInputsDefined()) {
       const nameValid = this.nameInputData!.dataIsValid;
       const detailValid = this.detailInputData!.dataIsValid;
       const ingredientsValid = this.selectedIngredients!.dataIsValid;
-      const stepsValid =  this.createdSteps!.dataIsValid;
+      const stepsValid = this.createdSteps!.dataIsValid;
 
       returnValue = nameValid && detailValid && ingredientsValid && stepsValid;
     }
 
-    return returnValue ;
+    return returnValue;
   }
 
-  setNameInputs(newData: AddDishNameInputs){
+  setNameInputs(newData: AddDishNameInputs) {
     this.nameInputData = newData;
   }
-  setDetailInputs(newData: AddDishDetailInputs){
+  setDetailInputs(newData: AddDishDetailInputs) {
     this.detailInputData = newData;
   }
-  setSelectedIngredients(newData: AddDishSelectedIngredients){
+  setSelectedIngredients(newData: AddDishSelectedIngredients) {
     this.selectedIngredients = newData;
   }
-  setCreatedSteps(newData: AddDishCreatedSteps){
+  setCreatedSteps(newData: AddDishCreatedSteps) {
     this.createdSteps = newData;
   }
 }

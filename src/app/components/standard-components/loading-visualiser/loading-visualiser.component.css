@@ -3,13 +3,11 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: var(--shadow-color);
   padding: 1rem;
   border-radius: 0.3rem;
 }
 .buffer-bar {
-  width: 30rem;
+  width: 100%;
   height: 1.2rem;
-  background-color: white;
   border-radius: 1rem;
 }

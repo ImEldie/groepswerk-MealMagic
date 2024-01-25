@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DishCardComponent } from '../../components/dish-card/dish-card.component';
+import { DishCardComponent } from '../../components/homepage-components/dish-card/dish-card.component';
 import { Dish } from '../../interfaces/interfaces-dishes';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,9 +14,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { FridgeIngredient } from '../../interfaces/fridge-interface';
-import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
+import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
+import { FridgeComponent } from '../../components/homepage-components/fridge-components/fridge/fridge.component';
+import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 
 @Component({
   selector: 'app-homepage',
@@ -35,6 +36,7 @@ import { FridgeComponent } from '../../components/fridge-component/fridge-compon
     MatTooltipModule,
     RouterOutlet,
     MatSidenavModule,
+    LargeCardComponent
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',

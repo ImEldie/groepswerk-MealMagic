@@ -1,0 +1,16 @@
+.small-card {
+    border-radius: var(--borderradius-default);
+    box-shadow: var(--box-shadow-mild);
+    background-color: lightyellow;
+    border-style: outset;
+    border-color: lightgray;
+    border-width: 0.1rem;
+    width: inherit;
+    min-width: inherit;
+    max-width: inherit;
+    height: inherit;
+    min-height: inherit;
+    max-height: inherit;
+    margin: inherit;
+    padding: inherit;
+}

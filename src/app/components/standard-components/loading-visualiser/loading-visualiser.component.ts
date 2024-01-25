@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { AuthService } from '../../services/api-calls/auth.service';
+import { AuthService } from '../../../services/api-calls/auth.service';
 
 @Component({
   selector: 'app-loading-visualiser',
