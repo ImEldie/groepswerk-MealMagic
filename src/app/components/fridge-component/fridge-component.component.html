@@ -3,7 +3,7 @@
     <mat-card-content>
       <h1>Ingredients:</h1>
       <form class="fridge-form">
-        <mat-form-field class="fridge-full-width">
+        <mat-form-field class="fridge-full-width" (click)="updateFilteredIngredientsList()" (input)="updateFilteredIngredientsList()">
           <mat-label>Add ingredients</mat-label>
           <input
             class="input"
@@ -16,12 +16,12 @@
             (click)="clearInput()"
           />
           <mat-autocomplete #auto="matAutocomplete">
-            @for (ingredient of ingredientList; track ingredient) {
+            @for (ingredient of autocompleteOptions; track ingredient) {
               <mat-option
                 [value]="ingredient.name"
-                (click)="setSelectedIngredient(ingredient)"
-                >{{ ingredient.name }}</mat-option
-              >
+                (click)="setSelectedIngredient(ingredient)">
+                  {{ingredient.name}}
+              </mat-option>
             }
           </mat-autocomplete>
         </mat-form-field>
