@@ -16,14 +16,14 @@ import { FridgeService } from '../../services/api-calls/fridge.service';
 import { FridgeIngredient } from '../../interfaces/fridge-interface';
 import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { FridgeComponent } from '../../components/homepage-components/fridge-components/fridge/fridge.component';
+import { FridgeComponentComponent } from '../../components/fridge-component/fridge-component.component';
 import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
   imports: [
-    FridgeComponent,
+    FridgeComponentComponent,
     DishCardComponent,
     LoadingVisualiserComponent,
     MatToolbarModule,
