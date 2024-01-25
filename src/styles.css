@@ -12,7 +12,6 @@ html, body { height: 100%; }
 body { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-image: linear-gradient(rgba(211, 211, 211, 0.5), white, rgba(211, 211, 211, 0.2));
 }
 
 @keyframes NewInput {
