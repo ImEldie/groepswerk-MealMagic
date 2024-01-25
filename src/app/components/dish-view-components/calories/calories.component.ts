@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Dish } from '../../interfaces/interfaces-dishes';
+import { Dish } from '../../../interfaces/interfaces-dishes';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 @Component({
