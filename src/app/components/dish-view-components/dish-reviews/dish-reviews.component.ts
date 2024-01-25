@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Review } from '../../interfaces/user-details-interface';
+import { Review } from '../../../interfaces/user-details-interface';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ReviewsService } from '../../services/api-calls/reviews-api.service';
-import { LocalstorageService } from '../../services/functions/localstorage.service';
+import { ReviewsService } from '../../../services/api-calls/reviews-api.service';
+import { LocalstorageService } from '../../../services/functions/localstorage.service';
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-dish-reviews',
