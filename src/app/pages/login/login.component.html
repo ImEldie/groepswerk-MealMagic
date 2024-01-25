@@ -1,55 +1,56 @@
-<app-large-card class="login-container">
-  <form [formGroup]="loginForm" class="login-box" (keydown.enter)="login()">
-    <section>
-      <h1 class="login-title">Sign in with email</h1>
-      <mat-form-field class="label">
-        <mat-label><i>Enter your email</i></mat-label>
-        <input
-          matInput
-          placeholder="mealmagic@example.com"
-          formControlName="email"
-          required
-          (keydown.enter)="$event.preventDefault()"
-        />
-        @if (loginForm.get("email")?.invalid) {
-          <mat-error>{{ getEmailErrorMessage() }}</mat-error>
-        }
-      </mat-form-field>
-    </section>
-
-    <div>
-      <mat-form-field class="label">
-        <mat-label><i>Enter your password</i></mat-label>
-        <input
-          matInput
-          required
-          formControlName="password"
-          [type]="hidePasswordError ? 'password' : 'text'"
-          (keydown.enter)="$event.preventDefault()"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="hidePasswordError = !hidePasswordError"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hidePasswordError"
-        >
-          <mat-icon>{{
-            hidePasswordError ? "visibility_off" : "visibility"
-          }}</mat-icon>
-        </button>
-        @if (loginForm.get("password")?.invalid) {
-          <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
-        }
-      </mat-form-field>
-    </div>
-
-    <section>
+<div class="login-page">
+  <app-large-card class="login-container">
+    <form [formGroup]="loginForm" class="login-box" (keydown.enter)="login()">
+      <section>
+        <h1 class="login-title">Sign in with email</h1>
+        <mat-form-field class="label">
+          <mat-label><i>Enter your email</i></mat-label>
+          <input
+            matInput
+            placeholder="mealmagic@example.com"
+            formControlName="email"
+            required
+            (keydown.enter)="$event.preventDefault()"
+          />
+          @if (loginForm.get("email")?.invalid) {
+            <mat-error>{{ getEmailErrorMessage() }}</mat-error>
+          }
+        </mat-form-field>
+      </section>
+  
       <div>
-        <button (click)="login()" class="sign-button" mat-button>
-          Sign In
-        </button>
+        <mat-form-field class="label">
+          <mat-label><i>Enter your password</i></mat-label>
+          <input
+            matInput
+            required
+            formControlName="password"
+            [type]="hidePasswordError ? 'password' : 'text'"
+            (keydown.enter)="$event.preventDefault()"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePasswordError = !hidePasswordError"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePasswordError"
+          >
+            <mat-icon>{{
+              hidePasswordError ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          @if (loginForm.get("password")?.invalid) {
+            <mat-error>{{ getPasswordErrorMessage() }}</mat-error>
+          }
+        </mat-form-field>
       </div>
-    </section>
-  </form>
-</app-large-card>
+      <section>
+        <div>
+          <button (click)="login()" class="sign-button" mat-button>
+            Sign In
+          </button>
+        </div>
+      </section>
+    </form>
+  </app-large-card>
+</div>

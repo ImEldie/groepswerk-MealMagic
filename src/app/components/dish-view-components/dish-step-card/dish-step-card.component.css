@@ -1,12 +1,13 @@
 .step-card {
+    margin-bottom: var(--default-margin);
+    width: 100%;
+}
+.step-card-content {
     display: flex;
     flex-direction: row;
-    margin-bottom: 0.5rem;
-    margin-left: 0.5rem;
-    max-width: 50rem;
 }
 .card-text-content {
-    width: 70%;
+    width: 72%;
 }
 .step-description {
     width: 100%;

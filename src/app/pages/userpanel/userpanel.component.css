@@ -1,12 +1,13 @@
 .user-panel-card {
-  width: fit-content;
+  min-width: 50rem;
+  width: 70vw;
+  padding: 1rem;
 }
 .info-card,
 .info-panel,
 .allergies-panel,
 .reviews-panel {
-  margin: 1rem;
-  padding: 0.5rem;
+  padding: 0.3rem;
 }
 .header-title {
   font-size: 1.35rem;

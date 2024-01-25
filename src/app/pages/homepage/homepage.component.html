@@ -1,9 +1,7 @@
-<div class="homepage">
-  <mat-sidenav-container>
-    <mat-sidenav-content>
-      <app-fridge-component [ingredientList]="getCompactFridgeIngredients()"></app-fridge-component>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+
+  <div class="fridge">
+    <app-fridge-component [ingredientList]="getCompactFridgeIngredients()"></app-fridge-component>
+  </div>
   <div class="content">
     <app-large-card>
       <div class="toolbar-content">
@@ -25,7 +23,6 @@
         </button>
       </div>
     </app-large-card>
-
   @for (dish of getDishes(); track $index) {
     <app-dish-card
       (click)="router.navigate(['dish', dish.id])"
@@ -35,4 +32,4 @@
   } @empty {
     <app-loading-visualiser [loadingText]="'Loading dishes...'"></app-loading-visualiser>
   }
-</div>
+

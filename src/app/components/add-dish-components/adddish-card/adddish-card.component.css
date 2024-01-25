@@ -6,19 +6,6 @@
     border-style: outset;
     border-color: transparent;
 }
-.add-dish-card:hover {
-    animation: card-glow 1s ease forwards;
-    z-index: 3;
-}
-@keyframes card-glow {
-    from {
-        border-color: transparent;
-    }
-    to{
-        box-shadow: 0 0.5rem 1rem 0.1rem #00000099;
-        border-color: rgba(0, 0, 0, 0.5);
-    }
-}
 .card-header {
     justify-content: space-between;
 }

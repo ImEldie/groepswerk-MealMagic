@@ -32,7 +32,7 @@ import { LargeCardComponent } from '../../components/standard-components/large-c
     MatCheckboxModule,
     MatInputModule,
     MatFormFieldModule,
-    LargeCardComponent
+    LargeCardComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',

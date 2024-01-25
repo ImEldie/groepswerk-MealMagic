@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
 import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
@@ -36,7 +35,6 @@ import { IngredientsApiService } from '../../services/api-calls/ingredients-api.
     MatButtonModule,
     MatTooltipModule,
     RouterOutlet,
-    MatSidenavModule,
     LargeCardComponent
   ],
   templateUrl: './homepage.component.html',

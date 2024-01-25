@@ -1,6 +1,7 @@
 .dish-card {
-  min-width: 55rem;
-  width: 90%;
+  min-width: 53rem;
+  margin: 0rem 10rem;
+  max-width: 80rem;
 }
 .dish-image, .header-container {
   min-height: 16rem;
@@ -66,7 +67,6 @@
 }
 .recipe-description {
   margin-top: 1rem;
-  margin-left: -1rem;
   max-width: 70%;
   max-height: 8rem;
   font-size: 1rem;
@@ -92,18 +92,16 @@
 }
 .card-title {
   font-size: 1.7rem;
+  margin-bottom: 0.3rem;
 }
 .dish-ingredients {
   font-size: 1rem;
-  margin-bottom: 1rem;
 }
 .dish-directions {
   font-size: 1rem;
-  max-width: 70%;
-  margin-top: 0.5rem;
+  min-width: 100%;
 }
 .dish-description {
-  margin-top: 1rem;
   font-size: 1rem;
   max-width: 70%;
 }

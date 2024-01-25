@@ -1,8 +1,10 @@
 @if (auth.isAuthenticated) {
-    <div class="loading-container">
-        <p>{{loadingText}}</p>
-        <mat-progress-bar mode="buffer" class="buffer-bar"></mat-progress-bar>
-    </div>
+    <app-large-card>
+        <div class="loading-container">
+            <p>{{loadingText}}</p>
+            <mat-progress-bar mode="buffer" class="buffer-bar"></mat-progress-bar>
+        </div>
+    </app-large-card>
 } @else {
     <h1>Login required!</h1>
 }
