@@ -8,7 +8,6 @@ import {
   Fridges,
 } from '../../interfaces/fridge-interface';
 import {
-  Ingredient,
   IngredientList,
 } from '../../interfaces/interfaces-ingredients';
 import { LocalstorageService } from '../functions/localstorage.service';
