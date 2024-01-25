@@ -1,8 +1,8 @@
 :root {
     --shadow-color: rgba(0, 0, 0, 0.5);
     --primary-color: rgba(106, 5, 214, 0.658);
-    --accent-color: lightyellow;
-    --background-primary: rgb(233, 233, 233);
+    --background-accent: rgb(255, 255, 221);
+    --background-primary: rgb(238, 233, 243);
     --box-shadow-strong: 0 0.25rem 0.5rem 0.2rem var(--shadow-color);
     --box-shadow-mild: 0rem 0.1rem 0.2rem 0.05rem var(--shadow-color);
     --borderradius-default: 1rem;
@@ -12,7 +12,7 @@ html, body { height: 100%; }
 body { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color: rgba(157, 149, 89, 0.25);
+    background-image: linear-gradient(rgba(211, 211, 211, 0.5), white, rgba(211, 211, 211, 0.2));
 }
 
 @keyframes NewInput {

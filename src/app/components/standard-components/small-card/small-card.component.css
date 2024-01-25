@@ -1,7 +1,7 @@
 .small-card {
     box-shadow: var(--box-shadow-mild);
     border-radius: var(--borderradius-default);
-    background-color: var(--accent-color);
+    background-color: var(--background-accent);
     border-style: outset;
     border-color: lightgray;
     border-width: 1px;
