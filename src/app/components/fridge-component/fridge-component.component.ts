@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,8 +36,11 @@ import {
   styleUrl: './fridge-component.component.css',
 })
 export class FridgeComponent implements OnInit {
+  @Input({ required: true }) ingredientList: Array<CompactFridgeIngredient> =
+    [];
   ingredientInput = new FormControl();
   selectedIngredient: CompactFridgeIngredient = { id: 0, name: '' };
+  autocompleteOptions: Array<CompactFridgeIngredient> = [];
 
   constructor(
     public router: Router,
@@ -47,13 +50,7 @@ export class FridgeComponent implements OnInit {
   ngOnInit() {
     this.fridgeService.loadUniqueFridgeIngredients();
     this.fridgeService.loadCompactIngredients();
-  }
-
-  private getOptions() { // wordt niet gebruikt maar is nodig voor toekomstige merge!
-    const ingredients = this.fridgeService.getCompactIngredients();
-    return [
-      ...new Set(ingredients.map((ingredientInfo) => ingredientInfo.name)),
-    ];
+    this.ingredientInput.setValue('');
   }
 
   clearInput() {
@@ -115,11 +112,27 @@ export class FridgeComponent implements OnInit {
       }
       this.fridgeService
         .putUpdatedFridgeIngredients(ingredientAmountsToPut)
-        .subscribe(() =>
-          this.fridgeService
-            .deleteUpdatedFridgeIngredients(ingredientsToDelete)
-            .subscribe(() => this.fridgeService.loadUniqueFridgeIngredients()),
-        );
+        .subscribe();
+      this.fridgeService
+        .deleteUpdatedFridgeIngredients(ingredientsToDelete)
+        .subscribe(() => this.fridgeService.loadUniqueFridgeIngredients());
+    }
+  }
+  updateFilteredIngredientsList() {
+    const selectedIngredientIds = this.fridgeService
+      .getIngredientsInFridge()
+      .map((ingredient) => ingredient.ingredient_id);
+    const unselectedIngredients = this.ingredientList.filter(
+      (ingredient) => !selectedIngredientIds.includes(ingredient.id),
+    );
+    if (this.ingredientInput.value) {
+      const searchInput = this.ingredientInput.value.toLowerCase();
+      const filteredIngredientsByInput = unselectedIngredients.filter(
+        (ingredient) => ingredient.name.toLowerCase().includes(searchInput),
+      );
+      this.autocompleteOptions = filteredIngredientsByInput;
+    } else {
+      this.autocompleteOptions = unselectedIngredients;
     }
   }
 }
