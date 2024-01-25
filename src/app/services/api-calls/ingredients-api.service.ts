@@ -12,9 +12,9 @@ import { map } from 'rxjs';
 export class IngredientsApiService {
   private ingredients: Array<Ingredient> = [];
 
-  constructor(private http: HttpClient) {
-    this.loadIngredientsFromAPI();
-  }
+  constructor(
+    private http: HttpClient
+    ) {};
 
   getIngredientList(): Array<Ingredient> {
     return this.ingredients;

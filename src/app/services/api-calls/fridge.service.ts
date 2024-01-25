@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
-import { FridgeIngredient, Fridge, CompactFridgeIngredient, Fridges } from '../../interfaces/fridge-interface';
-import { Ingredient, IngredientList } from '../../interfaces/interfaces-ingredients';
+import { FridgeIngredient, Fridge, Fridges } from '../../interfaces/fridge-interface';
 import { LocalstorageService } from '../functions/localstorage.service';
 
 @Injectable({
@@ -14,59 +13,34 @@ export class FridgeService {
     private storage: LocalstorageService,
   ) {}
 
-  loadIngredients(): Observable<Array<CompactFridgeIngredient>> {
-    return this.http.get<IngredientList>(`ingredients`)
-    .pipe(map((response) => {
-      return response.data.map((ingredient) =>  ({ id: ingredient.id, name: ingredient.name }));
-  }))
+  postIngredientsFridge(
+    fridgeId: number,
+    ingredientId: number,
+    amount: number) {
+    
+    const postData = {
+      fridge_id: fridgeId,
+      ingredient_id: ingredientId,
+      amount: amount
+    }
+    this.http.post<FridgeIngredient>(`ingredients-fridges`, postData).subscribe();
   }
- 
- getIngredientDetails(id: number): Observable<Ingredient> {
-  return this.http.get<Ingredient>(`ingredients/${id}`)
-  .pipe(map
-    ((data) => {
-       const ingredientInfo: Ingredient = { 
-             id: data.id,
-             name: data.name,
-             kcal: data.kcal,
-             protein: data.protein,
-             carbohydrates: data.carbohydrates,
-             fat: data.fat,
-             allergies: data.allergies,
-           };
-         return ingredientInfo 
+
+  getUniqueFridgeIngredients(fridgeId: number){
+    return this.http.get<Fridge>(`fridges/${fridgeId}`)
+    .pipe(
+      map((data) => {
+        return data.ingredients?.map((ingredients) => {
+          const ingredientsFridgeInfo: FridgeIngredient = {
+            id: ingredients.id,
+            fridge_id: ingredients.fridge_id,
+            ingredient_id: ingredients.ingredient_id,
+            amount: ingredients.amount,
+          };
+          return ingredientsFridgeInfo
         })
-    );
-  }
-
- postIngredientsFridge(
-  fridgeId: number,
-  ingredientId: number,
-  amount: number) {
-  
-  const postData = {
-    fridge_id: fridgeId,
-    ingredient_id: ingredientId,
-    amount: amount
-  }
-  this.http.post<FridgeIngredient>(`ingredients-fridges`, postData).subscribe();
-}
-
-getUniqueFridgeIngredients(fridgeId: number){
-  return this.http.get<Fridge>(`fridges/${fridgeId}`)
-  .pipe(
-    map((data) => {
-      return data.ingredients?.map((ingredients) => {
-        const ingredientsFridgeInfo: FridgeIngredient = {
-          id: ingredients.id,
-          fridge_id: ingredients.fridge_id,
-          ingredient_id: ingredients.ingredient_id,
-          amount: ingredients.amount,
-        };
-        return ingredientsFridgeInfo
-      })
-    },))
-  }
+      },))
+    }
 
   putUpdatedFridgeIngredients(ingredientsToPut: FridgeIngredient[]){
     return forkJoin(ingredientsToPut.map(ingredient => this.putFridgeIngredient(ingredient)));

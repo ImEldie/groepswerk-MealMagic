@@ -9,9 +9,9 @@ import { map } from 'rxjs';
 export class TypesApiService {
   private types: Array<DishType> = [];
 
-  constructor(private http: HttpClient) {
-    this.loadTypesFromApi();
-  }
+  constructor(
+    private http: HttpClient
+    ) {};
 
   loadTypesFromApi() {
     this.http

@@ -13,17 +13,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FridgeService } from '../../services/api-calls/fridge.service';
-import { FridgeIngredient } from '../../interfaces/fridge-interface';
-import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
+import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { FridgeComponentComponent } from '../../components/fridge-component/fridge-component.component';
 import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
+import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
+import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
+import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
   imports: [
-    FridgeComponentComponent,
+    FridgeComponent,
     DishCardComponent,
     LoadingVisualiserComponent,
     MatToolbarModule,
@@ -51,11 +52,13 @@ export class HomepageComponent implements OnInit {
     public auth: AuthService,
     public fridgeService: FridgeService,
     public router: Router,
+    public ingredientAPI: IngredientsApiService
   ) {
     this.filterOnFridge = false;
   }
   ngOnInit() {
     this.dishesApi.loadDishesFromApi();
+    this.ingredientAPI.loadIngredientsFromAPI();
   }
   getSearchResultAmount(): number {
     return this.getSearchResults().length;
@@ -118,6 +121,17 @@ export class HomepageComponent implements OnInit {
       });
     } else {
       this.dishList = this.dishesApi.getDishList();
+    }
+  }
+  getCompactFridgeIngredients(): Array<CompactFridgeIngredient> {
+    const ingredientList = this.ingredientAPI.getIngredientList().map(ingredient => {
+      return { id: ingredient.id, name: ingredient.name };
+    })
+    
+    if (ingredientList) {
+      return ingredientList;
+    } else {
+      return [];
     }
   }
 }

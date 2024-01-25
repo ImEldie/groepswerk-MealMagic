@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -29,23 +29,17 @@ import { SmallCardComponent } from '../../standard-components/small-card/small-c
   templateUrl: './dish-card.component.html',
   styleUrl: './dish-card.component.css',
 })
-export class DishCardComponent implements OnInit {
-  @Input() dish!: Dish;
-
-  constructor(private ingredientAPI: IngredientsApiService) {}
-
-  ngOnInit() {
-    this.ingredientAPI.loadIngredientsFromAPI();
-  }
+export class DishCardComponent {
+  @Input({required: true}) dish?: Dish;
+  @Input({required: true}) ingredients: Array<Ingredient> = [];
 
   getDishAllergies(): Array<string> {
     let allergies: Array<string> = [];
 
-    if (this.ingredientAPI.getIngredientList().length !== 0) {
+    if (this.ingredients.length !== 0 && this.dish) {
       for (let i = 0; i < this.dish.ingredients.length; i++) {
         const ingredientId = this.dish.ingredients[i].id;
-        const ingredientData =
-          this.ingredientAPI.getIngredientFromId(ingredientId);
+        const ingredientData = this.ingredients.find((ingredient) => ingredient.id === ingredientId);
 
         if (ingredientData !== undefined) {
           allergies = this.getNewIngredientAllergies(ingredientData, allergies);
