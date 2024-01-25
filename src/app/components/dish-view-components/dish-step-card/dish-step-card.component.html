@@ -1,0 +1,21 @@
+@if (step) {
+    <mat-card class="step-card">
+        <div class="card-text-content">
+            <mat-card-header>
+                <mat-card-title>
+                    {{step.order}}. {{step.title}}
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p class="step-description">
+                    {{step.description}}
+                </p>
+            </mat-card-content>
+        </div>
+        @if (step.picture !== '') {
+            <div class="image-container">
+                <img [src]="step.picture" class="step-image">
+            </div>
+        }
+    </mat-card>
+}

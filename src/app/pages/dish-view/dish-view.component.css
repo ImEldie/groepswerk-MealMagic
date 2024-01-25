@@ -4,18 +4,40 @@
   display: flex;
 }
 .dish-card {
+  min-width: 55rem;
   width: 90%;
+  box-shadow: var(--box-shadow-maincard);
+  border-radius: var(--borderradius-default);
+  overflow: hidden;
+  border-style: outset;
+  border-color: lightgray;
+  border-width: 1px;
+}
+.dish-image, .header-container {
+  min-height: 16rem;
+  max-height: 16rem;
+}
+.dish-image {
+  position: absolute;
+  top: 0rem;
+  min-width: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--borderradius-default) var(--borderradius-default) 0rem 0rem;
+  opacity: 0.5;
+  z-index: 1;
 }
 .header-container {
   margin-top: 0.5rem;
   margin-left: 0.5rem;
   max-width: 70%;
+  z-index: 1;
 }
 .header-title {
   font-size: 1.85rem;
 }
 .dish-allergens {
-  margin-top: 0.5rem;
   display: flex;
   gap: 0.3rem;
 }
@@ -57,36 +79,39 @@
   margin-top: 1rem;
   margin-left: -1rem;
   max-width: 70%;
+  max-height: 8rem;
   font-size: 1rem;
 }
-.clipboard-container {
+.actions-container {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   right: 0.8rem;
   top: 0.6rem;
+  height: 16rem;
 }
-.dish-image {
-  display: flex;
-  min-width: 70%;
-  max-width: 70%;
-  margin-left: 0.5rem;
+.share-button {
+  width: 100%;
+  margin-bottom: 0.5rem;
 }
 .content-container {
-  margin-top: 0.5rem;
+  margin-top: -1.5rem;
   margin-left: 0.5rem;
   max-width: 85%;
+  padding: 1rem;
 }
 .card-title {
-  margin-top: 2rem;
-  margin-left: 1rem;
   font-size: 1.7rem;
 }
 .dish-ingredients {
   font-size: 1rem;
+  margin-bottom: 1rem;
 }
 .dish-directions {
-  margin-top: 1rem;
   font-size: 1rem;
   max-width: 70%;
+  margin-top: 0.5rem;
 }
 .dish-description {
   margin-top: 1rem;

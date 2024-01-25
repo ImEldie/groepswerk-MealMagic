@@ -8,12 +8,17 @@
 }
 .header-title {
   font-size: 1.35rem;
+  margin-bottom: 0.75rem;
 }
 .info-card-content {
   display: flex;
   justify-content: space-between;
 }
 .weight-icon {
+  margin-top: 0.2rem;
+  margin-bottom: -0.5rem;
+}
+.height-icon {
   margin-top: 0.2rem;
   margin-bottom: -0.5rem;
 }
@@ -206,8 +211,9 @@
   overflow-x: auto;
 }
 .review-card {
+  display: flex;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5);
-  border-radius: 1rem 1rem 1rem 1rem;
+  border-radius: 3%;
   overflow: hidden;
   margin-left: 20px;
   margin-right: 10px;
@@ -215,26 +221,37 @@
   margin-bottom: 20px;
   z-index: 1;
   max-width: 200px;
+  max-height: 300px;
   flex: 0 0 33%;
+}
+.review-title-container {
+  margin-left: 0.7rem;
 }
 .review-title {
   font-size: 14px;
-  margin-left: 1rem;
 }
 .rating-container {
-  margin-left: 1rem;
+  margin-left: -0.1rem;
 }
 .star-rating {
-  color: #ffe400;
+  color: #ffd000;
   font-weight: bold;
+  margin-left: 0.11rem;
 }
 .review-image {
+  margin-left: -3.2rem;
   display: flex;
   justify-content: center;
+  }
+.dish-image {
+  margin-left: -1rem;
+  min-width: 110px;
+  max-width: 110px;
+  min-height: 100px;
+  max-height: 100px;
 }
 .review-button {
-  margin-top: 10px;
-  margin-left: auto;
+  margin-left: 0rem;
   margin-right: auto;
 }
 .no-reviews-container {

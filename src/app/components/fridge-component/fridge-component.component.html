@@ -32,9 +32,8 @@
             <mat-list-item role="listitem">
               <app-fridge-ingredients
                 [fridgeIngredient]="fridgeIngredient"
-                (fridgeIngredientOutput)="
-                  setNewIngredientAmount($event, $index)
-                "
+                [ingredients]="this.ingredientList"
+                (fridgeIngredientOutput)="setNewIngredientAmount($event, $index)"
               ></app-fridge-ingredients>
             </mat-list-item>
           }
