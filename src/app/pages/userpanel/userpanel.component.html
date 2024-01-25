@@ -10,7 +10,11 @@
         <mat-icon class="weight-icon">monitor_weight</mat-icon>
         Weight: {{ userDetails?.bodyweight }} kg.
       </p>
-      <p><mat-icon>height</mat-icon> Height: {{ userDetails?.height }} cm.</p>
+      <p>
+        <mat-icon class="height-icon">height</mat-icon> Height:
+        {{ userDetails?.height }} cm.
+      </p>
+      <br />
       <section>
         <p>Your selected allergies are:</p>
         <div class="info-allergies-chips">
@@ -28,7 +32,7 @@
           }
         </div>
         @if (userAllergies.length === 0) {
-          <i style="color:rgba(177, 22, 228, 0.658)">No allergies selected</i>
+          <i style="color: rgb(83, 3, 153)">No allergies selected</i>
         }
       </section>
     </div>
@@ -139,7 +143,9 @@
   >
     <mat-expansion-panel-header>
       <mat-panel-title>Allergies</mat-panel-title>
-      <mat-panel-description>What are your allergies?</mat-panel-description>
+      <mat-panel-description
+        >Select your allergies if you have any</mat-panel-description
+      >
     </mat-expansion-panel-header>
     <section>
       <form
@@ -176,59 +182,62 @@
     <mat-expansion-panel-header>
       <mat-panel-title>Your reviews</mat-panel-title>
       <mat-panel-description
-        >Your latest recipes you have reviewed</mat-panel-description
+        >Latest recipes you have reviewed</mat-panel-description
       >
     </mat-expansion-panel-header>
-    <section class="reviews-section">
-      @if (reviewDishdetails.length > 0) {
-        <div class="review-cards-container">
-          @for (dish of reviewDishdetails; track dish.name; let i = $index) {
-            <mat-card class="review-card">
+  <section class="reviews-section">
+    @if (reviewDishdetails.length > 0) {
+      <div class="review-cards-container">
+        @for (dish of reviewDishdetails; track dish.name; let i = $index) {
+          <mat-card class="review-card">
+            <div class="review-title-container">
               <mat-card-title class="review-title">{{
                 dish.name | titlecase
               }}</mat-card-title>
+
               <mat-card-subtitle class="rating-container">
                 @for (star of starArray[i]; track star) {
                   <span class="star-rating">★</span>
                 }
               </mat-card-subtitle>
-              <mat-card-content class="review-image"
-                ><img
-                  mat-card-md-image
-                  src="{{ dish.image_url }}"
-                  alt="Image of the dish"
-              /></mat-card-content>
-              <mat-card-actions>
-                <button
-                  mat-raised-button
-                  color="accent"
-                  class="review-button"
-                  (click)="router.navigate(['dish', userReviewDishId])"
-                >
-                  Go to the recipe
-                </button>
-              </mat-card-actions>
-            </mat-card>
-          }
-        </div>
-      }
-      @if (reviewDishdetails.length === 0) {
-        <div class="no-reviews-container">
-          <div class="no-reviews-text">No reviews made yet</div>
-          <button
-            mat-raised-button
-            color="accent"
-            class="no-reviews-button"
-            (click)="router.navigate([''])"
-          >
-            To the recipes!
-          </button>
-        </div>
-        <span class="background-1">Meal<mat-icon>fastfood</mat-icon>Magic</span>
-        <span class="background-2">Meal<mat-icon>fastfood</mat-icon>Magic</span>
-      }
-    </section>
-    <mat-action-row>
+            </div>
+            <mat-card-content class="review-image"
+              ><img
+                class="dish-image"
+                src="{{ dish.image_url }}"
+                alt="Image of the dish"
+            /></mat-card-content>
+            <mat-card-actions>
+              <button
+                mat-raised-button
+                color="accent"
+                class="review-button"
+                (click)="router.navigate(['dish', userReviewDishId])"
+              >
+                Go to recipe
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
+    }
+    @if (reviewDishdetails.length === 0) {
+      <div class="no-reviews-container">
+        <div class="no-reviews-text">No reviews made yet</div>
+        <button
+          mat-raised-button
+          color="accent"
+          class="no-reviews-button"
+          (click)="router.navigate([''])"
+        >
+          To the recipes!
+        </button>
+      </div>
+      <span class="background-1">Meal<mat-icon>fastfood</mat-icon>Magic</span>
+      <span class="background-2">Meal<mat-icon>fastfood</mat-icon>Magic</span>
+    }
+  </section>
+  <mat-action-row>
       <button mat-button color="warn" (click)="prevStep()">Previous</button>
       <button mat-button color="accent" (click)="nextStep()">End</button>
     </mat-action-row>
