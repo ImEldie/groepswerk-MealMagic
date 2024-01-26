@@ -120,17 +120,10 @@ export class FridgeService {
   }
 
   getFridgeIngredients(): Observable<Array<FridgeIngredient>> {
-    return this.getFridgeIdFromFridges().pipe(
-      switchMap((fridge) => {
-        if (fridge !== null) {
-          return this.http
-            .get<Fridge>('fridges/' + fridge.id)
-            .pipe(map((response) => response.ingredients));
-        } else {
-          return of([]);
-        }
-      }),
-    );
+    const fridgeId = this.storage.fridgeId.get();
+    return this.http
+      .get<Fridge>('fridges/' + fridgeId)
+      .pipe(map((response) => response.ingredients));
   }
 
   getIngredientsInFridge() {

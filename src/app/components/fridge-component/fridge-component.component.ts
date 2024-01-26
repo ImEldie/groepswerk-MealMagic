@@ -12,6 +12,7 @@ import { FridgeService } from '../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
 import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
 import {
+  ChangedFridgeIngredient,
   CompactFridgeIngredient,
   FridgeIngredient,
 } from '../../interfaces/fridge-interface';
@@ -41,6 +42,7 @@ export class FridgeComponent implements OnInit {
   ingredientInput = new FormControl();
   selectedIngredient: CompactFridgeIngredient = { id: 0, name: '' };
   autocompleteOptions: Array<CompactFridgeIngredient> = [];
+  changedIngredients: Array<ChangedFridgeIngredient> = [];
 
   constructor(
     public router: Router,
@@ -50,11 +52,11 @@ export class FridgeComponent implements OnInit {
   ngOnInit() {
     this.fridgeService.loadUniqueFridgeIngredients();
     this.fridgeService.loadCompactIngredients();
-    this.ingredientInput.setValue('');
+    this.clearInput();
   }
 
   clearInput() {
-    this.ingredientInput.reset();
+    this.ingredientInput.setValue('');
   }
 
   setSelectedIngredient(ingredient: CompactFridgeIngredient) {
@@ -75,7 +77,6 @@ export class FridgeComponent implements OnInit {
       const ingredientNotInFridge = !fridgeIngredientIdList.includes(
         selectedIngredient.id,
       );
-
       if (ingredientNotInFridge) {
         this.fridgeService.postIngredientsFridge(selectedIngredient.id);
       }
@@ -84,13 +85,50 @@ export class FridgeComponent implements OnInit {
 
   setNewIngredientAmount(newAmount: number, index: number) {
     if (this.fridgeService.getIngredientsInFridge()) {
+      this.updateChangedIngredientsList(
+        newAmount,
+        this.fridgeService.getIngredientsInFridge()[index],
+      );
       this.fridgeService.getIngredientsInFridge()[index].amount = newAmount;
     }
+  }
+  private updateChangedIngredientsList(
+    newAmount: number,
+    fridgeIngredient: FridgeIngredient,
+  ) {
+    const ingredientAlreadyChanged = this.changedIngredients
+      .map((ingredient) => ingredient.id)
+      .includes(fridgeIngredient.id);
+    const ingredientId = fridgeIngredient.id;
+    if (ingredientAlreadyChanged) {
+      const index = this.changedIngredients.findIndex(
+        (ingredient) => ingredient.id === ingredientId,
+      );
+      this.changedIngredients[index].new_amount = newAmount;
+      const newAmountEqualToOriginal =
+        this.changedIngredients[index].new_amount ===
+        this.changedIngredients[index].original_amount;
+      if (newAmountEqualToOriginal) {
+        this.changedIngredients.splice(index, 1);
+      }
+    } else {
+      const changedIngredient = {
+        id: ingredientId,
+        new_amount: newAmount,
+        original_amount: fridgeIngredient.amount,
+      };
+      this.changedIngredients.push(changedIngredient);
+    }
+  }
+  disableFridgeButtons() {
+    return this.changedIngredients.length === 0;
   }
 
   saveFridgeToApi() {
     let ingredientsToDelete: Array<FridgeIngredient> = [];
     let ingredientAmountsToPut: Array<FridgeIngredient> = [];
+
+    const changedIngredientIds = this.changedIngredients.map((i) => i.id);
 
     if (this.fridgeService.getIngredientsInFridge()) {
       for (
@@ -105,14 +143,20 @@ export class FridgeComponent implements OnInit {
             this.fridgeService.getIngredientsInFridge()[i],
           );
         } else {
-          ingredientAmountsToPut.push(
+          const currentIngredientIsChanged = changedIngredientIds.includes(
+            this.fridgeService.getIngredientsInFridge()[i].id,
+          );
+          if (currentIngredientIsChanged) {
+            ingredientAmountsToPut.push(
             this.fridgeService.getIngredientsInFridge()[i],
           );
+          }
         }
+        this.changedIngredients = [];
       }
       this.fridgeService
         .putUpdatedFridgeIngredients(ingredientAmountsToPut)
-        .subscribe();
+        .subscribe(() => this.fridgeService.loadUniqueFridgeIngredients());
       this.fridgeService
         .deleteUpdatedFridgeIngredients(ingredientsToDelete)
         .subscribe(() => this.fridgeService.loadUniqueFridgeIngredients());
