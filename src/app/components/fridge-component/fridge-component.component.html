@@ -28,7 +28,7 @@
       </form>
       <div>
         <mat-list role="list">
-          @for (fridgeIngredient of ingredientsInFridge; track $index) {
+          @for (fridgeIngredient of this.fridgeService.getIngredientsInFridge(); track $index) {
             <mat-list-item role="listitem">
               <app-fridge-ingredients
                 [fridgeIngredient]="fridgeIngredient"
