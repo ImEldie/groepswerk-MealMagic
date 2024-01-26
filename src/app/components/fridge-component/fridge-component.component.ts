@@ -187,6 +187,13 @@ export class FridgeComponent implements OnInit {
   }
   getIngredientsInFridge() {
     const fridgeIngredients = this.fridgeService.getIngredientsInFridge();
+    for (let i = 0; i < this.changedIngredients.length; i++) {
+      const currentIngredient = this.changedIngredients[i];
+      const indexToChange = fridgeIngredients.findIndex(
+        (fridgeIngredient) => fridgeIngredient.id === currentIngredient.id,
+      );
+      fridgeIngredients[indexToChange].amount = currentIngredient.new_amount;
+    }
     return fridgeIngredients;
   }
 }
