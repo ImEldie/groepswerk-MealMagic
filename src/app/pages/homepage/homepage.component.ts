@@ -21,6 +21,7 @@ import { LargeCardComponent } from '../../components/standard-components/large-c
 import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
 import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
+import { LocalstorageService } from '../../services/functions/localstorage.service';
 
 @Component({
   selector: 'app-homepage',
@@ -38,7 +39,7 @@ import { IngredientsApiService } from '../../services/api-calls/ingredients-api.
     MatButtonModule,
     MatTooltipModule,
     RouterOutlet,
-    LargeCardComponent
+    LargeCardComponent,
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
@@ -55,6 +56,7 @@ export class HomepageComponent implements OnInit {
     public fridgeService: FridgeService,
     public router: Router,
     public ingredientAPI: IngredientsApiService,
+    public storage: LocalstorageService,
   ) {
     this.filterOnFridge = false;
   }

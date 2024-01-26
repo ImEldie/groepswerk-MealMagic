@@ -31,9 +31,9 @@ import { LargeCardComponent } from '../standard-components/large-card/large-card
     MatAutocompleteModule,
     ReactiveFormsModule,
     AsyncPipe,
-    MatListModule, 
+    MatListModule,
     FridgeIngredientsComponent,
-    LargeCardComponent
+    LargeCardComponent,
   ],
   templateUrl: './fridge-component.component.html',
   styleUrl: './fridge-component.component.css',
@@ -150,18 +150,22 @@ export class FridgeComponent implements OnInit {
           );
           if (currentIngredientIsChanged) {
             ingredientAmountsToPut.push(
-            this.fridgeService.getIngredientsInFridge()[i],
-          );
+              this.fridgeService.getIngredientsInFridge()[i],
+            );
           }
         }
         this.changedIngredients = [];
       }
       this.fridgeService
         .putUpdatedFridgeIngredients(ingredientAmountsToPut)
-        .subscribe(() => this.fridgeService.loadUniqueFridgeIngredients());
+        .subscribe(() => {
+          this.fridgeService.loadUniqueFridgeIngredients();
+        });
       this.fridgeService
         .deleteUpdatedFridgeIngredients(ingredientsToDelete)
-        .subscribe(() => this.fridgeService.loadUniqueFridgeIngredients());
+        .subscribe(() => {
+          this.fridgeService.loadUniqueFridgeIngredients();
+        });
     }
   }
   updateFilteredIngredientsList() {
@@ -180,5 +184,16 @@ export class FridgeComponent implements OnInit {
     } else {
       this.autocompleteOptions = unselectedIngredients;
     }
+  }
+  getIngredientsInFridge() {
+    const fridgeIngredients = this.fridgeService.getIngredientsInFridge();
+    for (let i = 0; i < this.changedIngredients.length; i++) {
+      const currentIngredient = this.changedIngredients[i];
+      const indexToChange = fridgeIngredients.findIndex(
+        (fridgeIngredient) => fridgeIngredient.id === currentIngredient.id,
+      );
+      fridgeIngredients[indexToChange].amount = currentIngredient.new_amount;
+    }
+    return fridgeIngredients;
   }
 }

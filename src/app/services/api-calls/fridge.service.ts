@@ -50,7 +50,7 @@ export class FridgeService {
     const postData = {
       fridge_id: this.fridgeId,
       ingredient_id: ingredientId,
-      amount: 1,
+      amount: 100,
     };
     this.http
       .post<FridgeIngredient>(`ingredients-fridges`, postData)

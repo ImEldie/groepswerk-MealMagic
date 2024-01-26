@@ -1,7 +1,9 @@
-
+<div class="homepage">
+@if (storage.fridgeId.get()) {
   <div class="fridge">
     <app-fridge-component [ingredientList]="getCompactFridgeIngredients()"></app-fridge-component>
   </div>
+}
   <div class="content">
     <app-large-card>
       <div class="toolbar-content">
@@ -39,5 +41,4 @@
       ></app-loading-visualiser>
     }
   </div>
-
-
+</div>
