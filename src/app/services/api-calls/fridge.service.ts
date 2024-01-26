@@ -79,7 +79,7 @@ export class FridgeService {
     );
   }
 
-  putUpdatedFridgeIngredients(ingredientsToPut: FridgeIngredient[]) {
+  putUpdatedFridgeIngredients(ingredientsToPut: Array<FridgeIngredient>) {
     return forkJoin(
       ingredientsToPut.map((ingredient) =>
         this.putFridgeIngredient(ingredient),
@@ -96,7 +96,7 @@ export class FridgeService {
     return this.http.put('ingredients-fridges/' + ingredient.id, postData);
   }
 
-  deleteUpdatedFridgeIngredients(ingredientsToDelete: FridgeIngredient[]) {
+  deleteUpdatedFridgeIngredients(ingredientsToDelete: Array<FridgeIngredient>) {
     return forkJoin(
       ingredientsToDelete.map((ingredient) =>
         this.deleteFridgeIngredient(ingredient),
