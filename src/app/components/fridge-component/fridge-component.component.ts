@@ -12,6 +12,7 @@ import { FridgeService } from '../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
 import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
 import {
+  ChangedFridgeIngredient,
   CompactFridgeIngredient,
   FridgeIngredient,
 } from '../../interfaces/fridge-interface';
@@ -43,6 +44,7 @@ export class FridgeComponent implements OnInit {
   autocompleteOptions: Array<CompactFridgeIngredient> = [];
   fridgeId: number = 2;
   ingredientsInFridge: Array<FridgeIngredient> = [];
+  changedIngredients: Array<ChangedFridgeIngredient> = [];
 
   constructor(
     public router: Router,
@@ -76,7 +78,7 @@ export class FridgeComponent implements OnInit {
     const selectedIngredient = this.ingredientList.find(
       (ingredientList) => ingredientList.name === selectedOption,
     );
-    const fridgeIngredientIdList = this.ingredientsInFridge?.map(
+    const fridgeIngredientIdList = this.ingredientsInFridge.map(
       (d) => d.ingredient_id,
     );
 
@@ -97,13 +99,50 @@ export class FridgeComponent implements OnInit {
 
   setNewIngredientAmount(newAmount: number, index: number) {
     if (this.ingredientsInFridge) {
+      this.updateChangedIngredientsList(
+        newAmount,
+        this.ingredientsInFridge[index],
+      );
       this.ingredientsInFridge[index].amount = newAmount;
     }
+  }
+  private updateChangedIngredientsList(
+    newAmount: number,
+    fridgeIngredient: FridgeIngredient,
+  ) {
+    const ingredientAlreadyChanged = this.changedIngredients
+      .map((ingredient) => ingredient.id)
+      .includes(fridgeIngredient.id);
+    const ingredientId = fridgeIngredient.id;
+    if (ingredientAlreadyChanged) {
+      const index = this.changedIngredients.findIndex(
+        (ingredient) => ingredient.id === ingredientId,
+      );
+      this.changedIngredients[index].new_amount = newAmount;
+      const newAmountEqualToOriginal =
+        this.changedIngredients[index].new_amount ===
+        this.changedIngredients[index].original_amount;
+      if (newAmountEqualToOriginal) {
+        this.changedIngredients.splice(index, 1);
+      }
+    } else {
+      const changedIngredient = {
+        id: ingredientId,
+        new_amount: newAmount,
+        original_amount: fridgeIngredient.amount,
+      };
+      this.changedIngredients.push(changedIngredient);
+    }
+  }
+  disableFridgeButtons() {
+    return this.changedIngredients.length === 0;
   }
 
   saveFridgeToApi() {
     let ingredientsToDelete: Array<FridgeIngredient> = [];
     let ingredientAmountsToPut: Array<FridgeIngredient> = [];
+    const changedIngredientIds = this.changedIngredients.map((i) => i.id);
+
     if (this.ingredientsInFridge) {
       for (let i = 0; i < this.ingredientsInFridge.length; i++) {
         const amount = this.ingredientsInFridge[i].amount;
@@ -111,17 +150,22 @@ export class FridgeComponent implements OnInit {
         if (amount <= 0) {
           ingredientsToDelete.push(this.ingredientsInFridge[i]);
         } else {
-          ingredientAmountsToPut.push(this.ingredientsInFridge[i]);
+          const currentIngredientIsChanged = changedIngredientIds.includes(
+            this.ingredientsInFridge[i].id,
+          );
+          if (currentIngredientIsChanged) {
+            ingredientAmountsToPut.push(this.ingredientsInFridge[i]);
+          }
         }
+        this.changedIngredients = [];
       }
       console.log(ingredientsToDelete, ingredientAmountsToPut);
       this.fridgeService
         .putUpdatedFridgeIngredients(ingredientAmountsToPut)
-        .subscribe(() => {
-          this.fridgeService
-            .deleteUpdatedFridgeIngredients(ingredientsToDelete)
-            .subscribe();
-          })
+        .subscribe();
+      this.fridgeService
+        .deleteUpdatedFridgeIngredients(ingredientsToDelete)
+        .subscribe();
     }
   }
   updateFilteredIngredientsList() {
