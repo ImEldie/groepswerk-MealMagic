@@ -19,7 +19,7 @@ import {
 } from '../../interfaces/fridge-interface';
 import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
-import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
+import { FridgeComponent } from '../../components/homepage-components/fridge-component/fridge-component.component';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 import { LocalstorageService } from '../../services/functions/localstorage.service';
 

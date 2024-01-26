@@ -8,15 +8,15 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
-import { FridgeService } from '../../services/api-calls/fridge.service';
+import { FridgeService } from '../../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
-import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
+import { FridgeIngredientsComponent } from '../fridge-ingredients/fridge-ingredients.component';
 import {
   ChangedFridgeIngredient,
   CompactFridgeIngredient,
   FridgeIngredient,
-} from '../../interfaces/fridge-interface';
-import { LargeCardComponent } from '../standard-components/large-card/large-card.component';
+} from '../../../interfaces/fridge-interface';
+import { LargeCardComponent } from '../../standard-components/large-card/large-card.component';
 
 @Component({
   selector: 'app-fridge-component',
