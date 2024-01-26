@@ -18,16 +18,19 @@ export class FridgeIngredientsComponent implements OnInit {
   @Input({required: true}) fridgeIngredient: FridgeIngredient = {id: 0, ingredient_id: 0, fridge_id: 0, amount: 0};
   @Input({required: true}) ingredients: Array<CompactFridgeIngredient> = [];
   @Output() fridgeIngredientOutput = new EventEmitter<number>();
+  private originalValue: number = 0;
   
   constructor( 
   ){}
   
   ngOnInit() {
     this.count = this.fridgeIngredient.amount;
+    this.originalValue = this.fridgeIngredient.amount;
   }
 
   emitUserInput() {
     this.fridgeIngredientOutput.emit(this.count);
+    console.log(this.fridgeIngredient.amount, this.count);
   }
 
   getIngredientName() {
@@ -37,6 +40,16 @@ export class FridgeIngredientsComponent implements OnInit {
     ingredientName = ingredientData.name;
     }
     return ingredientName;
+  }
+
+  setCountToZero() {
+    this.count = 0;
+    this.emitUserInput();
+  }
+
+  setCountToOriginal() {
+    this.count = this.originalValue;
+    this.emitUserInput();
   }
 }
 

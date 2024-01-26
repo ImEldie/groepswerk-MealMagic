@@ -89,7 +89,7 @@ export class FridgeComponent implements OnInit {
         this.fridgeService.postIngredientsFridge(
           this.fridgeId,
           selectedIngredient.id,
-          1,
+          100,
         );
       }
     }
