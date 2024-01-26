@@ -30,7 +30,6 @@ export class FridgeIngredientsComponent implements OnInit {
 
   emitUserInput() {
     this.fridgeIngredientOutput.emit(this.count);
-    console.log(this.fridgeIngredient.amount, this.count);
   }
 
   getIngredientName() {

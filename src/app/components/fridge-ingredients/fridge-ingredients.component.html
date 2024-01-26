@@ -1,28 +1,30 @@
-<div class="ingredient">
-  @if (count !== 0) {
-    <mat-icon class="action-icon" (click)="setCountToZero()">cancel</mat-icon>
-    <div class="ingredient-name">
-      {{ getIngredientName() }}
+@if (fridgeIngredient && getIngredientName()) {
+  <div class="ingredient">
+    @if (count !== 0) {
+      <mat-icon class="action-icon" (click)="setCountToZero()">cancel</mat-icon>
+      <div class="ingredient-name">
+        {{ getIngredientName() }}
+      </div>
+    } @else {
+      <mat-icon class="action-icon" (click)="setCountToOriginal()">settings_backup_restore</mat-icon>
+      <div class="ingredient-name-red">
+        {{ getIngredientName() }}
+      </div>
+    }
+    <div class="ingredient-count">
+      <mat-form-field color="accent">
+        <mat-label>Amount (gr)</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="Number"
+          aria-label="Amount"
+          [(ngModel)]="count"
+          [ngModelOptions]="{ standalone: true }"
+          min="0"
+          (input)="emitUserInput()"
+        />
+      </mat-form-field>
     </div>
-  } @else {
-    <mat-icon class="action-icon" (click)="setCountToOriginal()">settings_backup_restore</mat-icon>
-    <div class="ingredient-name-red">
-      {{ getIngredientName() }}
-    </div>
-  }
-  <div class="ingredient-count">
-    <mat-form-field color="accent" class="amount-input">
-      <mat-label>Amount (gr)</mat-label>
-      <input
-        matInput
-        type="number"
-        placeholder="Number"
-        aria-label="Amount"
-        [(ngModel)]="count"
-        [ngModelOptions]="{ standalone: true }"
-        min="0"
-        (input)="emitUserInput()"
-      />
-    </mat-form-field>
   </div>
-</div>
+}
