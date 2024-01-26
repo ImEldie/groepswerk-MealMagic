@@ -7,29 +7,37 @@
       <div class="toolbar-content">
         <mat-form-field class="search-bar">
           <input
-            [(ngModel)]="searchInput"
-            placeholder="Search..."
-            type="string"
-            matInput
-          />
+             [(ngModel)]="searchInput"
+             placeholder="Search..."
+             type="string"
+             matInput
+           />
+           @if (loadingResults) {
+          <mat-hint>Results: loading...</mat-hint>
+        } @else {
           <mat-hint>Results: {{ getSearchResultAmount() }}</mat-hint>
-        </mat-form-field>
-        <button
-          mat-mini-fab
-          matTooltip="Sort by your fridge-ingredients"
-          (click)="filterForFridge()"
-        >
-          <mat-icon>kitchen</mat-icon>
-        </button>
+           }
+      </mat-form-field>
+         <button
+             mat-mini-fab
+             matTooltip="Sort by your fridge-ingredients"
+             (click)="filterForFridge()"
+           >
+             <mat-icon>kitchen</mat-icon>
+           </button>
       </div>
-    </app-large-card>
-  @for (dish of getDishes(); track $index) {
-    <app-dish-card
-      (click)="router.navigate(['dish', dish.id])"
-      [dish]="dish"
-      [ingredients]="ingredientAPI.getIngredientList()"
-    ></app-dish-card>
-  } @empty {
-    <app-loading-visualiser [loadingText]="'Loading dishes...'"></app-loading-visualiser>
-  }
+     </app-large-card>
+    @for (dish of getDishes(); track $index) {
+      <app-dish-card
+        (click)="router.navigate(['dish', dish.id])"
+        [dish]="dish"
+        [ingredients]="ingredientAPI.getIngredientList()"
+      ></app-dish-card>
+    } @empty {
+      <app-loading-visualiser
+        [loadingText]="'Loading dishes...'"
+      ></app-loading-visualiser>
+    }
+  </div>
+
 

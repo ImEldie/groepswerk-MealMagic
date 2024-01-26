@@ -23,3 +23,9 @@ export interface CompactFridgeIngredient {
   id: number;
   name: string;
 }
+
+export interface ChangedFridgeIngredient {
+  id: number;
+  original_amount: number;
+  new_amount: number;
+}
