@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { check } from 'prettier';
 
 @Component({
   selector: 'app-image-preview',
