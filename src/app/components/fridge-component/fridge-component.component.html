@@ -3,7 +3,11 @@
     <mat-card-content>
       <h1>Ingredients:</h1>
       <form class="fridge-form">
-        <mat-form-field class="fridge-full-width" (click)="updateFilteredIngredientsList()" (input)="updateFilteredIngredientsList()">
+        <mat-form-field
+          class="fridge-full-width"
+          (click)="updateFilteredIngredientsList()"
+          (input)="updateFilteredIngredientsList()"
+        >
           <mat-label>Add ingredients</mat-label>
           <input
             class="input"
@@ -19,28 +23,36 @@
             @for (ingredient of autocompleteOptions; track ingredient) {
               <mat-option
                 [value]="ingredient.name"
-                (click)="setSelectedIngredient(ingredient)">
-                  {{ingredient.name}}
+                (click)="setSelectedIngredient(ingredient)"
+              >
+                {{ ingredient.name }}
               </mat-option>
             }
           </mat-autocomplete>
         </mat-form-field>
       </form>
       <div>
-        <mat-list role="list">
-          @for (fridgeIngredient of this.fridgeService.getIngredientsInFridge(); track $index) {
+        <mat-list role="list" class="ingredient-list">
+          @for (fridgeIngredient of getIngredientsInFridge(); track $index) {
             <mat-list-item role="listitem">
               <app-fridge-ingredients
                 [fridgeIngredient]="fridgeIngredient"
                 [ingredients]="ingredientList"
-                (fridgeIngredientOutput)="setNewIngredientAmount($event, $index)"
+                (fridgeIngredientOutput)="
+                  setNewIngredientAmount($event, $index)
+                "
               ></app-fridge-ingredients>
             </mat-list-item>
           }
         </mat-list>
       </div>
       <div class="save-button">
-        <button mat-raised-button color="accent" (click)="saveFridgeToApi()" [disabled]="disableFridgeButtons()">
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="saveFridgeToApi()"
+          [disabled]="disableFridgeButtons()"
+        >
           <mat-icon>update</mat-icon>Save fridge
         </button>
       </div>

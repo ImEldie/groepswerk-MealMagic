@@ -39,7 +39,7 @@ import { LocalstorageService } from '../../services/functions/localstorage.servi
     MatButtonModule,
     MatTooltipModule,
     RouterOutlet,
-    LargeCardComponent
+    LargeCardComponent,
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
@@ -56,7 +56,7 @@ export class HomepageComponent implements OnInit {
     public fridgeService: FridgeService,
     public router: Router,
     public ingredientAPI: IngredientsApiService,
-    public storage: LocalstorageService
+    public storage: LocalstorageService,
   ) {
     this.filterOnFridge = false;
   }

@@ -8,8 +8,10 @@
   display: flex;
   align-items: center;
 }
-
 .save-button {
   display: flex;
   justify-content: flex-end;
+}
+.ingredient-list {
+  width: 25rem;
 }

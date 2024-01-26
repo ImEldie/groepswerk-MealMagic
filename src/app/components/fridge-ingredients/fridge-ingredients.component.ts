@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
+import {
+  CompactFridgeIngredient,
+  FridgeIngredient,
+} from '../../interfaces/fridge-interface';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 
@@ -10,50 +13,48 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [MatIconModule, MatButtonModule, MatInputModule, FormsModule],
   templateUrl: './fridge-ingredients.component.html',
-  styleUrl: './fridge-ingredients.component.css'
+  styleUrl: './fridge-ingredients.component.css',
 })
-
 export class FridgeIngredientsComponent implements OnInit {
-  count: number = 1;
-  @Input({required: true}) fridgeIngredient: FridgeIngredient = {id: 0, ingredient_id: 0, fridge_id: 0, amount: 0};
-  @Input({required: true}) ingredients: Array<CompactFridgeIngredient> = [];
+  @Input({ required: true }) fridgeIngredient: FridgeIngredient = {
+    id: 0,
+    ingredient_id: 0,
+    fridge_id: 0,
+    amount: 0,
+  };
+  @Input({ required: true }) ingredients: Array<CompactFridgeIngredient> = [];
   @Output() fridgeIngredientOutput = new EventEmitter<number>();
   private originalValue: number = 0;
-  
-  constructor( 
-  ){}
-  
-  ngOnInit() {
-    this.init();
-  }
 
-  private init() {
-    this.count = this.fridgeIngredient.amount;
+  constructor() {}
+
+  ngOnInit() {
     this.originalValue = this.fridgeIngredient.amount;
   }
 
   emitUserInput() {
-    this.fridgeIngredientOutput.emit(this.count);
+    this.fridgeIngredientOutput.emit(this.fridgeIngredient.amount);
   }
 
   getIngredientName() {
-    const ingredientData = this.ingredients?.find((ingredient) => ingredient.id === this.fridgeIngredient.ingredient_id);
-    let ingredientName = "";
+    const ingredientData = this.ingredients?.find(
+      (ingredient) => ingredient.id === this.fridgeIngredient.ingredient_id,
+    );
+    let ingredientName = '';
     if (ingredientData) {
-    ingredientName = ingredientData.name;
+      ingredientName = ingredientData.name;
     }
     return ingredientName;
   }
 
   setCountToZero() {
-    this.count = 0;
+    this.originalValue = this.fridgeIngredient.amount;
+    this.fridgeIngredient.amount = 0;
     this.emitUserInput();
   }
 
   setCountToOriginal() {
-    this.count = this.originalValue;
+    this.fridgeIngredient.amount = this.originalValue;
     this.emitUserInput();
   }
 }
-
-

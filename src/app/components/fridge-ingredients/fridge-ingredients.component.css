@@ -1,52 +1,55 @@
 .ingredient {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    height: 5rem;
-    animation: NewInput 1s ease forwards;
-    padding-left: 2rem;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 5rem;
+  animation: NewInput 1s ease forwards;
+  padding-left: 2rem;
+  width: 100%;
 }
-.ingredient-name, .ingredient-name-red {
-    padding-top: 1rem;
-    padding-right: 0.3rem;
-    animation: TextBounce 500ms ease forwards;
+.ingredient-name,
+.ingredient-name-red {
+  padding-top: 1rem;
+  padding-right: 0.3rem;
+  animation: TextBounce 500ms ease forwards;
 }
 .ingredient-name-red {
-    color: rgb(150, 46, 46);
-    text-decoration: line-through;
-    animation: TextBounce 500ms ease forwards;
+  color: rgb(150, 46, 46);
+  text-decoration: line-through;
+  animation: TextBounce 500ms ease forwards;
 }
 @keyframes TextBounce {
-    from {
-        margin-top: 0rem;
-        rotate: -1deg;
-    }
-    10% {
-        margin-top: -0.3rem;
-    }
-    50% {
-        rotate: 1deg;
-    }
+  from {
+    margin-top: 0rem;
+    rotate: -1deg;
+  }
+  10% {
+    margin-top: -0.3rem;
+  }
+  50% {
+    rotate: 1deg;
+  }
 }
 .action-icon {
-    position: absolute;
-    left: 1.2rem;
-    padding-top: 1.3rem;
-    scale: 0.8;
-    cursor: pointer;
-    animation: TextBounce 500ms ease 30ms forwards;
+  position: absolute;
+  left: 1.2rem;
+  padding-top: 1.3rem;
+  scale: 0.8;
+  cursor: pointer;
+  animation: TextBounce 500ms ease 30ms forwards;
 }
 .ingredient-count {
-    margin-top: 0.5rem;
-    padding-top: 1rem;
-    height: 5rem;
-    animation: FadeInCount 1s ease forwards;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  height: 5rem;
+  width: 15rem;
+  animation: FadeInCount 1s ease forwards;
 }
 @keyframes FadeInCount {
-    from {
-        opacity: 0;
-    }
-    50% {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
 }

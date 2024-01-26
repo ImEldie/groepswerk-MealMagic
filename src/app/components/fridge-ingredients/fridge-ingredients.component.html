@@ -1,12 +1,14 @@
 @if (fridgeIngredient && getIngredientName()) {
   <div class="ingredient">
-    @if (count !== 0) {
+    @if (this.fridgeIngredient.amount !== 0) {
       <mat-icon class="action-icon" (click)="setCountToZero()">cancel</mat-icon>
       <div class="ingredient-name">
         {{ getIngredientName() }}
       </div>
     } @else {
-      <mat-icon class="action-icon" (click)="setCountToOriginal()">settings_backup_restore</mat-icon>
+      <mat-icon class="action-icon" (click)="setCountToOriginal()"
+        >settings_backup_restore</mat-icon
+      >
       <div class="ingredient-name-red">
         {{ getIngredientName() }}
       </div>
@@ -17,9 +19,8 @@
         <input
           matInput
           type="number"
-          placeholder="Number"
-          aria-label="Amount"
-          [(ngModel)]="count"
+          aria-label="Amount (gr)"
+          [(ngModel)]="this.fridgeIngredient.amount"
           [ngModelOptions]="{ standalone: true }"
           min="0"
           (input)="emitUserInput()"
