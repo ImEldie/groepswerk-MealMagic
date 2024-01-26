@@ -4,12 +4,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
-import { Dish } from '../../interfaces/interfaces-dishes';
-import { AllergyIconComponent } from '../allergy-icon/allergy-icon.component';
+import { Dish } from '../../../interfaces/interfaces-dishes';
+import { AllergyIconComponent } from '../../standard-components/allergy-icon/allergy-icon.component';
 import { MatIconModule } from '@angular/material/icon';
-import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
+import { IngredientsApiService } from '../../../services/api-calls/ingredients-api.service';
 import { MatRippleModule } from '@angular/material/core';
-import { Ingredient } from '../../interfaces/interfaces-ingredients';
+import { Ingredient } from '../../../interfaces/interfaces-ingredients';
+import { SmallCardComponent } from '../../standard-components/small-card/small-card.component';
 
 @Component({
   selector: 'app-dish-card',
@@ -23,6 +24,7 @@ import { Ingredient } from '../../interfaces/interfaces-ingredients';
     MatDividerModule,
     CommonModule,
     MatIconModule,
+    SmallCardComponent
   ],
   templateUrl: './dish-card.component.html',
   styleUrl: './dish-card.component.css',

@@ -1,0 +1,17 @@
+.large-card {
+    box-shadow: var(--box-shadow-strong);
+    border-radius: var(--borderradius-default);
+    border-style: outset;
+    border-color: var(--primary-color);
+    border-width: 0.1rem;
+    background-color: var(--background-primary);
+    width: inherit;
+    min-width: inherit;
+    max-width: inherit;
+    height: inherit;
+    min-height: inherit;
+    max-height: inherit;
+    margin: inherit;
+    padding: inherit;
+    margin-bottom: var(--default-margin);
+}

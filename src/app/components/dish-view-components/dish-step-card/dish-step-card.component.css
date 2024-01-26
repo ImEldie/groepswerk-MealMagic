@@ -1,18 +1,13 @@
 .step-card {
+    margin-bottom: var(--default-margin);
+    width: 100%;
+}
+.step-card-content {
     display: flex;
     flex-direction: row;
-    margin-bottom: 0.5rem;
-    margin-left: 0.5rem;
-    max-width: 50rem;
-    border-radius: var(--borderradius-default);
-    box-shadow: var(--box-shadow-mild);
-    background-color: lightyellow;
-    border-style: outset;
-    border-color: lightgray;
-    border-width: 1px;
 }
 .card-text-content {
-    width: 70%;
+    width: 72%;
 }
 .step-description {
     width: 100%;

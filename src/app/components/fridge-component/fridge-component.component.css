@@ -3,15 +3,9 @@
   max-width: 500px;
   width: 100%;
 }
-  
 .fridge-full-width {
   width: 100%;
 }
-.fridge {
-  display: flex;
-align-items: center;
-}
-
 .save-button {
   display: flex;
   justify-content: flex-end;

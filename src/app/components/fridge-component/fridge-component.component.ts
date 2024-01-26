@@ -16,6 +16,7 @@ import {
   CompactFridgeIngredient,
   FridgeIngredient,
 } from '../../interfaces/fridge-interface';
+import { LargeCardComponent } from '../standard-components/large-card/large-card.component';
 
 @Component({
   selector: 'app-fridge-component',
@@ -30,8 +31,9 @@ import {
     MatAutocompleteModule,
     ReactiveFormsModule,
     AsyncPipe,
-    MatListModule,
+    MatListModule, 
     FridgeIngredientsComponent,
+    LargeCardComponent
   ],
   templateUrl: './fridge-component.component.html',
   styleUrl: './fridge-component.component.css',

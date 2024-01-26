@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
-import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
+import { AllergyIconComponent } from '../../components/standard-components/allergy-icon/allergy-icon.component';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Dish } from '../../interfaces/interfaces-dishes';
@@ -15,8 +15,9 @@ import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { CaloriesComponent } from '../../components/dish-view-components/calories/calories.component';
 import { DishReviewsComponent } from '../../components/dish-view-components/dish-reviews/dish-reviews.component';
-import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
+import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
 import { DishStepCardComponent } from '../../components/dish-view-components/dish-step-card/dish-step-card.component';
+import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 
 @Component({
   selector: 'app-dish-view',
@@ -32,7 +33,8 @@ import { DishStepCardComponent } from '../../components/dish-view-components/dis
     CaloriesComponent,
     DishReviewsComponent,
     LoadingVisualiserComponent,
-    DishStepCardComponent
+    DishStepCardComponent,
+    LargeCardComponent,
   ],
   templateUrl: './dish-view.component.html',
   styleUrl: './dish-view.component.css',

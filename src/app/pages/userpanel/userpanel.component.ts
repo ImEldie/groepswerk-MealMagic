@@ -26,9 +26,11 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { AllergyIconComponent } from '../../components/allergy-icon/allergy-icon.component';
+import { AllergyIconComponent } from '../../components/standard-components/allergy-icon/allergy-icon.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { UserpanelService } from '../../services/api-calls/userpanel.service';
+import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
+import { SmallCardComponent } from '../../components/standard-components/small-card/small-card.component';
 @Component({
   selector: 'app-userpanel',
   standalone: true,
@@ -50,6 +52,8 @@ import { UserpanelService } from '../../services/api-calls/userpanel.service';
     MatTooltipModule,
     AllergyIconComponent,
     RouterOutlet,
+    LargeCardComponent,
+    SmallCardComponent
   ],
 })
 export class UserpanelComponent implements OnInit {
