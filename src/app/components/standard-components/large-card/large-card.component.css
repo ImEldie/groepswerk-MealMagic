@@ -1,7 +1,6 @@
 .large-card {
     box-shadow: var(--box-shadow-strong);
     border-radius: var(--borderradius-default);
-    overflow: hidden;
     border-style: outset;
     border-color: var(--primary-color);
     border-width: 0.1rem;

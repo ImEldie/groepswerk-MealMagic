@@ -162,7 +162,7 @@
   text-align: center;
   transform: rotate(var(--position));
   transform-origin: 50% calc(100% + 6.5rem);
-  color: #ffffff;
+  color: black;
 }
 .score-container {
   position: absolute;
