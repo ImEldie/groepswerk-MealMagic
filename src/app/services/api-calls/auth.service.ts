@@ -35,8 +35,7 @@ export class AuthService {
       .pipe(catchError(() => this.postNewUserDetails(login_id)))
       .subscribe((userData) => {
         this.storage.userId.set(userData.id);
-        const userDetailsId = this.storage.userId.get();
-        this.getFridgeId(userDetailsId);
+        this.getFridgeId(userData.id);
       });
   }
   private postNewUserDetails(login_id: number) {

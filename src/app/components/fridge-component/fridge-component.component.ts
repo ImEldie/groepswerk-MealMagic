@@ -39,7 +39,6 @@ export class FridgeComponent implements OnInit {
   ingredientInput = new FormControl();
   selectedIngredient: CompactFridgeIngredient = { id: 0, name: '' };
   autocompleteOptions: Array<CompactFridgeIngredient> = [];
-  fridgeId: number = this.storage.fridgeId.get();
   ingredientsInFridge: Array<FridgeIngredient> = [];
 
   constructor(
@@ -54,7 +53,7 @@ export class FridgeComponent implements OnInit {
   }
 
   private getFridgeIngredients() {
-    this.fridgeService.getUniqueFridgeIngredients(this.fridgeId).subscribe({
+    this.fridgeService.getUniqueFridgeIngredients(this.storage.fridgeId.get()).subscribe({
       next: (response) => {
         this.ingredientsInFridge = response;
       },
@@ -86,7 +85,7 @@ export class FridgeComponent implements OnInit {
 
       if (ingredientNotInFridge) {
         this.fridgeService.postIngredientsFridge(
-          this.fridgeId,
+          this.storage.fridgeId.get(),
           selectedIngredient.id,
           1,
         );
