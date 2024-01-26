@@ -2,14 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReviewsResponse } from '../../interfaces/user-details-interface';
 import { map, of } from 'rxjs';
-import { LocalstorageService } from '../functions/localstorage.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ReviewsService {
   constructor(
     private http: HttpClient,
-    private storage: LocalstorageService,
   ) {}
   apiUrl: string = 'https://syntra2023.code-coaching.dev/api/group-2/';
   reviewsEndpoint: string = 'reviews/';

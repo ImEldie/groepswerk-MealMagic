@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
 import {
   FridgeIngredient,
   Fridge,
   CompactFridgeIngredient,
-  Fridges,
 } from '../../interfaces/fridge-interface';
 import {
   IngredientList,
@@ -18,7 +17,6 @@ import { LocalstorageService } from '../functions/localstorage.service';
 export class FridgeService {
   private ingredientsInFridge: Array<FridgeIngredient> = [];
   private compactIngredientList: Array<CompactFridgeIngredient> = [];
-  private fridgeId: number = 2;
 
   constructor(
     private http: HttpClient,
@@ -48,7 +46,7 @@ export class FridgeService {
 
   postIngredientsFridge(ingredientId: number) {
     const postData = {
-      fridge_id: this.fridgeId,
+      fridge_id: this.storage.fridgeId.get(),
       ingredient_id: ingredientId,
       amount: 100,
     };
@@ -64,7 +62,7 @@ export class FridgeService {
   }
 
   private getUniqueFridgeIngredientsFromApi() {
-    return this.http.get<Fridge>(`fridges/${this.fridgeId}`).pipe(
+    return this.http.get<Fridge>(`fridges/${this.storage.fridgeId.get()}`).pipe(
       map((data) => {
         return data.ingredients?.map((ingredients) => {
           const ingredientsFridgeInfo: FridgeIngredient = {
@@ -106,17 +104,6 @@ export class FridgeService {
 
   private deleteFridgeIngredient(ingredient: FridgeIngredient) {
     return this.http.delete('ingredients-fridges/' + ingredient.id);
-  }
-
-  private getFridgeIdFromFridges(): Observable<Fridge | null> {
-    return this.http.get<Fridges>('fridges/').pipe(
-      map((response) => {
-        let fridge = response.data.find(
-          (object) => object.user_detail_id === this.storage.userId.get(),
-        );
-        return fridge ? fridge : null;
-      }),
-    );
   }
 
   getFridgeIngredients(): Observable<Array<FridgeIngredient>> {

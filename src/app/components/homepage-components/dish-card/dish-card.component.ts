@@ -7,7 +7,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Dish } from '../../../interfaces/interfaces-dishes';
 import { AllergyIconComponent } from '../../standard-components/allergy-icon/allergy-icon.component';
 import { MatIconModule } from '@angular/material/icon';
-import { IngredientsApiService } from '../../../services/api-calls/ingredients-api.service';
 import { MatRippleModule } from '@angular/material/core';
 import { Ingredient } from '../../../interfaces/interfaces-ingredients';
 import { SmallCardComponent } from '../../standard-components/small-card/small-card.component';
