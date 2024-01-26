@@ -34,6 +34,7 @@
     padding-top: 1.3rem;
     scale: 0.8;
     cursor: pointer;
+    animation: TextBounce 500ms ease 60ms forwards;
 }
 .ingredient-count {
     margin-top: 0.5rem;
