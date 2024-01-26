@@ -1,12 +1,26 @@
-<span class="ingredient"
-  >{{ getIngredientName() }}&nbsp;
-  <span>
-    <button (click)="minOne()" mat-mini-fab color="warn">
-      <mat-icon>remove</mat-icon>
-    </button>
-    <span> {{ count }} </span>
-    <button (click)="plusOne()" mat-mini-fab color="accent">
-      <mat-icon>add</mat-icon>
-    </button>
-  </span>
-</span>
+<div class="ingredient">
+  @if (count !== 0) {
+    <div class="ingredient-name">
+      {{ getIngredientName() }}
+    </div>
+  } @else {
+    <div class="ingredient-name-red">
+      {{ getIngredientName() }}
+    </div>
+  }
+  <div class="ingredient-count">
+    <mat-form-field color="accent" class="amount-input">
+      <mat-label>Amount (gr)</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="Number"
+        aria-label="Amount"
+        [(ngModel)]="count"
+        [ngModelOptions]="{ standalone: true }"
+        min="0"
+        (input)="emitUserInput()"
+      />
+    </mat-form-field>
+  </div>
+</div>

@@ -1,5 +1,30 @@
 .ingredient {
     display: flex;
-    justify-content: flex-end;
+    justify-content: right;
     align-items: center;
+    height: 5rem;
+    animation: NewInput 1s ease forwards;
+}
+.ingredient-name, .ingredient-name-red {
+    margin-right: 0.3rem;
+    padding-top: 1rem;
+    animation: TextBounce 500ms ease forwards;
+}
+.ingredient-name-red {
+    color: rgb(150, 46, 46);
+    text-decoration: line-through;
+    animation: TextBounce 500ms ease forwards;
+}
+@keyframes TextBounce {
+    from {
+        margin-top: 0rem;
+    }
+    10% {
+        margin-top: -0.5rem;
+    }
+}
+.ingredient-count {
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    height: 5rem;
 }

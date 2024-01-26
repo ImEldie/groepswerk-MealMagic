@@ -2,11 +2,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-fridge-ingredients',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule],
+  imports: [MatIconModule, MatButtonModule, MatInputModule, FormsModule],
   templateUrl: './fridge-ingredients.component.html',
   styleUrl: './fridge-ingredients.component.css'
 })
@@ -35,15 +37,6 @@ export class FridgeIngredientsComponent implements OnInit {
     ingredientName = ingredientData.name;
     }
     return ingredientName;
-  }
-
-  plusOne(){
-    this.count  += 1;
-    this.emitUserInput();
-  } 
-  minOne(){
-    this.count  -= 1;
-    this.emitUserInput();
   }
 }
 

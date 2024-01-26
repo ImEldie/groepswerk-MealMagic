@@ -114,6 +114,7 @@ export class FridgeComponent implements OnInit {
           ingredientAmountsToPut.push(this.ingredientsInFridge[i]);
         }
       }
+      console.log(ingredientsToDelete, ingredientAmountsToPut);
       this.fridgeService
         .putUpdatedFridgeIngredients(ingredientAmountsToPut)
         .subscribe(() => {
