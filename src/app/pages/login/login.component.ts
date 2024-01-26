@@ -14,7 +14,7 @@ import {
   FormGroup,
   FormBuilder,
 } from '@angular/forms';
-import { AuthService } from '../../services/api-calls/auth.service';
+import { AuthApiService } from '../../services/api-calls/auth-api.service';
 import { Router } from '@angular/router';
 import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 
@@ -42,7 +42,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
 
   constructor(
-    private authService: AuthService,
+    private authService: AuthApiService,
     public location: Location,
     private formBuilder: FormBuilder,
     public router : Router,

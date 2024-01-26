@@ -22,13 +22,13 @@ import {
   Review,
   UserDetailsInterface,
   UserDetailsResponse,
-} from '../../interfaces/user-details-interface';
+} from '../../interfaces/interfaces-user-details';
 import { MatButtonModule } from '@angular/material/button';
 import { Observable, map } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AllergyIconComponent } from '../../components/standard-components/allergy-icon/allergy-icon.component';
 import { Router, RouterOutlet } from '@angular/router';
-import { UserpanelService } from '../../services/api-calls/userpanel.service';
+import { UserpanelApiService } from '../../services/api-calls/userpanel-api.service';
 import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 import { SmallCardComponent } from '../../components/standard-components/small-card/small-card.component';
 @Component({
@@ -86,7 +86,7 @@ export class UserpanelComponent implements OnInit {
   userReviewDishId: number = NaN;
   userReviews: Array<DishReview> = [];
   constructor(
-    private userpanelService: UserpanelService,
+    private userpanelService: UserpanelApiService,
     private formBuilder: FormBuilder,
     public router: Router,
   ) {}

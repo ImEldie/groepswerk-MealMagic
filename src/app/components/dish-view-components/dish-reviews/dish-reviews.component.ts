@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Review } from '../../../interfaces/user-details-interface';
+import { Review } from '../../../interfaces/interfaces-user-details';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ReviewsService } from '../../../services/api-calls/reviews-api.service';
+import { ReviewsApiService } from '../../../services/api-calls/reviews-api.service';
 import { LocalstorageService } from '../../../services/functions/localstorage.service';
 import { ActivatedRoute } from '@angular/router';
 @Component({
@@ -19,7 +19,7 @@ export class DishReviewsComponent implements OnInit {
   loadedRating: number = 0;
   constructor(
     private formBuilder: FormBuilder,
-    private reviewService: ReviewsService,
+    private reviewService: ReviewsApiService,
     private storage: LocalstorageService,
     private route: ActivatedRoute,
   ) {}

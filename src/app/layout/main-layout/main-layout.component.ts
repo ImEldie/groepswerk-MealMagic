@@ -4,7 +4,7 @@ import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../services/api-calls/auth.service';
+import { AuthApiService } from '../../services/api-calls/auth-api.service';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
@@ -26,7 +26,7 @@ export class MainLayoutComponent implements OnInit {
   hideMyAccountButton: boolean = false;
   constructor(
     public router: Router,
-    public authService: AuthService,
+    public authService: AuthApiService,
   ) {}
   navigateToHomepage() {
     this.router.navigate(['']);

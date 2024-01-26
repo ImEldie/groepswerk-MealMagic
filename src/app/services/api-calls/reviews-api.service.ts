@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReviewsResponse } from '../../interfaces/user-details-interface';
+import { ReviewsResponse } from '../../interfaces/interfaces-user-details';
 import { map, of } from 'rxjs';
 import { LocalstorageService } from '../functions/localstorage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ReviewsService {
+export class ReviewsApiService {
   constructor(
     private http: HttpClient,
     private storage: LocalstorageService,

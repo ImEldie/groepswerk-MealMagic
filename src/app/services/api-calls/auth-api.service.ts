@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs';
 import { LocalstorageService } from '../functions/localstorage.service';
 import { HttpClient } from '@angular/common/http';
-import { LoginDetails } from '../../interfaces/login-interface';
+import { LoginDetails } from '../../interfaces/interfaces-login';
 import {
   UserDetailsInterface,
   UserDetailsPost,
-} from '../../interfaces/user-details-interface';
-import { UserFridge } from '../../interfaces/fridge-interface';
+} from '../../interfaces/interfaces-user-details';
+import { UserFridge } from '../../interfaces/interfaces-fridge';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthApiService {
   constructor(
     private http: HttpClient,
     private storage: LocalstorageService,

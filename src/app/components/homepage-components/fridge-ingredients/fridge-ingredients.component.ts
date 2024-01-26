@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {
   CompactFridgeIngredient,
   FridgeIngredient,
-} from '../../interfaces/fridge-interface';
+} from '../../../interfaces/interfaces-fridge';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 

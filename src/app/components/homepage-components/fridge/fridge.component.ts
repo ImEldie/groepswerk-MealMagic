@@ -8,18 +8,18 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
-import { FridgeService } from '../../services/api-calls/fridge.service';
+import { FridgeApiService } from '../../../services/api-calls/fridge-api.service';
 import { Router } from '@angular/router';
-import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
+import { FridgeIngredientsComponent } from '../fridge-ingredients/fridge-ingredients.component';
 import {
   ChangedFridgeIngredient,
   CompactFridgeIngredient,
   FridgeIngredient,
-} from '../../interfaces/fridge-interface';
-import { LargeCardComponent } from '../standard-components/large-card/large-card.component';
+} from '../../../interfaces/interfaces-fridge';
+import { LargeCardComponent } from '../../standard-components/large-card/large-card.component';
 
 @Component({
-  selector: 'app-fridge-component',
+  selector: 'app-fridge',
   standalone: true,
   imports: [
     MatCardModule,
@@ -35,8 +35,8 @@ import { LargeCardComponent } from '../standard-components/large-card/large-card
     FridgeIngredientsComponent,
     LargeCardComponent,
   ],
-  templateUrl: './fridge-component.component.html',
-  styleUrl: './fridge-component.component.css',
+  templateUrl: './fridge.component.html',
+  styleUrl: './fridge.component.css',
 })
 export class FridgeComponent implements OnInit {
   @Input({ required: true }) ingredientList: Array<CompactFridgeIngredient> =
@@ -48,7 +48,7 @@ export class FridgeComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public fridgeService: FridgeService,
+    public fridgeService: FridgeApiService,
   ) {}
 
   ngOnInit() {

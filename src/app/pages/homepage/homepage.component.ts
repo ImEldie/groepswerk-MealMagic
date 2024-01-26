@@ -8,18 +8,18 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { DishesApiService } from '../../services/api-calls/dishes-api.service';
 import { Router, RouterOutlet } from '@angular/router';
-import { AuthService } from '../../services/api-calls/auth.service';
+import { AuthApiService } from '../../services/api-calls/auth-api.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FridgeService } from '../../services/api-calls/fridge.service';
+import { FridgeApiService } from '../../services/api-calls/fridge-api.service';
 import {
   CompactFridgeIngredient,
   FridgeIngredient,
-} from '../../interfaces/fridge-interface';
+} from '../../interfaces/interfaces-fridge';
 import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
-import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
+import { FridgeComponent } from '../../components/homepage-components/fridge/fridge.component';
 import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
 import { LocalstorageService } from '../../services/functions/localstorage.service';
 
@@ -52,8 +52,8 @@ export class HomepageComponent implements OnInit {
   private fridgeIngredients: Array<FridgeIngredient> = [];
   constructor(
     public dishesApi: DishesApiService,
-    public auth: AuthService,
-    public fridgeService: FridgeService,
+    public auth: AuthApiService,
+    public fridgeService: FridgeApiService,
     public router: Router,
     public ingredientAPI: IngredientsApiService,
     public storage: LocalstorageService,

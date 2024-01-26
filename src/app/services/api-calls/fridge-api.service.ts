@@ -6,7 +6,7 @@ import {
   Fridge,
   CompactFridgeIngredient,
   Fridges,
-} from '../../interfaces/fridge-interface';
+} from '../../interfaces/interfaces-fridge';
 import {
   IngredientList,
 } from '../../interfaces/interfaces-ingredients';
@@ -15,7 +15,7 @@ import { LocalstorageService } from '../functions/localstorage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class FridgeService {
+export class FridgeApiService {
   private ingredientsInFridge: Array<FridgeIngredient> = [];
   private compactIngredientList: Array<CompactFridgeIngredient> = [];
   private fridgeId: number = 2;

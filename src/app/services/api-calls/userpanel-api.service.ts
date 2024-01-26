@@ -7,7 +7,7 @@ import {
   UserDetailApiResponse,
   UserDetailsInterface,
   UserDetailsResponse,
-} from '../../interfaces/user-details-interface';
+} from '../../interfaces/interfaces-user-details';
 import { Observable, map } from 'rxjs';
 import { Dish } from '../../interfaces/interfaces-dishes';
 import { LocalstorageService } from '../functions/localstorage.service';
@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class UserpanelService {
+export class UserpanelApiService {
   constructor(
     private http: HttpClient,
     private storage: LocalstorageService,
