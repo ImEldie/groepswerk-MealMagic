@@ -11,10 +11,8 @@ import { MatListModule } from '@angular/material/list';
 import { FridgeService } from '../../services/api-calls/fridge.service';
 import { Router } from '@angular/router';
 import { FridgeIngredientsComponent } from '../../components/fridge-ingredients/fridge-ingredients.component';
-import {
-  CompactFridgeIngredient,
-  FridgeIngredient,
-} from '../../interfaces/fridge-interface';
+import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
+import { LocalstorageService } from '../../services/functions/localstorage.service';
 
 @Component({
   selector: 'app-fridge-component',
@@ -41,12 +39,13 @@ export class FridgeComponent implements OnInit {
   ingredientInput = new FormControl();
   selectedIngredient: CompactFridgeIngredient = { id: 0, name: '' };
   autocompleteOptions: Array<CompactFridgeIngredient> = [];
-  fridgeId: number = 2;
+  fridgeId: number = this.storage.fridgeId.get();
   ingredientsInFridge: Array<FridgeIngredient> = [];
 
   constructor(
     public router: Router,
     public fridgeService: FridgeService,
+    private storage: LocalstorageService,
   ) {}
 
   ngOnInit() {

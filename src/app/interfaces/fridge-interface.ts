@@ -23,3 +23,8 @@ export interface CompactFridgeIngredient {
   id: number;
   name: string;
 }
+
+export interface UserFridge {
+  id?: number;
+  user_detail_id: number;
+}

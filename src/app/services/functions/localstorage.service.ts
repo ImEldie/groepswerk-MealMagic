@@ -7,6 +7,7 @@ export class LocalstorageService {
   token = new LocalStorageData('token');
   userId = new LocalStorageData('user_id', true);
   loginId = new LocalStorageData('login_id', true);
+  fridgeId = new LocalStorageData('fridge_id', true);
 }
 
 class LocalStorageData {
