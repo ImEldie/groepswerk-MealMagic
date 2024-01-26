@@ -1,38 +1,29 @@
 /* ### CARD LAYOUT ### */
 .dish-card {
-    margin-bottom: 1rem;
-    width: 50rem;
-    min-width: 30rem;
+    margin-bottom: var(--default-margin);
+    width: 70rem;
+    min-width: 40rem;
     min-height: 10rem;
-    border-radius: 1rem;
     z-index: 2;
-}
-.dish-card:hover {
-    animation: card-glow 1s ease-in forwards;
-    z-index: 3;
-}
-@keyframes card-glow {
-    to{
-        background-color: #eecbff2c;
-        box-shadow: 0 0 5vw 2vh var(--shadow-color);
-    }
 }
 .card-container {
     display: flex;
     justify-content: space-between;
+    border-radius: var(--borderradius-default);
 }
 .card-details {
     width: 100%;
 }
 .dish-img {
-    min-width: 45%;
-    max-width: 45%;
+    min-width: 35rem;
+    width: 55rem;
+    max-width: 55rem;
     min-height: 11.5rem;
     max-height: 11.5rem;
     object-fit: cover;
     object-position: center;
-    border-radius: 0 1rem 1rem 20rem;
-    box-shadow: 0 0 1rem var(--shadow-color); 
+    border-radius: 0 var(--borderradius-default) var(--borderradius-default) 20rem;
+    box-shadow: var(--box-shadow-strong); 
 }
 mat-divider {
     margin-top: 0.1rem;
@@ -80,7 +71,7 @@ mat-chip {
 }
 
 .description-container {
-    background-color: #eecbff13;
+    background-color: rgba(255, 255, 177, 0.2);
     font-size: 1rem;
     position: relative;
     min-height: 3.5rem;
@@ -90,6 +81,9 @@ mat-chip {
     object-fit: cover;
     overflow: hidden;
     transition: max-height 1.5s ease;
+    border-color: lightgray;
+    border-style: inset;
+    border-width: 1px;
 }
 .dish-card:hover .description-container {
     max-height: 80rem;
@@ -99,10 +93,10 @@ mat-chip {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 50%;
+    height: 75%;
     background: linear-gradient(transparent, var(--shadow-color));
-    opacity: 1;
-    transition: opacity 1.5s ease;
+    opacity: 0.6;
+    transition: opacity 1s linear;
 }
 .dish-card:hover .gradient-effect {
     opacity: 0;

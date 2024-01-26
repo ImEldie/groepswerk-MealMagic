@@ -24,6 +24,10 @@ export class FridgeIngredientsComponent implements OnInit {
   ){}
   
   ngOnInit() {
+    this.init();
+  }
+
+  private init() {
     this.count = this.fridgeIngredient.amount;
     this.originalValue = this.fridgeIngredient.amount;
   }

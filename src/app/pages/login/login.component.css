@@ -1,18 +1,21 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+}
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 89vh;
+  height: fit-content;
 }
 .login-box {
   display: flex;
   align-items: center;
   flex-flow: column wrap;
   width: 30rem;
-  background-color: rgb(233, 233, 233);
-  border-radius: 3%;
   padding: 5rem;
-  border: 0.1rem solid rgba(106, 5, 214, 0.658)
 }
 .login-title {
   display: flex;
@@ -26,6 +29,10 @@
   margin-top: 2rem;
   margin-bottom: -0.5rem;
   background-color: rgb(255, 255, 255);
-  border: 0.1rem solid rgba(106, 5, 214, 0.658);
+  border: 0.1rem outset var(--primary-color);
   width: 8rem;
+}
+.sign-button:hover {
+  border: 0.1rem inset var(--primary-color);
+  background-image: linear-gradient(white, lightgray);
 }

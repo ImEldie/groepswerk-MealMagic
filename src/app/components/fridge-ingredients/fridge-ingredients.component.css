@@ -3,7 +3,7 @@
     justify-content: right;
     align-items: center;
     height: 5rem;
-    animation: NewInput 2s ease forwards;
+    animation: NewInput 1s ease forwards;
     padding-left: 2rem;
 }
 .ingredient-name, .ingredient-name-red {
@@ -34,16 +34,19 @@
     padding-top: 1.3rem;
     scale: 0.8;
     cursor: pointer;
-    animation: TextBounce 500ms ease 60ms forwards;
+    animation: TextBounce 500ms ease 30ms forwards;
 }
 .ingredient-count {
     margin-top: 0.5rem;
     padding-top: 1rem;
     height: 5rem;
-    animation: FadeIn 2s ease forwards;
+    animation: FadeInCount 1s ease forwards;
 }
-@keyframes FadeIn {
+@keyframes FadeInCount {
     from {
+        opacity: 0;
+    }
+    50% {
         opacity: 0;
     }
 }

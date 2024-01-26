@@ -1,17 +1,7 @@
-.page-container {
-  justify-content: center;
-  padding: 2rem;
-  display: flex;
-}
 .dish-card {
-  min-width: 55rem;
-  width: 90%;
-  box-shadow: var(--box-shadow-maincard);
-  border-radius: var(--borderradius-default);
-  overflow: hidden;
-  border-style: outset;
-  border-color: lightgray;
-  border-width: 1px;
+  min-width: 53rem;
+  margin: 0rem 10rem;
+  max-width: 80rem;
 }
 .dish-image, .header-container {
   min-height: 16rem;
@@ -50,19 +40,14 @@
   margin-right: 0.3rem;
   margin-bottom: -0.5rem;
 }
-.clock-text {
+.clock-text, .serves-text, .season-text {
   font-size: 0.75rem;
-  font-style: italic;
 }
 .serves-icon {
   margin-top: 0.2rem;
   margin-right: 0.3rem;
   margin-bottom: -0.4rem;
   margin-left: 1rem;
-}
-.serves-text {
-  font-size: 0.75rem;
-  font-style: italic;
 }
 .season-icon {
   margin-top: 0.2rem;
@@ -71,13 +56,10 @@
   margin-left: 1rem;
 }
 .season-text {
-  font-size: 0.75rem;
-  font-style: italic;
   margin-left: -0.2rem;
 }
 .recipe-description {
   margin-top: 1rem;
-  margin-left: -1rem;
   max-width: 70%;
   max-height: 8rem;
   font-size: 1rem;
@@ -103,18 +85,16 @@
 }
 .card-title {
   font-size: 1.7rem;
+  margin-bottom: 0.3rem;
 }
 .dish-ingredients {
   font-size: 1rem;
-  margin-bottom: 1rem;
 }
 .dish-directions {
   font-size: 1rem;
-  max-width: 70%;
-  margin-top: 0.5rem;
+  min-width: 100%;
 }
 .dish-description {
-  margin-top: 1rem;
   font-size: 1rem;
   max-width: 70%;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DishCardComponent } from '../../components/dish-card/dish-card.component';
+import { DishCardComponent } from '../../components/homepage-components/dish-card/dish-card.component';
 import { Dish } from '../../interfaces/interfaces-dishes';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,11 +13,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FridgeService } from '../../services/api-calls/fridge.service';
-import { CompactFridgeIngredient, FridgeIngredient } from '../../interfaces/fridge-interface';
-import { LoadingVisualiserComponent } from '../../components/loading-visualiser/loading-visualiser.component';
-import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import {
+  CompactFridgeIngredient,
+  FridgeIngredient,
+} from '../../interfaces/fridge-interface';
+import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
+import { LoadingVisualiserComponent } from '../../components/standard-components/loading-visualiser/loading-visualiser.component';
 import { FridgeComponent } from '../../components/fridge-component/fridge-component.component';
+import { IngredientsApiService } from '../../services/api-calls/ingredients-api.service';
+import { LocalstorageService } from '../../services/functions/localstorage.service';
 
 @Component({
   selector: 'app-homepage',
@@ -35,7 +39,7 @@ import { FridgeComponent } from '../../components/fridge-component/fridge-compon
     MatButtonModule,
     MatTooltipModule,
     RouterOutlet,
-    MatSidenavModule,
+    LargeCardComponent
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
@@ -44,13 +48,15 @@ export class HomepageComponent implements OnInit {
   private dishList: Array<Dish> = this.dishesApi.getDishList();
   searchInput: string = '';
   filterOnFridge: boolean;
+  loadingResults: boolean = false;
   private fridgeIngredients: Array<FridgeIngredient> = [];
   constructor(
     public dishesApi: DishesApiService,
     public auth: AuthService,
     public fridgeService: FridgeService,
     public router: Router,
-    public ingredientAPI: IngredientsApiService
+    public ingredientAPI: IngredientsApiService,
+    public storage: LocalstorageService
   ) {
     this.filterOnFridge = false;
   }
@@ -113,19 +119,24 @@ export class HomepageComponent implements OnInit {
   }
   filterForFridge() {
     this.filterOnFridge = !this.filterOnFridge;
+    this.loadingResults = true;
     if (this.filterOnFridge) {
       this.fridgeService.getFridgeIngredients().subscribe((data) => {
         this.fridgeIngredients = data;
+        this.loadingResults = false;
       });
     } else {
       this.dishList = this.dishesApi.getDishList();
+      this.loadingResults = false;
     }
   }
   getCompactFridgeIngredients(): Array<CompactFridgeIngredient> {
-    const ingredientList = this.ingredientAPI.getIngredientList().map(ingredient => {
-      return { id: ingredient.id, name: ingredient.name };
-    })
-    
+    const ingredientList = this.ingredientAPI
+      .getIngredientList()
+      .map((ingredient) => {
+        return { id: ingredient.id, name: ingredient.name };
+      });
+
     if (ingredientList) {
       return ingredientList;
     } else {

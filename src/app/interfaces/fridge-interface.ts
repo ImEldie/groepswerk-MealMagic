@@ -29,3 +29,8 @@ export interface ChangedFridgeIngredient {
   original_amount: number;
   new_amount: number;
 }
+
+export interface UserFridge {
+  id?: number;
+  user_detail_id: number;
+}

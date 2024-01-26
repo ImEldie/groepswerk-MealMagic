@@ -1,71 +1,69 @@
-<div class="page-container">
-  <mat-card class="dish-card">
-    @if (dish) {
-      <img class="dish-image" mat-card-image [src]="dish.image_url"/>
-      <mat-card-header class="header-container">
+@if (dish) {
+  <app-large-card class="dish-card">
+    <img class="dish-image" mat-card-image [src]="dish.image_url" />
+    <mat-card-header class="header-container">
+      <div>
+        <mat-card-title class="header-title">{{
+          dish.name | titlecase
+        }}</mat-card-title>
+        <div class="dish-allergens">
+          @for (type of dish.dish_types; track type) {
+            <mat-chip class="dish-type"> {{ type.name | titlecase }}</mat-chip>
+          }
+          @for (allergy of getDishAllergies(); track allergy) {
+            <app-allergy-icon
+              [iconType]="allergy"
+              [iconSize]="'40px'"
+            ></app-allergy-icon>
+          }
+        </div>
         <div>
-          <mat-card-title class="header-title">{{
-            dish.name | titlecase
-          }}</mat-card-title>
-          <div class="dish-allergens">
-            @for (type of dish.dish_types; track type) {
-              <mat-chip class="dish-type">
-                {{ type.name | titlecase }}</mat-chip
-              >
-            }
-            @for (allergy of getDishAllergies(); track allergy) {
-              <app-allergy-icon
-                [iconType]="allergy"
-                [iconSize]="'40px'"
-              ></app-allergy-icon>
-            }
-          </div>
-          <div>
-            <mat-icon class="clock-icon" color="white">timelapse</mat-icon
-            ><span class="clock-text">{{ dish.duration }}min.</span
-            ><mat-icon class="serves-icon">group</mat-icon
-            ><span class="serves-text"
-              >Serves: {{ dish.amount_of_people }}</span
-            >
-            <mat-icon class="season-icon">wb_sunny</mat-icon>
-            <span class="season-text"> {{ dish.season.name }}</span>
-          </div>
-          <mat-card-content class="recipe-description">
-            {{ dish.description }}
-          </mat-card-content>
+          <mat-icon class="clock-icon" color="white">timelapse</mat-icon
+          ><span class="clock-text">{{ dish.duration }}min.</span
+          ><mat-icon class="serves-icon">group</mat-icon
+          ><span class="serves-text">Serves: {{ dish.amount_of_people }}</span>
+          <mat-icon class="season-icon">wb_sunny</mat-icon>
+          <span class="season-text"> {{ dish.season.name }}</span>
         </div>
-        <div class="actions-container">
-          <div>
-            <button mat-raised-button (click)="copyUrlToClipboard()" color="accent" class="share-button">
-              <mat-icon>file_copy</mat-icon> SHARE
-            </button>
-            <app-dish-reviews></app-dish-reviews>
-          </div>
-          <app-calories [dish]="dish"></app-calories>
+        <div class="recipe-description">
+          {{ dish.description }}
         </div>
-      </mat-card-header>
-
-      <div class="content-container">
-        <mat-card-title class="card-title">Ingredients</mat-card-title>
-        <mat-card-content class="dish-ingredients">
-          <ul>
-            @for (ingredient of dish.ingredients; track ingredient.id) {
-              <li>{{ ingredient.name }}</li>
-            }
-          </ul>
-        </mat-card-content>
-      
-        <mat-card-title class="card-title">Directions</mat-card-title>
-          <mat-card-content class="dish-directions">
-              @for (step of dish.dish_steps; track step) {
-                <app-dish-step-card [step]="step"></app-dish-step-card>
-              }
-          </mat-card-content>
+      </div>
+      <div class="actions-container">
+        <div>
+          <button
+            mat-raised-button
+            (click)="copyUrlToClipboard()"
+            color="accent"
+            class="share-button"
+          >
+            <mat-icon>file_copy</mat-icon> SHARE
+          </button>
+          <app-dish-reviews></app-dish-reviews>
         </div>
-    } @else {
-      <app-loading-visualiser
-        [loadingText]="'Loading dish info...'"
-      ></app-loading-visualiser>
-    }
-  </mat-card>
-</div>
+        <app-calories [dish]="dish"></app-calories>
+      </div>
+    </mat-card-header>
+    <mat-card-content class="content-container">
+      <mat-card-title class="card-title">Ingredients</mat-card-title>
+      <div class="dish-ingredients">
+        <ul>
+          @for (ingredient of dish.ingredients; track ingredient.id) {
+            <li>{{ ingredient.name }}</li>
+          }
+        </ul>
+      </div>
+      <mat-card-title class="card-title">Directions</mat-card-title>
+      <div class="dish-directions">
+        @for (step of dish.dish_steps; track step) {
+          <app-dish-step-card [step]="step"></app-dish-step-card>
+        }
+      </div>
+    </mat-card-content>
+  </app-large-card>
+} @else {
+  <app-loading-visualiser
+    class="dish-card"
+    [loadingText]="'Loading dish info...'"
+  ></app-loading-visualiser>
+}

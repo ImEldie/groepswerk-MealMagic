@@ -1,0 +1,29 @@
+.small-card {
+    box-shadow: var(--box-shadow-mild);
+    border-radius: var(--borderradius-default);
+    background-color: var(--background-accent);
+    border-style: outset;
+    border-color: lightgray;
+    border-width: 1px;
+    width: inherit;
+    min-width: inherit;
+    max-width: inherit;
+    height: inherit;
+    min-height: inherit;
+    max-height: inherit;
+    margin: inherit;
+    padding: inherit;
+    z-index: 1;
+}
+.small-card:hover {
+    animation: HoverOverCard 1s ease forwards;
+    z-index: 2;
+}
+@keyframes HoverOverCard {
+    from {
+        box-shadow: var(--box-shadow-mild);
+    }
+    to {
+        box-shadow: var(--box-shadow-strong);
+    }
+}

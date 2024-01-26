@@ -1,5 +1,5 @@
 <div class="fridge">
-  <mat-card>
+  <app-large-card>
     <mat-card-content>
       <h1>Ingredients:</h1>
       <form class="fridge-form">
@@ -28,11 +28,11 @@
       </form>
       <div>
         <mat-list role="list">
-          @for (fridgeIngredient of ingredientsInFridge; track $index) {
+          @for (fridgeIngredient of this.fridgeService.getIngredientsInFridge(); track $index) {
             <mat-list-item role="listitem">
               <app-fridge-ingredients
                 [fridgeIngredient]="fridgeIngredient"
-                [ingredients]="this.ingredientList"
+                [ingredients]="ingredientList"
                 (fridgeIngredientOutput)="setNewIngredientAmount($event, $index)"
               ></app-fridge-ingredients>
             </mat-list-item>
@@ -45,5 +45,5 @@
         </button>
       </div>
     </mat-card-content>
-  </mat-card>
+  </app-large-card>
 </div>

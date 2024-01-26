@@ -15,6 +15,8 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { AuthService } from '../../services/api-calls/auth.service';
+import { Router } from '@angular/router';
+import { LargeCardComponent } from '../../components/standard-components/large-card/large-card.component';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +33,7 @@ import { AuthService } from '../../services/api-calls/auth.service';
     MatCheckboxModule,
     MatInputModule,
     MatFormFieldModule,
+    LargeCardComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -42,6 +45,7 @@ export class LoginComponent {
     private authService: AuthService,
     public location: Location,
     private formBuilder: FormBuilder,
+    public router : Router,
   ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -52,7 +56,7 @@ export class LoginComponent {
   login() {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe(() => {
-      this.location.back();
+      this.router.navigate(['']);
     });
   }
 

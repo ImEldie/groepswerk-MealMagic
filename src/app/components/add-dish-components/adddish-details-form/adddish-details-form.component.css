@@ -11,9 +11,8 @@
 }
 
 .seasons-container {
-    background-color: rgba(128, 128, 128, 0.15);
-    color: rgba(255, 255, 255, 0.473);
-    border-color: rgba(255, 255, 255, 0.4);
+    color: gray;
+    border-color: rgba(0, 0, 0, 0.4);
     border-width: 0px 0px 1px 0px;
     border-style: solid;
     border-radius: 0.3rem 0.3rem 0rem 0rem;
@@ -28,8 +27,7 @@
     cursor: default;
 }
 .seasons-container:hover {
-    background-color: rgba(128, 128, 128, 0.3);
-    border-color: rgba(255, 255, 255, 0.8);
+    border-color: black;
 }
 mat-button-toggle {
     animation: ToggleButtonGrowWidth 2s ease forwards;
