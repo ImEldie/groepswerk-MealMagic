@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
-import { FridgeIngredient, Fridge, Fridges } from '../../interfaces/fridge-interface';
+import { Observable, forkJoin, map } from 'rxjs';
+import { FridgeIngredient, Fridge } from '../../interfaces/fridge-interface';
 import { LocalstorageService } from '../functions/localstorage.service';
 
 @Injectable({
@@ -63,28 +63,10 @@ export class FridgeService {
     return this.http.delete("ingredients-fridges/" + ingredient.id);
   }
 
-  getFridgeIdFromFridges(): Observable<Fridge | null> {
-    return this.http.get<Fridges>('fridges/').pipe(
-      map((response) => {
-        let fridge = response.data.find(
-          (object) => object.user_detail_id === this.storage.userId.get(),
-        );
-        return fridge ? fridge : null;
-      }),
-    );
-  }
-
   getFridgeIngredients(): Observable<Array<FridgeIngredient>> {
-    return this.getFridgeIdFromFridges().pipe(
-      switchMap((fridge) => {
-        if (fridge !== null) {
-          return this.http
-            .get<Fridge>('fridges/' + fridge.id)
-            .pipe(map((response) => response.ingredients));
-        } else {
-          return of([]);
-        }
-      }),
-    );
+    const fridgeId = this.storage.fridgeId.get();
+    return this.http
+      .get<Fridge>('fridges/' + fridgeId)
+      .pipe(map((response) => response.ingredients));
   }
 }

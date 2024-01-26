@@ -16,6 +16,7 @@ import {
   CompactFridgeIngredient,
   FridgeIngredient,
 } from '../../interfaces/fridge-interface';
+import { LocalstorageService } from '../../services/functions/localstorage.service';
 
 @Component({
   selector: 'app-fridge-component',
@@ -42,13 +43,13 @@ export class FridgeComponent implements OnInit {
   ingredientInput = new FormControl();
   selectedIngredient: CompactFridgeIngredient = { id: 0, name: '' };
   autocompleteOptions: Array<CompactFridgeIngredient> = [];
-  fridgeId: number = 2;
   ingredientsInFridge: Array<FridgeIngredient> = [];
   changedIngredients: Array<ChangedFridgeIngredient> = [];
 
   constructor(
     public router: Router,
     public fridgeService: FridgeService,
+    private storage: LocalstorageService,
   ) {}
 
   ngOnInit() {
@@ -57,7 +58,7 @@ export class FridgeComponent implements OnInit {
   }
 
   private getFridgeIngredients() {
-    this.fridgeService.getUniqueFridgeIngredients(this.fridgeId).subscribe({
+    this.fridgeService.getUniqueFridgeIngredients(this.storage.fridgeId.get()).subscribe({
       next: (response) => {
         this.ingredientsInFridge = response;
       },
@@ -89,7 +90,7 @@ export class FridgeComponent implements OnInit {
 
       if (ingredientNotInFridge) {
         this.fridgeService.postIngredientsFridge(
-          this.fridgeId,
+          this.storage.fridgeId.get(),
           selectedIngredient.id,
           1,
         );
